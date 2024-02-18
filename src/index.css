@@ -11,6 +11,15 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+
+* {
+  -ms-overflow-style: none;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
 /* 
 a {
   font-weight: 500;

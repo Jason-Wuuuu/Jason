@@ -33,11 +33,11 @@ const steps = [
   {
     icon_on: <FaceIcon />,
     icon_off: <FaceOutlinedIcon />,
-    title: "About Me",
+    title: "Who I am",
     image: "me_1",
     content: [
-      "Hi! My name is Chia-Hsiang(Jason) Wu.",
-      "I am currently a graduate CS student at Stevens Institute of Technology.",
+      "Hi! My name is Jason",
+      "I'm currently pursuing a Master's in Computer Science at Stevens Institute of Technology.",
     ],
   },
   {
@@ -132,17 +132,27 @@ function AboutPage({ aboutRef }) {
                     />
 
                     <CardContent>
-                      {step.content.map((line, i) => {
-                        return (
-                          <Typography
-                            key={`step_${index}_line_${i}`}
-                            variant="body2"
-                            paragraph
-                          >
-                            {line}
-                          </Typography>
-                        );
-                      })}
+                      <Box
+                        display="flex"
+                        flexDirection="column"
+                        justifyContent="space-evenly"
+                        // alignItems="center"
+                        height="100%"
+                        width="100%"
+                      >
+                        {step.content.map((line, i) => {
+                          return (
+                            <Typography
+                              align="center"
+                              key={`step_${index}_line_${i}`}
+                              variant="body1"
+                              paragraph
+                            >
+                              {line}
+                            </Typography>
+                          );
+                        })}
+                      </Box>
                     </CardContent>
                   </Card>
 
