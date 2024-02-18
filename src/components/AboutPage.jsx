@@ -103,14 +103,18 @@ function AboutPage({ aboutRef }) {
         <Grid item width={{ xs: "80vw", md: "70vw", lg: "50vw" }}>
           <Divider sx={{ mt: 5, mb: 5 }} />
 
-          <Stepper activeStep={activeStep} orientation="vertical">
+          <Stepper
+            activeStep={activeStep}
+            orientation="vertical"
+            ref={aboutRef}
+          >
             {steps.map((step, index) => (
               <Step key={`step_${index}`}>
                 <StepLabel
                   sx={{ fontWeight: "bold" }}
                   icon={index === activeStep ? step.icon_on : step.icon_off}
                   onClick={() => setActiveStep(index)}
-                  ref={activeStep === index ? aboutRef : null}
+                  // ref={activeStep === index ? aboutRef : null}
                 >
                   <Typography
                     variant={index === activeStep ? "h5" : "subtitle2"}
