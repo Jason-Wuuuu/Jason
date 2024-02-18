@@ -17,7 +17,7 @@ function Header() {
   const location = useLocation();
 
   const trigger = useScrollTrigger({
-    disableHysteresis: location.pathname === "/Jason" ? true : false,
+    disableHysteresis: location.pathname === "/" ? true : false,
   });
 
   return (
@@ -38,9 +38,9 @@ function Header() {
                 avatar={<Avatar alt="memoji" src="/images/Memoji.jpg" />}
                 label="Jason"
                 sx={{ fontWeight: "bold", boxShadow: 10 }}
-                variant={location.pathname === "/Jason" ? "filled" : "outlined"}
-                onClick={() => navigate("/Jason")}
-                clickable={location.pathname !== "/Jason"}
+                variant={location.pathname === "/" ? "filled" : "outlined"}
+                onClick={() => navigate("/")}
+                clickable={location.pathname !== "/"}
               />
             </Box>
 
