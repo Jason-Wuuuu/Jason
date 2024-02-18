@@ -17,7 +17,7 @@ function Header() {
   const location = useLocation();
 
   const trigger = useScrollTrigger({
-    disableHysteresis: location.pathname === "/" ? true : false,
+    disableHysteresis: location.pathname === "/Jason" ? true : false,
   });
 
   return (
@@ -35,12 +35,12 @@ function Header() {
           <Toolbar disableGutters>
             <Box alignItems="center" sx={{ flexGrow: 1 }}>
               <Chip
-                avatar={<Avatar alt="memoji" src="/Memoji.jpg" />}
+                avatar={<Avatar alt="memoji" src="/images/Memoji.jpg" />}
                 label="Jason"
                 sx={{ fontWeight: "bold", boxShadow: 10 }}
-                variant={location.pathname === "/" ? "filled" : "outlined"}
-                onClick={() => navigate("/")}
-                clickable={location.pathname !== "/"}
+                variant={location.pathname === "/Jason" ? "filled" : "outlined"}
+                onClick={() => navigate("/Jason")}
+                clickable={location.pathname !== "/Jason"}
               />
             </Box>
 

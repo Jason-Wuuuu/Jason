@@ -127,7 +127,7 @@ function AboutPage({ aboutRef }) {
                         borderRadius: 1,
                         boxShadow: 10,
                       }}
-                      image={`/me/${step.image}.png`}
+                      image={`/images/me/${step.image}.png`}
                       alt={step.image}
                     />
 

@@ -42,7 +42,7 @@ function ProjectCard({ project }) {
     <Grid item width={{ xs: "90vw", sm: "60vw" }} mb={3}>
       <Card sx={{ boxShadow: 10 }}>
         <CardHeader
-          avatar={<Avatar alt="memoji" src="/Memoji.jpg" />}
+          avatar={<Avatar alt="memoji" src="/images/Memoji.jpg" />}
           // avatar={
           //   <Tooltip title="Repo" placement="top">
           //     <IconButton
