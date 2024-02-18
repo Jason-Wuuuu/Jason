@@ -9,7 +9,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import { darkTheme } from "./theme.js";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <BrowserRouter basename="/Jason">
+  <BrowserRouter basename={import.meta.env.DEV ? "/" : "/Jason/"}>
     <ThemeProvider theme={darkTheme}>
       <App />
     </ThemeProvider>
