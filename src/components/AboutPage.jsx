@@ -99,6 +99,7 @@ function AboutPage({ aboutRef }) {
         alignContent="center"
         direction="column"
         minHeight="100vh"
+        ref={aboutRef}
       >
         <Grid item width={{ xs: "80vw", md: "70vw", lg: "50vw" }}>
           <Divider sx={{ mt: 5, mb: 5 }} />
@@ -110,7 +111,6 @@ function AboutPage({ aboutRef }) {
                   sx={{ fontWeight: "bold" }}
                   icon={index === activeStep ? step.icon_on : step.icon_off}
                   onClick={() => setActiveStep(index)}
-                  ref={index === activeStep ? aboutRef : null}
                 >
                   <Typography
                     variant={index === activeStep ? "h5" : "subtitle2"}
@@ -152,8 +152,8 @@ function AboutPage({ aboutRef }) {
                             <Typography
                               // align="center"
                               key={`step_${index}_line_${i}`}
-                              variant="body1"
-                              m={2}
+                              variant="body2"
+                              m={1}
                             >
                               {line}
                             </Typography>
