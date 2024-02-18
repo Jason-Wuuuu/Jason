@@ -12,8 +12,7 @@ const projects = [
     title: "Visual Board",
     year: "2024 Personal Project",
     description: "Interactive data visualization / dashboard",
-    tech_stack:
-      "React, Material UI, Python, FastAPI, NumPy, Pandas, yfinance, Redis",
+    tech_stack: "React, MUI, Python, FastAPI, yfinance, Redis",
     githubUrl: "https://github.com/Jason-Wuuuu/VisualBoard",
     demoUrl: "",
     screenshots: ["visual_board/stock.png"],
@@ -23,7 +22,7 @@ const projects = [
     year: "2023 Group Project",
     description:
       "A community-centric platform featuring pre-owned items discovery/management and secure direct messaging.",
-    tech_stack: "React, GraphQL, MongoDB, Firebase, Redis, S3",
+    tech_stack: "React, GraphQL, MongoDB, Firebase, Redux, Redis, S3",
     githubUrl: "https://github.com/Jason-Wuuuu/CS554-GroupVVIV",
     demoUrl: "",
     screenshots: [
