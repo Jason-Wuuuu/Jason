@@ -14,7 +14,7 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import StepContent from "@mui/material/StepContent";
 import Fade from "@mui/material/Fade";
-import Link from "@mui/material/Link";
+import Button from "@mui/material/Button";
 
 import FaceIcon from "@mui/icons-material/Face";
 import FaceOutlinedIcon from "@mui/icons-material/FaceOutlined";
@@ -26,8 +26,7 @@ import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
 import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
-import LaptopChromebookIcon from "@mui/icons-material/LaptopChromebook";
-import ArticleIcon from "@mui/icons-material/Article";
+import NearMeIcon from "@mui/icons-material/NearMe";
 
 const steps = [
   {
@@ -36,8 +35,9 @@ const steps = [
     title: "Who I am",
     image: "me_1",
     content: [
-      "Hi! My name is Jason",
-      "I'm currently pursuing a Master's in Computer Science at Stevens Institute of Technology.",
+      "Hi! My name is Jason.",
+      "a CS grad from Taiwan currently pursuing my master's at Stevens Institute of Technology.",
+      "I'm all about cracking codes and building cool stuff.",
     ],
   },
   {
@@ -45,14 +45,22 @@ const steps = [
     icon_off: <FavoriteBorderIcon />,
     title: "Things I Like",
     image: "me_2",
-    content: ["1. Programming", "2. Snowboarding", "3. Watching Anime"],
+    content: [
+      "When I'm not coding...",
+      "you'll probably find me shredding the slopes on my snowboard or binge-watching my favorite anime series.",
+      "Programming isn't just a job for me; it's a passion that fuels my creativity and keeps me hooked on the endless possibilities of tech.",
+    ],
   },
   {
     icon_on: <ThumbUpAltIcon />,
     icon_off: <ThumbUpOffAltIcon />,
     title: "I'm Good at",
     image: "me_3",
-    content: ["Things I am good at ..."],
+    content: [
+      "I've got skills in Python, Java, JavaScript, and more, along with experience in various frameworks.",
+      "From crafting sleek web apps to diving into data with machine learning models, I love putting my technical know-how to work.",
+      "Plus, I'm adaptable and thrive on learning new skills quickly, which makes me a versatile team player in any software role.",
+    ],
   },
 ];
 
@@ -135,17 +143,15 @@ function AboutPage({ aboutRef }) {
                       <Box
                         display="flex"
                         flexDirection="column"
-                        justifyContent="space-evenly"
-                        // alignItems="center"
+                        justifyContent="space-around"
                         height="100%"
-                        width="100%"
                       >
                         {step.content.map((line, i) => {
                           return (
                             <Typography
-                              align="center"
+                              // align="center"
                               key={`step_${index}_line_${i}`}
-                              variant="body1"
+                              variant="body2"
                               paragraph
                             >
                               {line}
@@ -199,6 +205,28 @@ function AboutPage({ aboutRef }) {
         </Grid>
 
         <Divider sx={{ mt: 5 }} />
+
+        <Box
+          display="flex"
+          flexDirection="column"
+          justifyContent="center"
+          alignItems="center"
+          my={3}
+        >
+          <Typography variant="subtitle1" mb={2}>
+            Got a glimpse of who I am?
+          </Typography>
+
+          <Button
+            size="small"
+            color="inherit"
+            variant="outlined"
+            startIcon={<NearMeIcon />}
+            onClick={() => navigate("/projects")}
+          >
+            Explore my projects!
+          </Button>
+        </Box>
       </Grid>
     </Fade>
   );
