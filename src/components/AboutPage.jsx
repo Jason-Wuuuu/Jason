@@ -68,6 +68,7 @@ function AboutPage({ aboutRef }) {
   const navigate = useNavigate();
 
   const [activeStep, setActiveStep] = useState(0);
+  const [end, setEnd] = useState(false);
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -84,6 +85,10 @@ function AboutPage({ aboutRef }) {
   useEffect(() => {
     // console.log(aboutRef.current);
     aboutRef.current.scrollIntoView({ behavior: "smooth" });
+
+    if (activeStep === 2) {
+      setEnd(true);
+    }
   }, [activeStep]);
 
   return (
@@ -100,14 +105,12 @@ function AboutPage({ aboutRef }) {
 
           <Stepper activeStep={activeStep} orientation="vertical">
             {steps.map((step, index) => (
-              <Step
-                key={`step_${index}`}
-                ref={index === activeStep ? aboutRef : null}
-              >
+              <Step key={`step_${index}`}>
                 <StepLabel
                   sx={{ fontWeight: "bold" }}
                   icon={index === activeStep ? step.icon_on : step.icon_off}
                   onClick={() => setActiveStep(index)}
+                  ref={index === activeStep ? aboutRef : null}
                 >
                   <Typography
                     variant={index === activeStep ? "h5" : "subtitle2"}
@@ -202,29 +205,33 @@ function AboutPage({ aboutRef }) {
           </Stepper>
         </Grid>
 
-        <Divider sx={{ mt: 5 }} />
+        <Divider sx={{ my: 5 }} />
 
-        <Box
-          display="flex"
-          flexDirection="column"
-          justifyContent="center"
-          alignItems="center"
-          my={3}
-        >
-          <Typography variant="subtitle1" mb={2}>
-            Got a glimpse of who I am?
-          </Typography>
+        <Grid item>
+          {end && (
+            <Box
+              display="flex"
+              flexDirection="column"
+              justifyContent="center"
+              alignItems="center"
+              mb={5}
+            >
+              <Typography variant="subtitle1" mb={2}>
+                Got a glimpse of who I am?
+              </Typography>
 
-          <Button
-            size="small"
-            color="inherit"
-            variant="outlined"
-            startIcon={<NearMeIcon />}
-            onClick={() => navigate("/projects")}
-          >
-            Explore my projects!
-          </Button>
-        </Box>
+              <Button
+                size="small"
+                color="inherit"
+                variant="outlined"
+                startIcon={<NearMeIcon />}
+                onClick={() => navigate("/projects")}
+              >
+                Explore my projects!
+              </Button>
+            </Box>
+          )}
+        </Grid>
       </Grid>
     </Fade>
   );
