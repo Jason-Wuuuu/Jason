@@ -57,9 +57,9 @@ const steps = [
     title: "I'm Good at",
     image: "me_3",
     content: [
-      "I've got skills in Python, Java, JavaScript, and more, along with experience in various frameworks.",
-      "From crafting sleek web apps to diving into data with machine learning models, I love putting my technical know-how to work.",
-      "Plus, I'm adaptable and thrive on learning new skills quickly, which makes me a versatile team player in any software role.",
+      "I've got skills and experience in Python, Java, JavaScript, and various frameworks.",
+      "From crafting web apps to delving into machine learning, I love putting my technical know-how to work.",
+      "Plus, I'm adaptable and thrive on learning, making me versatile in any software role.",
     ],
   },
 ];
@@ -95,7 +95,7 @@ function AboutPage({ aboutRef }) {
         direction="column"
         minHeight="100vh"
       >
-        <Grid item width={{ xs: "80vw", md: "70vw", lg: "60vw" }}>
+        <Grid item width={{ xs: "80vw", md: "70vw", lg: "50vw" }}>
           <Divider sx={{ mt: 5, mb: 5 }} />
 
           <Stepper activeStep={activeStep} orientation="vertical">
@@ -130,8 +130,11 @@ function AboutPage({ aboutRef }) {
                     <CardMedia
                       component="img"
                       sx={{
-                        width: { xs: "100%", sm: "60%" },
-                        height: { xs: "50%", sm: "100%" },
+                        width: {
+                          xs: "100%",
+                          sm: "60%",
+                        },
+                        // height: { xs: "50%", sm: "100%" },
                         borderRadius: 1,
                         boxShadow: 10,
                       }}
@@ -140,19 +143,14 @@ function AboutPage({ aboutRef }) {
                     />
 
                     <CardContent>
-                      <Box
-                        display="flex"
-                        flexDirection="column"
-                        justifyContent="space-around"
-                        height="100%"
-                      >
+                      <Box display="flex" flexDirection="column" height="100%">
                         {step.content.map((line, i) => {
                           return (
                             <Typography
                               // align="center"
                               key={`step_${index}_line_${i}`}
-                              variant="body2"
-                              paragraph
+                              variant="body1"
+                              m={2}
                             >
                               {line}
                             </Typography>
