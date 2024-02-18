@@ -25,7 +25,7 @@ function MainPage() {
               mb: 1,
             }}
             alt="memoji"
-            src="/images/Memoji.png"
+            src="./images/Memoji.png"
           />
         </Tooltip>
 
