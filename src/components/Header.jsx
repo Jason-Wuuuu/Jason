@@ -35,7 +35,7 @@ function Header() {
           <Toolbar disableGutters>
             <Box alignItems="center" sx={{ flexGrow: 1 }}>
               <Chip
-                avatar={<Avatar alt="memoji" src="/images/Memoji.jpg" />}
+                avatar={<Avatar alt="memoji" src="./Jason/images/Memoji.jpg" />}
                 label="Jason"
                 sx={{ fontWeight: "bold", boxShadow: 10 }}
                 variant={location.pathname === "/Jason" ? "filled" : "outlined"}
