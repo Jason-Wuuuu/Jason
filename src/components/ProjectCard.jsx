@@ -11,7 +11,6 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Tooltip from "@mui/material/Tooltip";
-import Skeleton from "@mui/material/Skeleton";
 import Box from "@mui/material/Box";
 
 import Carousel from "react-material-ui-carousel";
@@ -43,87 +42,77 @@ function ProjectCard({ project }) {
       <Card sx={{ boxShadow: 10 }}>
         <CardHeader
           avatar={<Avatar alt="memoji" src="./images/Memoji.png" />}
-          // avatar={
-          //   <Tooltip title="Repo" placement="top">
-          //     <IconButton
-          //       aria-label="github"
-          //       href={project.githubUrl}
-          //       target="_blank"
-          //     >
-          //       <GitHubIcon fontSize="large" />
-          //     </IconButton>
-          //   </Tooltip>
-          // }
           title={project.title}
           titleTypographyProps={{ variant: "h6", fontWeight: "bold" }}
           subheader={project.tech_stack}
         />
 
-        <Box display="flex" justifyContent="center">
-          {
-            project.screenshots.length > 0 ? (
-              <Box width={{ xs: "95%", sm: "80%" }}>
-                <Carousel
-                  autoPlay={false}
-                  cycleNavigation={false}
-                  swipe={false}
-                  animation="slide"
-                  navButtonsAlwaysVisible
-                >
-                  {project.screenshots.map((image, i) => (
-                    <CardMedia
-                      key={i}
-                      component="img"
-                      image={`./images/${image}`}
-                      alt="project_thumbnail"
-                    />
-                  ))}
-                </Carousel>
-              </Box>
-            ) : null
-            // (
-            //   <Skeleton
-            //     variant="rectangular"
-            //     width="70%"
-            //     height={200}
-            //     animation={false}
-            //   />
-            // )
-          }
+        <Box
+          display="flex"
+          flexDirection="column"
+          justifyContent="center"
+          alignItems="center"
+        >
+          {project.screenshots.length > 0 && (
+            <Box width={{ xs: "95%", sm: "70%" }}>
+              <Carousel
+                autoPlay={false}
+                cycleNavigation={false}
+                swipe={false}
+                animation="slide"
+                navButtonsAlwaysVisible
+              >
+                {project.screenshots.map((image, i) => (
+                  <CardMedia
+                    key={i}
+                    component="img"
+                    image={`./images/${image}`}
+                    alt="project_thumbnail"
+                  />
+                ))}
+              </Carousel>
+            </Box>
+          )}
+
+          <Typography
+            align="center"
+            variant="caption"
+            color="text.secondary"
+            mt={1}
+          >
+            ({project.year})
+          </Typography>
         </Box>
 
-        <CardContent>
-          <Typography align="center" variant="body2" color="text.secondary">
-            {project.description}
-          </Typography>
-        </CardContent>
-
         <CardActions disableSpacing>
-          <Tooltip title="Repo" placement="top">
-            <IconButton
-              aria-label="github"
-              href={project.githubUrl}
-              target="_blank"
-            >
-              <GitHubIcon />
-            </IconButton>
-          </Tooltip>
+          {project.githubUrl && (
+            <Tooltip title="Repo" placement="top">
+              <IconButton
+                aria-label="github"
+                href={project.githubUrl}
+                target="_blank"
+              >
+                <GitHubIcon />
+              </IconButton>
+            </Tooltip>
+          )}
 
-          <Tooltip title="Demo" placement="top">
-            <IconButton
-              aria-label="demo"
-              href={project.demoUrl}
-              target="_blank"
-            >
-              <OndemandVideoIcon />
-            </IconButton>
-          </Tooltip>
+          {project.demoUrl && (
+            <Tooltip title="Demo" placement="top">
+              <IconButton
+                aria-label="demo"
+                href={project.demoUrl}
+                target="_blank"
+              >
+                <OndemandVideoIcon />
+              </IconButton>
+            </Tooltip>
+          )}
 
           <ExpandMore
             expand={expanded}
             onClick={handleExpandClick}
             aria-expanded={expanded}
-            aria-label="show more"
           >
             <Tooltip title="Expand" placement="top">
               <ExpandMoreIcon />
@@ -132,9 +121,19 @@ function ProjectCard({ project }) {
         </CardActions>
 
         <Collapse in={expanded} timeout="auto" unmountOnExit>
-          <CardContent>
-            <Typography align="center" variant="body2" color="text.secondary">
-              More info ...
+          <CardContent
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <Typography
+              align="center"
+              variant="body1"
+              color="text.secondary"
+              sx={{ fontWeight: "bold", my: 2 }}
+            >
+              {project.description}
             </Typography>
           </CardContent>
         </Collapse>

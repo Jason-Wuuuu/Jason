@@ -7,39 +7,39 @@ import Fade from "@mui/material/Fade";
 import ProjectCard from "./ProjectCard";
 
 const projects = [
-  // {
-  //   title: "Visual Board",
-  //   year: "2024",
-  //   description: "Interactive data visualization / dashboard",
-  //   tech_stack: "React, FastAPI",
-  //   githubUrl: "",
-  //   demoUrl: "",
-  //   screenshots: [],
-  // },
+  {
+    title: "Visual Board",
+    year: "2024 Personal Project",
+    description: "Interactive data visualization / dashboard",
+    tech_stack:
+      "React, Material UI, Python, FastAPI, NumPy, Pandas, yfinance, Redis",
+    githubUrl: "https://github.com/Jason-Wuuuu/VisualBoard",
+    demoUrl: "",
+    screenshots: ["visual_board/stock.png"],
+  },
   {
     title: "Stevens Marketplace",
-    year: "2023",
+    year: "2023 Group Project",
     description:
       "A community-centric platform featuring pre-owned items discovery/management and secure direct messaging.",
-    tech_stack: "React, GraphQL, MongoDB, Firebase, Redis, S3, Docker, Git",
+    tech_stack: "React, GraphQL, MongoDB, Firebase, Redis, S3",
     githubUrl: "https://github.com/Jason-Wuuuu/CS554-GroupVVIV",
     demoUrl: "",
     screenshots: ["stevens_marketplace/home.png"],
   },
   {
     title: "EventMaster",
-    year: "2023",
+    year: "2023 Group Project",
     description:
       "Full-stack web app utilizing Eventbrite & Ticketmaster APIs, featuring seamless event discovery, interactive voting, and personalized schedule planning.",
-    tech_stack:
-      "React, Node.js, Express.js, Python, MongoDB, Jira, Docker, Git",
+    tech_stack: "React, Node.js, Express.js, Python, MongoDB, Jira",
     githubUrl: "https://github.com/Jason-Wuuuu/CS555A-Team19-Project",
     demoUrl: "",
     screenshots: [],
   },
   {
     title: "Marvel Comic App",
-    year: "2023",
+    year: "2023 Course Project",
     description:
       "Full-stack web application integrating Marvel API for comic discovery and collection.",
     tech_stack: "Node.js, React, Apollo, GraphQL, Redis, Redux",
@@ -54,7 +54,7 @@ const projects = [
   },
   {
     title: "Breast Cancer Detection/Prediction",
-    year: "2022",
+    year: "2022 Course Project",
     description:
       "Logistic regression classifier fully coded from scratch with Python to detect/predict breast cancer.",
     tech_stack: "Python, NumPy",
@@ -64,7 +64,7 @@ const projects = [
   },
   {
     title: "Memory Maker",
-    year: "2019",
+    year: "2019 Undergrad Senior Project",
     description:
       "iOS app for composition suggestions in mobile photography and virtual postcard sharing.",
     tech_stack: "Python, TensorFlow, Firebase, Swift, Sketch, Core ML",
