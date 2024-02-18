@@ -4,6 +4,8 @@ import Box from "@mui/material/Box";
 import Tooltip from "@mui/material/Tooltip";
 import Fade from "@mui/material/Fade";
 
+import memoji from "/public/images/memoji.png";
+
 function MainPage() {
   return (
     <Fade in timeout={{ appear: 500, enter: 2000 }}>
@@ -25,7 +27,8 @@ function MainPage() {
               mb: 1,
             }}
             alt="memoji"
-            src="./images/memoji.png"
+            // src="./images/memoji.png"
+            src={memoji}
           />
         </Tooltip>
 
