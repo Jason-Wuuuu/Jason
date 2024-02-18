@@ -138,7 +138,7 @@ function ProjectCard({ project }) {
               align="center"
               variant="body1"
               color="text.secondary"
-              sx={{ fontWeight: "bold", my: 2 }}
+              sx={{ my: 2 }}
             >
               {project.description}
             </Typography>
