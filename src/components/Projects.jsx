@@ -3,6 +3,7 @@ import { Fragment, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Fade from "@mui/material/Fade";
+import Box from "@mui/material/Box";
 
 import ProjectCard from "./ProjectCard";
 
@@ -82,15 +83,23 @@ function Projects() {
   return (
     <Fragment>
       <Fade in>
-        <Typography
-          variant="h4"
-          fontWeight="bold"
-          align="center"
+        <Box
+          display="flex"
+          flexDirection="column"
+          justifyContent="center"
+          alignItems="center"
           mt={10}
           mb={2}
         >
-          Projects
-        </Typography>
+          <Typography variant="h4" fontWeight="bold" align="center">
+            Projects
+          </Typography>
+
+          <Typography variant="caption" align="center" mt={1}>
+            I'm constantly updating and adding to my selected projects page, so
+            stay tuned for more!
+          </Typography>
+        </Box>
       </Fade>
 
       <Fade in timeout={{ appear: 500, enter: 1000 }}>
