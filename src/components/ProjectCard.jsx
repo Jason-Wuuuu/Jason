@@ -54,7 +54,7 @@ function ProjectCard({ project }) {
           alignItems="center"
         >
           {project.screenshots.length > 0 && (
-            <Box width={{ xs: "95%", sm: "70%" }}>
+            <Box width={{ xs: "95%", sm: "70%" }} p={1}>
               <Carousel
                 autoPlay={false}
                 cycleNavigation={false}
@@ -63,12 +63,19 @@ function ProjectCard({ project }) {
                 navButtonsAlwaysVisible
               >
                 {project.screenshots.map((image, i) => (
-                  <CardMedia
-                    key={i}
-                    component="img"
-                    image={`./images/${image}`}
-                    alt="project_thumbnail"
-                  />
+                  <Tooltip
+                    title={image.split(".")[0]}
+                    arrow
+                    placement="bottom-end"
+                  >
+                    <CardMedia
+                      key={i}
+                      component="img"
+                      image={`./images/${image}`}
+                      alt={image.split(".")[0]}
+                      loading="lazy"
+                    />
+                  </Tooltip>
                 ))}
               </Carousel>
             </Box>

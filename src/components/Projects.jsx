@@ -26,7 +26,10 @@ const projects = [
     tech_stack: "React, GraphQL, MongoDB, Firebase, Redis, S3",
     githubUrl: "https://github.com/Jason-Wuuuu/CS554-GroupVVIV",
     demoUrl: "",
-    screenshots: ["stevens_marketplace/home.png"],
+    screenshots: [
+      "stevens_marketplace/demo.gif",
+      "stevens_marketplace/chat.gif",
+    ],
   },
   {
     title: "EventMaster",
@@ -36,7 +39,13 @@ const projects = [
     tech_stack: "React, Node.js, Express.js, Python, MongoDB, Jira",
     githubUrl: "https://github.com/Jason-Wuuuu/CS555A-Team19-Project",
     demoUrl: "",
-    screenshots: [],
+    screenshots: [
+      "event_master/home.png",
+      "event_master/profile.png",
+      "event_master/eventlist.png",
+      "event_master/eventdetail.png",
+      "event_master/eventpoll.png",
+    ],
   },
   {
     title: "Marvel Comic App",
@@ -102,7 +111,7 @@ function Projects() {
         </Box>
       </Fade>
 
-      <Fade in timeout={{ appear: 500, enter: 1000 }}>
+      <Fade in timeout={{ appear: 500, enter: 1500 }}>
         <Grid
           container
           justifyContent="center"
