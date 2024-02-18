@@ -38,9 +38,9 @@ function Header() {
                 avatar={<Avatar alt="memoji" src="/images/Memoji.jpg" />}
                 label="Jason"
                 sx={{ fontWeight: "bold", boxShadow: 10 }}
-                variant={location.pathname === "/" ? "filled" : "outlined"}
-                onClick={() => navigate("/")}
-                clickable={location.pathname !== "/"}
+                variant={location.pathname === "/Jason" ? "filled" : "outlined"}
+                onClick={() => navigate("/Jason")}
+                clickable={location.pathname !== "/Jason"}
               />
             </Box>
 
