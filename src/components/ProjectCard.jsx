@@ -74,7 +74,7 @@ function ProjectCard({ project }) {
                     <CardMedia
                       key={i}
                       component="img"
-                      image={`./Jason/images/stevens_marketplace/${image}.png`}
+                      image={`./Jason/images/${image}`}
                       alt="project_thumbnail"
                     />
                   ))}

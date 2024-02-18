@@ -24,7 +24,7 @@ const projects = [
     tech_stack: "React, GraphQL, MongoDB, Firebase, Redis, S3, Docker, Git",
     githubUrl: "https://github.com/Jason-Wuuuu/CS554-GroupVVIV",
     demoUrl: "",
-    screenshots: ["home"],
+    screenshots: ["stevens_marketplace/home.png"],
   },
   {
     title: "EventMaster",
@@ -45,7 +45,12 @@ const projects = [
     tech_stack: "Node.js, React, Apollo, GraphQL, Redis, Redux",
     githubUrl: "https://github.com/Jason-Wuuuu/Marvel-Comic-Web-App",
     demoUrl: "https://www.youtube.com/watch?v=rKfUaeMGa3w",
-    screenshots: ["home", "list", "detail", "collection"],
+    screenshots: [
+      "marvel_app/home.png",
+      "marvel_app/list.png",
+      "marvel_app/detail.png",
+      "marvel_app/collection.png",
+    ],
   },
   {
     title: "Breast Cancer Detection/Prediction",
