@@ -103,7 +103,7 @@ function Projects() {
             Projects
           </Typography>
 
-          <Typography variant="caption" align="center" mt={1}>
+          <Typography variant="caption" align="center" my={2}>
             I'm constantly updating and adding to my selected projects page, so
             stay tuned for more!
           </Typography>

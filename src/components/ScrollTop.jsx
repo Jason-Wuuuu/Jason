@@ -21,7 +21,7 @@ export default function ScrollTop() {
   };
 
   return (
-    <Fade in={trigger} timeout={{ appear: 500, enter: 1000, exit: 100 }}>
+    <Fade in={trigger} timeout={{ appear: 500, enter: 1000, exit: 500 }}>
       <Box
         onClick={handleClick}
         role="presentation"
@@ -31,6 +31,7 @@ export default function ScrollTop() {
           right: 16,
           borderRadius: 100,
           boxShadow: 10,
+          zIndex: 1000,
         }}
       >
         <Tooltip title="Back to Top" placement="left">
