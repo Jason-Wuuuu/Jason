@@ -84,11 +84,11 @@ function AboutPage({ aboutRef }) {
 
   useEffect(() => {
     // console.log(aboutRef.current);
-    aboutRef.current.scrollIntoView({ behavior: "smooth" });
-
     if (activeStep === 2) {
       setEnd(true);
     }
+
+    aboutRef.current.scrollIntoView({ behavior: "smooth" });
   }, [activeStep]);
 
   return (
@@ -99,9 +99,12 @@ function AboutPage({ aboutRef }) {
         alignContent="center"
         direction="column"
         minHeight="100vh"
-        ref={aboutRef}
       >
-        <Grid item width={{ xs: "80vw", md: "70vw", lg: "50vw" }}>
+        <Grid
+          item
+          width={{ xs: "80vw", md: "70vw", lg: "50vw" }}
+          ref={aboutRef}
+        >
           <Divider sx={{ mt: 5, mb: 5 }} />
 
           <Stepper activeStep={activeStep} orientation="vertical">
@@ -207,8 +210,8 @@ function AboutPage({ aboutRef }) {
 
         <Divider sx={{ my: 5 }} />
 
-        <Grid item>
-          {end && (
+        {end && (
+          <Grid item>
             <Box
               display="flex"
               flexDirection="column"
@@ -223,15 +226,18 @@ function AboutPage({ aboutRef }) {
               <Button
                 size="small"
                 color="inherit"
-                variant="outlined"
+                variant="contained"
                 startIcon={<NearMeIcon />}
                 onClick={() => navigate("/projects")}
+                sx={{
+                  boxShadow: 10,
+                }}
               >
-                Explore my projects!
+                Check out my projects!
               </Button>
             </Box>
-          )}
-        </Grid>
+          </Grid>
+        )}
       </Grid>
     </Fade>
   );

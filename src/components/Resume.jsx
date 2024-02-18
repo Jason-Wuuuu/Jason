@@ -30,7 +30,7 @@ function Resume() {
         visibility={loaded ? "visible" : "hidden"}
       >
         <iframe
-          src="https://drive.google.com/file/d/1FKR9qUmrn8i25gw1AKYR2qbbY3XB3m0l/view?usp=sharing"
+          src="https://drive.google.com/file/d/1FKR9qUmrn8i25gw1AKYR2qbbY3XB3m0l/preview"
           width="90%"
           height="100%"
           allow="autoplay"
