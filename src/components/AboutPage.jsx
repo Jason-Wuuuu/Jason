@@ -47,7 +47,7 @@ const steps = [
     image: "me_2",
     content: [
       "💭 When I'm not coding...",
-      "🏂 you'll probably find me shredding the slopes on my snowboard or binge-watching my favorite anime series.",
+      "🏂 You'll probably find me shredding the slopes on my snowboard or binge-watching my favorite anime series.",
       "💡 Programming isn't just a job for me; it's a passion that fuels my creativity and keeps me hooked on the endless possibilities of tech.",
     ],
   },
