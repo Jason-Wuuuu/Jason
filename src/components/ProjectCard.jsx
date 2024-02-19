@@ -18,6 +18,7 @@ import Carousel from "react-material-ui-carousel";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { Divider } from "@mui/material";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -38,7 +39,11 @@ function ProjectCard({ project }) {
   };
 
   return (
-    <Grid item width={{ xs: "90vw", sm: "60vw" }} mb={3}>
+    <Grid
+      item
+      width={{ xs: "90vw", sm: "80vw", md: "70vw", lg: "60vw" }}
+      mb={3}
+    >
       <Card sx={{ boxShadow: 10 }}>
         <CardHeader
           avatar={<Avatar alt="memoji" src="./images/Memoji.png" />}
@@ -122,18 +127,19 @@ function ProjectCard({ project }) {
         </CardActions>
 
         <Collapse in={expanded} timeout="auto" unmountOnExit>
-          <CardContent
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
+          <CardContent sx={{ mx: { xs: 1, sm: 10 } }}>
             <Typography
               align="center"
-              variant="body1"
-              color="text.secondary"
-              sx={{ my: 2 }}
+              variant="subtitle1"
+              // color="text.secondary"
+              sx={{ fontWeight: "bold" }}
             >
+              Description
+            </Typography>
+
+            <Divider sx={{ my: 1 }} />
+
+            <Typography align="center" variant="body2" color="text.secondary">
               {project.description}
             </Typography>
           </CardContent>

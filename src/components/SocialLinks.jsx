@@ -26,7 +26,7 @@ export default function SocialLinks() {
             href="https://www.instagram.com/jason_wu.0429/"
             target="_blank"
           >
-            <Fab size="medium" sx={{ boxShadow: 10, opacity: 0.9 }}>
+            <Fab size="small" sx={{ boxShadow: 10, opacity: 0.9 }}>
               <InstagramIcon />
             </Fab>
           </IconButton>
@@ -37,7 +37,7 @@ export default function SocialLinks() {
             href="http://www.linkedin.com/in/chia-hsiang-jason-wu"
             target="_blank"
           >
-            <Fab size="medium" sx={{ boxShadow: 10, opacity: 0.9 }}>
+            <Fab size="small" sx={{ boxShadow: 10, opacity: 0.9 }}>
               <LinkedInIcon />
             </Fab>
           </IconButton>
@@ -45,7 +45,7 @@ export default function SocialLinks() {
 
         <Tooltip title="GitHub" placement="right">
           <IconButton href="https://github.com/Jason-Wuuuu" target="_blank">
-            <Fab size="medium" sx={{ boxShadow: 10, opacity: 0.9 }}>
+            <Fab size="small" sx={{ boxShadow: 10, opacity: 0.9 }}>
               <GitHubIcon />
             </Fab>
           </IconButton>

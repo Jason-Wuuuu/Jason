@@ -33,7 +33,7 @@ export default function ScrollTop() {
       >
         <Tooltip title="Back to Top" placement="left">
           <Fab
-            size="medium"
+            size="small"
             sx={{ boxShadow: 10, opacity: 0.9 }}
             onClick={handleClick}
           >

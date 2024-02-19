@@ -212,15 +212,18 @@ function AboutPage({ aboutRef }) {
         <Divider sx={{ my: 5 }} />
 
         {end && (
-          <Grid item>
+          <Grid item mb={5}>
             <Box
               display="flex"
               flexDirection="column"
               justifyContent="center"
               alignItems="center"
-              mb={5}
             >
-              <Typography variant="subtitle1" mb={2}>
+              <Typography
+                variant="body2"
+                // sx={{ fontWeight: "bold" }}
+                mb={1}
+              >
                 Got a glimpse of who I am?
               </Typography>
 
@@ -231,7 +234,10 @@ function AboutPage({ aboutRef }) {
                 startIcon={<NearMeIcon />}
                 onClick={() => navigate("/projects")}
                 sx={{
+                  borderRadius: 5,
                   boxShadow: 10,
+                  fontSize: 12,
+                  // fontWeight: "bold",
                 }}
               >
                 Check out my projects!
