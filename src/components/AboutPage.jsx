@@ -84,7 +84,8 @@ function AboutPage({ aboutRef }) {
   useEffect(() => {
     // console.log(aboutRef.current);
 
-    aboutRef.current.scrollIntoView({ behavior: "smooth" });
+    if (aboutRef.current)
+      aboutRef.current.scrollIntoView({ behavior: "smooth" });
   }, [activeStep]);
 
   return (
