@@ -35,7 +35,7 @@ export default function ScrollTop() {
         }}
       >
         <Tooltip title="Back to Top" placement="left">
-          <Fab size="medium">
+          <Fab size="medium" sx={{ opacity: 0.9 }}>
             <KeyboardArrowUpIcon />
           </Fab>
         </Tooltip>
