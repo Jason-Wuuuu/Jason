@@ -29,13 +29,11 @@ export default function ScrollTop() {
           position: "fixed",
           bottom: 16,
           right: 16,
-          borderRadius: 100,
-          boxShadow: 10,
           zIndex: 1000,
         }}
       >
         <Tooltip title="Back to Top" placement="left">
-          <Fab size="medium" sx={{ opacity: 0.9 }}>
+          <Fab size="medium" sx={{ boxShadow: 10, opacity: 0.9 }}>
             <KeyboardArrowUpIcon />
           </Fab>
         </Tooltip>
