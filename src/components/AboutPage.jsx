@@ -138,6 +138,7 @@ function AboutPage({ aboutRef }) {
                       }}
                       image={`./images/me/${step.image}.png`}
                       alt={step.image}
+                      loading="lazy"
                     />
 
                     <CardContent>
