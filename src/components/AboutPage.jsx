@@ -82,8 +82,6 @@ function AboutPage({ aboutRef }) {
   };
 
   useEffect(() => {
-    // console.log(aboutRef.current);
-
     if (aboutRef.current)
       aboutRef.current.scrollIntoView({ behavior: "smooth" });
   }, [activeStep]);
@@ -98,7 +96,8 @@ function AboutPage({ aboutRef }) {
         minHeight="100vh"
       >
         <Grid item width={{ xs: "80vw", md: "70vw", lg: "50vw" }}>
-          <Divider sx={{ my: 3 }} ref={aboutRef} />
+          <Divider sx={{ my: 3 }} />
+          {/* ref={aboutRef} */}
 
           <Stepper activeStep={activeStep} orientation="vertical">
             {steps.map((step, index) => (
@@ -107,7 +106,7 @@ function AboutPage({ aboutRef }) {
                   sx={{ fontWeight: "bold" }}
                   icon={index === activeStep ? step.icon_on : step.icon_off}
                   onClick={() => setActiveStep(index)}
-                  // ref={activeStep === index ? aboutRef : null}
+                  ref={activeStep === index ? aboutRef : null}
                 >
                   <Typography
                     variant={index === activeStep ? "h5" : "subtitle2"}

@@ -17,12 +17,9 @@ function Home() {
   const aboutRef = useRef(null);
 
   function handleExpand() {
-    if (expand) {
-      aboutRef.current.scrollIntoView({ behavior: "smooth" });
-    } else {
-      setExpand(true);
-      aboutRef.current.scrollIntoView({ behavior: "smooth" });
-    }
+    expand
+      ? aboutRef.current.scrollIntoView({ behavior: "smooth" })
+      : setExpand(true);
   }
 
   return (
