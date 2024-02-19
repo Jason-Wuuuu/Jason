@@ -68,7 +68,6 @@ function AboutPage({ aboutRef }) {
   const navigate = useNavigate();
 
   const [activeStep, setActiveStep] = useState(0);
-  const [end, setEnd] = useState(false);
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -84,9 +83,6 @@ function AboutPage({ aboutRef }) {
 
   useEffect(() => {
     // console.log(aboutRef.current);
-    if (activeStep === 2) {
-      setEnd(true);
-    }
 
     aboutRef.current.scrollIntoView({ behavior: "smooth" });
   }, [activeStep]);
@@ -211,39 +207,37 @@ function AboutPage({ aboutRef }) {
 
         <Divider sx={{ my: 5 }} />
 
-        {end && (
-          <Grid item mb={5}>
-            <Box
-              display="flex"
-              flexDirection="column"
-              justifyContent="center"
-              alignItems="center"
+        <Grid item mb={5}>
+          <Box
+            display="flex"
+            flexDirection="column"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Typography
+              variant="subtitle2"
+              // sx={{ fontWeight: "bold" }}
+              mb={1}
             >
-              <Typography
-                variant="subtitle2"
-                // sx={{ fontWeight: "bold" }}
-                mb={1}
-              >
-                Got a glimpse of who I am?
-              </Typography>
+              Got a glimpse of who I am?
+            </Typography>
 
-              <Button
-                size="small"
-                color="inherit"
-                variant="contained"
-                startIcon={<NearMeIcon />}
-                onClick={() => navigate("/projects")}
-                sx={{
-                  borderRadius: 100,
-                  boxShadow: 10,
-                  fontSize: 12,
-                }}
-              >
-                Check out my projects!
-              </Button>
-            </Box>
-          </Grid>
-        )}
+            <Button
+              size="small"
+              color="inherit"
+              variant="contained"
+              startIcon={<NearMeIcon />}
+              onClick={() => navigate("/projects")}
+              sx={{
+                borderRadius: 100,
+                boxShadow: 10,
+                fontSize: 12,
+              }}
+            >
+              Check out my projects!
+            </Button>
+          </Box>
+        </Grid>
       </Grid>
     </Fade>
   );
