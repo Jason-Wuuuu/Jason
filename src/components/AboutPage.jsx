@@ -97,7 +97,7 @@ function AboutPage({ aboutRef }) {
         minHeight="100vh"
       >
         <Grid item width={{ xs: "80vw", md: "70vw", lg: "50vw" }}>
-          <Divider sx={{ mt: 5, mb: 5 }} />
+          <Divider sx={{ my: 3 }} />
 
           <Stepper
             activeStep={activeStep}
@@ -205,9 +205,9 @@ function AboutPage({ aboutRef }) {
           </Stepper>
         </Grid>
 
-        <Divider sx={{ my: 5 }} />
+        <Divider sx={{ my: 3 }} />
 
-        <Grid item mb={5}>
+        <Grid item mb={3}>
           <Box
             display="flex"
             flexDirection="column"
