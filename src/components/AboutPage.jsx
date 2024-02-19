@@ -35,9 +35,9 @@ const steps = [
     title: "Who I am",
     image: "me_1",
     content: [
-      "Hi! My name is Jason.",
-      "a CS grad from Taiwan currently pursuing my master's at Stevens Institute of Technology.",
-      "I'm all about cracking codes and building cool stuff.",
+      "👋 Hi! My name is Jason.",
+      "🇹🇼 A CS grad from Taiwan currently pursuing my master's at Stevens Institute of Technology 🏫.",
+      "💻 I'm all about cracking codes and building cool stuff. Let's innovate together! 🚀",
     ],
   },
   {
@@ -46,9 +46,9 @@ const steps = [
     title: "Things I Like",
     image: "me_2",
     content: [
-      "When I'm not coding...",
-      "you'll probably find me shredding the slopes on my snowboard or binge-watching my favorite anime series.",
-      "Programming isn't just a job for me; it's a passion that fuels my creativity and keeps me hooked on the endless possibilities of tech.",
+      "💭 When I'm not coding...",
+      "🏂 you'll probably find me shredding the slopes on my snowboard or binge-watching my favorite anime series 📺.",
+      "💡 Programming isn't just a job for me; it's a passion that fuels my creativity and keeps me hooked on the endless possibilities of tech 💻.",
     ],
   },
   {
@@ -57,9 +57,9 @@ const steps = [
     title: "I'm Good at",
     image: "me_3",
     content: [
-      "I've got skills and experience in Python, Java, JavaScript, and various frameworks.",
-      "From crafting web apps to delving into machine learning, I love putting my technical know-how to work.",
-      "Plus, I'm adaptable and thrive on learning, making me versatile in any software role.",
+      "🌐 I've got skills and experience in Python, Java, JavaScript, and various frameworks.",
+      "🤖 From crafting web apps to delving into machine learning, I love putting my technical know-how to work 💻.",
+      "📚 Plus, I'm adaptable and thrive on learning, making me versatile in any software role 🚀.",
     ],
   },
 ];
