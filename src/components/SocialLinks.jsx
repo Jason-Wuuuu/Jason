@@ -7,13 +7,11 @@ import IconButton from "@mui/material/IconButton";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import GitHubIcon from "@mui/icons-material/GitHub";
-import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 
 export default function SocialLinks() {
   return (
     <Grow in timeout={1000}>
       <Box
-        justifyContent="center"
         display="flex"
         role="presentation"
         sx={{
@@ -23,14 +21,6 @@ export default function SocialLinks() {
           left: 16,
         }}
       >
-        {/* <Tooltip title="Email" placement="right">
-          <IconButton onClick={() => alert("Copied!")}>
-            <Fab size="medium" sx={{ boxShadow: 10 }}>
-              <AlternateEmailIcon />
-            </Fab>
-          </IconButton>
-        </Tooltip> */}
-
         <Tooltip title="Instagram" placement="right">
           <IconButton
             href="https://www.instagram.com/jason_wu.0429/"

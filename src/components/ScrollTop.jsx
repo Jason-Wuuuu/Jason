@@ -23,7 +23,6 @@ export default function ScrollTop() {
   return (
     <Fade in={trigger} timeout={{ appear: 500, enter: 1000, exit: 500 }}>
       <Box
-        onClick={handleClick}
         role="presentation"
         sx={{
           position: "fixed",
@@ -33,7 +32,11 @@ export default function ScrollTop() {
         }}
       >
         <Tooltip title="Back to Top" placement="left">
-          <Fab size="medium" sx={{ boxShadow: 10, opacity: 0.9 }}>
+          <Fab
+            size="medium"
+            sx={{ boxShadow: 10, opacity: 0.9 }}
+            onClick={handleClick}
+          >
             <KeyboardArrowUpIcon />
           </Fab>
         </Tooltip>
