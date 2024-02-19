@@ -220,7 +220,7 @@ function AboutPage({ aboutRef }) {
               alignItems="center"
             >
               <Typography
-                variant="body2"
+                variant="subtitle2"
                 // sx={{ fontWeight: "bold" }}
                 mb={1}
               >
@@ -234,10 +234,9 @@ function AboutPage({ aboutRef }) {
                 startIcon={<NearMeIcon />}
                 onClick={() => navigate("/projects")}
                 sx={{
-                  borderRadius: 5,
+                  borderRadius: 100,
                   boxShadow: 10,
                   fontSize: 12,
-                  // fontWeight: "bold",
                 }}
               >
                 Check out my projects!
