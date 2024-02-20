@@ -18,7 +18,7 @@ const projects = [
     description: "Interactive data visualization / dashboard",
     tech_stack: "React, MUI, Python, FastAPI, yfinance, Redis",
     githubUrl: "https://github.com/Jason-Wuuuu/VisualBoard",
-    demoUrl: "",
+    demoUrl: "https://youtu.be/hOSht_Mvv34",
     screenshots: ["visual_board/stock.png"],
   },
   {
