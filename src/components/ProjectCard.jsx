@@ -86,7 +86,11 @@ function ProjectCard({ project }) {
 
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent sx={{ mx: { xs: 1, sm: 10 } }}>
-            <Typography align="center" variant="subtitle1">
+            <Typography
+              align="center"
+              variant="subtitle1"
+              sx={{ fontWeight: "bold" }}
+            >
               {`${project.course} Project (${project.year})`}
             </Typography>
 

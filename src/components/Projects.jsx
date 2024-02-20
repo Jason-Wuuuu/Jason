@@ -152,7 +152,7 @@ function Projects() {
             alignItems="center"
           >
             <Typography variant="h4" fontWeight="bold" align="center">
-              {`${categories[tab - 1] ? categories[tab - 1] : "All"} Projects`}
+              {`${tab === 0 ? "All" : categories[tab - 1]} Projects`}
             </Typography>
 
             <Typography
