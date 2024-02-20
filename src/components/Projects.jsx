@@ -190,7 +190,7 @@ function Projects() {
             right={0}
             bottom={0}
             zIndex={1000}
-            sx={{ opacity: 0.9 }}
+            sx={{ opacity: 0.95 }}
           >
             <Tabs textColor="inherit" value={tab} onChange={handleTab} centered>
               <Tab key="all" label="All" />
