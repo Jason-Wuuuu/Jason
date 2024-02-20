@@ -129,7 +129,12 @@ function AboutPage({ expand, aboutRef }) {
                   </Typography>
                 </StepLabel>
 
-                <StepContent TransitionProps={{ unmountOnExit: false }}>
+                <StepContent
+                  TransitionProps={{
+                    unmountOnExit: false,
+                    timeout: 500,
+                  }}
+                >
                   <Card
                     sx={{
                       display: { sm: "flex" },
