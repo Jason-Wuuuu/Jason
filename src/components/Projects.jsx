@@ -117,7 +117,7 @@ function Projects() {
         (project) => project.category === selectedCategory
       );
     }
-  }, [tab, categories]);
+  }, [tab]);
 
   const projectCards = useMemo(() => {
     return filteredProjects.map((project) => (
@@ -132,14 +132,12 @@ function Projects() {
   return (
     <Grid container width="100%" direction="column">
       <Fade in timeout={{ appear: 500, enter: 1500 }}>
-        <Grid item>
+        <Grid item mt={10}>
           <Box
             display="flex"
             flexDirection="column"
             justifyContent="center"
             alignItems="center"
-            mt={10}
-            mb={2}
           >
             <Typography variant="h4" fontWeight="bold" align="center">
               Projects
@@ -149,7 +147,7 @@ function Projects() {
               variant="caption"
               align="center"
               color="text.secondary"
-              my={1}
+              mt={1}
             >
               I'm constantly updating and adding to my selected projects page,
               so stay tuned for more!
@@ -159,7 +157,7 @@ function Projects() {
       </Fade>
 
       <Fade in timeout={{ appear: 500, enter: 1500 }}>
-        <Grid item>
+        <Grid item my={3}>
           <Grid
             container
             justifyContent="center"
