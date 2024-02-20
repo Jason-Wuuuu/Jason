@@ -1,10 +1,6 @@
 :root {
   font-family: monospace, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 
-  /* color-scheme: light dark; */
-  color: snow;
-  background-color: #242424;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
