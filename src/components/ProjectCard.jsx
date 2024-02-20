@@ -63,28 +63,28 @@ function ProjectCard({ project }) {
           subheader={project.tech_stack}
         />
 
-        <Box
-          display="flex"
-          flexDirection="column"
-          justifyContent="center"
-          alignItems="center"
-        >
-          {project.screenshots.length > 0 && (
-            <Box width={{ xs: "95%", sm: "70%" }}>
-              <Carousel
-                autoPlay={false}
-                cycleNavigation={false}
-                swipe={false}
-                animation="slide"
-                navButtonsAlwaysVisible
-              >
-                {carouselItems}
-              </Carousel>
-            </Box>
-          )}
-        </Box>
+        <Collapse in={expanded} timeout="auto">
+          <Box
+            display="flex"
+            flexDirection="column"
+            justifyContent="center"
+            alignItems="center"
+          >
+            {project.screenshots.length > 0 && (
+              <Box width={{ xs: "95%", sm: "70%" }}>
+                <Carousel
+                  autoPlay={false}
+                  cycleNavigation={false}
+                  swipe={false}
+                  animation="slide"
+                  navButtonsAlwaysVisible
+                >
+                  {carouselItems}
+                </Carousel>
+              </Box>
+            )}
+          </Box>
 
-        <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent sx={{ mx: { xs: 1, sm: 10 } }}>
             <Typography
               align="center"
