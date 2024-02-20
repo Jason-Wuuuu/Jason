@@ -157,7 +157,7 @@ function Projects() {
       </Fade>
 
       <Fade in timeout={{ appear: 500, enter: 1500 }}>
-        <Grid item my={3}>
+        <Grid item my={4}>
           <Grid
             container
             justifyContent="center"
