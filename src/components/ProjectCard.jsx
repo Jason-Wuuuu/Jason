@@ -123,7 +123,7 @@ function ProjectCard({ project }) {
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent sx={{ mx: { xs: 1, sm: 10 } }}>
             <Typography align="center" variant="subtitle1">
-              {`${project.category} (${project.year} ${project.type} Project)`}
+              {`${project.course} Project (${project.year})`}
             </Typography>
 
             <Divider sx={{ my: 1 }} />

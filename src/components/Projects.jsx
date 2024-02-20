@@ -13,7 +13,7 @@ const projects = [
   {
     title: "Visual Board",
     year: "2024",
-    type: "Personal",
+    course: "Personal",
     category: "Web APP",
     description: "Interactive data visualization / dashboard",
     tech_stack: "React, MUI, Python, FastAPI, yfinance, Redis",
@@ -22,9 +22,21 @@ const projects = [
     screenshots: ["visual_board/stock.png"],
   },
   {
+    title: "Author Classification",
+    year: "2024",
+    course: "NLP Course",
+    category: "ML/DL",
+    description:
+      "Multi-class text classifier fully coded from scratch in Python to classify sentences into their corresponding author with optimization, regularization and cross-validation implemented.",
+    tech_stack: "Python, NumPy, NLTK",
+    githubUrl: "",
+    demoUrl: "",
+    screenshots: [],
+  },
+  {
     title: "Stevens Marketplace",
     year: "2023",
-    type: "Group",
+    course: "Web Programming",
     category: "Web APP",
     description:
       "A community-centric platform featuring pre-owned items discovery/management and secure direct messaging.",
@@ -39,7 +51,7 @@ const projects = [
   {
     title: "EventMaster",
     year: "2023",
-    type: "Group",
+    course: "Agile Methods for Software Dev",
     category: "Web APP",
     description:
       "Full-stack web app utilizing Eventbrite & Ticketmaster APIs, featuring seamless event discovery, interactive voting, and personalized schedule planning.",
@@ -57,7 +69,7 @@ const projects = [
   {
     title: "Marvel Comic App",
     year: "2023",
-    type: "Course",
+    course: "Web Programming",
     category: "Web APP",
     description:
       "Full-stack web application integrating Marvel API for comic discovery and collection.",
@@ -74,8 +86,8 @@ const projects = [
   {
     title: "Breast Cancer Detection/Prediction",
     year: "2022",
-    type: "Course",
-    category: "ML",
+    course: "ML Course",
+    category: "ML/DL",
     description:
       "Logistic regression classifier fully coded from scratch with Python to detect/predict breast cancer.",
     tech_stack: "Python, NumPy",
@@ -86,7 +98,7 @@ const projects = [
   {
     title: "Memory Maker",
     year: "2019",
-    type: "Undergrad Senior",
+    course: "Undergrad Senior",
     category: "iOS APP",
     description:
       "iOS app for composition suggestions in mobile photography and virtual postcard sharing. Achieved 2nd place in the competition for International ICT Innovative Services Awards.",
