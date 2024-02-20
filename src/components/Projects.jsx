@@ -31,7 +31,7 @@ const projects = [
     tech_stack: "Python, NumPy, NLTK",
     githubUrl: "",
     demoUrl: "",
-    screenshots: ["author_classification/loss.png"],
+    screenshots: [],
   },
   {
     title: "Stevens Marketplace",
