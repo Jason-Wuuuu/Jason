@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from "react";
+import { Fragment, useEffect, useMemo } from "react";
 
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
@@ -88,6 +88,12 @@ function Projects() {
     window.scrollTo(0, 0);
   }, []);
 
+  const projectCards = useMemo(() => {
+    return projects.map((project, i) => (
+      <ProjectCard key={i} project={project} />
+    ));
+  }, []);
+
   return (
     <Fragment>
       <Fade in>
@@ -122,9 +128,7 @@ function Projects() {
           alignContent="center"
           direction="column"
         >
-          {projects.map((project, i) => {
-            return <ProjectCard key={i} project={project} />;
-          })}
+          {projectCards}
         </Grid>
       </Fade>
     </Fragment>

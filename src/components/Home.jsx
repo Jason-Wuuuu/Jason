@@ -22,9 +22,7 @@ function Home() {
       : setExpand(true);
   }
 
-  const aboutPage = useMemo(() => {
-    return expand ? <AboutPage aboutRef={aboutRef} /> : null;
-  }, [expand]);
+  const aboutPage = useMemo(() => <AboutPage aboutRef={aboutRef} />, []);
 
   return (
     <Fragment>
@@ -44,7 +42,7 @@ function Home() {
         </Box>
       </Grow>
 
-      {aboutPage}
+      {expand && aboutPage}
 
       <SocialLinks />
     </Fragment>
