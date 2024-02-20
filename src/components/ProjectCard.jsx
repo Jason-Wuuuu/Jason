@@ -45,7 +45,7 @@ function ProjectCard({ project }) {
         component="img"
         image={`./images/${image}`}
         alt={image.split(".")[0]}
-        loading="lazy"
+        // loading="lazy"
       />
     ));
   }, [project.screenshots]);

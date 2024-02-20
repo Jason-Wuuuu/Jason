@@ -28,7 +28,7 @@ import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import NearMeIcon from "@mui/icons-material/NearMe";
 
-function AboutPage({ aboutRef }) {
+function AboutPage({ expand, aboutRef }) {
   const navigate = useNavigate();
 
   const [activeStep, setActiveStep] = useState(0);
@@ -48,25 +48,7 @@ function AboutPage({ aboutRef }) {
   useEffect(() => {
     if (aboutRef.current)
       aboutRef.current.scrollIntoView({ behavior: "smooth" });
-  }, [activeStep]);
-
-  const preloadImages = () => {
-    const images = [
-      "./images/me/me_1.png",
-      "./images/me/me_2.png",
-      "./images/me/me_3.png",
-      // Add paths to all images used in AboutPage
-    ];
-
-    images.forEach((image) => {
-      const img = new Image();
-      img.src = image;
-    });
-  };
-
-  useEffect(() => {
-    preloadImages();
-  }, []);
+  }, [expand, activeStep]);
 
   const steps = useMemo(
     () => [
@@ -107,6 +89,14 @@ function AboutPage({ aboutRef }) {
     []
   );
 
+  useEffect(() => {
+    // Preload images
+    steps.forEach((step) => {
+      const img = new Image();
+      img.src = `./images/me/${step.image}.png`;
+    });
+  }, []);
+
   return (
     <Fade in timeout={{ appear: 500, enter: 2000 }}>
       <Grid
@@ -115,6 +105,7 @@ function AboutPage({ aboutRef }) {
         alignContent="center"
         direction="column"
         minHeight="100vh"
+        display={!expand && "none"}
       >
         <Grid item width={{ xs: "80vw", md: "70vw", lg: "50vw" }}>
           <Divider sx={{ my: 3 }} ref={aboutRef} />
