@@ -42,7 +42,7 @@ function AboutPage({ expand, aboutRef }) {
         content: [
           "👋 Hi! My name is Jason.",
           "🏫 A CS grad from Taiwan currently pursuing my master's at Stevens Institute of Technology.",
-          "💻 I'm all about cracking codes and building cool stuff",
+          "💻 I'm all about cracking codes and building cool stuff.",
         ],
       },
       {
