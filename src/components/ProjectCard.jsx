@@ -90,7 +90,7 @@ function ProjectCard({ project }) {
             color="text.secondary"
             mt={1}
           >
-            ({project.year})
+            {project.year}
           </Typography>
         </Box>
 

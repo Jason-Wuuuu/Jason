@@ -73,13 +73,13 @@ const projects = [
   },
   {
     title: "Memory Maker",
-    year: "2019 Undergrad Senior Project",
+    year: "2019 Senior Project (International ICT Innovative Services Award: 2nd place)",
     description:
       "iOS app for composition suggestions in mobile photography and virtual postcard sharing.",
     tech_stack: "Python, TensorFlow, Firebase, Swift, Sketch, Core ML",
     githubUrl: "",
     demoUrl: "",
-    screenshots: [],
+    screenshots: ["memory_maker/demo.gif", "memory_maker/award.png"],
   },
 ];
 
