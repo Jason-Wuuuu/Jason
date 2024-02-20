@@ -108,9 +108,13 @@ function AboutPage({ expand, aboutRef }) {
         display={!expand && "none"}
       >
         <Grid item width={{ xs: "80vw", md: "70vw", lg: "50vw" }}>
-          <Divider sx={{ my: 3 }} ref={aboutRef} />
+          <Divider sx={{ my: 3 }} />
 
-          <Stepper activeStep={activeStep} orientation="vertical">
+          <Stepper
+            activeStep={activeStep}
+            orientation="vertical"
+            ref={aboutRef}
+          >
             {steps.map((step, index) => (
               <Step key={`step_${index}`}>
                 <StepLabel
