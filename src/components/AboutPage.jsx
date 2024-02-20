@@ -166,8 +166,7 @@ function AboutPage({ expand, aboutRef }) {
                               // align="center"
                               key={`step_${index}_line_${i}`}
                               variant="body2"
-                              p={1}
-                              my={1}
+                              my={2}
                             >
                               {line}
                             </Typography>
