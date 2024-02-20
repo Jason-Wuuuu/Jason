@@ -84,6 +84,20 @@ function ProjectCard({ project }) {
           )}
         </Box>
 
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
+          <CardContent sx={{ mx: { xs: 1, sm: 10 } }}>
+            <Typography align="center" variant="subtitle1">
+              {`${project.course} Project (${project.year})`}
+            </Typography>
+
+            <Divider sx={{ my: 1 }} />
+
+            <Typography align="center" variant="body1" color="text.secondary">
+              {project.description}
+            </Typography>
+          </CardContent>
+        </Collapse>
+
         <CardActions disableSpacing>
           {project.githubUrl && (
             <Tooltip title="Repo" placement="top">
@@ -119,20 +133,6 @@ function ProjectCard({ project }) {
             </Tooltip>
           </ExpandMore>
         </CardActions>
-
-        <Collapse in={expanded} timeout="auto" unmountOnExit>
-          <CardContent sx={{ mx: { xs: 1, sm: 10 } }}>
-            <Typography align="center" variant="subtitle1">
-              {`${project.course} Project (${project.year})`}
-            </Typography>
-
-            <Divider sx={{ my: 1 }} />
-
-            <Typography align="center" variant="body1" color="text.secondary">
-              {project.description}
-            </Typography>
-          </CardContent>
-        </Collapse>
       </Card>
     </Grid>
   );
