@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
@@ -38,6 +38,18 @@ function ProjectCard({ project }) {
     setExpanded(!expanded);
   };
 
+  const carouselItems = useMemo(() => {
+    return project.screenshots.map((image, i) => (
+      <CardMedia
+        key={i}
+        component="img"
+        image={`./images/${image}`}
+        alt={image.split(".")[0]}
+        loading="lazy"
+      />
+    ));
+  }, [project.screenshots]);
+
   return (
     <Grid
       item
@@ -67,15 +79,7 @@ function ProjectCard({ project }) {
                 animation="slide"
                 navButtonsAlwaysVisible
               >
-                {project.screenshots.map((image, i) => (
-                  <CardMedia
-                    key={i}
-                    component="img"
-                    image={`./images/${image}`}
-                    alt={image.split(".")[0]}
-                    loading="lazy"
-                  />
-                ))}
+                {carouselItems}
               </Carousel>
             </Box>
           )}

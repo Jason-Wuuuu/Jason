@@ -1,4 +1,4 @@
-import { Fragment, useState, useEffect, useRef } from "react";
+import { Fragment, useState, useMemo, useRef } from "react";
 
 import Box from "@mui/material/Box";
 import Tooltip from "@mui/material/Tooltip";
@@ -22,6 +22,10 @@ function Home() {
       : setExpand(true);
   }
 
+  const aboutPage = useMemo(() => {
+    return expand ? <AboutPage aboutRef={aboutRef} /> : null;
+  }, [expand]);
+
   return (
     <Fragment>
       <MainPage />
@@ -40,7 +44,7 @@ function Home() {
         </Box>
       </Grow>
 
-      {expand && <AboutPage aboutRef={aboutRef} />}
+      {aboutPage}
 
       <SocialLinks />
     </Fragment>
