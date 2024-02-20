@@ -89,8 +89,8 @@ function Projects() {
   }, []);
 
   const projectCards = useMemo(() => {
-    return projects.map((project, i) => (
-      <ProjectCard key={i} project={project} />
+    return projects.map((project) => (
+      <ProjectCard key={project.title} project={project} />
     ));
   }, []);
 

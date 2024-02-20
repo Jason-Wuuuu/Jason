@@ -30,26 +30,7 @@ import NearMeIcon from "@mui/icons-material/NearMe";
 
 function AboutPage({ expand, aboutRef }) {
   const navigate = useNavigate();
-
   const [activeStep, setActiveStep] = useState(0);
-
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  };
-
-  const handleBack = () => {
-    if (activeStep !== 0) setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
-  const handleReset = () => {
-    setActiveStep(0);
-  };
-
-  useEffect(() => {
-    if (aboutRef.current) {
-      aboutRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [expand, activeStep]);
 
   const steps = useMemo(
     () => [
@@ -90,6 +71,20 @@ function AboutPage({ expand, aboutRef }) {
     []
   );
 
+  const handleNext = () =>
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+
+  const handleBack = () =>
+    setActiveStep((prevActiveStep) => activeStep !== 0 && prevActiveStep - 1);
+
+  const handleReset = () => setActiveStep(0);
+
+  useEffect(() => {
+    if (aboutRef.current) {
+      aboutRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [expand, activeStep]);
+
   useEffect(() => {
     // Preload images
     steps.forEach((step) => {
@@ -114,7 +109,7 @@ function AboutPage({ expand, aboutRef }) {
           <Stepper
             activeStep={activeStep}
             orientation="vertical"
-            // ref={aboutRef}
+            ref={aboutRef}
           >
             {steps.map((step, index) => (
               <Step key={`step_${index}`}>
@@ -122,7 +117,7 @@ function AboutPage({ expand, aboutRef }) {
                   sx={{ fontWeight: "bold" }}
                   icon={index === activeStep ? step.icon_on : step.icon_off}
                   onClick={() => setActiveStep(index)}
-                  ref={activeStep === index ? aboutRef : null}
+                  // ref={activeStep === index ? aboutRef : null}
                 >
                   <Typography
                     variant={index === activeStep ? "h5" : "subtitle2"}
