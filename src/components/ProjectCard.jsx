@@ -83,15 +83,6 @@ function ProjectCard({ project }) {
               </Carousel>
             </Box>
           )}
-
-          <Typography
-            align="center"
-            variant="caption"
-            color="text.secondary"
-            mt={1}
-          >
-            {project.year}
-          </Typography>
         </Box>
 
         <CardActions disableSpacing>
@@ -134,11 +125,10 @@ function ProjectCard({ project }) {
           <CardContent sx={{ mx: { xs: 1, sm: 10 } }}>
             <Typography
               align="center"
-              variant="subtitle1"
+              variant="subtitle2"
               // color="text.secondary"
-              sx={{ fontWeight: "bold" }}
             >
-              Description
+              {project.year}
             </Typography>
 
             <Divider sx={{ my: 1 }} />
