@@ -143,7 +143,7 @@ function Projects() {
 
   return (
     <Grid container width="100%" direction="column">
-      <Fade in timeout={{ appear: 500, enter: 1500 }}>
+      <Fade in timeout={500}>
         <Grid item mt={10}>
           <Box
             display="flex"
@@ -181,7 +181,7 @@ function Projects() {
         </Grid>
       </Fade>
 
-      <Fade in timeout={{ appear: 500, enter: 1500 }}>
+      <Fade in timeout={500}>
         <Grid item>
           <Box
             width="100%"
