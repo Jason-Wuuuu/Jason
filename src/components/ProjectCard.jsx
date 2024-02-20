@@ -32,7 +32,7 @@ const ExpandMore = styled((props) => {
 }));
 
 function ProjectCard({ project }) {
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(true);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
