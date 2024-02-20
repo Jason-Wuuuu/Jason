@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 import AppBar from "@mui/material/AppBar";
@@ -16,8 +17,13 @@ function Header() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const disableHysteresis = useMemo(
+    () => location.pathname === "/",
+    [location.pathname]
+  );
+
   const trigger = useScrollTrigger({
-    disableHysteresis: location.pathname === "/" ? true : false,
+    disableHysteresis: disableHysteresis,
   });
 
   return (

@@ -50,6 +50,24 @@ function AboutPage({ aboutRef }) {
       aboutRef.current.scrollIntoView({ behavior: "smooth" });
   }, [activeStep]);
 
+  const preloadImages = () => {
+    const images = [
+      "./images/me/me_1.png",
+      "./images/me/me_2.png",
+      "./images/me/me_3.png",
+      // Add paths to all images used in AboutPage
+    ];
+
+    images.forEach((image) => {
+      const img = new Image();
+      img.src = image;
+    });
+  };
+
+  useEffect(() => {
+    preloadImages();
+  }, []);
+
   const steps = useMemo(
     () => [
       {
