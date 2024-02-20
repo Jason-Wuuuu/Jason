@@ -1,3 +1,5 @@
+import { useLocation } from "react-router-dom";
+
 import Fab from "@mui/material/Fab";
 import Fade from "@mui/material/Fade";
 import Box from "@mui/material/Box";
@@ -7,6 +9,8 @@ import useScrollTrigger from "@mui/material/useScrollTrigger";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
 export default function ScrollTop() {
+  const location = useLocation();
+
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     // threshold: 100,
@@ -26,7 +30,7 @@ export default function ScrollTop() {
         role="presentation"
         sx={{
           position: "fixed",
-          bottom: 16,
+          bottom: location.pathname === "/projects" ? 64 : 16,
           right: 16,
           zIndex: 1000,
         }}
