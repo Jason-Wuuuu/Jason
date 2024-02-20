@@ -79,7 +79,7 @@ const projects = [
     tech_stack: "Python, TensorFlow, Firebase, Swift, Sketch, Core ML",
     githubUrl: "",
     demoUrl: "",
-    screenshots: ["memory_maker/demo.gif", "memory_maker/award.png"],
+    screenshots: ["memory_maker/demo.gif"],
   },
 ];
 
