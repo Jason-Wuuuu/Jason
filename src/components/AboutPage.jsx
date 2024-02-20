@@ -132,7 +132,7 @@ function AboutPage({ expand, aboutRef }) {
                 <StepContent
                   TransitionProps={{
                     unmountOnExit: false,
-                    timeout: 500,
+                    // timeout: 500,
                   }}
                 >
                   <Card
@@ -222,9 +222,9 @@ function AboutPage({ expand, aboutRef }) {
             alignItems="center"
           >
             <Typography
-              variant="subtitle2"
+              variant="subtitle1"
               // sx={{ fontWeight: "bold" }}
-              mb={1}
+              mb={2}
             >
               Got a glimpse of who I am?
             </Typography>
