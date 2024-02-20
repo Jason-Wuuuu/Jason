@@ -46,8 +46,9 @@ function AboutPage({ expand, aboutRef }) {
   };
 
   useEffect(() => {
-    if (aboutRef.current)
+    if (aboutRef.current) {
       aboutRef.current.scrollIntoView({ behavior: "smooth" });
+    }
   }, [expand, activeStep]);
 
   const steps = useMemo(
@@ -113,7 +114,7 @@ function AboutPage({ expand, aboutRef }) {
           <Stepper
             activeStep={activeStep}
             orientation="vertical"
-            ref={aboutRef}
+            // ref={aboutRef}
           >
             {steps.map((step, index) => (
               <Step key={`step_${index}`}>
@@ -121,7 +122,7 @@ function AboutPage({ expand, aboutRef }) {
                   sx={{ fontWeight: "bold" }}
                   icon={index === activeStep ? step.icon_on : step.icon_off}
                   onClick={() => setActiveStep(index)}
-                  // ref={activeStep === index ? aboutRef : null}
+                  ref={activeStep === index ? aboutRef : null}
                 >
                   <Typography
                     variant={index === activeStep ? "h5" : "subtitle2"}
@@ -192,13 +193,9 @@ function AboutPage({ expand, aboutRef }) {
                     )}
 
                     <Chip
-                      label={
-                        index === steps.length - 1
-                          ? "Back to Start"
-                          : "Continue"
-                      }
+                      label={index === 2 ? "Back to Start" : "Continue"}
                       icon={
-                        index === steps.length - 1 ? (
+                        index === 2 ? (
                           <RestartAltIcon />
                         ) : (
                           <ArrowCircleDownIcon />
@@ -206,9 +203,7 @@ function AboutPage({ expand, aboutRef }) {
                       }
                       sx={{ fontWeight: "bold", boxShadow: 10, border: 1 }}
                       variant="outlined"
-                      onClick={
-                        index === steps.length - 1 ? handleReset : handleNext
-                      }
+                      onClick={index === 2 ? handleReset : handleNext}
                     />
                   </Box>
                 </StepContent>
