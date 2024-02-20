@@ -61,6 +61,33 @@ function ProjectCard({ project }) {
           title={project.title}
           titleTypographyProps={{ variant: "h6", fontWeight: "bold" }}
           subheader={project.tech_stack}
+          action={
+            <>
+              {project.githubUrl && (
+                <Tooltip title="Repo" placement="top">
+                  <IconButton
+                    aria-label="github"
+                    href={project.githubUrl}
+                    target="_blank"
+                  >
+                    <GitHubIcon />
+                  </IconButton>
+                </Tooltip>
+              )}
+
+              {project.demoUrl && (
+                <Tooltip title="Demo" placement="top">
+                  <IconButton
+                    aria-label="demo"
+                    href={project.demoUrl}
+                    target="_blank"
+                  >
+                    <OndemandVideoIcon />
+                  </IconButton>
+                </Tooltip>
+              )}
+            </>
+          }
         />
 
         <Box
@@ -84,31 +111,19 @@ function ProjectCard({ project }) {
           )}
         </Box>
 
-        <CardActions disableSpacing>
-          {project.githubUrl && (
-            <Tooltip title="Repo" placement="top">
-              <IconButton
-                aria-label="github"
-                href={project.githubUrl}
-                target="_blank"
-              >
-                <GitHubIcon />
-              </IconButton>
-            </Tooltip>
-          )}
+        <CardContent sx={{ mx: { xs: 1, sm: 10 } }}>
+          <Typography align="center" variant="subtitle1">
+            {`${project.course} Project (${project.year})`}
+          </Typography>
 
-          {project.demoUrl && (
-            <Tooltip title="Demo" placement="top">
-              <IconButton
-                aria-label="demo"
-                href={project.demoUrl}
-                target="_blank"
-              >
-                <OndemandVideoIcon />
-              </IconButton>
-            </Tooltip>
-          )}
+          <Divider sx={{ my: 1 }} />
 
+          <Typography align="center" variant="body1" color="text.secondary">
+            {project.description}
+          </Typography>
+        </CardContent>
+
+        {/* <CardActions disableSpacing>
           <ExpandMore
             expand={expanded}
             onClick={handleExpandClick}
@@ -120,19 +135,7 @@ function ProjectCard({ project }) {
           </ExpandMore>
         </CardActions>
 
-        <Collapse in={expanded} timeout="auto" unmountOnExit>
-          <CardContent sx={{ mx: { xs: 1, sm: 10 } }}>
-            <Typography align="center" variant="subtitle1">
-              {`${project.course} Project (${project.year})`}
-            </Typography>
-
-            <Divider sx={{ my: 1 }} />
-
-            <Typography align="center" variant="body1" color="text.secondary">
-              {project.description}
-            </Typography>
-          </CardContent>
-        </Collapse>
+        <Collapse in={expanded} timeout="auto" unmountOnExit></Collapse> */}
       </Card>
     </Grid>
   );
