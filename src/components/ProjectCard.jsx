@@ -45,7 +45,6 @@ function ProjectCard({ project }) {
         component="img"
         image={`./images/${image}`}
         alt={image.split(".")[0]}
-        // loading="lazy"
       />
     ));
   }, [project.screenshots]);
@@ -123,17 +122,13 @@ function ProjectCard({ project }) {
 
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent sx={{ mx: { xs: 1, sm: 10 } }}>
-            <Typography
-              align="center"
-              variant="subtitle2"
-              // color="text.secondary"
-            >
+            <Typography align="center" variant="subtitle1">
               {project.year}
             </Typography>
 
             <Divider sx={{ my: 1 }} />
 
-            <Typography align="center" variant="body2" color="text.secondary">
+            <Typography align="center" variant="body1" color="text.secondary">
               {project.description}
             </Typography>
           </CardContent>
