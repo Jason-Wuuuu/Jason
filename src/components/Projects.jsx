@@ -49,7 +49,7 @@ const projects = [
   {
     title: "Stevens Marketplace",
     year: "2023",
-    course: "Web Programming",
+    course: "Web Programming Course",
     category: "Web APP",
     description:
       "A community-centric platform featuring pre-owned items discovery/management and secure direct messaging.",
@@ -64,7 +64,7 @@ const projects = [
   {
     title: "EventMaster",
     year: "2023",
-    course: "Agile Methods for Software Dev",
+    course: "Agile Methods for Software Dev Course",
     category: "Web APP",
     description:
       "Full-stack web app utilizing Eventbrite & Ticketmaster APIs, featuring seamless event discovery, interactive voting, and personalized schedule planning.",
@@ -82,7 +82,7 @@ const projects = [
   {
     title: "Marvel Comic App",
     year: "2023",
-    course: "Web Programming",
+    course: "Web Programming Course",
     category: "Web APP",
     description:
       "Full-stack web application integrating Marvel API for comic discovery and collection.",
