@@ -11,6 +11,19 @@ import ProjectCard from "./ProjectCard";
 
 const projects = [
   {
+    title: "Stock Price Prediction",
+    year: "2024",
+    course: "Personal",
+    category: "ML/DL",
+    description:
+      "A LSTM model to predict stock prices based on historical data, trained using a variety of features and technical indicators, results in a R^2 score of 0.86 and Mean Absolute Percentage Error of 2.7%.",
+    tech_stack:
+      "Python, TensorFlow, NumPy, Pandas, scikit-learn, Matplotlib, yfinance",
+    githubUrl: "https://github.com/Jason-Wuuuu/stock_price_prediction",
+    demoUrl: "",
+    screenshots: ["stock_price_lstm/output.png"],
+  },
+  {
     title: "Visual Board",
     year: "2024",
     course: "Personal",
