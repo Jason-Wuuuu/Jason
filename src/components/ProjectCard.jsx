@@ -34,9 +34,7 @@ const ExpandMore = styled((props) => {
 function ProjectCard({ project }) {
   const [expanded, setExpanded] = useState(true);
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
+  const handleExpandClick = () => setExpanded(!expanded);
 
   const carouselItems = useMemo(() => {
     return project.screenshots.map((image, i) => (

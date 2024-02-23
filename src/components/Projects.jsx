@@ -173,16 +173,18 @@ function Projects() {
               {`${tab === 0 ? "All" : categories[tab - 1]} Projects`}
             </Typography>
 
-            <Typography
-              variant="caption"
-              align="center"
-              color="text.secondary"
-              mt={1}
-              mx={2}
-            >
-              I'm constantly updating and adding to my selected projects page,
-              so stay tuned for more!
-            </Typography>
+            {tab === 0 && (
+              <Typography
+                variant="caption"
+                align="center"
+                color="text.secondary"
+                mt={1}
+                mx={2}
+              >
+                I'm constantly updating and adding to my selected projects page,
+                so stay tuned for more!
+              </Typography>
+            )}
           </Box>
         </Grid>
       </Fade>
