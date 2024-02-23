@@ -22,8 +22,8 @@ const projects = [
     githubUrl: "https://github.com/Jason-Wuuuu/stock_price_prediction",
     demoUrl: "",
     screenshots: [
-      "stock_price_lstm/AAPL.png",
       "stock_price_lstm/TSLA.png",
+      "stock_price_lstm/AAPL.png",
       "stock_price_lstm/TSM.png",
     ],
   },
