@@ -16,12 +16,12 @@ const projects = [
     course: "Personal",
     category: "ML/DL",
     description:
-      "A LSTM model to predict stock prices based on historical data, trained using a variety of features and technical indicators, results in a R^2 score of 0.86 and Mean Absolute Percentage Error of 2.7%.",
+      "A LSTM model to predict stock prices based on historical data, trained using a variety of features and technical indicators, results in a R^2 score of 0.86 and Mean Absolute Percentage Error of 2.2%.",
     tech_stack:
       "Python, TensorFlow, NumPy, Pandas, scikit-learn, Matplotlib, yfinance",
     githubUrl: "https://github.com/Jason-Wuuuu/stock_price_prediction",
     demoUrl: "",
-    screenshots: ["stock_price_lstm/output.png"],
+    screenshots: ["stock_price_lstm/prediction.png"],
   },
   {
     title: "Visual Board",
