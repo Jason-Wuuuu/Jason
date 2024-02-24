@@ -26,7 +26,6 @@ const projects = [
       "stock_price_lstm/NVDA.png",
       "stock_price_lstm/AAPL.png",
       "stock_price_lstm/MSFT.png",
-      "stock_price_lstm/score.png",
     ],
   },
   {
