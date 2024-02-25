@@ -62,7 +62,7 @@ function Header() {
                 clickable={location.pathname !== "/projects"}
               />
 
-              <Chip
+              {/* <Chip
                 icon={<ArticleIcon sx={{ pl: 1 }} />}
                 label="Resume"
                 sx={{ fontWeight: "bold", boxShadow: 10 }}
@@ -71,7 +71,7 @@ function Header() {
                 }
                 onClick={() => navigate(`/resume`)}
                 clickable={location.pathname !== "/resume"}
-              />
+              /> */}
             </Box>
           </Toolbar>
         </Container>
