@@ -54,7 +54,7 @@ function Header() {
               <Chip
                 icon={<LaptopChromebookIcon sx={{ pl: 1 }} />}
                 label="Projects"
-                sx={{ fontWeight: "bold", boxShadow: 10, mr: 1 }}
+                sx={{ fontWeight: "bold", boxShadow: 10 }}
                 variant={
                   location.pathname === "/projects" ? "filled" : "outlined"
                 }
@@ -65,7 +65,7 @@ function Header() {
               {/* <Chip
                 icon={<ArticleIcon sx={{ pl: 1 }} />}
                 label="Resume"
-                sx={{ fontWeight: "bold", boxShadow: 10 }}
+                sx={{ fontWeight: "bold", boxShadow: 10, ml: 1  }}
                 variant={
                   location.pathname === "/resume" ? "filled" : "outlined"
                 }
