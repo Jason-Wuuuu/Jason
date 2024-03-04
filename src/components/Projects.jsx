@@ -37,7 +37,7 @@ const projects = [
     tech_stack: "React, MUI, Python, FastAPI, yfinance, Redis",
     githubUrl: "https://github.com/Jason-Wuuuu/VisualBoard",
     demoUrl: "https://youtu.be/hOSht_Mvv34",
-    screenshots: ["visual_board/stock.png"],
+    screenshots: ["visual_board/stock1.png", "visual_board/stock2.png"],
   },
   {
     title: "Author Classification",
