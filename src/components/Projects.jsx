@@ -35,7 +35,7 @@ const projects = [
     category: "ML/DL",
     description:
       "Word2Vec Skip-Gram model using TensorFlow to analyze and generate word embeddings from the IMDB movie review dataset, enhancing the understanding of semantic word relationships.",
-    tech_stack: "Python, TensorFlow, NumPy, scikit-learn, Matplotlib",
+    tech_stack: "Python, NLTK, TensorFlow, NumPy, scikit-learn, Matplotlib",
     githubUrl: "",
     demoUrl: "",
     screenshots: ["word2vec/word_vec.png"],
@@ -47,7 +47,7 @@ const projects = [
     category: "ML/DL",
     description:
       "Multi-Layer Perceptron (MLP) model from scratch in Python, applying concepts of neural networks to perform multi-class text classification on a large dataset, demonstrating deep understanding of foundational machine learning algorithms.",
-    tech_stack: "Python, TensorFlow, NumPy, scikit-learn, Matplotlib",
+    tech_stack: "Python, NLTK, TensorFlow, NumPy, scikit-learn, Matplotlib",
     githubUrl: "",
     demoUrl: "",
     screenshots: ["mlp/score.png"],
