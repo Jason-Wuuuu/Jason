@@ -69,7 +69,19 @@ const projects = [
     course: "NLP Course",
     category: "ML/DL",
     description:
-      "Multi-class text classifier fully coded from scratch in Python to classify sentences into their corresponding author with optimization, regularization and cross-validation implemented.",
+      "Multi-class text classifier fully coded from scratch in Python to classify sentences into their corresponding author employing advanced text preprocessing techniques including regular expression-based cleaning, tokenization, and TF-IDF vectorization, with optimization, regularization and cross-validation implemented.",
+    tech_stack: "Python, NumPy, NLTK",
+    githubUrl: "",
+    demoUrl: "",
+    screenshots: [],
+  },
+  {
+    title: "SMS spam/ham classifier",
+    year: "2024",
+    course: "NLP Course",
+    category: "ML/DL",
+    description:
+      "Binary classifier by implementing Logistic Regression from scratch in Python, utilizing NumPy for efficient matrix operations and demonstrating a deep understanding of foundational machine learning algorithms.",
     tech_stack: "Python, NumPy, NLTK",
     githubUrl: "",
     demoUrl: "",
