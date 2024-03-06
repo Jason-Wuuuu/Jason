@@ -76,18 +76,6 @@ const projects = [
     screenshots: [],
   },
   {
-    title: "SMS spam/ham classifier",
-    year: "2024",
-    course: "NLP Course",
-    category: "ML/DL",
-    description:
-      "Binary classifier by implementing Logistic Regression from scratch in Python, utilizing NumPy for efficient matrix operations and demonstrating a deep understanding of foundational machine learning algorithms.",
-    tech_stack: "Python, NumPy, NLTK",
-    githubUrl: "",
-    demoUrl: "",
-    screenshots: [],
-  },
-  {
     title: "Stevens Marketplace",
     year: "2023",
     course: "Web Programming Course",
@@ -137,59 +125,54 @@ const projects = [
       "marvel_app/collection.png",
     ],
   },
-
   {
     title: "SVM",
     year: "2022",
     course: "ML Course",
     category: "ML/DL",
     description:
-      "This course project involves applying Support Vector Machine (SVM) concepts to a given set of data points to understand the SVM classification mechanism. The project tasks include deriving the equation of the SVM hyperplane, determining the distance of a specific point from this hyperplane, and classifying a new data point using the constructed hyperplane. Through these exercises, the project explores key SVM concepts such as support vectors, Lagrange multipliers, and the decision boundary. By calculating the weights and bias term from the support vectors and their corresponding multipliers, the project illustrates the geometric interpretation of SVMs, the margin, and the role of support vectors in defining the hyperplane. This hands-on experience deepens the understanding of SVMs and their application in linear classification tasks, emphasizing the importance of support vectors and the margin in constructing robust classifiers.",
-    tech_stack: "Python, NumPy",
+      "This course work entails deriving the hyperplane equation from given data points and Lagrange multipliers, calculating distances to the hyperplane, and classifying new points, demonstrating key SVM concepts and geometric interpretations.",
+    tech_stack: "Python, NumP, Pandasy, Matplotlib",
     githubUrl: "",
     demoUrl: "",
     screenshots: ["svm/hyperplane.png"],
   },
-
   {
     title: "Breast Cancer Detection/Prediction",
     year: "2022",
     course: "ML Course",
     category: "ML/DL",
     description:
-      "This course project involves implementing a logistic regression classifier from scratch to predict the malignancy of breast cancer tumors based on the Wisconsin Breast Cancer Dataset. The project focuses on developing logistic regression using both Stochastic Gradient Descent (SGD) and Mini-Batch Gradient Descent optimization algorithms, without relying on any external machine learning libraries for the logistic regression implementation. The process includes data preprocessing steps like handling missing values, encoding class labels, and splitting the data into training and testing sets. After implementing the logistic regression model, the project evaluates its performance using cross-validation and reports metrics such as recall, precision, and accuracy specifically for the malignant class predictions. This project emphasizes understanding the underlying mechanics of logistic regression and gradient descent algorithms, along with the application of these concepts to a real-world classification problem in Python.",
-    tech_stack: "Python, NumPy",
+      "This course work involves implementing logistic regression from scratch for breast cancer diagnosis, focusing on Stochastic and Mini-Batch Gradient Descent optimizations, and evaluating model performance through precision, recall, and accuracy metrics.",
+    tech_stack: "Python, NumPy, Pandas, Matplotlib",
     githubUrl: "",
     demoUrl: "",
     screenshots: [],
   },
-
   {
-    title: "Iris Classification",
+    title: "Dimensionality Reduction with PCA (Principal Component Analysis)",
     year: "2022",
     course: "ML Course",
     category: "ML/DL",
     description:
-      "This course project involves implementing Linear Discriminant Analysis (LDA) on the Iris dataset to classify the flowers into three species based on their petal and sepal measurements. The project starts with downloading the Iris dataset and involves data preprocessing, such as label encoding for the class labels. It then proceeds to split the dataset into training and testing sets, followed by applying LDA to model the relationship between the features and the class labels. The performance of the LDA model is evaluated using classification reports, which provide insights into precision, recall, and F1-scores for each class on both training and testing data. This project emphasizes the practical application of LDA in a Python and sklearn environment, showcasing its effectiveness in dimensionality reduction and classification tasks within the domain of machine learning.",
-    tech_stack: "Python, scikit-learn",
+      "This coursework involves dimensionality reduction on a diabetes dataset using Principal Component Analysis (PCA), implemented with Python's sklearn library. It begins by normalizing the dataset, then applies PCA to reduce the feature space from eight dimensions to two. The reduced data is visualized in a scatter plot, differentiating between individuals with and without diabetes, to illustrate the effectiveness of PCA in capturing the dataset's variance and potentially enhancing the separation between classes.",
+    tech_stack: "Python, NumPy, Pandas, Matplotlib, scikit-learn",
     githubUrl: "",
     demoUrl: "",
-    screenshots: [],
+    screenshots: ["pca/principal_components.png"],
   },
-
   {
-    title: "Energy Efficiency Analysis",
+    title: "Image Compression with SVD (Singular Value Decomposition)",
     year: "2022",
     course: "ML Course",
     category: "ML/DL",
     description:
-      "This course project involves applying various regression techniques to predict the cooling load of buildings based on their features, using the Energy Efficiency Dataset. The project requires implementing and comparing the performance of Lasso, Ridge, and Elastic Net regression models using 5-fold cross-validation and mean squared error (MSE) as the evaluation metric. The project emphasizes practical skills in data preprocessing, model selection, parameter tuning, and evaluation in a Python and sklearn environment, with a focus on understanding the strengths and limitations of each regression technique in the context of energy efficiency prediction.",
-    tech_stack: "Python, scikit-learn",
+      "This coursework entails a practical implementation of SVD to compress images. It includes importing necessary libraries, configuring the environment, defining functions for image processing, and applying SVD to decompose and reconstruct images at varying levels of compression. Through this process, students learn to manipulate image data, utilize matrix operations, and observe the effects of rank reduction on image quality.",
+    tech_stack: "Python, NumPy, Matplotlib",
     githubUrl: "",
     demoUrl: "",
-    screenshots: [],
+    screenshots: ["svd/image_compression.png"],
   },
-
   {
     title: "Memory Maker",
     year: "2019",
