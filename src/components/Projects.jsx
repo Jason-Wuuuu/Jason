@@ -6,6 +6,11 @@ import Fade from "@mui/material/Fade";
 import Box from "@mui/material/Box";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
+import Accordion from "@mui/material/Accordion";
+import AccordionActions from "@mui/material/AccordionActions";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 import ProjectCard from "./ProjectCard";
 
@@ -126,19 +131,19 @@ const projects = [
     ],
   },
   {
-    title: "SVM",
+    title: "SVM (Support Vector Machine)",
     year: "2022",
     course: "ML Course",
     category: "ML/DL",
     description:
       "This course work entails deriving the hyperplane equation from given data points and Lagrange multipliers, calculating distances to the hyperplane, and classifying new points, demonstrating key SVM concepts and geometric interpretations.",
-    tech_stack: "Python, NumP, Pandasy, Matplotlib",
+    tech_stack: "Python, NumPy, Pandas, Matplotlib",
     githubUrl: "",
     demoUrl: "",
     screenshots: ["svm/hyperplane.png"],
   },
   {
-    title: "Breast Cancer Detection/Prediction",
+    title: "Breast Cancer Detection",
     year: "2022",
     course: "ML Course",
     category: "ML/DL",
@@ -150,7 +155,7 @@ const projects = [
     screenshots: [],
   },
   {
-    title: "Dimensionality Reduction with PCA (Principal Component Analysis)",
+    title: "PCA (Principal Component Analysis)",
     year: "2022",
     course: "ML Course",
     category: "ML/DL",
@@ -162,7 +167,7 @@ const projects = [
     screenshots: ["pca/principal_components.png"],
   },
   {
-    title: "Image Compression with SVD (Singular Value Decomposition)",
+    title: "SVD (Singular Value Decomposition)",
     year: "2022",
     course: "ML Course",
     category: "ML/DL",
@@ -209,6 +214,15 @@ function Projects() {
     }
   }, [tab]);
 
+  const techStackUnion = useMemo(() => {
+    // Calculate the union of tech_stack from filteredProjects
+    const allTechStacks = filteredProjects.flatMap((project) =>
+      project.tech_stack.split(", ")
+    );
+    const uniqueTechStacks = [...new Set(allTechStacks)];
+    return uniqueTechStacks;
+  }, [filteredProjects]);
+
   const projectCards = useMemo(() => {
     return filteredProjects.map((project) => (
       <ProjectCard key={project.title} project={project} />
@@ -249,8 +263,39 @@ function Projects() {
         </Grid>
       </Fade>
 
+      <Fade in timeout={500}>
+        <Grid item my={2}>
+          <Box
+            display="flex"
+            flexDirection="column"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Accordion
+              defaultExpanded
+              sx={{
+                width: { xs: "90vw", sm: "80vw", md: "70vw", lg: "60vw" },
+              }}
+            >
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                sx={{ fontWeight: "bold" }}
+              >
+                Technologies Summary
+              </AccordionSummary>
+
+              <AccordionDetails sx={{ mx: 1 }}>
+                <Typography variant="caption" color="text.secondary">
+                  {techStackUnion.join(", ")}
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
+          </Box>
+        </Grid>
+      </Fade>
+
       <Fade in timeout={{ appear: 500, enter: 1500 }}>
-        <Grid item my={4}>
+        <Grid item mb={4}>
           <Grid
             container
             justifyContent="center"
