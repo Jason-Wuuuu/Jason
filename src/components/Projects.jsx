@@ -137,18 +137,59 @@ const projects = [
       "marvel_app/collection.png",
     ],
   },
+
+  {
+    title: "SVM",
+    year: "2022",
+    course: "ML Course",
+    category: "ML/DL",
+    description:
+      "This course project involves applying Support Vector Machine (SVM) concepts to a given set of data points to understand the SVM classification mechanism. The project tasks include deriving the equation of the SVM hyperplane, determining the distance of a specific point from this hyperplane, and classifying a new data point using the constructed hyperplane. Through these exercises, the project explores key SVM concepts such as support vectors, Lagrange multipliers, and the decision boundary. By calculating the weights and bias term from the support vectors and their corresponding multipliers, the project illustrates the geometric interpretation of SVMs, the margin, and the role of support vectors in defining the hyperplane. This hands-on experience deepens the understanding of SVMs and their application in linear classification tasks, emphasizing the importance of support vectors and the margin in constructing robust classifiers.",
+    tech_stack: "Python, NumPy",
+    githubUrl: "",
+    demoUrl: "",
+    screenshots: ["svm/hyperplane.png"],
+  },
+
   {
     title: "Breast Cancer Detection/Prediction",
     year: "2022",
     course: "ML Course",
     category: "ML/DL",
     description:
-      "Logistic regression classifier fully coded from scratch with Python to detect/predict breast cancer.",
+      "This course project involves implementing a logistic regression classifier from scratch to predict the malignancy of breast cancer tumors based on the Wisconsin Breast Cancer Dataset. The project focuses on developing logistic regression using both Stochastic Gradient Descent (SGD) and Mini-Batch Gradient Descent optimization algorithms, without relying on any external machine learning libraries for the logistic regression implementation. The process includes data preprocessing steps like handling missing values, encoding class labels, and splitting the data into training and testing sets. After implementing the logistic regression model, the project evaluates its performance using cross-validation and reports metrics such as recall, precision, and accuracy specifically for the malignant class predictions. This project emphasizes understanding the underlying mechanics of logistic regression and gradient descent algorithms, along with the application of these concepts to a real-world classification problem in Python.",
     tech_stack: "Python, NumPy",
     githubUrl: "",
     demoUrl: "",
     screenshots: [],
   },
+
+  {
+    title: "Iris Classification",
+    year: "2022",
+    course: "ML Course",
+    category: "ML/DL",
+    description:
+      "This course project involves implementing Linear Discriminant Analysis (LDA) on the Iris dataset to classify the flowers into three species based on their petal and sepal measurements. The project starts with downloading the Iris dataset and involves data preprocessing, such as label encoding for the class labels. It then proceeds to split the dataset into training and testing sets, followed by applying LDA to model the relationship between the features and the class labels. The performance of the LDA model is evaluated using classification reports, which provide insights into precision, recall, and F1-scores for each class on both training and testing data. This project emphasizes the practical application of LDA in a Python and sklearn environment, showcasing its effectiveness in dimensionality reduction and classification tasks within the domain of machine learning.",
+    tech_stack: "Python, scikit-learn",
+    githubUrl: "",
+    demoUrl: "",
+    screenshots: [],
+  },
+
+  {
+    title: "Energy Efficiency Analysis",
+    year: "2022",
+    course: "ML Course",
+    category: "ML/DL",
+    description:
+      "This course project involves applying various regression techniques to predict the cooling load of buildings based on their features, using the Energy Efficiency Dataset. The project requires implementing and comparing the performance of Lasso, Ridge, and Elastic Net regression models using 5-fold cross-validation and mean squared error (MSE) as the evaluation metric. The project emphasizes practical skills in data preprocessing, model selection, parameter tuning, and evaluation in a Python and sklearn environment, with a focus on understanding the strengths and limitations of each regression technique in the context of energy efficiency prediction.",
+    tech_stack: "Python, scikit-learn",
+    githubUrl: "",
+    demoUrl: "",
+    screenshots: [],
+  },
+
   {
     title: "Memory Maker",
     year: "2019",
