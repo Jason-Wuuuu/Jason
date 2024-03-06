@@ -155,7 +155,7 @@ const projects = [
     course: "ML Course",
     category: "ML/DL",
     description:
-      "This coursework involves dimensionality reduction on a diabetes dataset using Principal Component Analysis (PCA), implemented with Python's sklearn library. It begins by normalizing the dataset, then applies PCA to reduce the feature space from eight dimensions to two. The reduced data is visualized in a scatter plot, differentiating between individuals with and without diabetes, to illustrate the effectiveness of PCA in capturing the dataset's variance and potentially enhancing the separation between classes.",
+      "This coursework involves dimensionality reduction on a diabetes dataset using Principal Component Analysis (PCA), implemented with Python's sklearn library. It begins by normalizing the dataset, then applies PCA to reduce the feature space from eight dimensions to two.",
     tech_stack: "Python, NumPy, Pandas, Matplotlib, scikit-learn",
     githubUrl: "",
     demoUrl: "",
@@ -167,7 +167,7 @@ const projects = [
     course: "ML Course",
     category: "ML/DL",
     description:
-      "This coursework entails a practical implementation of SVD to compress images. It includes importing necessary libraries, configuring the environment, defining functions for image processing, and applying SVD to decompose and reconstruct images at varying levels of compression. Through this process, students learn to manipulate image data, utilize matrix operations, and observe the effects of rank reduction on image quality.",
+      "This coursework entails a practical implementation of SVD to compress images. It includes defining functions for image processing, and applying SVD to decompose and reconstruct images at varying levels of compression.",
     tech_stack: "Python, NumPy, Matplotlib",
     githubUrl: "",
     demoUrl: "",
