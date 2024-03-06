@@ -275,13 +275,16 @@ function Projects() {
               defaultExpanded
               sx={{
                 width: { xs: "90vw", sm: "80vw", md: "70vw", lg: "60vw" },
+                boxShadow: 10,
               }}
             >
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 sx={{ fontWeight: "bold" }}
               >
-                Technologies Summary
+                {`Technologies Summary for ${
+                  tab === 0 ? "All" : categories[tab - 1]
+                } Projects`}
               </AccordionSummary>
 
               <AccordionDetails sx={{ mx: 1 }}>
