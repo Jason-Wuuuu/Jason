@@ -50,7 +50,7 @@ const projects = [
     tech_stack: "Python, TensorFlow, NumPy, scikit-learn, Matplotlib",
     githubUrl: "",
     demoUrl: "",
-    screenshots: ["mlp/loss.png", "mlp/score.png"],
+    screenshots: ["mlp/score.png"],
   },
   {
     title: "Visual Board",
