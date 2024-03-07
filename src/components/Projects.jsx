@@ -41,13 +41,14 @@ const projects = [
     ],
   },
   {
-    title: "Word2Vec Skip-Gram Model",
+    title: "IMDB Movie Review Analysis (Word2Vec)",
     year: "2024",
     course: "NLP Course",
     category: "ML/DL",
     description:
       "A Word2Vec Skip-Gram model developed with TensorFlow to analyze and generate word embeddings from the IMDB movie review dataset, enhancing understanding of semantic word relationships.",
-    tech_stack: "Python, NLTK, TensorFlow, NumPy, scikit-learn, Matplotlib",
+    tech_stack:
+      "Python, NLTK, TensorFlow, NumPy, scikit-learn, Matplotlib, Word2Vec",
     githubUrl: "",
     demoUrl: "",
     screenshots: ["word2vec/word_vec.png"],
