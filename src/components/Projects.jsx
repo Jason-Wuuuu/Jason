@@ -261,7 +261,7 @@ function TableOfContents({ projects }) {
           }}
         >
           <FormatListBulletedIcon sx={{ mr: 1 }} />
-          Projects Index
+          Contents
         </Fab>
       </Fade>
 
