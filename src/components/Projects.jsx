@@ -262,7 +262,7 @@ function TableOfContents({ projects }) {
             color="default"
             sx={{
               boxShadow: 10,
-              opacity: 0.9,
+              opacity: 0.95,
             }}
           >
             <FormatListBulletedIcon sx={{ mr: 1 }} />
