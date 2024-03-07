@@ -410,15 +410,12 @@ function Projects() {
       </Fade>
 
       <Fade in timeout={{ appear: 500, enter: 1500 }}>
-        <Grid item>
+        <Grid item mt={2} mb={15} mx={2}>
           <Box
             display="flex"
             flexDirection="column"
             justifyContent="center"
             alignItems="center"
-            mt={3}
-            mb={10}
-            mx={2}
           >
             <Typography variant="caption" align="center" color="text.secondary">
               I'm constantly updating and adding to my selected projects page,
