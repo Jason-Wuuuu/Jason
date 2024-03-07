@@ -11,9 +11,11 @@ import Accordion from "@mui/material/Accordion";
 import Divider from "@mui/material/Divider";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 
@@ -232,6 +234,9 @@ function TableOfContents({ projects }) {
             fontWeight: "bold",
           }}
         >
+          <ListItemIcon>
+            <ChevronRightIcon fontSize="small" />
+          </ListItemIcon>
           {project.title}
         </MenuItem>
       )),
@@ -240,7 +245,7 @@ function TableOfContents({ projects }) {
 
   return (
     <Fragment>
-      <Fade in timeout={500}>
+      <Fade in timeout={1000}>
         <Fab
           size="small"
           variant="extended"
@@ -256,7 +261,7 @@ function TableOfContents({ projects }) {
           }}
         >
           <FormatListBulletedIcon sx={{ mr: 1 }} />
-          Table of Contents
+          Projects Index
         </Fab>
       </Fade>
 
