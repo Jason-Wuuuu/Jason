@@ -230,14 +230,13 @@ function TableOfContents({ projects }) {
             handleClose();
             handleJump(`project-${index}`);
           }}
-          sx={{
-            fontWeight: "bold",
-          }}
         >
           <ListItemIcon>
             <ChevronRightIcon fontSize="small" />
           </ListItemIcon>
-          {project.title}
+          <Typography variant="body1" noWrap>
+            {project.title}
+          </Typography>
         </MenuItem>
       )),
     [projects]
@@ -283,6 +282,9 @@ function TableOfContents({ projects }) {
         transformOrigin={{
           vertical: "center",
           horizontal: "right",
+        }}
+        sx={{
+          opacity: "0.95 !important",
         }}
       >
         {listItems}
