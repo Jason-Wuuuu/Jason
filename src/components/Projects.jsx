@@ -240,22 +240,25 @@ function TableOfContents({ projects }) {
 
   return (
     <Fragment>
-      <Fab
-        size="small"
-        variant="extended"
-        onClick={handleClick}
-        sx={{
-          position: "fixed",
-          bottom: 64,
-          right: 16,
-          // zIndex: 1000,
-          boxShadow: 10,
-          opacity: 0.9,
-        }}
-      >
-        <FormatListBulletedIcon sx={{ mr: 1 }} />
-        Table of Contents
-      </Fab>
+      <Fade in timeout={500}>
+        <Fab
+          size="small"
+          variant="extended"
+          onClick={handleClick}
+          color="default"
+          sx={{
+            position: "fixed",
+            bottom: 64,
+            right: 16,
+            // zIndex: 1000,
+            boxShadow: 10,
+            opacity: 0.9,
+          }}
+        >
+          <FormatListBulletedIcon sx={{ mr: 1 }} />
+          Table of Contents
+        </Fab>
+      </Fade>
 
       <Menu
         open={open}
@@ -358,7 +361,7 @@ function Projects() {
             alignItems="center"
           >
             <Accordion
-              // defaultExpanded
+              defaultExpanded
               sx={{
                 width: { xs: "90vw", sm: "80vw", md: "70vw", lg: "50vw" },
                 boxShadow: 10,
