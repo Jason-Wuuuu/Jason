@@ -23,12 +23,12 @@ import ProjectCard from "./ProjectCard";
 
 const projects = [
   {
-    title: "Stock Price Prediction",
+    title: "Stock Price Forecast",
     year: "2024",
     course: "Personal",
     category: "ML/DL",
     description:
-      "A LSTM model to predict stock prices based on historical data, trained using a variety of features and technical indicators, results in a R^2 score of 0.96 on average and Mean Absolute Percentage Error of 0.1% on average.",
+      "A LSTM model designed to forecast stock prices based on historical data, trained using a variety of features and technical indicators. It achieves an average R^2 score of 0.96 and an average Mean Absolute Percentage Error of 0.1%.",
     tech_stack:
       "Python, TensorFlow, NumPy, Pandas, scikit-learn, Matplotlib, yfinance",
     githubUrl: "https://github.com/Jason-Wuuuu/stock_price_prediction",
@@ -46,55 +46,45 @@ const projects = [
     course: "NLP Course",
     category: "ML/DL",
     description:
-      "Word2Vec Skip-Gram model using TensorFlow to analyze and generate word embeddings from the IMDB movie review dataset, enhancing the understanding of semantic word relationships.",
+      "A Word2Vec Skip-Gram model developed with TensorFlow to analyze and generate word embeddings from the IMDB movie review dataset, enhancing understanding of semantic word relationships.",
     tech_stack: "Python, NLTK, TensorFlow, NumPy, scikit-learn, Matplotlib",
     githubUrl: "",
     demoUrl: "",
     screenshots: ["word2vec/word_vec.png"],
   },
   {
-    title: "Multi-Layer Perceptron Model",
-    year: "2024",
-    course: "NLP Course",
-    category: "ML/DL",
-    description:
-      "Multi-Layer Perceptron (MLP) model from scratch in Python, applying concepts of neural networks to perform multi-class text classification on a large dataset, demonstrating deep understanding of foundational machine learning algorithms.",
-    tech_stack: "Python, NLTK, TensorFlow, NumPy, scikit-learn, Matplotlib",
-    githubUrl: "",
-    demoUrl: "",
-    screenshots: ["mlp/score.png"],
-  },
-  {
     title: "Visual Board",
     year: "2024",
     course: "Personal",
     category: "Web APP",
-    description: "Interactive data visualization / dashboard",
+    description:
+      "An interactive data visualization/dashboard featuring historical data charts, market recommendations, and stock analysis.",
     tech_stack: "React, MUI, Python, FastAPI, yfinance, Redis",
     githubUrl: "https://github.com/Jason-Wuuuu/VisualBoard",
     demoUrl: "https://youtu.be/hOSht_Mvv34",
     screenshots: ["visual_board/stock1.png", "visual_board/stock2.png"],
   },
   {
-    title: "Author Classification",
+    title: "Author Classification (MLP)",
     year: "2024",
     course: "NLP Course",
     category: "ML/DL",
     description:
-      "Multi-class text classifier fully coded from scratch in Python to classify sentences into their corresponding author employing advanced text preprocessing techniques including regular expression-based cleaning, tokenization, and TF-IDF vectorization, with optimization, regularization and cross-validation implemented.",
-    tech_stack: "Python, NumPy, NLTK",
+      "A Multi-Layer Perceptron (MLP) model, fully coded from scratch in Python, to classify sentences by their corresponding authors. It employs tokenization and TF-IDF vectorization with optimization, regularization, and cross-validation.",
+    tech_stack: "Python, NLTK, TensorFlow, NumPy, scikit-learn, Matplotlib",
     githubUrl: "",
     demoUrl: "",
-    screenshots: [],
+    screenshots: ["mlp/score.png"],
   },
   {
-    title: "Stevens Marketplace",
+    title: "Stevens Marketplace (Group Project)",
     year: "2023",
     course: "Web Programming Course",
     category: "Web APP",
     description:
-      "A community-centric platform featuring pre-owned items discovery/management and secure direct messaging.",
-    tech_stack: "React, GraphQL, MongoDB, Firebase, Redux, Redis, S3",
+      "A community-centric platform that facilitates the discovery and management of pre-owned items, featuring seamless and secure real-time messaging.",
+    tech_stack:
+      "React, GraphQL, MongoDB, Firebase, Redux, Redis, socket.io, S3, Docker, Git",
     githubUrl: "https://github.com/Jason-Wuuuu/CS554-GroupVVIV",
     demoUrl: "",
     screenshots: [
@@ -103,13 +93,14 @@ const projects = [
     ],
   },
   {
-    title: "EventMaster",
+    title: "EventMaster (Group Project)",
     year: "2023",
     course: "Agile Methods for Software Dev Course",
     category: "Web APP",
     description:
-      "Full-stack web app utilizing Eventbrite & Ticketmaster APIs, featuring seamless event discovery, interactive voting, and personalized schedule planning.",
-    tech_stack: "React, Node.js, Express.js, Python, MongoDB, Jira",
+      "A full-stack web app that utilizes Eventbrite & Ticketmaster APIs for seamless event discovery, interactive voting, and personalized schedule planning. It implements web scraping to compensate for missing functionality in Eventbrite's API.",
+    tech_stack:
+      "React, Node.js, Express.js, Python, Web Scraping, MongoDB, Docker, Git, Jira",
     githubUrl: "https://github.com/Jason-Wuuuu/CS555A-Team19-Project",
     demoUrl: "",
     screenshots: [
@@ -126,7 +117,7 @@ const projects = [
     course: "Web Programming Course",
     category: "Web APP",
     description:
-      "Full-stack web application integrating Marvel API for comic discovery and collection.",
+      "A full-stack web application that integrates the Marvel API for comic discovery and collection.",
     tech_stack: "React, Node.js, Apollo, GraphQL, Redis, Redux",
     githubUrl: "https://github.com/Jason-Wuuuu/Marvel-Comic-Web-App",
     demoUrl: "https://www.youtube.com/watch?v=rKfUaeMGa3w",
@@ -138,12 +129,12 @@ const projects = [
     ],
   },
   {
-    title: "SVM (Support Vector Machine)",
+    title: "Support Vector Machine",
     year: "2022",
     course: "ML Course",
     category: "ML/DL",
     description:
-      "This course work entails deriving the hyperplane equation from given data points and Lagrange multipliers, calculating distances to the hyperplane, and classifying new points, demonstrating key SVM concepts and geometric interpretations.",
+      "Coursework that involves deriving the hyperplane equation from given data points and Lagrange multipliers, calculating distances to the hyperplane, and classifying new points.",
     tech_stack: "Python, NumPy, Pandas, Matplotlib",
     githubUrl: "",
     demoUrl: "",
@@ -155,32 +146,32 @@ const projects = [
     course: "ML Course",
     category: "ML/DL",
     description:
-      "This course work involves implementing logistic regression from scratch for breast cancer diagnosis, focusing on Stochastic and Mini-Batch Gradient Descent optimizations, and evaluating model performance through precision, recall, and accuracy metrics.",
+      "Coursework that includes implementing logistic regression from scratch for breast cancer diagnosis, with a focus on Stochastic and Mini-Batch Gradient Descent optimizations, and model performance evaluation through precision, recall, and accuracy metrics.",
     tech_stack: "Python, NumPy, Pandas, Matplotlib",
     githubUrl: "",
     demoUrl: "",
     screenshots: [],
   },
   {
-    title: "PCA (Principal Component Analysis)",
+    title: "Diabetes Detection (PCA)",
     year: "2022",
     course: "ML Course",
     category: "ML/DL",
     description:
-      "This coursework involves dimensionality reduction on a diabetes dataset using Principal Component Analysis (PCA), implemented with Python's sklearn library. It begins by normalizing the dataset, then applies PCA to reduce the feature space from eight dimensions to two.",
-    tech_stack: "Python, NumPy, Pandas, Matplotlib, scikit-learn",
+      "Coursework that involves dimensionality reduction on a diabetes dataset using Principal Component Analysis (PCA), implemented with Python's sklearn library. PCA was applied to reduce the feature space from eight dimensions to two.",
+    tech_stack: "Python, NumPy, Pandas, Matplotlib, scikit-learn, PCA",
     githubUrl: "",
     demoUrl: "",
     screenshots: ["pca/principal_components.png"],
   },
   {
-    title: "SVD (Singular Value Decomposition)",
+    title: "Image Compression (SVD)",
     year: "2022",
     course: "ML Course",
     category: "ML/DL",
     description:
-      "This coursework entails a practical implementation of SVD to compress images. It includes defining functions for image processing, and applying SVD to decompose and reconstruct images at varying levels of compression.",
-    tech_stack: "Python, NumPy, Matplotlib",
+      "Coursework that involves the practical application of Singular Value Decomposition (SVD) to compress images. SVD was used to decompose and reconstruct images at varying levels of compression.",
+    tech_stack: "Python, NumPy, Matplotlib, SVD",
     githubUrl: "",
     demoUrl: "",
     screenshots: ["svd/image_compression.png"],
@@ -191,7 +182,7 @@ const projects = [
     course: "Undergrad Senior",
     category: "iOS APP",
     description:
-      "iOS app for composition suggestions in mobile photography and virtual postcard sharing. Achieved 2nd place in the competition for International ICT Innovative Services Awards.",
+      "An iOS app for suggesting compositions in mobile photography and for virtual postcard sharing. It achieved 2nd place in the competition for the International ICT Innovative Services Awards.",
     tech_stack: "Python, TensorFlow, Firebase, Swift, Sketch, Core ML",
     githubUrl: "",
     demoUrl: "",
@@ -224,16 +215,18 @@ function TableOfContents({ projects }) {
     () =>
       projects.map((project, index) => (
         <MenuItem
-          // dense
+          dense
           key={index}
           onClick={() => {
             handleClose();
             handleJump(`project-${index}`);
           }}
+          sx={{ m: 1 }}
         >
           <ListItemIcon>
             <ChevronRightIcon fontSize="small" />
           </ListItemIcon>
+
           <Typography variant="body1" sx={{ fontWeight: "bold" }} noWrap>
             {project.title}
           </Typography>
