@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, Fragment } from "react";
 
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
@@ -6,19 +6,16 @@ import Fade from "@mui/material/Fade";
 import Box from "@mui/material/Box";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
+import Fab from "@mui/material/Fab";
 import Accordion from "@mui/material/Accordion";
 import Divider from "@mui/material/Divider";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
-import Button from "@mui/material/Button";
-import Popover from "@mui/material/Popover";
-import Tooltip from "@mui/material/Tooltip";
-import useScrollTrigger from "@mui/material/useScrollTrigger";
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import MenuIcon from "@mui/icons-material/Menu";
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 
 import ProjectCard from "./ProjectCard";
 
@@ -225,7 +222,7 @@ function TableOfContents({ projects }) {
     () =>
       projects.map((project, index) => (
         <MenuItem
-          dense
+          // dense
           key={index}
           onClick={() => {
             handleClose();
@@ -242,31 +239,23 @@ function TableOfContents({ projects }) {
   );
 
   return (
-    <Box
-      role="presentation"
-      sx={{
-        position: "fixed",
-        bottom: 64,
-        left: 16,
-        zIndex: 1000,
-      }}
-    >
-      <Button
-        // icon={<MenuIcon sx={{ pl: 1 }} />}
-        startIcon={<MenuIcon />}
-        // size="small"
-        variant="contained"
-        color="inherit"
+    <Fragment>
+      <Fab
+        size="small"
+        variant="extended"
         onClick={handleClick}
         sx={{
+          position: "fixed",
+          bottom: 64,
+          right: 16,
+          // zIndex: 1000,
           boxShadow: 10,
-          fontWeight: "bold",
           opacity: 0.9,
-          borderRadius: 100,
         }}
       >
+        <FormatListBulletedIcon sx={{ mr: 1 }} />
         Table of Contents
-      </Button>
+      </Fab>
 
       <Menu
         open={open}
@@ -278,12 +267,12 @@ function TableOfContents({ projects }) {
         }}
         transformOrigin={{
           vertical: "center",
-          horizontal: "left",
+          horizontal: "right",
         }}
       >
         {listItems}
       </Menu>
-    </Box>
+    </Fragment>
   );
 }
 
