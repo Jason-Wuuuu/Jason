@@ -410,7 +410,7 @@ function Projects() {
       </Fade>
 
       <Fade in timeout={{ appear: 500, enter: 1500 }}>
-        <Grid item mt={2} mb={15} mx={2}>
+        <Grid item mt={2} mb={10} mx={2}>
           <Box
             display="flex"
             flexDirection="column"
