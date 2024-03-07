@@ -11,7 +11,6 @@ import Avatar from "@mui/material/Avatar";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
 
 import LaptopChromebookIcon from "@mui/icons-material/LaptopChromebook";
-import ArticleIcon from "@mui/icons-material/Article";
 
 function Header() {
   const navigate = useNavigate();
@@ -33,7 +32,8 @@ function Header() {
         sx={{
           opacity: 0.9,
           // backdropFilter: "blur(5px)",
-          boxShadow: 10,
+          boxShadow:
+            "0px 8px 10px -5px rgba(0,0,0,0.3), 0px 3px 14px 2px rgba(0,0,0,0.2), 0px 5px 5px -3px rgba(0,0,0,0.12)",
         }}
         // color="transparent"
       >

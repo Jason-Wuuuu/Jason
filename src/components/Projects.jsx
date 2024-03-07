@@ -246,23 +246,30 @@ function TableOfContents({ projects }) {
   return (
     <Fragment>
       <Fade in timeout={1000}>
-        <Fab
-          size="small"
-          variant="extended"
-          onClick={handleClick}
-          color="default"
+        <Box
+          display="flex"
+          role="presentation"
           sx={{
             position: "fixed",
             bottom: 64,
             right: 16,
-            // zIndex: 1000,
-            boxShadow: 10,
-            opacity: 0.9,
+            zIndex: 1000,
           }}
         >
-          <FormatListBulletedIcon sx={{ mr: 1 }} />
-          Contents
-        </Fab>
+          <Fab
+            size="small"
+            variant="extended"
+            onClick={handleClick}
+            color="default"
+            sx={{
+              boxShadow: 10,
+              opacity: 0.9,
+            }}
+          >
+            <FormatListBulletedIcon sx={{ mr: 1 }} />
+            Contents
+          </Fab>
+        </Box>
       </Fade>
 
       <Menu
@@ -417,7 +424,11 @@ function Projects() {
             right={0}
             bottom={0}
             zIndex={1000}
-            sx={{ opacity: 0.9 }}
+            sx={{
+              opacity: 0.9,
+              boxShadow:
+                "0px -8px 10px -5px rgba(0,0,0,0.3), 0px -3px 14px 2px rgba(0,0,0,0.2), 0px -5px 5px -3px rgba(0,0,0,0.12)",
+            }}
           >
             <Tabs textColor="inherit" value={tab} onChange={handleTab} centered>
               <Tab key="all" label="All" />
