@@ -78,9 +78,9 @@ const projects = [
     screenshots: ["mlp/score.png"],
   },
   {
-    title: "Stevens Marketplace (Group Project)",
+    title: "Stevens Marketplace",
     year: "2023",
-    course: "Web Programming Course",
+    course: "Web Programming Course Group",
     category: "Web APP",
     description:
       "A community-centric platform that facilitates the discovery and management of pre-owned items, featuring seamless and secure real-time messaging.",
@@ -94,9 +94,9 @@ const projects = [
     ],
   },
   {
-    title: "EventMaster (Group Project)",
+    title: "Event Master",
     year: "2023",
-    course: "Agile Methods for Software Dev Course",
+    course: "Agile Methods for Software Dev Course Group",
     category: "Web APP",
     description:
       "A full-stack web app that utilizes Eventbrite & Ticketmaster APIs for seamless event discovery, interactive voting, and personalized schedule planning. It implements web scraping to compensate for missing functionality in Eventbrite's API.",
