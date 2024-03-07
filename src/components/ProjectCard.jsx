@@ -43,6 +43,7 @@ function ProjectCard({ project }) {
         component="img"
         image={`./images/${image}`}
         alt={image.split(".")[0]}
+        sx={{ boxShadow: 10 }}
       />
     ));
   }, [project.screenshots]);
@@ -53,9 +54,15 @@ function ProjectCard({ project }) {
       width={{ xs: "90vw", sm: "80vw", md: "70vw", lg: "50vw" }}
       mb={3}
     >
-      <Card sx={{ boxShadow: 10 }}>
+      <Card sx={{ boxShadow: 10, backgroundColor: "#202020" }}>
         <CardHeader
-          avatar={<Avatar alt="memoji" src="./images/Memoji.png" />}
+          avatar={
+            <Avatar
+              alt="memoji"
+              src="./images/Memoji.png"
+              sx={{ boxShadow: 10 }}
+            />
+          }
           title={project.title}
           titleTypographyProps={{ variant: "h6", fontWeight: "bold" }}
           subheader={project.tech_stack}
@@ -97,7 +104,7 @@ function ProjectCard({ project }) {
             <Typography
               align="center"
               variant="body2"
-              color="text.secondary"
+              // color="text.secondary"
               mx={1}
             >
               {project.description}

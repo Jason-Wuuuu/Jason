@@ -234,7 +234,7 @@ function TableOfContents({ projects }) {
           <ListItemIcon>
             <ChevronRightIcon fontSize="small" />
           </ListItemIcon>
-          <Typography variant="body1" noWrap>
+          <Typography variant="body1" sx={{ fontWeight: "bold" }} noWrap>
             {project.title}
           </Typography>
         </MenuItem>
@@ -286,7 +286,7 @@ function TableOfContents({ projects }) {
         sx={{
           "& .MuiPaper-root": {
             // Targeting the Paper component inside the Menu
-            backgroundColor: "#242424",
+            backgroundColor: "#202020",
             boxShadow: 10,
           },
           backdropFilter: "blur(1px)",
@@ -374,7 +374,7 @@ function Projects() {
               sx={{
                 width: { xs: "90vw", sm: "80vw", md: "70vw", lg: "50vw" },
                 boxShadow: 10,
-                backgroundColor: "#222222",
+                backgroundColor: "#202020",
               }}
             >
               <AccordionSummary
