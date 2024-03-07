@@ -95,7 +95,7 @@ function ProjectCard({ project }) {
             <Divider sx={{ my: 1 }} />
 
             <Typography
-              align="justify"
+              align="center"
               variant="body2"
               color="text.secondary"
               mx={1}

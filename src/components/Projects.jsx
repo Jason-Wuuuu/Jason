@@ -302,13 +302,16 @@ function Projects() {
   }, [tab]);
 
   const techStackUnion = useMemo(() => {
-    // Calculate the union of tech_stack from filteredProjects
-    const allTechStacks = filteredProjects.flatMap((project) =>
-      project.tech_stack.split(", ")
-    );
+    // Flatten the array of tech_stack strings, splitting each by ", "
+    const allTechStacks = filteredProjects.flatMap((project) => {
+      // Split the tech_stack string into an array of individual techs
+      const techs = project.tech_stack.split(", ");
+      return techs;
+    });
+    // Create a Set from the flattened array to remove duplicates, then convert it back to an array
     const uniqueTechStacks = [...new Set(allTechStacks)];
     return uniqueTechStacks;
-  }, [filteredProjects]);
+  }, [filteredProjects]); // Depend on filteredProjects so this recalculates only when filteredProjects changes
 
   const projectCards = useMemo(() => {
     return filteredProjects.map((project, index) => (
