@@ -1,4 +1,4 @@
-import { Fragment, useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
@@ -8,10 +8,17 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Accordion from "@mui/material/Accordion";
 import Divider from "@mui/material/Divider";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
+import Button from "@mui/material/Button";
+import Popover from "@mui/material/Popover";
+import Tooltip from "@mui/material/Tooltip";
+import useScrollTrigger from "@mui/material/useScrollTrigger";
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import MenuIcon from "@mui/icons-material/Menu";
 
 import ProjectCard from "./ProjectCard";
 
@@ -47,7 +54,7 @@ const projects = [
     screenshots: ["word2vec/word_vec.png"],
   },
   {
-    title: "Multi-Layer Perceptron (MLP) model",
+    title: "Multi-Layer Perceptron Model",
     year: "2024",
     course: "NLP Course",
     category: "ML/DL",
@@ -193,6 +200,93 @@ const projects = [
   },
 ];
 
+function TableOfContents({ projects }) {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleJump = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      const elementTop = element.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({
+        top: elementTop - 100, // Subtract the offset to the element's top position
+        behavior: "smooth",
+      });
+    }
+  };
+
+  const listItems = useMemo(
+    () =>
+      projects.map((project, index) => (
+        <MenuItem
+          dense
+          key={index}
+          onClick={() => {
+            handleClose();
+            handleJump(`project-${index}`);
+          }}
+          sx={{
+            fontWeight: "bold",
+          }}
+        >
+          {project.title}
+        </MenuItem>
+      )),
+    [projects]
+  );
+
+  return (
+    <Box
+      role="presentation"
+      sx={{
+        position: "fixed",
+        bottom: 64,
+        left: 16,
+        zIndex: 1000,
+      }}
+    >
+      <Button
+        // icon={<MenuIcon sx={{ pl: 1 }} />}
+        startIcon={<MenuIcon />}
+        // size="small"
+        variant="contained"
+        color="inherit"
+        onClick={handleClick}
+        sx={{
+          boxShadow: 10,
+          fontWeight: "bold",
+          opacity: 0.9,
+          borderRadius: 100,
+        }}
+      >
+        Table of Contents
+      </Button>
+
+      <Menu
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
+        transformOrigin={{
+          vertical: "center",
+          horizontal: "left",
+        }}
+      >
+        {listItems}
+      </Menu>
+    </Box>
+  );
+}
+
 function Projects() {
   const [tab, setTab] = useState(0);
   const handleTab = (event, newValue) => setTab(newValue);
@@ -225,8 +319,10 @@ function Projects() {
   }, [filteredProjects]);
 
   const projectCards = useMemo(() => {
-    return filteredProjects.map((project) => (
-      <ProjectCard key={project.title} project={project} />
+    return filteredProjects.map((project, index) => (
+      <Box id={`project-${index}`} key={project.title}>
+        <ProjectCard project={project} />
+      </Box>
     ));
   }, [filteredProjects]);
 
@@ -265,7 +361,7 @@ function Projects() {
       </Fade>
 
       <Fade in timeout={500}>
-        <Grid item my={2}>
+        <Grid item my={3}>
           <Box
             display="flex"
             flexDirection="column"
@@ -273,25 +369,24 @@ function Projects() {
             alignItems="center"
           >
             <Accordion
-              defaultExpanded
+              // defaultExpanded
               sx={{
-                width: { xs: "90vw", sm: "80vw", md: "70vw", lg: "60vw" },
+                width: { xs: "90vw", sm: "80vw", md: "70vw", lg: "50vw" },
                 boxShadow: 10,
+                backgroundColor: "#222222",
               }}
             >
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 sx={{ fontWeight: "bold" }}
               >
-                {`Technologies Summary for ${
-                  tab === 0 ? "All" : categories[tab - 1]
-                } Projects`}
+                Technologies / Skills
               </AccordionSummary>
 
               <Divider sx={{ mx: 1 }} />
 
               <AccordionDetails sx={{ mx: 1 }}>
-                <Typography variant="caption" color="text.secondary">
+                <Typography variant="caption" fontWeight="bold">
                   {techStackUnion.join(", ")}
                 </Typography>
               </AccordionDetails>
@@ -333,6 +428,8 @@ function Projects() {
           </Box>
         </Grid>
       </Fade>
+
+      <TableOfContents projects={filteredProjects} />
     </Grid>
   );
 }

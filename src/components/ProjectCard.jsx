@@ -50,7 +50,7 @@ function ProjectCard({ project }) {
   return (
     <Grid
       item
-      width={{ xs: "90vw", sm: "80vw", md: "70vw", lg: "60vw" }}
+      width={{ xs: "90vw", sm: "80vw", md: "70vw", lg: "50vw" }}
       mb={3}
     >
       <Card sx={{ boxShadow: 10 }}>
@@ -94,7 +94,12 @@ function ProjectCard({ project }) {
 
             <Divider sx={{ my: 1 }} />
 
-            <Typography align="center" variant="body1" color="text.secondary">
+            <Typography
+              align="justify"
+              variant="body2"
+              color="text.secondary"
+              mx={1}
+            >
               {project.description}
             </Typography>
           </CardContent>
