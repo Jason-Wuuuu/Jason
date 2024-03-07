@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Grid from "@mui/material/Grid";
@@ -28,56 +28,57 @@ import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import NearMeIcon from "@mui/icons-material/NearMe";
 
+const steps = [
+  {
+    icon_on: <FaceIcon />,
+    icon_off: <FaceOutlinedIcon />,
+    title: "Who I am",
+    image: "me_1",
+    content: [
+      "👋 Hi! My name is Jason.",
+      "🏫 A CS grad from Taiwan currently pursuing my master's at Stevens Institute of Technology.",
+      "💻 I'm all about cracking codes and building cool stuff.",
+    ],
+  },
+  {
+    icon_on: <FavoriteIcon />,
+    icon_off: <FavoriteBorderIcon />,
+    title: "Things I Like",
+    image: "me_2",
+    content: [
+      "💭 When I'm not coding...",
+      "🏂 You'll probably find me shredding the slopes on my snowboard or binge-watching my favorite anime series.",
+      "💡 Programming isn't just a job for me; it's a passion that fuels my creativity and keeps me hooked on the endless possibilities of tech.",
+    ],
+  },
+  {
+    icon_on: <ThumbUpAltIcon />,
+    icon_off: <ThumbUpOffAltIcon />,
+    title: "I'm Good at",
+    image: "me_3",
+    content: [
+      "📚 I've got skills and experience in Python, Java, JavaScript, and various frameworks.",
+      "🤖 From crafting web apps to delving into machine learning, I love putting my technical know-how to work.",
+      "🚀 Plus, I'm adaptable and thrive on learning, making me versatile in any software role.",
+    ],
+  },
+];
+
 function AboutPage({ expand, aboutRef }) {
   const navigate = useNavigate();
   const [activeStep, setActiveStep] = useState(0);
 
-  const steps = useMemo(
-    () => [
-      {
-        icon_on: <FaceIcon />,
-        icon_off: <FaceOutlinedIcon />,
-        title: "Who I am",
-        image: "me_1",
-        content: [
-          "👋 Hi! My name is Jason.",
-          "🏫 A CS grad from Taiwan currently pursuing my master's at Stevens Institute of Technology.",
-          "💻 I'm all about cracking codes and building cool stuff.",
-        ],
-      },
-      {
-        icon_on: <FavoriteIcon />,
-        icon_off: <FavoriteBorderIcon />,
-        title: "Things I Like",
-        image: "me_2",
-        content: [
-          "💭 When I'm not coding...",
-          "🏂 You'll probably find me shredding the slopes on my snowboard or binge-watching my favorite anime series.",
-          "💡 Programming isn't just a job for me; it's a passion that fuels my creativity and keeps me hooked on the endless possibilities of tech.",
-        ],
-      },
-      {
-        icon_on: <ThumbUpAltIcon />,
-        icon_off: <ThumbUpOffAltIcon />,
-        title: "I'm Good at",
-        image: "me_3",
-        content: [
-          "📚 I've got skills and experience in Python, Java, JavaScript, and various frameworks.",
-          "🤖 From crafting web apps to delving into machine learning, I love putting my technical know-how to work.",
-          "🚀 Plus, I'm adaptable and thrive on learning, making me versatile in any software role.",
-        ],
-      },
-    ],
-    []
-  );
-
-  const handleNext = () =>
+  const handleNext = useCallback(() => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  }, []);
 
-  const handleBack = () =>
+  const handleBack = useCallback(() => {
     setActiveStep((prevActiveStep) => activeStep !== 0 && prevActiveStep - 1);
+  }, [activeStep]);
 
-  const handleReset = () => setActiveStep(0);
+  const handleReset = useCallback(() => {
+    setActiveStep(0);
+  }, []);
 
   useEffect(() => {
     if (aboutRef.current) {

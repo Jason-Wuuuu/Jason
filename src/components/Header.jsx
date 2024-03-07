@@ -61,17 +61,6 @@ function Header() {
                 onClick={() => navigate(`/projects`)}
                 clickable={location.pathname !== "/projects"}
               />
-
-              {/* <Chip
-                icon={<ArticleIcon sx={{ pl: 1 }} />}
-                label="Resume"
-                sx={{ fontWeight: "bold", boxShadow: 10, ml: 1  }}
-                variant={
-                  location.pathname === "/resume" ? "filled" : "outlined"
-                }
-                onClick={() => navigate(`/resume`)}
-                clickable={location.pathname !== "/resume"}
-              /> */}
             </Box>
           </Toolbar>
         </Container>
