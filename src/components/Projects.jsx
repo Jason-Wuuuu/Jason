@@ -7,9 +7,10 @@ import Box from "@mui/material/Box";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Accordion from "@mui/material/Accordion";
-import AccordionActions from "@mui/material/AccordionActions";
+import Divider from "@mui/material/Divider";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
+
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 import ProjectCard from "./ProjectCard";
@@ -34,7 +35,7 @@ const projects = [
     ],
   },
   {
-    title: "Word2Vec Skip-Gram model",
+    title: "Word2Vec Skip-Gram Model",
     year: "2024",
     course: "NLP Course",
     category: "ML/DL",
@@ -286,6 +287,8 @@ function Projects() {
                   tab === 0 ? "All" : categories[tab - 1]
                 } Projects`}
               </AccordionSummary>
+
+              <Divider sx={{ mx: 1 }} />
 
               <AccordionDetails sx={{ mx: 1 }}>
                 <Typography variant="caption" color="text.secondary">

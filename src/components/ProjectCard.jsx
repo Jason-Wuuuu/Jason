@@ -18,7 +18,7 @@ import Carousel from "react-material-ui-carousel";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { Divider } from "@mui/material";
+import Divider from "@mui/material/Divider";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
