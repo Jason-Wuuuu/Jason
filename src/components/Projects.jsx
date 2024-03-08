@@ -41,6 +41,18 @@ const projects = [
     ],
   },
   {
+    title: "Visual Board",
+    year: "2024",
+    course: "Personal",
+    category: "Web APP",
+    description:
+      "An interactive stock dashboard featuring historical data charts, market recommendations, and stock analysis.",
+    tech_stack: "React, MUI, Python, FastAPI, yfinance, Redis",
+    githubUrl: "https://github.com/Jason-Wuuuu/VisualBoard",
+    demoUrl: "https://youtu.be/hOSht_Mvv34",
+    screenshots: ["visual_board/stock1.png", "visual_board/stock2.png"],
+  },
+  {
     title: "IMDB Movie Review Analysis (Word2Vec)",
     year: "2024",
     course: "NLP Course",
@@ -52,18 +64,6 @@ const projects = [
     githubUrl: "",
     demoUrl: "",
     screenshots: ["word2vec/word_vec.png"],
-  },
-  {
-    title: "Visual Board",
-    year: "2024",
-    course: "Personal",
-    category: "Web APP",
-    description:
-      "An interactive data visualization/dashboard featuring historical data charts, market recommendations, and stock analysis.",
-    tech_stack: "React, MUI, Python, FastAPI, yfinance, Redis",
-    githubUrl: "https://github.com/Jason-Wuuuu/VisualBoard",
-    demoUrl: "https://youtu.be/hOSht_Mvv34",
-    screenshots: ["visual_board/stock1.png", "visual_board/stock2.png"],
   },
   {
     title: "Author Classification (MLP)",
