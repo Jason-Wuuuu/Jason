@@ -141,6 +141,7 @@ function AboutPage({ expand, aboutRef }) {
                       display: { sm: "flex" },
                       boxShadow: 10,
                       p: 1,
+                      backgroundColor: "#202020",
                     }}
                   >
                     <CardMedia
