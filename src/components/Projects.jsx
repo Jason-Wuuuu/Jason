@@ -204,9 +204,12 @@ function TableOfContents({ projects }) {
   const handleJump = (id) => {
     const element = document.getElementById(id);
     if (element) {
-      const elementTop = element.getBoundingClientRect().top + window.scrollY;
+      const yOffset = -100;
+      const elementTop =
+        element.getBoundingClientRect().top + window.scrollY + yOffset;
+
       window.scrollTo({
-        top: elementTop - 100, // Subtract the offset to the element's top position
+        top: elementTop,
         behavior: "smooth",
       });
     }

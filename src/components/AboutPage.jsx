@@ -133,7 +133,7 @@ function AboutPage({ expand, aboutRef }) {
                 <StepContent
                   TransitionProps={{
                     unmountOnExit: false,
-                    // timeout: 500,
+                    timeout: 500,
                   }}
                 >
                   <Card

@@ -44,6 +44,7 @@ function ProjectCard({ project }) {
         image={`./images/${image}`}
         alt={image.split(".")[0]}
         sx={{ boxShadow: 10 }}
+        loading="lazy"
       />
     ));
   }, [project.screenshots]);
