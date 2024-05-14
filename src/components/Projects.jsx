@@ -23,6 +23,34 @@ import ProjectCard from "./ProjectCard";
 
 const projects = [
   {
+    title: "Tripper",
+    year: "2024",
+    course: "Personal",
+    category: "Web APP",
+    description:
+      "A dynamic, user-friendly web app designed to transform the way travelers plan and experience trips.",
+    tech_stack: "Spring Boot, Maven, Next.js, TypeScript, MongoDB",
+    githubUrl: "https://github.com/Jason-Wuuuu/Tripper",
+    demoUrl: "",
+    screenshots: ["tripper/trips.png"],
+  },
+  {
+    title: "Seq2Seq Translation Model",
+    year: "2024",
+    course: "NLP Course",
+    category: "ML/DL",
+    description:
+      "A seq2seq model to translate French text into English using the iwslt2017 dataset, processing over 50,000 sentence pairs.",
+    tech_stack: "Python, TensorFlow, Seq2Seq, GRU, Tokenizer",
+    githubUrl: "",
+    demoUrl: "",
+    screenshots: [
+      "seq2seq/model.png",
+      "seq2seq/translation_1.png",
+      "seq2seq/translation_2.png",
+    ],
+  },
+  {
     title: "Stock Price Forecast",
     year: "2024",
     course: "Personal",
@@ -101,7 +129,7 @@ const projects = [
     description:
       "A full-stack web app that utilizes Eventbrite & Ticketmaster APIs for seamless event discovery, interactive voting, and personalized schedule planning. It implements web scraping to compensate for missing functionality in Eventbrite's API.",
     tech_stack:
-      "React, Node.js, Express.js, Python, Web Scraping, MongoDB, Docker, Git, Jira",
+      "React, Node.js, Express.js, Python, Web Scraping, MongoDB, Docker, Git, Jira, Mocha, Cypress",
     githubUrl: "https://github.com/Jason-Wuuuu/CS555A-Team19-Project",
     demoUrl: "",
     screenshots: [
