@@ -37,10 +37,10 @@ const projects = [
   {
     title: "Bank Ledger System",
     year: "2024",
-    course: "Personal",
+    course: "Interview 2nd Round",
     category: "Backend",
     description:
-      "Backend Interview 2nd round, challenged to developed a bank ledger system implementing the Event Sourcing pattern to maintain an immutable transaction history, ensuring auditability and reconstruction of account balances.",
+      "Developed a bank ledger system implementing the Event Sourcing pattern to maintain an immutable transaction history, ensuring auditability and reconstruction of account balances.",
     tech_stack: "Java, Spring Boot, Guava, JUnit",
     githubUrl: "",
     demoUrl: "",
