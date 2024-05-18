@@ -29,7 +29,8 @@ const projects = [
     category: "Full Stack",
     description:
       "A dynamic, user-friendly web app designed to transform the way travelers plan and experience trips.",
-    tech_stack: "Java, Spring Boot, Maven, Next.js, TypeScript, MongoDB",
+    tech_stack:
+      "Java, Spring Boot, Maven, Next.js, TypeScript, Tailwind CSS, daisyUI, MongoDB",
     githubUrl: "https://github.com/Jason-Wuuuu/Tripper",
     demoUrl: "",
     screenshots: ["tripper/trips.png"],
@@ -125,7 +126,7 @@ const projects = [
     description:
       "A community-centric platform that facilitates the discovery and management of pre-owned items, featuring seamless and secure real-time messaging.",
     tech_stack:
-      "React, GraphQL, MongoDB, Firebase, Redux, Redis, socket.io, S3, Docker, Git",
+      "React, MUI, GraphQL, MongoDB, Firebase, Redux, Redis, socket.io, S3, Docker, Git",
     githubUrl: "https://github.com/Jason-Wuuuu/CS554-GroupVVIV",
     demoUrl: "",
     screenshots: [
@@ -156,10 +157,10 @@ const projects = [
     title: "Marvel Comic App",
     year: "2023",
     course: "Web Programming Course",
-    category: "Full Stack",
+    category: "Frontend",
     description:
       "A full-stack web application that integrates the Marvel API for comic discovery and collection.",
-    tech_stack: "React, Node.js, Apollo, GraphQL, Redis, Redux",
+    tech_stack: "React, MUI, Node.js, Apollo, GraphQL, Redis, Redux",
     githubUrl: "https://github.com/Jason-Wuuuu/Marvel-Comic-Web-App",
     demoUrl: "https://www.youtube.com/watch?v=rKfUaeMGa3w",
     screenshots: [
@@ -465,6 +466,8 @@ function Projects() {
       <Fade in timeout={500}>
         <Grid item>
           <Box
+            display="flex"
+            justifyContent="center"
             width="100%"
             bgcolor="#242424"
             position="fixed"
@@ -477,7 +480,15 @@ function Projects() {
                 "0px -8px 10px -5px rgba(0,0,0,0.3), 0px -3px 14px 2px rgba(0,0,0,0.2), 0px -5px 5px -3px rgba(0,0,0,0.12)",
             }}
           >
-            <Tabs textColor="inherit" value={tab} onChange={handleTab} centered>
+            <Tabs
+              textColor="inherit"
+              value={tab}
+              onChange={handleTab}
+              // centered
+              variant="scrollable"
+              scrollButtons="auto"
+              allowScrollButtonsMobile
+            >
               <Tab key="all" label="All" />
               {categories.map((category, index) => (
                 <Tab key={`${category}-${index}`} label={category} />
