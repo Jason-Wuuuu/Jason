@@ -475,7 +475,7 @@ function Projects() {
             bottom={0}
             zIndex={1000}
             sx={{
-              opacity: 0.9,
+              // opacity: 0.9,
               boxShadow:
                 "0px -8px 10px -5px rgba(0,0,0,0.3), 0px -3px 14px 2px rgba(0,0,0,0.2), 0px -5px 5px -3px rgba(0,0,0,0.12)",
             }}
