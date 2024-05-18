@@ -26,13 +26,25 @@ const projects = [
     title: "Tripper",
     year: "2024",
     course: "Personal",
-    category: "Web APP",
+    category: "Full Stack",
     description:
       "A dynamic, user-friendly web app designed to transform the way travelers plan and experience trips.",
-    tech_stack: "Spring Boot, Maven, Next.js, TypeScript, MongoDB",
+    tech_stack: "Java, Spring Boot, Maven, Next.js, TypeScript, MongoDB",
     githubUrl: "https://github.com/Jason-Wuuuu/Tripper",
     demoUrl: "",
     screenshots: ["tripper/trips.png"],
+  },
+  {
+    title: "Bank Ledger System",
+    year: "2024",
+    course: "Personal",
+    category: "Backend",
+    description:
+      "Backend Interview 2nd round, challenged to developed a bank ledger system implementing the Event Sourcing pattern to maintain an immutable transaction history, ensuring auditability and reconstruction of account balances.",
+    tech_stack: "Java, Spring Boot, Guava, JUnit",
+    githubUrl: "",
+    demoUrl: "",
+    screenshots: [],
   },
   {
     title: "Seq2Seq Translation Model",
@@ -72,7 +84,7 @@ const projects = [
     title: "Visual Board",
     year: "2024",
     course: "Personal",
-    category: "Web APP",
+    category: "Full Stack",
     description:
       "An interactive stock dashboard featuring historical data charts, market recommendations, and stock analysis.",
     tech_stack: "React, MUI, Python, FastAPI, yfinance, Redis",
@@ -109,7 +121,7 @@ const projects = [
     title: "Stevens Marketplace",
     year: "2023",
     course: "Web Programming Course Group",
-    category: "Web APP",
+    category: "Full Stack",
     description:
       "A community-centric platform that facilitates the discovery and management of pre-owned items, featuring seamless and secure real-time messaging.",
     tech_stack:
@@ -125,7 +137,7 @@ const projects = [
     title: "Event Master",
     year: "2023",
     course: "Agile Methods for Software Dev Course Group",
-    category: "Web APP",
+    category: "Full Stack",
     description:
       "A full-stack web app that utilizes Eventbrite & Ticketmaster APIs for seamless event discovery, interactive voting, and personalized schedule planning. It implements web scraping to compensate for missing functionality in Eventbrite's API.",
     tech_stack:
@@ -144,7 +156,7 @@ const projects = [
     title: "Marvel Comic App",
     year: "2023",
     course: "Web Programming Course",
-    category: "Web APP",
+    category: "Full Stack",
     description:
       "A full-stack web application that integrates the Marvel API for comic discovery and collection.",
     tech_stack: "React, Node.js, Apollo, GraphQL, Redis, Redux",
