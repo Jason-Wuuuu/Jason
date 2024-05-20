@@ -33,7 +33,7 @@ const projects = [
       "Java, Spring Boot, Maven, Next.js, TypeScript, Tailwind CSS, daisyUI, MongoDB",
     githubUrl: "https://github.com/Jason-Wuuuu/Tripper",
     demoUrl: "",
-    screenshots: ["tripper/trips.png"],
+    screenshots: ["tripper/trips.png", "tripper/trips_2.png"],
   },
   {
     title: "Bank Ledger System",
