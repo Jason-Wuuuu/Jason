@@ -408,7 +408,7 @@ function Projects() {
             alignItems="center"
           >
             <Accordion
-              defaultExpanded
+              // defaultExpanded
               sx={{
                 width: { xs: "90vw", sm: "80vw", md: "70vw", lg: "50vw" },
                 boxShadow: 10,
