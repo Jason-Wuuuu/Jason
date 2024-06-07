@@ -25,7 +25,7 @@ const projects = [
   {
     title: "Tripper",
     year: "2024",
-    course: "Personal",
+    course: "Side",
     category: "Full Stack",
     description:
       "A dynamic, user-friendly web app designed to transform the way travelers plan and experience trips.",
@@ -66,7 +66,7 @@ const projects = [
   {
     title: "Stock Price Forecast",
     year: "2024",
-    course: "Personal",
+    course: "Side",
     category: "ML/DL",
     description:
       "A LSTM model designed to forecast stock prices based on historical data, trained using a variety of features and technical indicators. It achieves an average R^2 score of 0.96 and an average Mean Absolute Percentage Error of 0.1%.",
@@ -84,7 +84,7 @@ const projects = [
   {
     title: "Visual Board",
     year: "2024",
-    course: "Personal",
+    course: "Side",
     category: "Full Stack",
     description:
       "An interactive stock dashboard featuring historical data charts, market recommendations, and stock analysis.",

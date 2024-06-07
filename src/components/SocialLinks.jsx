@@ -21,7 +21,7 @@ export default function SocialLinks() {
           left: 16,
         }}
       >
-        <Tooltip title="Instagram" placement="right">
+        {/* <Tooltip title="Instagram" placement="right">
           <IconButton
             href="https://www.instagram.com/jason_wu.0429/"
             target="_blank"
@@ -30,7 +30,7 @@ export default function SocialLinks() {
               <InstagramIcon />
             </Fab>
           </IconButton>
-        </Tooltip>
+        </Tooltip> */}
 
         <Tooltip title="LinkedIn" placement="right">
           <IconButton

@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Grid from "@mui/material/Grid";
@@ -35,9 +35,9 @@ const steps = [
     title: "Who I am",
     image: "me_1",
     content: [
-      "👋 Hi! My name is Jason.",
-      "🏫 A CS grad from Taiwan currently pursuing my master's at Stevens Institute of Technology.",
-      "💻 I'm all about cracking codes and building cool stuff.",
+      "👋 Hey there! My name is Jason, a software engineer from Taiwan.",
+      "🏫 Just wrapped up my Master's in CS at Stevens Institute of Technology, class of 2024!",
+      "💻 Totally into web development and diving deep into AI/ML/DL. Love coding up cool projects and exploring new tech trends!",
     ],
   },
   {
@@ -64,7 +64,7 @@ const steps = [
   },
 ];
 
-function AboutPage({ expand, aboutRef }) {
+function AboutPage() {
   const navigate = useNavigate();
   const [activeStep, setActiveStep] = useState(0);
 
@@ -81,12 +81,6 @@ function AboutPage({ expand, aboutRef }) {
   }, []);
 
   useEffect(() => {
-    if (aboutRef.current) {
-      aboutRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [expand, activeStep]);
-
-  useEffect(() => {
     // Preload images
     steps.forEach((step) => {
       const img = new Image();
@@ -95,160 +89,112 @@ function AboutPage({ expand, aboutRef }) {
   }, []);
 
   return (
-    <Fade in timeout={{ appear: 500, enter: 2000 }}>
-      <Grid
-        container
-        justifyContent="center"
-        alignContent="center"
-        direction="column"
-        minHeight="100vh"
-        display={!expand && "none"}
-      >
-        <Grid item width={{ xs: "80vw", md: "70vw", lg: "50vw" }}>
-          <Divider sx={{ my: 3 }} />
-
-          <Stepper
-            activeStep={activeStep}
-            orientation="vertical"
-            ref={aboutRef}
-          >
-            {steps.map((step, index) => (
-              <Step key={`step_${index}`}>
-                <StepLabel
-                  sx={{ fontWeight: "bold" }}
-                  icon={index === activeStep ? step.icon_on : step.icon_off}
-                  onClick={() => setActiveStep(index)}
-                  // ref={activeStep === index ? aboutRef : null}
+    <Grid
+      container
+      justifyContent="center"
+      alignContent="center"
+      direction="column"
+      // minHeight="100vh"
+    >
+      <Grid item width={{ xs: "80vw", md: "70vw", lg: "50vw" }}>
+        <Stepper activeStep={activeStep} orientation="vertical">
+          {steps.map((step, index) => (
+            <Step key={`step_${index}`}>
+              <StepLabel
+                sx={{ fontWeight: "bold" }}
+                icon={index === activeStep ? step.icon_on : step.icon_off}
+                onClick={() => setActiveStep(index)}
+              >
+                <Typography
+                  variant={index === activeStep ? "h5" : "subtitle2"}
+                  color={index === activeStep ? "inherit" : "text.secondary"}
+                  fontWeight={index === activeStep ? "bold" : ""}
+                  ml={index === activeStep && 1}
                 >
-                  <Typography
-                    variant={index === activeStep ? "h5" : "subtitle2"}
-                    color={index === activeStep ? "inherit" : "text.secondary"}
-                    fontWeight={index === activeStep ? "bold" : ""}
-                    ml={index === activeStep && 1}
-                  >
-                    {step.title}
-                  </Typography>
-                </StepLabel>
+                  {step.title}
+                </Typography>
+              </StepLabel>
 
-                <StepContent
-                  TransitionProps={{
-                    unmountOnExit: false,
-                    timeout: 500,
+              <StepContent
+                TransitionProps={{
+                  unmountOnExit: false,
+                  timeout: 500,
+                }}
+              >
+                <Card
+                  sx={{
+                    display: { sm: "flex" },
+                    boxShadow: 10,
+                    p: 1,
+                    backgroundColor: "#202020",
                   }}
                 >
-                  <Card
+                  <CardMedia
+                    component="img"
                     sx={{
-                      display: { sm: "flex" },
+                      width: {
+                        xs: "100%",
+                        sm: "60%",
+                      },
+                      // height: { xs: "50%", sm: "100%" },
+                      borderRadius: 1,
                       boxShadow: 10,
-                      p: 1,
-                      backgroundColor: "#202020",
                     }}
-                  >
-                    <CardMedia
-                      component="img"
-                      sx={{
-                        width: {
-                          xs: "100%",
-                          sm: "60%",
-                        },
-                        // height: { xs: "50%", sm: "100%" },
-                        borderRadius: 1,
-                        boxShadow: 10,
-                      }}
-                      image={`./images/me/${step.image}.png`}
-                      alt={step.image}
-                      // loading="lazy"
-                    />
+                    image={`./images/me/${step.image}.png`}
+                    alt={step.image}
+                    // loading="lazy"
+                  />
 
-                    <CardContent>
-                      <Box display="flex" flexDirection="column" height="100%">
-                        {step.content.map((line, i) => {
-                          return (
-                            <Typography
-                              // align="center"
-                              key={`step_${index}_line_${i}`}
-                              variant="body2"
-                              my={2}
-                            >
-                              {line}
-                            </Typography>
-                          );
-                        })}
-                      </Box>
-                    </CardContent>
-                  </Card>
+                  <CardContent>
+                    <Box display="flex" flexDirection="column" height="100%">
+                      {step.content.map((line, i) => {
+                        return (
+                          <Typography
+                            // align="center"
+                            key={`step_${index}_line_${i}`}
+                            variant="body2"
+                            my={2}
+                          >
+                            {line}
+                          </Typography>
+                        );
+                      })}
+                    </Box>
+                  </CardContent>
+                </Card>
 
-                  <Box sx={{ mt: 2 }} display="flex" justifyContent="flex-end">
-                    {index !== 0 && (
-                      <Chip
-                        label="Back"
-                        icon={<ArrowCircleUpIcon />}
-                        sx={{
-                          fontWeight: "bold",
-                          boxShadow: 10,
-                          border: 1,
-                          mr: 2,
-                        }}
-                        variant="outlined"
-                        onClick={handleBack}
-                      />
-                    )}
-
+                <Box sx={{ mt: 2 }} display="flex" justifyContent="flex-end">
+                  {index !== 0 && (
                     <Chip
-                      label={index === 2 ? "Back to Start" : "Continue"}
-                      icon={
-                        index === 2 ? (
-                          <RestartAltIcon />
-                        ) : (
-                          <ArrowCircleDownIcon />
-                        )
-                      }
-                      sx={{ fontWeight: "bold", boxShadow: 10, border: 1 }}
+                      label="Back"
+                      icon={<ArrowCircleUpIcon />}
+                      sx={{
+                        fontWeight: "bold",
+                        boxShadow: 10,
+                        border: 1,
+                        mr: 2,
+                      }}
                       variant="outlined"
-                      onClick={index === 2 ? handleReset : handleNext}
+                      onClick={handleBack}
                     />
-                  </Box>
-                </StepContent>
-              </Step>
-            ))}
-          </Stepper>
-        </Grid>
+                  )}
 
-        <Divider sx={{ my: 3 }} />
-
-        <Grid item mb={3}>
-          <Box
-            display="flex"
-            flexDirection="column"
-            justifyContent="center"
-            alignItems="center"
-          >
-            <Typography
-              variant="subtitle1"
-              // sx={{ fontWeight: "bold" }}
-              mb={2}
-            >
-              Got a glimpse of who I am?
-            </Typography>
-
-            <Button
-              size="small"
-              color="inherit"
-              variant="contained"
-              startIcon={<NearMeIcon />}
-              onClick={() => navigate("/projects")}
-              sx={{
-                borderRadius: 100,
-                boxShadow: 10,
-                fontSize: 12,
-              }}
-            >
-              Check out my projects!
-            </Button>
-          </Box>
-        </Grid>
+                  <Chip
+                    label={index === 2 ? "Back to Start" : "Continue"}
+                    icon={
+                      index === 2 ? <RestartAltIcon /> : <ArrowCircleDownIcon />
+                    }
+                    sx={{ fontWeight: "bold", boxShadow: 10, border: 1 }}
+                    variant="outlined"
+                    onClick={index === 2 ? handleReset : handleNext}
+                  />
+                </Box>
+              </StepContent>
+            </Step>
+          ))}
+        </Stepper>
       </Grid>
-    </Fade>
+    </Grid>
   );
 }
 export default AboutPage;

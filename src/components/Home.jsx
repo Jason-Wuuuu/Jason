@@ -1,49 +1,63 @@
-import { Fragment, useState, useMemo, useRef } from "react";
+import { Fragment } from "react";
+import { useNavigate } from "react-router-dom";
 
 import Box from "@mui/material/Box";
-import Tooltip from "@mui/material/Tooltip";
 import Grow from "@mui/material/Grow";
-import Chip from "@mui/material/Chip";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import NearMeIcon from "@mui/icons-material/NearMe";
 
 import MainPage from "./MainPage";
 import AboutPage from "./AboutPage";
-import SocialLinks from "./SocialLinks";
 
 function Home() {
-  const [expand, setExpand] = useState(false);
-
-  const aboutRef = useRef(null);
-
-  function handleExpand() {
-    expand
-      ? aboutRef.current.scrollIntoView({ behavior: "smooth" })
-      : setExpand(true);
-  }
+  const navigate = useNavigate();
 
   return (
-    <Fragment>
+    <Box py={15}>
+      <Typography align="center" variant="h4" fontWeight="bold" mb={5}>
+        Jason's Portfolio
+      </Typography>
+
       <MainPage />
 
       <Grow in timeout={1000}>
-        <Box display="flex" justifyContent="center" alignContent="center">
-          <Tooltip title="Click to Expand" placement="top" arrow>
-            <Chip
-              label="About Me"
-              icon={<KeyboardArrowDownIcon />}
-              sx={{ fontWeight: "bold", boxShadow: 10, border: 1 }}
-              variant="outlined"
-              onClick={handleExpand}
-            />
-          </Tooltip>
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignContent="center"
+          my={10}
+          sx={{
+            position: "sticky",
+            top: 10,
+            left: 0,
+            right: 0,
+          }}
+        >
+          <Button
+            size="large"
+            color="inherit"
+            variant="contained"
+            startIcon={<NearMeIcon />}
+            sx={{
+              borderRadius: 100,
+              boxShadow: 10,
+              fontSize: 12,
+            }}
+            onClick={() => navigate("/projects")}
+          >
+            Check out my projects!
+          </Button>
         </Box>
       </Grow>
 
-      <AboutPage expand={expand} aboutRef={aboutRef} />
+      <Typography align="center" variant="h4" fontWeight="bold" mb={5}>
+        More About Me
+      </Typography>
 
-      <SocialLinks />
-    </Fragment>
+      <AboutPage />
+    </Box>
   );
 }
 export default Home;

@@ -53,7 +53,7 @@ function Header() {
             <Box display="flex">
               <Chip
                 icon={<LaptopChromebookIcon sx={{ pl: 1 }} />}
-                label="Projects"
+                label="My Projects"
                 sx={{ fontWeight: "bold", boxShadow: 10 }}
                 variant={
                   location.pathname === "/projects" ? "filled" : "outlined"
