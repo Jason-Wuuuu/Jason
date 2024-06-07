@@ -45,13 +45,14 @@ function MainPage() {
                 width: 300,
                 borderRadius: 100,
                 boxShadow: 10,
+                mb: 5,
               }}
               alt="memoji"
               src="./images/Memoji.png"
             />
           </Tooltip>
 
-          <Typography align="center" variant="h5" fontWeight="bold" my={5}>
+          <Typography align="center" variant="h5" fontWeight="bold" mb={2}>
             Chia-Hsiang(Jason) Wu
           </Typography>
 
