@@ -51,7 +51,7 @@ function MainPage() {
             />
           </Tooltip>
 
-          <Typography align="center" variant="h5" fontWeight="bold" my={2}>
+          <Typography align="center" variant="h5" fontWeight="bold" my={5}>
             Chia-Hsiang(Jason) Wu
           </Typography>
 
