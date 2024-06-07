@@ -37,7 +37,7 @@ const steps = [
     content: [
       "👋 Hey there! My name is Jason, a software engineer from Taiwan.",
       "🏫 Just wrapped up my Master's in CS at Stevens Institute of Technology, class of 2024!",
-      "💻 Totally into web development and diving deep into AI/ML/DL. Love coding up cool projects and exploring new tech trends!",
+      "💻 I'm totally into web development and diving deep into AI/ML/DL. Love coding up cool projects and exploring new tech trends!",
     ],
   },
   {
@@ -96,7 +96,7 @@ function AboutPage() {
       direction="column"
       // minHeight="100vh"
     >
-      <Grid item width={{ xs: "80vw", md: "70vw", lg: "50vw" }}>
+      <Grid item width={{ xs: "90vw", md: "70vw", lg: "50vw" }}>
         <Stepper activeStep={activeStep} orientation="vertical">
           {steps.map((step, index) => (
             <Step key={`step_${index}`}>
