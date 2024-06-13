@@ -1,5 +1,4 @@
 import { useState, useEffect, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
 
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
@@ -8,13 +7,11 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Chip from "@mui/material/Chip";
-import Divider from "@mui/material/Divider";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import StepContent from "@mui/material/StepContent";
 import Fade from "@mui/material/Fade";
-import Button from "@mui/material/Button";
 
 import FaceIcon from "@mui/icons-material/Face";
 import FaceOutlinedIcon from "@mui/icons-material/FaceOutlined";
@@ -65,7 +62,6 @@ const steps = [
 ];
 
 function AboutPage() {
-  const navigate = useNavigate();
   const [activeStep, setActiveStep] = useState(0);
 
   const handleNext = useCallback(() => {
@@ -89,112 +85,119 @@ function AboutPage() {
   }, []);
 
   return (
-    <Grid
-      container
-      justifyContent="center"
-      alignContent="center"
-      direction="column"
-      // minHeight="100vh"
-    >
-      <Grid item width={{ xs: "90vw", md: "70vw", lg: "50vw" }}>
-        <Stepper activeStep={activeStep} orientation="vertical">
-          {steps.map((step, index) => (
-            <Step key={`step_${index}`}>
-              <StepLabel
-                sx={{ fontWeight: "bold" }}
-                icon={index === activeStep ? step.icon_on : step.icon_off}
-                onClick={() => setActiveStep(index)}
-              >
-                <Typography
-                  variant={index === activeStep ? "h5" : "subtitle2"}
-                  color={index === activeStep ? "inherit" : "text.secondary"}
-                  fontWeight={index === activeStep ? "bold" : ""}
-                  ml={index === activeStep && 1}
+    <Fade in timeout={{ appear: 500, enter: 2000 }}>
+      <Grid
+        container
+        justifyContent="center"
+        alignContent="center"
+        direction="column"
+        // minHeight="100vh"
+        sx={{ margin: "auto" }}
+      >
+        <Grid item width={{ xs: "90vw", md: "70vw", lg: "50vw" }}>
+          <Stepper activeStep={activeStep} orientation="vertical">
+            {steps.map((step, index) => (
+              <Step key={`step_${index}`}>
+                <StepLabel
+                  sx={{ fontWeight: "bold" }}
+                  icon={index === activeStep ? step.icon_on : step.icon_off}
+                  onClick={() => setActiveStep(index)}
                 >
-                  {step.title}
-                </Typography>
-              </StepLabel>
+                  <Typography
+                    variant={index === activeStep ? "h5" : "subtitle2"}
+                    color={index === activeStep ? "inherit" : "text.secondary"}
+                    fontWeight={index === activeStep ? "bold" : ""}
+                    ml={index === activeStep && 1}
+                  >
+                    {step.title}
+                  </Typography>
+                </StepLabel>
 
-              <StepContent
-                TransitionProps={{
-                  unmountOnExit: false,
-                  timeout: 500,
-                }}
-              >
-                <Card
-                  sx={{
-                    display: { sm: "flex" },
-                    boxShadow: 10,
-                    p: 1,
-                    backgroundColor: "#202020",
+                <StepContent
+                  TransitionProps={{
+                    unmountOnExit: false,
+                    timeout: 500,
                   }}
                 >
-                  <CardMedia
-                    component="img"
+                  <Card
                     sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "60%",
-                      },
-                      // height: { xs: "50%", sm: "100%" },
-                      borderRadius: 1,
+                      display: { sm: "flex" },
                       boxShadow: 10,
+                      p: 1,
+                      backgroundColor: "#202020",
                     }}
-                    image={`./images/me/${step.image}.png`}
-                    alt={step.image}
-                    // loading="lazy"
-                  />
-
-                  <CardContent>
-                    <Box display="flex" flexDirection="column" height="100%">
-                      {step.content.map((line, i) => {
-                        return (
-                          <Typography
-                            // align="center"
-                            key={`step_${index}_line_${i}`}
-                            variant="body2"
-                            my={2}
-                          >
-                            {line}
-                          </Typography>
-                        );
-                      })}
-                    </Box>
-                  </CardContent>
-                </Card>
-
-                <Box sx={{ mt: 2 }} display="flex" justifyContent="flex-end">
-                  {index !== 0 && (
-                    <Chip
-                      label="Back"
-                      icon={<ArrowCircleUpIcon />}
+                  >
+                    <CardMedia
+                      component="img"
                       sx={{
-                        fontWeight: "bold",
+                        width: {
+                          xs: "100%",
+                          sm: "60%",
+                        },
+                        // height: { xs: "50%", sm: "100%" },
+                        borderRadius: 1,
                         boxShadow: 10,
-                        border: 1,
-                        mr: 2,
                       }}
-                      variant="outlined"
-                      onClick={handleBack}
+                      image={`./images/me/${step.image}.png`}
+                      alt={step.image}
+                      // loading="lazy"
                     />
-                  )}
 
-                  <Chip
-                    label={index === 2 ? "Back to Start" : "Continue"}
-                    icon={
-                      index === 2 ? <RestartAltIcon /> : <ArrowCircleDownIcon />
-                    }
-                    sx={{ fontWeight: "bold", boxShadow: 10, border: 1 }}
-                    variant="outlined"
-                    onClick={index === 2 ? handleReset : handleNext}
-                  />
-                </Box>
-              </StepContent>
-            </Step>
-          ))}
-        </Stepper>
+                    <CardContent>
+                      <Box display="flex" flexDirection="column" height="100%">
+                        {step.content.map((line, i) => {
+                          return (
+                            <Typography
+                              // align="center"
+                              key={`step_${index}_line_${i}`}
+                              variant="body2"
+                              my={2}
+                            >
+                              {line}
+                            </Typography>
+                          );
+                        })}
+                      </Box>
+                    </CardContent>
+                  </Card>
+
+                  <Box sx={{ mt: 2 }} display="flex" justifyContent="flex-end">
+                    {index !== 0 && (
+                      <Chip
+                        label="Back"
+                        icon={<ArrowCircleUpIcon />}
+                        sx={{
+                          fontWeight: "bold",
+                          boxShadow: 10,
+                          border: 1,
+                          mr: 2,
+                        }}
+                        variant="outlined"
+                        onClick={handleBack}
+                      />
+                    )}
+
+                    <Chip
+                      label={index === 2 ? "Back to Start" : "Continue"}
+                      icon={
+                        index === 2 ? (
+                          <RestartAltIcon />
+                        ) : (
+                          <ArrowCircleDownIcon />
+                        )
+                      }
+                      sx={{ fontWeight: "bold", boxShadow: 10, border: 1 }}
+                      variant="outlined"
+                      onClick={index === 2 ? handleReset : handleNext}
+                    />
+                  </Box>
+                </StepContent>
+              </Step>
+            ))}
+          </Stepper>
+        </Grid>
       </Grid>
-    </Grid>
+    </Fade>
   );
 }
 export default AboutPage;

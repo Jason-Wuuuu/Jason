@@ -1,11 +1,9 @@
-import { Fragment } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Box from "@mui/material/Box";
 import Grow from "@mui/material/Grow";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-
 import NearMeIcon from "@mui/icons-material/NearMe";
 
 import MainPage from "./MainPage";
@@ -15,11 +13,7 @@ function Home() {
   const navigate = useNavigate();
 
   return (
-    <Box py={15}>
-      <Typography align="center" variant="h4" fontWeight="bold" mb={5}>
-        Jason's Portfolio
-      </Typography>
-
+    <Box py={12}>
       <MainPage />
 
       <Grow in timeout={1000}>
@@ -27,10 +21,10 @@ function Home() {
           display="flex"
           justifyContent="center"
           alignContent="center"
-          my={10}
+          my={5}
           sx={{
             position: "sticky",
-            top: 10,
+            top: 20,
             left: 0,
             right: 0,
           }}
@@ -44,6 +38,7 @@ function Home() {
               borderRadius: 100,
               boxShadow: 10,
               fontSize: 12,
+              border: 2,
             }}
             onClick={() => navigate("/projects")}
           >
@@ -52,7 +47,7 @@ function Home() {
         </Box>
       </Grow>
 
-      <Typography align="center" variant="h4" fontWeight="bold" mb={5}>
+      <Typography align="center" variant="h4" fontWeight="bold" py={5}>
         More About Me
       </Typography>
 
