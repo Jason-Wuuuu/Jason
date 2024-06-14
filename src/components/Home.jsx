@@ -4,6 +4,8 @@ import Box from "@mui/material/Box";
 import Grow from "@mui/material/Grow";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import Divider from "@mui/material/Divider";
+
 import NearMeIcon from "@mui/icons-material/NearMe";
 
 import MainPage from "./MainPage";
@@ -13,7 +15,7 @@ function Home() {
   const navigate = useNavigate();
 
   return (
-    <Box py={12}>
+    <Box pt={12} pb={5} sx={{ width: "80%", margin: "auto" }}>
       <MainPage />
 
       <Grow in timeout={1000}>
@@ -47,9 +49,11 @@ function Home() {
         </Box>
       </Grow>
 
-      <Typography align="center" variant="h4" fontWeight="bold" py={5}>
+      <Divider sx={{ my: 5 }} />
+
+      {/* <Typography align="center" variant="h4" fontWeight="bold" py={10}>
         More About Me
-      </Typography>
+      </Typography> */}
 
       <AboutPage />
     </Box>

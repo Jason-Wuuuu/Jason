@@ -26,7 +26,6 @@ function MainPage() {
         minHeight="70vh"
         alignItems="center"
         justifyContent="center"
-        sx={{ width: "80%", margin: "auto" }}
       >
         {/* Left */}
         <Grid item xs={12} sm={6} md={6}>

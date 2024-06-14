@@ -23,7 +23,6 @@ import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
 import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
-import NearMeIcon from "@mui/icons-material/NearMe";
 
 const steps = [
   {
@@ -91,15 +90,13 @@ function AboutPage() {
         justifyContent="center"
         alignContent="center"
         direction="column"
-        // minHeight="100vh"
-        sx={{ margin: "auto" }}
+        // minHeight="70vh"
       >
         <Grid item width={{ xs: "90vw", md: "70vw", lg: "50vw" }}>
           <Stepper activeStep={activeStep} orientation="vertical">
             {steps.map((step, index) => (
               <Step key={`step_${index}`}>
                 <StepLabel
-                  sx={{ fontWeight: "bold" }}
                   icon={index === activeStep ? step.icon_on : step.icon_off}
                   onClick={() => setActiveStep(index)}
                 >
@@ -150,7 +147,7 @@ function AboutPage() {
                             <Typography
                               // align="center"
                               key={`step_${index}_line_${i}`}
-                              variant="body2"
+                              variant="body1"
                               my={2}
                             >
                               {line}

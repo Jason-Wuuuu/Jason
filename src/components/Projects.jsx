@@ -385,7 +385,7 @@ function Projects() {
   return (
     <Grid container width="100%" direction="column">
       <Fade in timeout={500}>
-        <Grid item mt={10}>
+        <Grid item pt={12}>
           <Box
             display="flex"
             flexDirection="column"
