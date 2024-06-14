@@ -92,7 +92,7 @@ function AboutPage() {
         direction="column"
         // minHeight="70vh"
       >
-        <Grid item width={{ xs: "90vw", md: "70vw", lg: "50vw" }}>
+        <Grid item width={{ xs: "90vw", md: "70vw", lg: "60vw" }}>
           <Stepper activeStep={activeStep} orientation="vertical">
             {steps.map((step, index) => (
               <Step key={`step_${index}`}>
