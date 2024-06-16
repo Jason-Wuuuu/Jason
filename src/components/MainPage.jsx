@@ -35,20 +35,18 @@ function MainPage() {
             justifyContent="center"
             alignItems="center"
           >
-            <Tooltip title="Hi! 👋" placement="top" arrow>
-              <Box
-                component="img"
-                sx={{
-                  height: 300,
-                  width: 300,
-                  borderRadius: 100,
-                  boxShadow: 10,
-                  mb: 5,
-                }}
-                alt="memoji"
-                src="./images/Memoji.png"
-              />
-            </Tooltip>
+            <Box
+              component="img"
+              sx={{
+                height: 300,
+                width: 300,
+                borderRadius: 100,
+                boxShadow: 10,
+                mb: 5,
+              }}
+              alt="memoji"
+              src="./images/Memoji.png"
+            />
 
             <Typography align="center" variant="h5" fontWeight="bold" mb={2}>
               Chia-Hsiang(Jason) Wu

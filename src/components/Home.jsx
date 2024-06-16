@@ -15,7 +15,7 @@ function Home() {
   const navigate = useNavigate();
 
   return (
-    <Box pt={12} pb={5} sx={{ width: "80%", margin: "auto" }}>
+    <Box pt={12} pb={5} sx={{ width: "85%", margin: "auto" }}>
       <MainPage />
 
       <Grow in timeout={1000}>
