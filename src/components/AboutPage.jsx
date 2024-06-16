@@ -145,7 +145,7 @@ function AboutPage() {
                         display="flex"
                         flexDirection="column"
                         height="100%"
-                        px={1}
+                        p={1}
                       >
                         {step.content.map((line, i) => {
                           return (
