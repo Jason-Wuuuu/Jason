@@ -18,13 +18,13 @@ function Home() {
 
   return (
     <Fade in timeout={{ appear: 500, enter: 1000 }}>
-      <Box pt={{ xs: 12, sm: 5 }} pb={12} sx={{ width: "85%", margin: "auto" }}>
-        <Box flex="column" minHeight="90vh" alignContent="center">
+      <Box py={12} sx={{ width: "85%", margin: "auto" }}>
+        <Box alignContent="center" minHeight="80vh">
           <Typography
             variant="h3"
             align="center"
             fontWeight="bold"
-            mb={{ xs: 5, sm: 10 }}
+            mb={{ xs: 5, sm: 8 }}
           >
             Jason's Portfolio
           </Typography>
@@ -34,7 +34,7 @@ function Home() {
 
         {/* <Divider sx={{ my: 5 }} />
 
-        <Box flex="column" minHeight="75vh">
+        <Box minHeight="75vh">
           <Typography variant="h4" align="center" fontWeight="bold" mb={5}>
             Exp Details
           </Typography>
@@ -44,7 +44,7 @@ function Home() {
 
         <Divider sx={{ my: 5 }} />
 
-        <Box flex="column" minHeight="75vh">
+        <Box minHeight="75vh">
           <Typography variant="h4" align="center" fontWeight="bold" mb={5}>
             More About Me
           </Typography>
@@ -74,6 +74,7 @@ function Home() {
                 boxShadow: 10,
                 fontSize: 12,
                 border: 2,
+                opacity: 0.9,
               }}
               onClick={() => navigate("/projects")}
             >

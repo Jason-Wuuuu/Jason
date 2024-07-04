@@ -146,7 +146,7 @@ function AboutPage() {
                       display="flex"
                       flexDirection="column"
                       height="100%"
-                      gap={5}
+                      gap={3}
                       px={1}
                       pt={{ xs: 1 }}
                     >
@@ -155,7 +155,7 @@ function AboutPage() {
                           <Typography
                             // align="center"
                             key={`step_${index}_line_${i}`}
-                            variant="body1"
+                            variant="body2"
                             fontWeight="bold"
                             lineHeight={2}
                           >
