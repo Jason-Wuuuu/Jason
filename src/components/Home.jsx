@@ -25,6 +25,7 @@ function Home() {
             align="center"
             fontWeight="bold"
             mb={{ xs: 5, sm: 8 }}
+            sx={{ display: { xs: "none", sm: "block" } }}
           >
             Jason's Portfolio
           </Typography>
