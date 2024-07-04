@@ -266,15 +266,21 @@ function TableOfContents({ projects }) {
             handleClose();
             handleJump(`project-${index}`);
           }}
-          sx={{ m: 1 }}
+          sx={{ my: 0.5 }}
         >
           <ListItemIcon>
             <ChevronRightIcon fontSize="small" />
           </ListItemIcon>
 
-          <Typography variant="body1" sx={{ fontWeight: "bold" }} noWrap>
-            {project.title}
-          </Typography>
+          <Box width="90%">
+            <Typography variant="subtitle1" sx={{ fontWeight: "bold" }} noWrap>
+              {project.title}
+            </Typography>
+
+            <Typography variant="subtitle2" color="GrayText" noWrap>
+              {project.tech_stack}
+            </Typography>
+          </Box>
         </MenuItem>
       )),
     [projects]
@@ -328,6 +334,8 @@ function TableOfContents({ projects }) {
             boxShadow: 10,
           },
           backdropFilter: "blur(1px)",
+          maxHeight: "90vh",
+          maxWidth: { xs: "100vw", sm: "50vw" },
         }}
       >
         {listItems}
