@@ -310,7 +310,7 @@ function TableOfContents({ projects }) {
             }}
           >
             <FormatListBulletedIcon sx={{ mr: 1 }} />
-            Contents
+            Jump To
           </Fab>
         </Box>
       </Fade>

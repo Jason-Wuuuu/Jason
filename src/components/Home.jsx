@@ -75,7 +75,6 @@ function Home() {
                 boxShadow: 10,
                 fontSize: 12,
                 border: 2,
-                opacity: 0.9,
               }}
               onClick={() => navigate("/projects")}
             >
