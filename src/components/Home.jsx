@@ -19,7 +19,7 @@ function Home() {
   return (
     <Fade in timeout={{ appear: 500, enter: 1000 }}>
       <Box py={12} sx={{ width: "85%", margin: "auto" }}>
-        <Box alignContent="center" minHeight="80vh">
+        <Box alignContent="center" minHeight="75vh">
           <Typography
             variant="h3"
             align="center"
@@ -32,6 +32,37 @@ function Home() {
 
           <MainPage />
         </Box>
+
+        <Grow in timeout={1000}>
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignContent="center"
+            my={5}
+            sx={{
+              position: "sticky",
+              top: { xs: 16, sm: 30 },
+              left: 0,
+              right: 0,
+            }}
+          >
+            <Button
+              size="large"
+              color="inherit"
+              variant="contained"
+              startIcon={<NearMeIcon />}
+              sx={{
+                borderRadius: 100,
+                boxShadow: 10,
+                fontSize: 12,
+                border: 2,
+              }}
+              onClick={() => navigate("/projects")}
+            >
+              Check Out My Projects!
+            </Button>
+          </Box>
+        </Grow>
 
         {/* <Divider sx={{ my: 5 }} />
 
@@ -52,36 +83,6 @@ function Home() {
 
           <AboutPage />
         </Box>
-
-        <Grow in timeout={1000}>
-          <Box
-            display="flex"
-            justifyContent="center"
-            alignContent="center"
-            sx={{
-              position: "fixed",
-              bottom: { xs: 16, sm: 30 },
-              left: 0,
-              right: 0,
-            }}
-          >
-            <Button
-              size="large"
-              color="inherit"
-              variant="contained"
-              startIcon={<NearMeIcon />}
-              sx={{
-                borderRadius: 100,
-                boxShadow: 10,
-                fontSize: 12,
-                border: 2,
-              }}
-              onClick={() => navigate("/projects")}
-            >
-              Check out my projects!
-            </Button>
-          </Box>
-        </Grow>
       </Box>
     </Fade>
   );
