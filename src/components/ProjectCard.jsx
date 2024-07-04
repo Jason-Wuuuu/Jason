@@ -100,11 +100,12 @@ function ProjectCard({ project }) {
               {`${project.course} Project (${project.year})`}
             </Typography>
 
-            <Divider sx={{ my: 1 }} />
+            <Divider sx={{ my: 2 }} />
 
             <Typography
               align="center"
               variant="body2"
+              lineHeight={2}
               // color="text.secondary"
               mx={1}
             >

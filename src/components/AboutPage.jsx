@@ -11,7 +11,6 @@ import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import StepContent from "@mui/material/StepContent";
-import Fade from "@mui/material/Fade";
 
 import FaceIcon from "@mui/icons-material/Face";
 import FaceOutlinedIcon from "@mui/icons-material/FaceOutlined";
@@ -84,122 +83,122 @@ function AboutPage() {
   }, []);
 
   return (
-    <Fade in timeout={{ appear: 500, enter: 2000 }}>
-      <Grid
-        container
-        justifyContent="center"
-        alignContent="center"
-        direction="column"
-        // minHeight="70vh"
-      >
-        <Grid item width={{ xs: "90vw", md: "70vw", lg: "60vw" }}>
-          <Stepper activeStep={activeStep} orientation="vertical">
-            {steps.map((step, index) => (
-              <Step key={`step_${index}`}>
-                <StepLabel
-                  icon={index === activeStep ? step.icon_on : step.icon_off}
-                  onClick={() => setActiveStep(index)}
+    <Grid
+      container
+      justifyContent="center"
+      alignContent="center"
+      direction="column"
+    >
+      <Grid item width={{ xs: "90vw", md: "70vw", lg: "60vw" }}>
+        <Stepper activeStep={activeStep} orientation="vertical">
+          {steps.map((step, index) => (
+            <Step key={`step_${index}`}>
+              <StepLabel
+                icon={index === activeStep ? step.icon_on : step.icon_off}
+                onClick={() => setActiveStep(index)}
+                sx={{
+                  position: "sticky",
+                  top: 20,
+                }}
+              >
+                <Typography
+                  variant={index === activeStep ? "h5" : "subtitle2"}
+                  color={index === activeStep ? "inherit" : "text.secondary"}
+                  fontWeight={index === activeStep ? "bold" : ""}
+                  ml={index === activeStep && 1}
                 >
-                  <Typography
-                    variant={index === activeStep ? "h5" : "subtitle2"}
-                    color={index === activeStep ? "inherit" : "text.secondary"}
-                    fontWeight={index === activeStep ? "bold" : ""}
-                    ml={index === activeStep && 1}
-                  >
-                    {step.title}
-                  </Typography>
-                </StepLabel>
+                  {step.title}
+                </Typography>
+              </StepLabel>
 
-                <StepContent
-                  TransitionProps={{
-                    unmountOnExit: false,
-                    timeout: 500,
+              <StepContent
+                TransitionProps={{
+                  unmountOnExit: false,
+                  timeout: 500,
+                }}
+              >
+                <Card
+                  sx={{
+                    display: { sm: "flex" },
+                    boxShadow: 10,
+                    p: 1,
+                    backgroundColor: "#202020",
                   }}
                 >
-                  <Card
+                  <CardMedia
+                    component="img"
                     sx={{
-                      display: { sm: "flex" },
+                      width: {
+                        xs: "100%",
+                        sm: "60%",
+                      },
+                      // height: { xs: "50%", sm: "100%" },
+                      borderRadius: 1,
                       boxShadow: 10,
-                      p: 1,
-                      backgroundColor: "#202020",
                     }}
-                  >
-                    <CardMedia
-                      component="img"
-                      sx={{
-                        width: {
-                          xs: "100%",
-                          sm: "60%",
-                        },
-                        // height: { xs: "50%", sm: "100%" },
-                        borderRadius: 1,
-                        boxShadow: 10,
-                      }}
-                      image={`./images/me/${step.image}.png`}
-                      alt={step.image}
-                      // loading="lazy"
-                    />
+                    image={`./images/me/${step.image}.png`}
+                    alt={step.image}
+                    // loading="lazy"
+                  />
 
-                    <CardContent>
-                      <Box
-                        display="flex"
-                        flexDirection="column"
-                        height="100%"
-                        p={1}
-                      >
-                        {step.content.map((line, i) => {
-                          return (
-                            <Typography
-                              // align="center"
-                              key={`step_${index}_line_${i}`}
-                              variant="body1"
-                              mb={3}
-                            >
-                              {line}
-                            </Typography>
-                          );
-                        })}
-                      </Box>
-                    </CardContent>
-                  </Card>
+                  <CardContent>
+                    <Box
+                      display="flex"
+                      flexDirection="column"
+                      height="100%"
+                      gap={5}
+                      px={1}
+                      pt={{ xs: 1 }}
+                    >
+                      {step.content.map((line, i) => {
+                        return (
+                          <Typography
+                            // align="center"
+                            key={`step_${index}_line_${i}`}
+                            variant="body1"
+                            fontWeight="bold"
+                            lineHeight={2}
+                          >
+                            {line}
+                          </Typography>
+                        );
+                      })}
+                    </Box>
+                  </CardContent>
+                </Card>
 
-                  <Box sx={{ mt: 2 }} display="flex" justifyContent="flex-end">
-                    {index !== 0 && (
-                      <Chip
-                        label="Back"
-                        icon={<ArrowCircleUpIcon />}
-                        sx={{
-                          fontWeight: "bold",
-                          boxShadow: 10,
-                          border: 1,
-                          mr: 2,
-                        }}
-                        variant="outlined"
-                        onClick={handleBack}
-                      />
-                    )}
-
+                <Box sx={{ mt: 2 }} display="flex" justifyContent="flex-end">
+                  {index !== 0 && (
                     <Chip
-                      label={index === 2 ? "Back to Start" : "Continue"}
-                      icon={
-                        index === 2 ? (
-                          <RestartAltIcon />
-                        ) : (
-                          <ArrowCircleDownIcon />
-                        )
-                      }
-                      sx={{ fontWeight: "bold", boxShadow: 10, border: 1 }}
+                      label="Back"
+                      icon={<ArrowCircleUpIcon />}
+                      sx={{
+                        fontWeight: "bold",
+                        boxShadow: 10,
+                        border: 1,
+                        mr: 2,
+                      }}
                       variant="outlined"
-                      onClick={index === 2 ? handleReset : handleNext}
+                      onClick={handleBack}
                     />
-                  </Box>
-                </StepContent>
-              </Step>
-            ))}
-          </Stepper>
-        </Grid>
+                  )}
+
+                  <Chip
+                    label={index === 2 ? "Back to Start" : "Continue"}
+                    icon={
+                      index === 2 ? <RestartAltIcon /> : <ArrowCircleDownIcon />
+                    }
+                    sx={{ fontWeight: "bold", boxShadow: 10, border: 1 }}
+                    variant="outlined"
+                    onClick={index === 2 ? handleReset : handleNext}
+                  />
+                </Box>
+              </StepContent>
+            </Step>
+          ))}
+        </Stepper>
       </Grid>
-    </Fade>
+    </Grid>
   );
 }
 export default AboutPage;

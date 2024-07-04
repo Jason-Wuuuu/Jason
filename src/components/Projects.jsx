@@ -384,7 +384,7 @@ function Projects() {
 
   return (
     <Grid container width="100%" direction="column">
-      <Fade in timeout={500}>
+      <Fade in timeout={{ appear: 500, enter: 1000 }}>
         <Grid item pt={12}>
           <Box
             display="flex"
@@ -425,7 +425,7 @@ function Projects() {
               <Divider sx={{ mx: 1 }} />
 
               <AccordionDetails sx={{ mx: 1 }}>
-                <Typography variant="caption" fontWeight="bold">
+                <Typography variant="body2" fontWeight="bold" lineHeight={2}>
                   {techStackUnion.join(", ")}
                 </Typography>
               </AccordionDetails>
