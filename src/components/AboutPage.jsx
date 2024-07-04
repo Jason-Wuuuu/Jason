@@ -96,10 +96,6 @@ function AboutPage() {
               <StepLabel
                 icon={index === activeStep ? step.icon_on : step.icon_off}
                 onClick={() => setActiveStep(index)}
-                sx={{
-                  position: { xs: "sticky", sm: "unset" },
-                  top: 70,
-                }}
               >
                 <Typography
                   variant={index === activeStep ? "h5" : "subtitle2"}
