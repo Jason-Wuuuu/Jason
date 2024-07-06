@@ -132,7 +132,7 @@ function MainPage() {
           {/* Experience Section */}
           <Grid item>
             <Typography variant="h6" fontWeight="bold">
-              Experience
+              Recent Experience
             </Typography>
 
             <List dense>

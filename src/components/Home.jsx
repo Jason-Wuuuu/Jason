@@ -11,7 +11,7 @@ import NearMeIcon from "@mui/icons-material/NearMe";
 
 import MainPage from "./MainPage";
 import AboutPage from "./AboutPage";
-import ExperienceDetails from "./ExperienceDetails";
+import ProfessionalHighlights from "./ProfessionalHighlights";
 
 function Home() {
   const navigate = useNavigate();
@@ -44,6 +44,7 @@ function Home() {
               top: { xs: 16, sm: 30 },
               left: 0,
               right: 0,
+              zIndex: 20,
             }}
           >
             <Button
@@ -64,20 +65,20 @@ function Home() {
           </Box>
         </Grow>
 
-        {/* <Divider sx={{ my: 5 }} />
+        <Divider sx={{ my: 5 }} />
 
-        <Box minHeight="75vh">
-          <Typography variant="h4" align="center" fontWeight="bold" mb={5}>
-            Exp Details
+        <Box minHeight="75vh" sx={{ width: "85%", margin: "auto" }}>
+          <Typography variant="h4" align="center" fontWeight="bold" mb={8}>
+            Professional Highlights
           </Typography>
 
-          <ExperienceDetails />
-        </Box> */}
+          <ProfessionalHighlights />
+        </Box>
 
         <Divider sx={{ my: 5 }} />
 
         <Box minHeight="75vh">
-          <Typography variant="h4" align="center" fontWeight="bold" mb={5}>
+          <Typography variant="h4" align="center" fontWeight="bold" mb={8}>
             More About Me
           </Typography>
 

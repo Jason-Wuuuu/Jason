@@ -145,15 +145,16 @@ function AboutPage() {
                       gap={3}
                       px={1}
                       pt={{ xs: 1 }}
+                      pl={{ sm: 1 }}
                     >
                       {step.content.map((line, i) => {
                         return (
                           <Typography
                             // align="center"
                             key={`step_${index}_line_${i}`}
-                            variant="body2"
                             fontWeight="bold"
                             lineHeight={2}
+                            sx={{ fontSize: 16 }}
                           >
                             {line}
                           </Typography>
