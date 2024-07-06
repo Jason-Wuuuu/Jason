@@ -38,13 +38,20 @@ function ProfessionalHighlights() {
 
         <Grid item xs={12} md={8}>
           <Box pl={5}>
-            <Typography variant="h5" fontWeight="bold">
-              Crypto-Arsena
-            </Typography>
+            <Box
+              display="flex"
+              justifyContent="space-between"
+              alignItems="baseline"
+              mb={1}
+            >
+              <Typography variant="h5" fontWeight="bold">
+                Crypto-Arsena
+              </Typography>
 
-            <Typography variant="h6" color="GrayText" fontWeight="bold">
-              Taipei, Taiwan (Remote)
-            </Typography>
+              <Typography variant="h6" color="lightgray" fontWeight="bold">
+                Taipei, Taiwan (Remote)
+              </Typography>
+            </Box>
 
             <List>
               <ListItem>
@@ -142,7 +149,12 @@ function ProfessionalHighlights() {
             <Typography variant="h5" fontWeight="bold">
               Bachelor’s Thesis Project
             </Typography>
-            <Typography variant="body1" fontWeight="bold" my={2}>
+            <Typography
+              variant="body1"
+              color="lightgray"
+              fontWeight="bold"
+              my={2}
+            >
               Pitched and led the backend development of “Memory Maker,” an iOS
               app created with 5 teammates, featuring machine learning for
               photography guidance and virtual postcard creation, earning

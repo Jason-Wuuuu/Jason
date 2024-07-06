@@ -65,9 +65,8 @@ function ProjectCard({ project }) {
             />
           }
           title={project.title}
-          titleTypographyProps={{ variant: "h5", fontWeight: "bold" }}
+          titleTypographyProps={{ variant: "h6", fontWeight: "bold" }}
           subheader={project.tech_stack}
-          subheaderTypographyProps={{ my: 1 }}
         />
 
         <Collapse in={expanded} timeout="auto">
