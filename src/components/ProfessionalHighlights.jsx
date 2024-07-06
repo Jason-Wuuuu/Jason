@@ -19,19 +19,20 @@ function ProfessionalHighlights() {
 
       <Grid container py={3}>
         <Grid item xs={12} md={4} borderRight={2}>
-          <Box
-            display="flex"
-            height="100%"
-            flexDirection="column"
-            gap={5}
-            p={3}
-          >
-            <Typography variant="h4" fontWeight="bold">
-              Web3 Software Engineer Intern (Frontend)
-            </Typography>
-            <Typography variant="h5" fontWeight="bold" color="GrayText">
-              May 2024 − Present
-            </Typography>
+          <Box display="flex" height="100%" flexDirection="column" p={3}>
+            <div>
+              <Typography variant="h4" fontWeight="bold">
+                Web3 Software Engineer Intern (Frontend)
+              </Typography>
+              <Typography
+                variant="h5"
+                fontWeight="bold"
+                color="GrayText"
+                mt={2}
+              >
+                May 2024 − Present
+              </Typography>
+            </div>
           </Box>
         </Grid>
 
@@ -114,15 +115,25 @@ function ProfessionalHighlights() {
             display="flex"
             height="100%"
             flexDirection="column"
-            gap={5}
+            justifyContent="space-between"
             p={3}
           >
-            <Typography variant="h4" fontWeight="bold">
-              Memory Maker
-            </Typography>
-            <Typography variant="h5" fontWeight="bold" color="GrayText">
-              Mar 2019 − Aug 2019
-            </Typography>
+            <div>
+              <Typography variant="h4" fontWeight="bold">
+                Memory Maker
+              </Typography>
+
+              <Typography
+                variant="h5"
+                fontWeight="bold"
+                color="GrayText"
+                mt={2}
+              >
+                Mar 2019 − Aug 2019
+              </Typography>
+            </div>
+
+            <img src="./images/Award.png" alt="Award Image" loading="lazy" />
           </Box>
         </Grid>
 
@@ -131,14 +142,12 @@ function ProfessionalHighlights() {
             <Typography variant="h5" fontWeight="bold">
               Bachelor’s Thesis Project
             </Typography>
-
             <Typography variant="body1" fontWeight="bold" my={2}>
               Pitched and led the backend development of “Memory Maker,” an iOS
               app created with 5 teammates, featuring machine learning for
               photography guidance and virtual postcard creation, earning
               multiple awards.
             </Typography>
-
             <List>
               <ListItem>
                 <ListItemIcon>
