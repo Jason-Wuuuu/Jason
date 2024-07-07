@@ -154,7 +154,7 @@ function AboutPage() {
                             key={`step_${index}_line_${i}`}
                             fontWeight="bold"
                             lineHeight={2}
-                            sx={{ fontSize: 16 }}
+                            sx={{ fontSize: { xs: 14, sm: 16 } }}
                           >
                             {line}
                           </Typography>

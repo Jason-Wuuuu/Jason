@@ -18,8 +18,8 @@ function Home() {
 
   return (
     <Fade in timeout={{ appear: 500, enter: 1000 }}>
-      <Box py={12} sx={{ width: "85%", margin: "auto" }}>
-        <Box alignContent="center" minHeight="75vh">
+      <Box pt={{ xs: 12, sm: 5 }} pb={12} sx={{ width: "85%", margin: "auto" }}>
+        <Box alignContent="center" minHeight="90vh">
           <Typography
             variant="h3"
             align="center"
@@ -40,8 +40,9 @@ function Home() {
             alignContent="center"
             my={5}
             sx={{
-              position: "sticky",
-              top: { xs: 16, sm: 30 },
+              position: "fixed",
+              // top: { xs: 16, sm: 30 },
+              bottom: 0,
               left: 0,
               right: 0,
               zIndex: 20,
@@ -68,7 +69,13 @@ function Home() {
         <Divider sx={{ my: 5 }} />
 
         <Box minHeight="75vh" sx={{ width: "85%", margin: "auto" }}>
-          <Typography variant="h4" align="center" fontWeight="bold" mb={8}>
+          <Typography
+            variant="h4"
+            align="center"
+            fontWeight="bold"
+            mb={8}
+            sx={{ display: { xs: "none", sm: "block" } }}
+          >
             Professional Highlights
           </Typography>
 

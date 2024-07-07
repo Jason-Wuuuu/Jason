@@ -17,91 +17,112 @@ function ProfessionalHighlights() {
         💼 Experience
       </Typography>
 
-      <Grid container py={3}>
-        <Grid item xs={12} md={4} borderRight={2}>
-          <Box display="flex" height="100%" flexDirection="column" p={3}>
-            <div>
-              <Typography variant="h4" fontWeight="bold">
+      <Grid
+        container
+        py={3}
+        display="flex"
+        flexDirection={{ xs: "column", sm: "row" }}
+      >
+        <Grid item xs={12} md={4}>
+          <Box
+            display="flex"
+            height="100%"
+            flexDirection="column"
+            p={{ sm: 3 }}
+            borderRight={{ sm: 2 }}
+          >
+            <Box>
+              <Typography variant="h5" fontWeight="bold">
                 Web3 Software Engineer Intern (Frontend)
               </Typography>
+
               <Typography
-                variant="h5"
+                variant="h6"
                 fontWeight="bold"
                 color="GrayText"
                 mt={2}
               >
                 May 2024 − Present
               </Typography>
-            </div>
+            </Box>
           </Box>
         </Grid>
 
         <Grid item xs={12} md={8}>
-          <Box pl={5}>
+          <Box pl={{ sm: 5 }}>
             <Box
               display="flex"
-              justifyContent="space-between"
+              justifyContent={{ xs: "block", sm: "space-between" }}
               alignItems="baseline"
               mb={1}
+              py={{ xs: 1 }}
             >
-              <Typography variant="h5" fontWeight="bold">
+              <Typography variant="h6" fontWeight="bold">
                 Crypto-Arsena
               </Typography>
 
-              <Typography variant="h6" color="lightgray" fontWeight="bold">
+              <Typography
+                variant="body1"
+                color="lightgray"
+                fontWeight="bold"
+                sx={{ display: { xs: "none", sm: "block" } }}
+              >
                 Taipei, Taiwan (Remote)
               </Typography>
             </Box>
 
             <List>
               <ListItem>
-                <ListItemIcon>
+                <ListItemIcon sx={{ display: { xs: "none", sm: "block" } }}>
                   <ArrowRightIcon />
                 </ListItemIcon>
                 <ListItemText
                   primary="Implemented responsive UI components for the Strategy page"
                   primaryTypographyProps={{
-                    fontSize: 18,
+                    fontSize: { xs: 14, sm: 16 },
                     fontWeight: "bold",
                     mb: 1,
                   }}
                   secondary="Using NextJS and TypeScript, translating Figma designs from the UI/UX team and integrating GraphQL for efficient data fetching and management."
                   secondaryTypographyProps={{
-                    fontSize: 16,
+                    fontSize: { xs: 13, sm: 15 },
+                    // display: { xs: "none", sm: "block" },
                   }}
                 />
               </ListItem>
               <ListItem>
-                <ListItemIcon>
+                <ListItemIcon sx={{ display: { xs: "none", sm: "block" } }}>
                   <ArrowRightIcon />
                 </ListItemIcon>
                 <ListItemText
                   primary="Optimized the Strategy page and its containing components"
                   primaryTypographyProps={{
-                    fontSize: 18,
+                    fontSize: { xs: 14, sm: 16 },
                     fontWeight: "bold",
                     mb: 1,
                   }}
                   secondary="Utilizing useMemo hook, resulting in improved rendering performance and reduced re-computations, enhancing overall responsiveness and user experience."
                   secondaryTypographyProps={{
-                    fontSize: 16,
+                    fontSize: { xs: 13, sm: 15 },
+                    // display: { xs: "none", sm: "block" },
                   }}
                 />
               </ListItem>
               <ListItem>
-                <ListItemIcon>
+                <ListItemIcon sx={{ display: { xs: "none", sm: "block" } }}>
                   <ArrowRightIcon />
                 </ListItemIcon>
                 <ListItemText
                   primary="Participated in weekly Scrum meetings and utilized Storybook"
                   primaryTypographyProps={{
-                    fontSize: 18,
+                    fontSize: { xs: 14, sm: 16 },
                     fontWeight: "bold",
                     mb: 1,
                   }}
                   secondary="For component development and documentation, contributing to team collaboration and maintaining code quality in a remote work environment."
                   secondaryTypographyProps={{
-                    fontSize: 16,
+                    fontSize: { xs: 13, sm: 15 },
+                    // display: { xs: "none", sm: "block" },
                   }}
                 />
               </ListItem>
@@ -110,43 +131,56 @@ function ProfessionalHighlights() {
         </Grid>
       </Grid>
 
-      <Divider sx={{ my: 5 }} />
+      <Divider sx={{ my: 5 }} flexItem />
 
       <Typography variant="h4" fontWeight="bold">
         🏆 Competitions
       </Typography>
 
-      <Grid container py={3}>
-        <Grid item xs={12} md={4} borderRight={2}>
+      <Grid
+        container
+        py={3}
+        display="flex"
+        flexDirection={{ xs: "column", sm: "row" }}
+      >
+        <Grid item xs={12} md={4}>
           <Box
             display="flex"
             height="100%"
             flexDirection="column"
             justifyContent="space-between"
-            p={3}
+            p={{ sm: 3 }}
+            borderRight={{ sm: 2 }}
           >
-            <div>
-              <Typography variant="h4" fontWeight="bold">
+            <Box>
+              <Typography variant="h5" fontWeight="bold">
                 Memory Maker
               </Typography>
 
               <Typography
-                variant="h5"
+                variant="h6"
                 fontWeight="bold"
                 color="GrayText"
                 mt={2}
               >
                 Mar 2019 − Aug 2019
               </Typography>
-            </div>
+            </Box>
 
-            <img src="./images/Award.png" alt="Award Image" loading="lazy" />
+            <Box sx={{ display: { xs: "none", sm: "block" } }}>
+              <img
+                src="./images/Award.png"
+                alt="Award Image"
+                loading="lazy"
+                width="100%"
+              />
+            </Box>
           </Box>
         </Grid>
 
         <Grid item xs={12} md={8}>
-          <Box pl={5}>
-            <Typography variant="h5" fontWeight="bold">
+          <Box pl={{ sm: 5 }} mb={1} py={{ xs: 1 }}>
+            <Typography variant="h6" fontWeight="bold">
               Bachelor’s Thesis Project
             </Typography>
             <Typography
@@ -154,64 +188,63 @@ function ProfessionalHighlights() {
               color="lightgray"
               fontWeight="bold"
               my={2}
+              sx={{ display: { xs: "none", sm: "block" } }}
             >
               Pitched and led the backend development of “Memory Maker,” an iOS
               app created with 5 teammates, featuring machine learning for
               photography guidance and virtual postcard creation, earning
               multiple awards.
             </Typography>
+
             <List>
               <ListItem>
-                <ListItemIcon>
+                <ListItemIcon sx={{ display: { xs: "none", sm: "block" } }}>
                   <ArrowRightIcon />
                 </ListItemIcon>
                 <ListItemText
                   primary="🥈 2nd Place"
                   primaryTypographyProps={{
-                    fontSize: 20,
+                    fontSize: { xs: 16, sm: 18 },
                     fontWeight: "bold",
                     mb: 1,
                   }}
                   secondary="International ICT Innovative Services Competition"
                   secondaryTypographyProps={{
-                    fontSize: 16,
-                    fontWeight: "bold",
+                    fontSize: 14,
                   }}
                 />
               </ListItem>
               <ListItem>
-                <ListItemIcon>
+                <ListItemIcon sx={{ display: { xs: "none", sm: "block" } }}>
                   <ArrowRightIcon />
                 </ListItemIcon>
                 <ListItemText
                   primary="🥈 2nd Place"
                   primaryTypographyProps={{
-                    fontSize: 20,
+                    fontSize: { xs: 16, sm: 18 },
                     fontWeight: "bold",
                     mb: 1,
                   }}
                   secondary="TKU iOS APP Competition"
                   secondaryTypographyProps={{
-                    fontSize: 16,
-                    fontWeight: "bold",
+                    fontSize: 14,
                   }}
                 />
               </ListItem>
               <ListItem>
-                <ListItemIcon>
+                <ListItemIcon sx={{ display: { xs: "none", sm: "block" } }}>
                   <ArrowRightIcon />
                 </ListItemIcon>
                 <ListItemText
                   primary="🏅 Excellence Award"
                   primaryTypographyProps={{
-                    fontSize: 20,
+                    fontSize: { xs: 16, sm: 18 },
                     fontWeight: "bold",
                     mb: 1,
                   }}
                   secondary="TKU Department of Information Management Project Competition"
                   secondaryTypographyProps={{
-                    fontSize: 16,
-                    fontWeight: "bold",
+                    fontSize: 14,
                   }}
                 />
               </ListItem>

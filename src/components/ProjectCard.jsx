@@ -65,8 +65,15 @@ function ProjectCard({ project }) {
             />
           }
           title={project.title}
-          titleTypographyProps={{ variant: "h6", fontWeight: "bold" }}
+          titleTypographyProps={{
+            fontSize: { xs: 18, sm: 20 },
+            fontWeight: "bold",
+          }}
           subheader={project.tech_stack}
+          subheaderTypographyProps={{
+            fontSize: { xs: 10, sm: 12 },
+            fontWeight: "bold",
+          }}
         />
 
         <Collapse in={expanded} timeout="auto">
@@ -92,7 +99,10 @@ function ProjectCard({ project }) {
           </Box>
 
           <CardContent sx={{ mx: { xs: 1, sm: 10 } }}>
-            <Typography align="center" variant="h6" sx={{ fontWeight: "bold" }}>
+            <Typography
+              align="center"
+              sx={{ fontWeight: "bold", fontSize: { xs: 16, sm: 18 } }}
+            >
               {`${project.course} Project (${project.year})`}
             </Typography>
 
@@ -100,10 +110,10 @@ function ProjectCard({ project }) {
 
             <Typography
               align="center"
-              lineHeight={2}
+              lineHeight={1.5}
               // color="text.secondary"
               mx={1}
-              sx={{ fontSize: 16 }}
+              sx={{ fontSize: { xs: 14, sm: 15 }, fontWeight: "bold" }}
             >
               {project.description}
             </Typography>
