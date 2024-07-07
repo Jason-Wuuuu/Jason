@@ -18,13 +18,13 @@ function Home() {
 
   return (
     <Fade in timeout={{ appear: 500, enter: 1000 }}>
-      <Box pt={{ xs: 12, sm: 5 }} pb={12} sx={{ width: "85%", margin: "auto" }}>
-        <Box alignContent="center" minHeight="90vh">
+      <Box py={10} sx={{ width: "85%", margin: "auto" }}>
+        <Box alignContent="center" minHeight="85vh">
           <Typography
             variant="h3"
             align="center"
             fontWeight="bold"
-            mb={{ xs: 5, sm: 8 }}
+            mb={{ sm: 8 }}
             sx={{ display: { xs: "none", sm: "block" } }}
           >
             Jason's Portfolio
@@ -38,11 +38,11 @@ function Home() {
             display="flex"
             justifyContent="center"
             alignContent="center"
-            my={{ xs: 3, sx: 6 }}
+            // my={{ xs: 3, sx: 6 }}
             sx={{
               position: "fixed",
               // top: { xs: 16, sm: 30 },
-              bottom: 0,
+              bottom: { xs: 16, sm: 30 },
               left: 0,
               right: 0,
               zIndex: 20,
@@ -92,7 +92,7 @@ function Home() {
             variant="h4"
             align="center"
             fontWeight="bold"
-            mb={8}
+            mb={5}
             sx={{ display: { xs: "none", sm: "block" } }}
           >
             More About Me
