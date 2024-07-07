@@ -71,7 +71,7 @@ function ProjectCard({ project }) {
           }}
           subheader={project.tech_stack}
           subheaderTypographyProps={{
-            fontSize: { xs: 10, sm: 12 },
+            fontSize: { xs: 11, sm: 12 },
             fontWeight: "bold",
           }}
         />
