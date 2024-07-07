@@ -84,7 +84,7 @@ function ProfessionalHighlights() {
                   secondary="Using NextJS and TypeScript, translating Figma designs from the UI/UX team and integrating GraphQL for efficient data fetching and management."
                   secondaryTypographyProps={{
                     fontSize: { xs: 14, sm: 15 },
-                    align: "justify",
+                    // align: "justify",
                     // display: { xs: "none", sm: "block" },
                   }}
                 />
@@ -103,7 +103,7 @@ function ProfessionalHighlights() {
                   secondary="Utilizing useMemo hook, resulting in improved rendering performance and reduced re-computations, enhancing overall responsiveness and user experience."
                   secondaryTypographyProps={{
                     fontSize: { xs: 14, sm: 15 },
-                    align: "justify",
+                    // align: "justify",
                     // display: { xs: "none", sm: "block" },
                   }}
                 />
@@ -122,7 +122,7 @@ function ProfessionalHighlights() {
                   secondary="For component development and documentation, contributing to team collaboration and maintaining code quality in a remote work environment."
                   secondaryTypographyProps={{
                     fontSize: { xs: 14, sm: 15 },
-                    align: "justify",
+                    // align: "justify",
                     // display: { xs: "none", sm: "block" },
                   }}
                 />
