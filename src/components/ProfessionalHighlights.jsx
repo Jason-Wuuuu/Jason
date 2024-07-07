@@ -55,7 +55,7 @@ function ProfessionalHighlights() {
               justifyContent={{ xs: "block", sm: "space-between" }}
               alignItems="baseline"
             >
-              <Typography variant="h6" fontWeight="bold">
+              <Typography variant="h5" fontWeight="bold">
                 Crypto-Arsena
               </Typography>
 
@@ -77,7 +77,7 @@ function ProfessionalHighlights() {
                 <ListItemText
                   primary="Implemented responsive UI components for the Strategy page"
                   primaryTypographyProps={{
-                    fontSize: { xs: 15, sm: 18 },
+                    fontSize: { xs: 16, sm: 18 },
                     fontWeight: "bold",
                     mb: 1,
                   }}
@@ -96,7 +96,7 @@ function ProfessionalHighlights() {
                 <ListItemText
                   primary="Optimized the Strategy page and its containing components"
                   primaryTypographyProps={{
-                    fontSize: { xs: 15, sm: 18 },
+                    fontSize: { xs: 16, sm: 18 },
                     fontWeight: "bold",
                     mb: 1,
                   }}
@@ -115,7 +115,7 @@ function ProfessionalHighlights() {
                 <ListItemText
                   primary="Participated in weekly Scrum meetings and utilized Storybook"
                   primaryTypographyProps={{
-                    fontSize: { xs: 15, sm: 18 },
+                    fontSize: { xs: 16, sm: 18 },
                     fontWeight: "bold",
                     mb: 1,
                   }}
@@ -181,17 +181,12 @@ function ProfessionalHighlights() {
 
         <Grid item xs={12} md={8} pt={{ xs: 3 }}>
           <Box pl={{ sm: 5 }} mb={1} py={{ xs: 1 }}>
-            <Typography variant="h6" fontWeight="bold">
-              Bachelor’s Thesis Project
-            </Typography>
-
             <Typography
-              variant="body2"
-              color="lightgray"
-              // fontWeight="bold"
+              fontWeight="bold"
               align="justify"
               my={2}
-              sx={{ display: { xs: "none", sm: "block" } }}
+              sx={{ fontSize: { xs: 16, sm: 18 } }}
+              // sx={{ display: { xs: "none", sm: "block" } }}
             >
               Pitched and led the backend development of “Memory Maker,” an iOS
               app created with 5 teammates, featuring machine learning for
