@@ -40,7 +40,7 @@ function ProfessionalHighlights() {
                 variant="h6"
                 fontWeight="bold"
                 color="lightgray"
-                mt={{ xs: 1, sm: 2 }}
+                my={{ xs: 1, sm: 2 }}
               >
                 May 2024 − Present
               </Typography>
@@ -49,7 +49,7 @@ function ProfessionalHighlights() {
         </Grid>
 
         <Grid item xs={12} md={8} pt={{ xs: 3 }}>
-          <Box pl={{ sm: 5 }} mb={1} py={{ xs: 1 }}>
+          <Box pl={{ sm: 5 }} mb={1}>
             <Box
               display="flex"
               justifyContent={{ xs: "block", sm: "space-between" }}
@@ -162,13 +162,13 @@ function ProfessionalHighlights() {
                 variant="h6"
                 fontWeight="bold"
                 color="lightgray"
-                mt={{ xs: 1, sm: 2 }}
+                my={{ xs: 1, sm: 2 }}
               >
                 Mar 2019 − Aug 2019
               </Typography>
             </Box>
 
-            <Box sx={{ display: { xs: "none", sm: "block" } }}>
+            <Box width="100%" display="flex" justifyContent="center">
               <img
                 src="./images/Award.png"
                 alt="Award Image"
@@ -180,11 +180,10 @@ function ProfessionalHighlights() {
         </Grid>
 
         <Grid item xs={12} md={8} pt={{ xs: 3 }}>
-          <Box pl={{ sm: 5 }} mb={1} py={{ xs: 1 }}>
+          <Box pl={{ sm: 5 }} mb={1}>
             <Typography
               fontWeight="bold"
               align="justify"
-              my={2}
               sx={{ fontSize: { xs: 16, sm: 18 } }}
               // sx={{ display: { xs: "none", sm: "block" } }}
             >

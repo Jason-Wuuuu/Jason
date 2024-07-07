@@ -57,7 +57,9 @@ function Home() {
                 borderRadius: 100,
                 boxShadow: 10,
                 fontSize: 12,
-                border: 2,
+                // border: 1,
+                backgroundColor: "#fffafa",
+                color: "#242424",
               }}
               onClick={() => navigate("/projects")}
             >
