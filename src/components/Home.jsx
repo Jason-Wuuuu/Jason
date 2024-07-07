@@ -24,7 +24,7 @@ function Home() {
             variant="h3"
             align="center"
             fontWeight="bold"
-            mb={{ sm: 8 }}
+            mb={{ sm: 10 }}
             sx={{ display: { xs: "none", sm: "block" } }}
           >
             Jason's Portfolio
@@ -70,7 +70,7 @@ function Home() {
 
         <Box
           minHeight="75vh"
-          sx={{ width: { xs: "95%", sm: "75%" }, margin: "auto" }}
+          sx={{ width: { xs: "95%", sm: "80%" }, margin: "auto" }}
         >
           <Typography
             variant="h4"
