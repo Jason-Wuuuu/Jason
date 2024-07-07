@@ -60,6 +60,9 @@ function Home() {
                 // border: 1,
                 backgroundColor: "#fffafa",
                 color: "#242424",
+                ":hover": {
+                  color: "#fffafa",
+                },
               }}
               onClick={() => navigate("/projects")}
             >

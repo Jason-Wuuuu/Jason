@@ -56,7 +56,7 @@ function ProfessionalHighlights() {
               alignItems="baseline"
             >
               <Typography variant="h5" fontWeight="bold">
-                Crypto-Arsena
+                🧑‍💻 Crypto-Arsena
               </Typography>
 
               <Typography
@@ -65,7 +65,7 @@ function ProfessionalHighlights() {
                 fontWeight="bold"
                 sx={{ display: { xs: "none", sm: "block" } }}
               >
-                Taipei, Taiwan (Remote)
+                📍 Taipei, Taiwan (Remote)
               </Typography>
             </Box>
 
