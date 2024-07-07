@@ -40,7 +40,7 @@ function ProfessionalHighlights() {
                 variant="h6"
                 fontWeight="bold"
                 color="GrayText"
-                mt={2}
+                mt={{ xs: 1, sm: 2 }}
               >
                 May 2024 − Present
               </Typography>
@@ -48,14 +48,12 @@ function ProfessionalHighlights() {
           </Box>
         </Grid>
 
-        <Grid item xs={12} md={8}>
-          <Box pl={{ sm: 5 }}>
+        <Grid item xs={12} md={8} pt={{ xs: 3 }}>
+          <Box pl={{ sm: 5 }} mb={1} py={{ xs: 1 }}>
             <Box
               display="flex"
               justifyContent={{ xs: "block", sm: "space-between" }}
               alignItems="baseline"
-              mb={1}
-              py={{ xs: 1 }}
             >
               <Typography variant="h6" fontWeight="bold">
                 Crypto-Arsena
@@ -86,6 +84,7 @@ function ProfessionalHighlights() {
                   secondary="Using NextJS and TypeScript, translating Figma designs from the UI/UX team and integrating GraphQL for efficient data fetching and management."
                   secondaryTypographyProps={{
                     fontSize: { xs: 13, sm: 15 },
+                    align: "justify",
                     // display: { xs: "none", sm: "block" },
                   }}
                 />
@@ -104,6 +103,7 @@ function ProfessionalHighlights() {
                   secondary="Utilizing useMemo hook, resulting in improved rendering performance and reduced re-computations, enhancing overall responsiveness and user experience."
                   secondaryTypographyProps={{
                     fontSize: { xs: 13, sm: 15 },
+                    align: "justify",
                     // display: { xs: "none", sm: "block" },
                   }}
                 />
@@ -122,6 +122,7 @@ function ProfessionalHighlights() {
                   secondary="For component development and documentation, contributing to team collaboration and maintaining code quality in a remote work environment."
                   secondaryTypographyProps={{
                     fontSize: { xs: 13, sm: 15 },
+                    align: "justify",
                     // display: { xs: "none", sm: "block" },
                   }}
                 />
@@ -161,7 +162,7 @@ function ProfessionalHighlights() {
                 variant="h6"
                 fontWeight="bold"
                 color="GrayText"
-                mt={2}
+                mt={{ xs: 1, sm: 2 }}
               >
                 Mar 2019 − Aug 2019
               </Typography>
@@ -178,15 +179,17 @@ function ProfessionalHighlights() {
           </Box>
         </Grid>
 
-        <Grid item xs={12} md={8}>
+        <Grid item xs={12} md={8} pt={{ xs: 3 }}>
           <Box pl={{ sm: 5 }} mb={1} py={{ xs: 1 }}>
             <Typography variant="h6" fontWeight="bold">
               Bachelor’s Thesis Project
             </Typography>
+
             <Typography
-              variant="body1"
+              variant="body2"
               color="lightgray"
-              fontWeight="bold"
+              // fontWeight="bold"
+              align="justify"
               my={2}
               sx={{ display: { xs: "none", sm: "block" } }}
             >

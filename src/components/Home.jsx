@@ -68,7 +68,10 @@ function Home() {
 
         <Divider sx={{ my: 5 }} />
 
-        <Box minHeight="75vh" sx={{ width: "85%", margin: "auto" }}>
+        <Box
+          minHeight="75vh"
+          sx={{ width: { xs: "95%", sm: "75%" }, margin: "auto" }}
+        >
           <Typography
             variant="h4"
             align="center"
@@ -85,7 +88,13 @@ function Home() {
         <Divider sx={{ my: 5 }} />
 
         <Box minHeight="75vh">
-          <Typography variant="h4" align="center" fontWeight="bold" mb={8}>
+          <Typography
+            variant="h4"
+            align="center"
+            fontWeight="bold"
+            mb={8}
+            sx={{ display: { xs: "none", sm: "block" } }}
+          >
             More About Me
           </Typography>
 
