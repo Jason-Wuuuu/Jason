@@ -39,7 +39,7 @@ function ProfessionalHighlights() {
               <Typography
                 variant="h6"
                 fontWeight="bold"
-                color="GrayText"
+                color="lightgray"
                 mt={{ xs: 1, sm: 2 }}
               >
                 May 2024 − Present
@@ -161,7 +161,7 @@ function ProfessionalHighlights() {
               <Typography
                 variant="h6"
                 fontWeight="bold"
-                color="GrayText"
+                color="lightgray"
                 mt={{ xs: 1, sm: 2 }}
               >
                 Mar 2019 − Aug 2019

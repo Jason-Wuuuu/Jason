@@ -277,7 +277,7 @@ function TableOfContents({ projects }) {
               {project.title}
             </Typography>
 
-            <Typography variant="subtitle2" color="GrayText" noWrap>
+            <Typography variant="subtitle2" color="lightgray" noWrap>
               {project.tech_stack}
             </Typography>
           </Box>
