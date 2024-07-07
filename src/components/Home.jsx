@@ -38,7 +38,7 @@ function Home() {
             display="flex"
             justifyContent="center"
             alignContent="center"
-            my={{ xs: 3, sx: 5 }}
+            my={{ xs: 3, sx: 6 }}
             sx={{
               position: "fixed",
               // top: { xs: 16, sm: 30 },
