@@ -187,7 +187,7 @@ function ProfessionalHighlights() {
               sx={{ fontSize: { xs: 15, sm: 18 } }}
               // sx={{ display: { xs: "none", sm: "block" } }}
             >
-              Pitched and led the backend development of “Memory Maker,” an iOS
+              Pitched and led the backend development of “Memory Maker”, an iOS
               app created with 5 teammates, featuring machine learning for
               photography guidance and virtual postcard creation, earning
               multiple awards.
