@@ -104,7 +104,7 @@ function MainPage() {
                 </ListItemIcon>
                 <ListItemText
                   primary="GPA"
-                  secondary="3.87 / 4.0"
+                  secondary="3.9 / 4.0"
                   primaryTypographyProps={{
                     fontSize: 16,
                     fontWeight: "bold",
