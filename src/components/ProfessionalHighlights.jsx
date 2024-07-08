@@ -183,8 +183,8 @@ function ProfessionalHighlights() {
           <Box pl={{ sm: 5 }} mb={1}>
             <Typography
               fontWeight="bold"
-              align="justify"
-              sx={{ fontSize: { xs: 16, sm: 18 } }}
+              // align="justify"
+              sx={{ fontSize: { xs: 15, sm: 18 } }}
               // sx={{ display: { xs: "none", sm: "block" } }}
             >
               Pitched and led the backend development of “Memory Maker,” an iOS
