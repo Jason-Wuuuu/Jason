@@ -83,7 +83,7 @@ function ProfessionalHighlights() {
                   }}
                   secondary="Using NextJS and TypeScript, translating Figma designs from the UI/UX team and integrating GraphQL for efficient data fetching and management."
                   secondaryTypographyProps={{
-                    fontSize: { xs: 14, sm: 15 },
+                    variant: "body2",
                     // align: "justify",
                     // display: { xs: "none", sm: "block" },
                   }}
@@ -102,8 +102,7 @@ function ProfessionalHighlights() {
                   }}
                   secondary="Utilizing useMemo hook, resulting in improved rendering performance and reduced re-computations, enhancing overall responsiveness and user experience."
                   secondaryTypographyProps={{
-                    fontSize: { xs: 14, sm: 15 },
-                    // align: "justify",
+                    variant: "body2",
                     // display: { xs: "none", sm: "block" },
                   }}
                 />
@@ -121,7 +120,7 @@ function ProfessionalHighlights() {
                   }}
                   secondary="For component development and documentation, contributing to team collaboration and maintaining code quality in a remote work environment."
                   secondaryTypographyProps={{
-                    fontSize: { xs: 14, sm: 15 },
+                    variant: "body2",
                     // align: "justify",
                     // display: { xs: "none", sm: "block" },
                   }}
@@ -181,11 +180,15 @@ function ProfessionalHighlights() {
 
         <Grid item xs={12} md={8} pt={{ xs: 3 }}>
           <Box pl={{ sm: 5 }} mb={1}>
+            <Typography variant="h5" fontWeight="bold">
+              🤖 Senior Project
+            </Typography>
+
             <Typography
-              fontWeight="bold"
-              align="justify"
-              sx={{ fontSize: { xs: 16, sm: 18 } }}
-              // sx={{ display: { xs: "none", sm: "block" } }}
+              variant="body2"
+              color="lightgray"
+              // align="justify"
+              sx={{ py: { xs: 1 } }}
             >
               Pitched and led the backend development of “Memory Maker,” an iOS
               app created with 5 teammates, featuring machine learning for
