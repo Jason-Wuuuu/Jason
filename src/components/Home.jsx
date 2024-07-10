@@ -42,7 +42,7 @@ function Home() {
             sx={{
               position: "fixed",
               // top: { xs: 16, sm: 30 },
-              bottom: { xs: 16, sm: 40 },
+              bottom: { xs: 16, sm: 24 },
               left: 0,
               right: 0,
               zIndex: 20,
