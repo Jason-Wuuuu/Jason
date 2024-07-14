@@ -24,7 +24,7 @@ function Home() {
             variant="h3"
             align="center"
             fontWeight="bold"
-            mb={{ sm: 10 }}
+            mb={5}
             sx={{ display: { xs: "none", sm: "block" } }}
           >
             👋 Jason's Portfolio
