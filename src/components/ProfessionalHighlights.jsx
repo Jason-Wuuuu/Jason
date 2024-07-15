@@ -2,9 +2,9 @@ import {
   Grid,
   Box,
   List,
-  ListItem,
   ListItemText,
   ListItemIcon,
+  ListItemButton,
   Typography,
   Divider,
 } from "@mui/material";
@@ -70,7 +70,7 @@ function ProfessionalHighlights() {
             </Box>
 
             <List>
-              <ListItem>
+              <ListItemButton>
                 <ListItemIcon sx={{ display: { xs: "none", sm: "block" } }}>
                   <ArrowRightIcon />
                 </ListItemIcon>
@@ -88,8 +88,8 @@ function ProfessionalHighlights() {
                     // display: { xs: "none", sm: "block" },
                   }}
                 />
-              </ListItem>
-              <ListItem>
+              </ListItemButton>
+              <ListItemButton>
                 <ListItemIcon sx={{ display: { xs: "none", sm: "block" } }}>
                   <ArrowRightIcon />
                 </ListItemIcon>
@@ -106,8 +106,8 @@ function ProfessionalHighlights() {
                     // display: { xs: "none", sm: "block" },
                   }}
                 />
-              </ListItem>
-              <ListItem>
+              </ListItemButton>
+              <ListItemButton>
                 <ListItemIcon sx={{ display: { xs: "none", sm: "block" } }}>
                   <ArrowRightIcon />
                 </ListItemIcon>
@@ -125,7 +125,7 @@ function ProfessionalHighlights() {
                     // display: { xs: "none", sm: "block" },
                   }}
                 />
-              </ListItem>
+              </ListItemButton>
             </List>
           </Box>
         </Grid>
@@ -197,7 +197,7 @@ function ProfessionalHighlights() {
             </Typography>
 
             <List>
-              <ListItem>
+              <ListItemButton>
                 <ListItemIcon sx={{ display: { xs: "none", sm: "block" } }}>
                   <ArrowRightIcon />
                 </ListItemIcon>
@@ -213,8 +213,8 @@ function ProfessionalHighlights() {
                     fontSize: 14,
                   }}
                 />
-              </ListItem>
-              <ListItem>
+              </ListItemButton>
+              <ListItemButton>
                 <ListItemIcon sx={{ display: { xs: "none", sm: "block" } }}>
                   <ArrowRightIcon />
                 </ListItemIcon>
@@ -230,8 +230,8 @@ function ProfessionalHighlights() {
                     fontSize: 14,
                   }}
                 />
-              </ListItem>
-              <ListItem>
+              </ListItemButton>
+              <ListItemButton>
                 <ListItemIcon sx={{ display: { xs: "none", sm: "block" } }}>
                   <ArrowRightIcon />
                 </ListItemIcon>
@@ -247,7 +247,7 @@ function ProfessionalHighlights() {
                     fontSize: 14,
                   }}
                 />
-              </ListItem>
+              </ListItemButton>
             </List>
           </Box>
         </Grid>
