@@ -75,13 +75,13 @@ function ProfessionalHighlights() {
                   <ArrowRightIcon />
                 </ListItemIcon>
                 <ListItemText
-                  primary="Implemented responsive UI components for the Strategy page"
+                  primary="Responsive UI Implementation for Strategy Page"
                   primaryTypographyProps={{
                     fontSize: { xs: 16, sm: 18 },
                     fontWeight: "bold",
                     mb: 1,
                   }}
-                  secondary="Using NextJS and TypeScript, translating Figma designs from the UI/UX team and integrating GraphQL for efficient data fetching and management."
+                  secondary="Developed responsive UI components using NextJS and TypeScript, translating Figma designs into code. Integrated GraphQL for efficient data management, enhancing overall page performance."
                   secondaryTypographyProps={{
                     variant: "body2",
                     // align: "justify",
@@ -94,13 +94,13 @@ function ProfessionalHighlights() {
                   <ArrowRightIcon />
                 </ListItemIcon>
                 <ListItemText
-                  primary="Optimized the Strategy page and its containing components"
+                  primary="Performance Optimization of Strategy Page Components"
                   primaryTypographyProps={{
                     fontSize: { xs: 16, sm: 18 },
                     fontWeight: "bold",
                     mb: 1,
                   }}
-                  secondary="Utilizing useMemo hook, resulting in improved rendering performance and reduced re-computations, enhancing overall responsiveness and user experience."
+                  secondary="Improved rendering performance by implementing useMemo hook on the Strategy page and its components. This reduced re-computations, enhancing responsiveness and user experience."
                   secondaryTypographyProps={{
                     variant: "body2",
                     // display: { xs: "none", sm: "block" },
@@ -112,13 +112,13 @@ function ProfessionalHighlights() {
                   <ArrowRightIcon />
                 </ListItemIcon>
                 <ListItemText
-                  primary="Participated in weekly Scrum meetings and utilized Storybook"
+                  primary="Agile Collaboration and Component Documentation"
                   primaryTypographyProps={{
                     fontSize: { xs: 16, sm: 18 },
                     fontWeight: "bold",
                     mb: 1,
                   }}
-                  secondary="For component development and documentation, contributing to team collaboration and maintaining code quality in a remote work environment."
+                  secondary="Participated in weekly Scrum meetings and used Storybook for component development and documentation. This improved team collaboration and code quality in a remote work setting."
                   secondaryTypographyProps={{
                     variant: "body2",
                     // align: "justify",
