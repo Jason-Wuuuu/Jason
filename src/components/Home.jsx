@@ -27,7 +27,7 @@ function Home() {
             mb={10}
             sx={{ display: { xs: "none", sm: "block" } }}
           >
-            👋 Jason's Portfolio
+            Jason's Portfolio
           </Typography>
 
           <MainPage />
