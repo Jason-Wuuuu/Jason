@@ -44,6 +44,15 @@ function ProfessionalHighlights() {
               >
                 May 2024 − Present
               </Typography>
+
+              <Typography
+                variant="body1"
+                color="lightgray"
+                align="justify"
+                sx={{ py: { xs: 1 } }}
+              >
+                NextJS, TypeScript, GraphQL, React Hooks, Git, Agile/Scrum
+              </Typography>
             </Box>
           </Box>
         </Grid>
@@ -75,13 +84,13 @@ function ProfessionalHighlights() {
                   <ArrowRightIcon />
                 </ListItemIcon>
                 <ListItemText
-                  primary="Responsive UI Implementation for Strategy Page"
+                  primary="Responsive UI Development for Web3 Platform"
                   primaryTypographyProps={{
                     fontSize: { xs: 16, sm: 18 },
                     fontWeight: "bold",
                     mb: 1,
                   }}
-                  secondary="Developed responsive UI components using NextJS and TypeScript, translating Figma designs into code. Integrated GraphQL for efficient data management, enhancing overall page performance."
+                  secondary="Developed and optimized responsive UI components using NextJS, TypeScript, and GraphQL. Translated Figma designs into functional interfaces and enhanced rendering performance with React hooks like useMemo."
                   secondaryTypographyProps={{
                     variant: "body2",
                     // align: "justify",
@@ -94,13 +103,13 @@ function ProfessionalHighlights() {
                   <ArrowRightIcon />
                 </ListItemIcon>
                 <ListItemText
-                  primary="Performance Optimization of Strategy Page Components"
+                  primary="Component Development and Quality Assurance"
                   primaryTypographyProps={{
                     fontSize: { xs: 16, sm: 18 },
                     fontWeight: "bold",
                     mb: 1,
                   }}
-                  secondary="Improved rendering performance by implementing useMemo hook on the Strategy page and its components. This reduced re-computations, enhancing responsiveness and user experience."
+                  secondary="Utilized Storybook for efficient component development, testing, and documentation. Improved development workflow and maintained high code quality standards through comprehensive component library management."
                   secondaryTypographyProps={{
                     variant: "body2",
                     // display: { xs: "none", sm: "block" },
@@ -112,13 +121,13 @@ function ProfessionalHighlights() {
                   <ArrowRightIcon />
                 </ListItemIcon>
                 <ListItemText
-                  primary="Agile Collaboration and Component Documentation"
+                  primary="Team Collaboration and Knowledge Sharing"
                   primaryTypographyProps={{
                     fontSize: { xs: 16, sm: 18 },
                     fontWeight: "bold",
                     mb: 1,
                   }}
-                  secondary="Participated in weekly Scrum meetings and used Storybook for component development and documentation. This improved team collaboration and code quality in a remote work setting."
+                  secondary="Presented advanced Git techniques in weekly dev meetings and actively participated in Scrum ceremonies. Fostered collaboration and knowledge sharing in a remote work environment, enhancing team proficiency in version control and agile methodologies."
                   secondaryTypographyProps={{
                     variant: "body2",
                     // align: "justify",
