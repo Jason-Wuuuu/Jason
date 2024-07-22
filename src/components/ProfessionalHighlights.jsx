@@ -44,15 +44,6 @@ function ProfessionalHighlights() {
               >
                 May 2024 − Present
               </Typography>
-
-              <Typography
-                variant="body1"
-                color="lightgray"
-                align="justify"
-                sx={{ py: { xs: 1 } }}
-              >
-                NextJS, TypeScript, GraphQL, React Hooks, Git, Agile/Scrum
-              </Typography>
             </Box>
           </Box>
         </Grid>
@@ -84,13 +75,13 @@ function ProfessionalHighlights() {
                   <ArrowRightIcon />
                 </ListItemIcon>
                 <ListItemText
-                  primary="Responsive UI Development for Web3 Platform"
+                  primary="Responsive UI Development"
                   primaryTypographyProps={{
                     fontSize: { xs: 16, sm: 18 },
                     fontWeight: "bold",
                     mb: 1,
                   }}
-                  secondary="Developed and optimized responsive UI components using NextJS, TypeScript, and GraphQL. Translated Figma designs into functional interfaces and enhanced rendering performance with React hooks like useMemo."
+                  secondary="Leveraged Next.js, TypeScript, and GraphQL to create dynamic and responsive UI components for the company website, ensuring a seamless user experience across devices."
                   secondaryTypographyProps={{
                     variant: "body2",
                     // align: "justify",
@@ -103,13 +94,13 @@ function ProfessionalHighlights() {
                   <ArrowRightIcon />
                 </ListItemIcon>
                 <ListItemText
-                  primary="Component Development and Quality Assurance"
+                  primary="Storybook Implementation"
                   primaryTypographyProps={{
                     fontSize: { xs: 16, sm: 18 },
                     fontWeight: "bold",
                     mb: 1,
                   }}
-                  secondary="Utilized Storybook for efficient component development, testing, and documentation. Improved development workflow and maintained high code quality standards through comprehensive component library management."
+                  secondary="Integrated Storybook into the development workflow, facilitating isolated component development and testing. This enhancement significantly improved development efficiency and overall code quality."
                   secondaryTypographyProps={{
                     variant: "body2",
                     // display: { xs: "none", sm: "block" },
@@ -121,13 +112,32 @@ function ProfessionalHighlights() {
                   <ArrowRightIcon />
                 </ListItemIcon>
                 <ListItemText
-                  primary="Team Collaboration and Knowledge Sharing"
+                  primary="Legacy Code Modernization"
                   primaryTypographyProps={{
                     fontSize: { xs: 16, sm: 18 },
                     fontWeight: "bold",
                     mb: 1,
                   }}
-                  secondary="Presented advanced Git techniques in weekly dev meetings and actively participated in Scrum ceremonies. Fostered collaboration and knowledge sharing in a remote work environment, enhancing team proficiency in version control and agile methodologies."
+                  secondary="Spearheaded the transition from legacy v1 codebase to v2, aligning with the latest Next.js best practices. Utilized React hooks to optimize performance and improve code maintainability."
+                  secondaryTypographyProps={{
+                    variant: "body2",
+                    // align: "justify",
+                    // display: { xs: "none", sm: "block" },
+                  }}
+                />
+              </ListItemButton>
+              <ListItemButton>
+                <ListItemIcon sx={{ display: { xs: "none", sm: "block" } }}>
+                  <ArrowRightIcon />
+                </ListItemIcon>
+                <ListItemText
+                  primary="Knowledge Sharing and Agile Practices"
+                  primaryTypographyProps={{
+                    fontSize: { xs: 16, sm: 18 },
+                    fontWeight: "bold",
+                    mb: 1,
+                  }}
+                  secondary="Actively contributed to the team's growth by presenting Git techniques and participating in Scrum meetings, fostering a collaborative and efficient development environment."
                   secondaryTypographyProps={{
                     variant: "body2",
                     // align: "justify",
