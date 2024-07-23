@@ -10,6 +10,8 @@ import Chip from "@mui/material/Chip";
 import Avatar from "@mui/material/Avatar";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
 
+import Resume from "./Resume";
+
 import LaptopChromebookIcon from "@mui/icons-material/LaptopChromebook";
 
 function Header() {
@@ -50,7 +52,11 @@ function Header() {
               />
             </Box>
 
-            <Box display="flex">
+            <Box display="flex" gap={{ xs: 1, sm: 2 }}>
+              <Box display={location.pathname !== "/projects" && "none"}>
+                <Resume />
+              </Box>
+
               <Chip
                 icon={<LaptopChromebookIcon sx={{ pl: 1 }} />}
                 label="My Projects"

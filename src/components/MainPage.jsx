@@ -9,6 +9,8 @@ import ListItemText from "@mui/material/ListItemText";
 import IconButton from "@mui/material/IconButton";
 import Divider from "@mui/material/Divider";
 
+import Resume from "./Resume";
+
 import SchoolIcon from "@mui/icons-material/School";
 import BusinessIcon from "@mui/icons-material/Business";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
@@ -51,26 +53,30 @@ function MainPage() {
             Software Engineer / Web Developer
           </Typography>
 
-          <Box my={4}>
-            <Tooltip title="LinkedIn" placement="bottom">
-              <IconButton
-                href="http://www.linkedin.com/in/chia-hsiang-jason-wu"
-                target="_blank"
-                size="large"
-              >
-                <LinkedInIcon fontSize="inherit" />
-              </IconButton>
-            </Tooltip>
+          <Box my={4} display="flex" alignItems="center" gap={2}>
+            <Box>
+              <Tooltip title="LinkedIn" placement="bottom">
+                <IconButton
+                  href="http://www.linkedin.com/in/chia-hsiang-jason-wu"
+                  target="_blank"
+                  size="large"
+                >
+                  <LinkedInIcon fontSize="inherit" />
+                </IconButton>
+              </Tooltip>
 
-            <Tooltip title="GitHub" placement="bottom">
-              <IconButton
-                href="https://github.com/Jason-Wuuuu"
-                target="_blank"
-                size="large"
-              >
-                <GitHubIcon fontSize="inherit" />
-              </IconButton>
-            </Tooltip>
+              <Tooltip title="GitHub" placement="bottom">
+                <IconButton
+                  href="https://github.com/Jason-Wuuuu"
+                  target="_blank"
+                  size="large"
+                >
+                  <GitHubIcon fontSize="inherit" />
+                </IconButton>
+              </Tooltip>
+            </Box>
+
+            <Resume />
           </Box>
         </Grid>
       </Grid>
