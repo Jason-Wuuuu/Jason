@@ -38,14 +38,31 @@ function ProjectCard({ project }) {
 
   const carouselItems = useMemo(() => {
     return project.screenshots.map((image, i) => (
-      <CardMedia
+      <Box
         key={i}
-        component="img"
-        image={`./images/${image}`}
-        alt={image.split(".")[0]}
-        sx={{ boxShadow: 10 }}
-        loading="lazy"
-      />
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "fit-content",
+          maxHeight: { xs: 250, sm: 350 },
+          overflow: "hidden",
+        }}
+      >
+        <CardMedia
+          component="img"
+          image={`./images/${image}`}
+          alt={image.split(".")[0]}
+          sx={{
+            width: "100%",
+            height: "auto",
+            maxHeight: { xs: 250, sm: 350 },
+            objectFit: "contain",
+            boxShadow: 10,
+          }}
+          loading="lazy"
+        />
+      </Box>
     ));
   }, [project.screenshots]);
 
@@ -88,9 +105,10 @@ function ProjectCard({ project }) {
                 <Carousel
                   autoPlay={false}
                   cycleNavigation={false}
-                  swipe={false}
+                  swipe={{ xs: true, sm: false }}
                   animation="slide"
                   navButtonsAlwaysVisible
+                  fullHeightHover
                 >
                   {carouselItems}
                 </Carousel>
