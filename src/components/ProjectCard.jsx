@@ -148,7 +148,7 @@ function ProjectCard({ project }) {
                 href={project.githubUrl}
                 target="_blank"
               >
-                <GitHubIcon />
+                <GitHubIcon sx={{ fontSize: 28 }} />
               </IconButton>
             </Tooltip>
           )}
@@ -159,8 +159,11 @@ function ProjectCard({ project }) {
                 aria-label="demo"
                 href={project.demoUrl}
                 target="_blank"
+                sx={{
+                  marginLeft: 1,
+                }}
               >
-                <OndemandVideoIcon />
+                <OndemandVideoIcon sx={{ fontSize: 28 }} />
               </IconButton>
             </Tooltip>
           )}
