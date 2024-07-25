@@ -32,7 +32,9 @@ const ExpandMore = styled((props) => {
 }));
 
 function ProjectCard({ project }) {
-  const [expanded, setExpanded] = useState(true);
+  const [expanded, setExpanded] = useState(
+    project.screenshots.length > 0 ? false : true
+  );
 
   const handleExpandClick = () => setExpanded(!expanded);
 
@@ -41,11 +43,9 @@ function ProjectCard({ project }) {
       <Box
         key={i}
         sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "fit-content",
-          maxHeight: { xs: 250, sm: 350 },
+          position: "relative",
+          width: "100%",
+          paddingTop: "56.25%", // 16:9 Aspect Ratio
           overflow: "hidden",
         }}
       >
@@ -54,9 +54,11 @@ function ProjectCard({ project }) {
           image={`./images/${image}`}
           alt={image.split(".")[0]}
           sx={{
+            position: "absolute",
+            top: 0,
+            left: 0,
             width: "100%",
-            height: "auto",
-            maxHeight: { xs: 250, sm: 350 },
+            height: "100%",
             objectFit: "contain",
             boxShadow: 10,
           }}
@@ -93,37 +95,37 @@ function ProjectCard({ project }) {
           }}
         />
 
-        <Collapse in={expanded} timeout="auto">
-          <Box
-            display="flex"
-            flexDirection="column"
-            justifyContent="center"
-            alignItems="center"
+        <Box
+          display="flex"
+          flexDirection="column"
+          justifyContent="center"
+          alignItems="center"
+        >
+          {project.screenshots.length > 0 && (
+            <Box width={{ xs: "95%", sm: "70%" }}>
+              <Carousel
+                autoPlay={false}
+                cycleNavigation={false}
+                swipe={false}
+                animation="slide"
+                navButtonsAlwaysVisible
+                fullHeightHover
+              >
+                {carouselItems}
+              </Carousel>
+            </Box>
+          )}
+        </Box>
+
+        <CardContent sx={{ mx: { xs: 1, sm: 10 } }}>
+          <Typography
+            align="center"
+            sx={{ fontWeight: "bold", fontSize: { xs: 16, sm: 18 } }}
           >
-            {project.screenshots.length > 0 && (
-              <Box width={{ xs: "95%", sm: "70%" }}>
-                <Carousel
-                  autoPlay={false}
-                  cycleNavigation={false}
-                  swipe={false}
-                  animation="slide"
-                  navButtonsAlwaysVisible
-                  fullHeightHover
-                >
-                  {carouselItems}
-                </Carousel>
-              </Box>
-            )}
-          </Box>
+            {`${project.course} Project (${project.year})`}
+          </Typography>
 
-          <CardContent sx={{ mx: { xs: 1, sm: 10 } }}>
-            <Typography
-              align="center"
-              sx={{ fontWeight: "bold", fontSize: { xs: 16, sm: 18 } }}
-            >
-              {`${project.course} Project (${project.year})`}
-            </Typography>
-
+          <Collapse in={expanded} timeout="auto">
             <Divider sx={{ my: 2 }} />
 
             <Typography
@@ -135,8 +137,8 @@ function ProjectCard({ project }) {
             >
               {project.description}
             </Typography>
-          </CardContent>
-        </Collapse>
+          </Collapse>
+        </CardContent>
 
         <CardActions disableSpacing>
           {project.githubUrl && (
