@@ -60,7 +60,6 @@ function ProjectCard({ project }) {
             width: "100%",
             height: "100%",
             objectFit: "contain",
-            boxShadow: 10,
           }}
           loading="lazy"
         />
@@ -71,7 +70,7 @@ function ProjectCard({ project }) {
   return (
     <Grid
       item
-      width={{ xs: "95vw", sm: "80vw", md: "70vw", lg: "60vw" }}
+      width={{ xs: "95vw", sm: "80vw", md: "70vw", lg: "55vw" }}
       mb={3}
     >
       <Card sx={{ boxShadow: 10, backgroundColor: "#202020" }}>
@@ -91,6 +90,7 @@ function ProjectCard({ project }) {
           subheader={project.tech_stack}
           subheaderTypographyProps={{
             fontSize: { xs: 11, sm: 13 },
+            mt: 0.5,
             fontWeight: "bold",
           }}
         />
@@ -102,7 +102,7 @@ function ProjectCard({ project }) {
           alignItems="center"
         >
           {project.screenshots.length > 0 && (
-            <Box width={{ xs: "95%", sm: "70%" }}>
+            <Box width={{ xs: "90%", sm: "85%" }}>
               <Carousel
                 autoPlay={false}
                 cycleNavigation={false}
