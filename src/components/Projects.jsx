@@ -137,7 +137,7 @@ const projects = [
   {
     title: "Event Master",
     year: "2023",
-    course: "Agile Methods for Software Dev Course Group",
+    course: "Agile Methods Course Group",
     category: "Full Stack",
     description:
       "A full-stack web app that utilizes Eventbrite & Ticketmaster APIs for seamless event discovery, interactive voting, and personalized schedule planning. It implements web scraping to compensate for missing functionality in Eventbrite's API.",

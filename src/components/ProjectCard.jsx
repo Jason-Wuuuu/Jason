@@ -32,7 +32,9 @@ const ExpandMore = styled((props) => {
 }));
 
 function ProjectCard({ project }) {
-  const [expanded, setExpanded] = useState(true);
+  const [expanded, setExpanded] = useState(
+    project.screenshots.length > 0 ? false : true
+  );
 
   const handleExpandClick = () => setExpanded(!expanded);
 
@@ -88,7 +90,7 @@ function ProjectCard({ project }) {
           }}
           subheader={project.tech_stack}
           subheaderTypographyProps={{
-            fontSize: { xs: 11, sm: 12 },
+            fontSize: { xs: 11, sm: 13 },
             fontWeight: "bold",
           }}
         />
@@ -116,7 +118,7 @@ function ProjectCard({ project }) {
         </Box>
 
         <Collapse in={expanded} timeout="auto">
-          <CardContent sx={{ mx: { xs: 1, sm: 10 } }}>
+          <CardContent>
             <Typography
               align="center"
               sx={{ fontWeight: "bold", fontSize: { xs: 16, sm: 18 } }}
@@ -135,7 +137,7 @@ function ProjectCard({ project }) {
                 fontSize: { xs: 14, sm: 15 },
                 fontWeight: "bold",
                 whiteSpace: "pre-line",
-                width: { xs: "100%", sm: "80%" },
+                width: { xs: "90%", sm: "80%" },
                 margin: "0 auto",
                 hyphens: { xs: "auto", sm: "none" },
               }}
