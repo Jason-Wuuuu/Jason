@@ -69,7 +69,7 @@ function ProjectCard({ project }) {
   return (
     <Grid
       item
-      width={{ xs: "90vw", sm: "80vw", md: "70vw", lg: "50vw" }}
+      width={{ xs: "95vw", sm: "80vw", md: "70vw", lg: "60vw" }}
       mb={3}
     >
       <Card sx={{ boxShadow: 10, backgroundColor: "#202020" }}>
@@ -131,9 +131,24 @@ function ProjectCard({ project }) {
               lineHeight={1.5}
               // color="text.secondary"
               mx={1}
-              sx={{ fontSize: { xs: 14, sm: 15 }, fontWeight: "bold" }}
+              sx={{
+                fontSize: { xs: 14, sm: 15 },
+                fontWeight: "bold",
+                whiteSpace: "pre-line",
+                width: { xs: "100%", sm: "80%" },
+                margin: "0 auto",
+                hyphens: { xs: "auto", sm: "none" },
+              }}
             >
-              {project.description}
+              {project.description.split(". ").map((sentence, index) => (
+                <span
+                  key={index}
+                  style={{ display: "block", marginBottom: "16px" }}
+                >
+                  {sentence}
+                  {index < project.description.split(". ").length - 1 && <br />}
+                </span>
+              ))}
             </Typography>
           </CardContent>
         </Collapse>
@@ -146,7 +161,7 @@ function ProjectCard({ project }) {
                 href={project.githubUrl}
                 target="_blank"
               >
-                <GitHubIcon sx={{ fontSize: 28 }} />
+                <GitHubIcon sx={{ fontSize: { sm: 32 } }} />
               </IconButton>
             </Tooltip>
           )}
@@ -161,20 +176,22 @@ function ProjectCard({ project }) {
                   marginLeft: 1,
                 }}
               >
-                <OndemandVideoIcon sx={{ fontSize: 28 }} />
+                <OndemandVideoIcon sx={{ fontSize: { sm: 32 } }} />
               </IconButton>
             </Tooltip>
           )}
 
-          <ExpandMore
-            expand={expanded}
-            onClick={handleExpandClick}
-            aria-expanded={expanded}
-          >
-            <Tooltip title="Expand" placement="top">
-              <ExpandMoreIcon />
-            </Tooltip>
-          </ExpandMore>
+          {project.screenshots.length > 0 && (
+            <ExpandMore
+              expand={expanded}
+              onClick={handleExpandClick}
+              aria-expanded={expanded}
+            >
+              <Tooltip title="Expand" placement="top">
+                <ExpandMoreIcon />
+              </Tooltip>
+            </ExpandMore>
+          )}
         </CardActions>
       </Card>
     </Grid>

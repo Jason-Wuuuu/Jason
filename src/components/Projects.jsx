@@ -418,7 +418,7 @@ function Projects() {
             <Accordion
               // defaultExpanded
               sx={{
-                width: { xs: "90vw", sm: "80vw", md: "70vw", lg: "50vw" },
+                width: { xs: "95vw", sm: "80vw", md: "70vw", lg: "60vw" },
                 boxShadow: 10,
                 backgroundColor: "#202020",
               }}
