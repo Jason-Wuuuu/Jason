@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useCallback } from "react";
 import {
   Accordion,
   AccordionSummary,
@@ -10,32 +10,82 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-const DynamicTechSkillsShowcase = ({ filteredProjects }) => {
-  // Define essential technologies
-  const essentialTechs = new Set([
-    "Python",
-    "Java",
-    "JavaScript",
-    "TypeScript",
-    "Swift",
+const categories = {
+  Languages: ["Python", "Java", "JavaScript", "TypeScript", "Swift"],
+  "Web Development": [
     "React",
     "Next.js",
     "Node.js",
     "Express.js",
-    "Spring Boot",
-    "MongoDB",
-    "Redis",
-    "SQL",
-    "TensorFlow",
-    "scikit-learn",
-    "NLTK",
-    "Docker",
-    "Git",
-    "AWS",
-    "FastAPI",
     "GraphQL",
-  ]);
+    "Spring Boot",
+    "FastAPI",
+  ],
+  Databases: ["MongoDB", "Redis", "SQL"],
+  "Machine Learning / AI": ["TensorFlow", "scikit-learn", "NLTK"],
+  "DevOps & Cloud": ["Docker", "Git", "AWS"],
+  "Mobile Development": ["Swift", "React Native"],
+};
 
+const essentialTechs = new Set([
+  "Python",
+  "Java",
+  "JavaScript",
+  "TypeScript",
+  "Swift",
+  "React",
+  "Next.js",
+  "Node.js",
+  "Express.js",
+  "Spring Boot",
+  "MongoDB",
+  "Redis",
+  "SQL",
+  "TensorFlow",
+  "scikit-learn",
+  "NLTK",
+  "Docker",
+  "Git",
+  "AWS",
+  "FastAPI",
+  "GraphQL",
+]);
+
+const getCategory = (skill) => {
+  for (const [category, skills] of Object.entries(categories)) {
+    if (skills.includes(skill)) return category;
+  }
+  return "Other";
+};
+
+const SkillChip = React.memo(({ skill }) => (
+  <Chip
+    label={skill}
+    variant="outlined"
+    size="small"
+    sx={{
+      backgroundColor: "rgba(255, 255, 255, 0.08)",
+      color: "inherit",
+      "&:hover": { backgroundColor: "rgba(255, 255, 255, 0.12)" },
+      boxShadow: 10,
+    }}
+  />
+));
+
+const CategorySkills = React.memo(({ category, skills }) => (
+  <Box key={category} sx={{ mb: 2 }}>
+    <Typography variant="subtitle1" sx={{ fontWeight: "bold", mb: 1 }}>
+      {category}
+    </Typography>
+    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
+      {skills.map((skill) => (
+        <SkillChip key={skill} skill={skill} />
+      ))}
+    </Box>
+  </Box>
+));
+
+const DynamicTechSkillsShowcase = React.memo(({ filteredProjects }) => {
   const techStackUnion = useMemo(() => {
     const allTechStacks = filteredProjects.flatMap((project) =>
       project.tech_stack.split(", ")
@@ -45,41 +95,25 @@ const DynamicTechSkillsShowcase = ({ filteredProjects }) => {
       .sort();
   }, [filteredProjects]);
 
-  const categories = {
-    Languages: ["Python", "Java", "JavaScript", "TypeScript", "Swift"],
-    "Web Development": [
-      "React",
-      "Next.js",
-      "Node.js",
-      "Express.js",
-      "GraphQL",
-      "Spring Boot",
-      "FastAPI",
-    ],
-    Databases: ["MongoDB", "Redis", "SQL"],
-    "Machine Learning / AI": ["TensorFlow", "scikit-learn", "NLTK"],
-    "DevOps & Cloud": ["Docker", "Git", "AWS"],
-    "Mobile Development": ["Swift", "React Native"], // Add React Native if you use it
-  };
+  const groupedSkills = useMemo(() => {
+    return techStackUnion.reduce((acc, skill) => {
+      const category = getCategory(skill);
+      if (!acc[category]) acc[category] = [];
+      acc[category].push(skill);
+      return acc;
+    }, {});
+  }, [techStackUnion]);
 
-  const getCategory = (skill) => {
-    for (const [category, skills] of Object.entries(categories)) {
-      if (skills.includes(skill)) return category;
-    }
-    return "Other";
-  };
-
-  const groupedSkills = techStackUnion.reduce((acc, skill) => {
-    const category = getCategory(skill);
-    if (!acc[category]) acc[category] = [];
-    acc[category].push(skill);
-    return acc;
-  }, {});
+  const renderGroupedSkills = useCallback(() => {
+    return Object.entries(groupedSkills).map(([category, skills]) => (
+      <CategorySkills key={category} category={category} skills={skills} />
+    ));
+  }, [groupedSkills]);
 
   return (
     <Accordion
       sx={{
-        width: { xs: "95vw", sm: "80vw", md: "70vw", lg: "55vw" },
+        width: { xs: "90vw", sm: "80vw", md: "70vw", lg: "55vw" },
         boxShadow: 10,
         backgroundColor: "#202020",
       }}
@@ -91,33 +125,9 @@ const DynamicTechSkillsShowcase = ({ filteredProjects }) => {
         Core Technologies / Skills
       </AccordionSummary>
       <Divider sx={{ mx: 1 }} />
-      <AccordionDetails>
-        {Object.entries(groupedSkills).map(([category, skills]) => (
-          <Box key={category} sx={{ mb: 2 }}>
-            <Typography variant="subtitle1" sx={{ fontWeight: "bold", mb: 1 }}>
-              {category}
-            </Typography>
-            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
-              {skills.map((skill) => (
-                <Chip
-                  key={skill}
-                  label={skill}
-                  variant="outlined"
-                  size="small"
-                  sx={{
-                    backgroundColor: "rgba(255, 255, 255, 0.08)",
-                    color: "inherit",
-                    "&:hover": { backgroundColor: "rgba(255, 255, 255, 0.12)" },
-                    boxShadow: 10,
-                  }}
-                />
-              ))}
-            </Box>
-          </Box>
-        ))}
-      </AccordionDetails>
+      <AccordionDetails>{renderGroupedSkills()}</AccordionDetails>
     </Accordion>
   );
-};
+});
 
 export default DynamicTechSkillsShowcase;
