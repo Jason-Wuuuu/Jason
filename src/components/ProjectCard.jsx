@@ -107,7 +107,7 @@ function ProjectCard({ project }) {
                   cycleNavigation={false}
                   swipe={{ xs: true, sm: false }}
                   animation="slide"
-                  navButtonsAlwaysVisible
+                  // navButtonsAlwaysVisible
                   fullHeightHover
                 >
                   {carouselItems}
