@@ -105,9 +105,9 @@ function ProjectCard({ project }) {
                 <Carousel
                   autoPlay={false}
                   cycleNavigation={false}
-                  swipe={{ xs: true, sm: false }}
+                  swipe={false}
                   animation="slide"
-                  // navButtonsAlwaysVisible
+                  navButtonsAlwaysVisible
                   fullHeightHover
                 >
                   {carouselItems}
