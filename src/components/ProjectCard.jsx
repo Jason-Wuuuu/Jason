@@ -117,15 +117,15 @@ function ProjectCard({ project }) {
           )}
         </Box>
 
-        <CardContent sx={{ mx: { xs: 1, sm: 10 } }}>
-          <Typography
-            align="center"
-            sx={{ fontWeight: "bold", fontSize: { xs: 16, sm: 18 } }}
-          >
-            {`${project.course} Project (${project.year})`}
-          </Typography>
+        <Collapse in={expanded} timeout="auto">
+          <CardContent sx={{ mx: { xs: 1, sm: 10 } }}>
+            <Typography
+              align="center"
+              sx={{ fontWeight: "bold", fontSize: { xs: 16, sm: 18 } }}
+            >
+              {`${project.course} Project (${project.year})`}
+            </Typography>
 
-          <Collapse in={expanded} timeout="auto">
             <Divider sx={{ my: 2 }} />
 
             <Typography
@@ -137,8 +137,8 @@ function ProjectCard({ project }) {
             >
               {project.description}
             </Typography>
-          </Collapse>
-        </CardContent>
+          </CardContent>
+        </Collapse>
 
         <CardActions disableSpacing>
           {project.githubUrl && (
