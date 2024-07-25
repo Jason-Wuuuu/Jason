@@ -1,3 +1,4 @@
+import React from "react";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -29,55 +30,62 @@ function MainPage() {
           direction="column"
           justifyContent="center"
           alignItems="center"
+          spacing={3}
+          mb={{ xs: 4, sm: 0 }}
         >
-          <Tooltip title="Hi! 👋" arrow placement="top">
-            <Box
-              component="img"
-              sx={{
-                height: 300,
-                width: 300,
-                borderRadius: 100,
-                boxShadow: 10,
-                mb: 5,
-              }}
-              alt="memoji"
-              src="./images/Memoji.png"
-            />
-          </Tooltip>
+          <Grid item>
+            <Tooltip title="Hi! 👋" arrow placement="top">
+              <Box
+                component="img"
+                sx={{
+                  height: 300,
+                  width: 300,
+                  borderRadius: "50%",
+                  boxShadow: 10,
+                }}
+                alt="memoji"
+                src="./images/Memoji.png"
+              />
+            </Tooltip>
+          </Grid>
 
-          <Typography align="center" variant="h5" fontWeight="bold" mb={2}>
-            Chia-Hsiang(Jason) Wu
-          </Typography>
+          <Grid item>
+            <Typography variant="h5" fontWeight="bold" align="center">
+              Chia-Hsiang(Jason) Wu
+            </Typography>
 
-          <Typography align="center" variant="body1">
-            Software Engineer / Web Developer
-          </Typography>
+            <Typography variant="body1" align="center" mt={2}>
+              Software Engineer / Web Developer
+            </Typography>
+          </Grid>
 
-          <Box my={4} display="flex" alignItems="center" gap={2}>
-            <Box>
-              <Tooltip title="LinkedIn" placement="bottom">
-                <IconButton
-                  href="http://www.linkedin.com/in/chia-hsiang-jason-wu"
-                  target="_blank"
-                  size="large"
-                >
-                  <LinkedInIcon fontSize="inherit" />
-                </IconButton>
-              </Tooltip>
+          <Grid item>
+            <Box display="flex" alignItems="center" gap={2}>
+              <Box>
+                <Tooltip title="LinkedIn" placement="bottom">
+                  <IconButton
+                    href="http://www.linkedin.com/in/chia-hsiang-jason-wu"
+                    target="_blank"
+                    size="large"
+                  >
+                    <LinkedInIcon fontSize="inherit" />
+                  </IconButton>
+                </Tooltip>
 
-              <Tooltip title="GitHub" placement="bottom">
-                <IconButton
-                  href="https://github.com/Jason-Wuuuu"
-                  target="_blank"
-                  size="large"
-                >
-                  <GitHubIcon fontSize="inherit" />
-                </IconButton>
-              </Tooltip>
+                <Tooltip title="GitHub" placement="bottom">
+                  <IconButton
+                    href="https://github.com/Jason-Wuuuu"
+                    target="_blank"
+                    size="large"
+                  >
+                    <GitHubIcon fontSize="inherit" />
+                  </IconButton>
+                </Tooltip>
+              </Box>
+
+              <Resume />
             </Box>
-
-            <Resume />
-          </Box>
+          </Grid>
         </Grid>
       </Grid>
 
