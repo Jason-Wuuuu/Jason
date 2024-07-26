@@ -15,6 +15,7 @@ import {
   Tooltip,
   Box,
   Divider,
+  Link,
 } from "@mui/material";
 
 import Carousel from "react-material-ui-carousel";
@@ -25,16 +26,39 @@ import {
   ExpandMore as ExpandMoreIcon,
 } from "@mui/icons-material";
 
-const ExpandMore = styled(({ expand, ...other }) => <IconButton {...other} />)(
-  ({ theme, expand }) => ({
-    transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
-    marginLeft: "auto",
-    transition: theme.transitions.create("transform", {
-      duration: theme.transitions.duration.shortest,
-    }),
-  })
-);
-
+const ExpandMore = styled(({ expand, onClick, ...other }) => {
+  return (
+    <Link
+      component="button"
+      onClick={onClick}
+      underline="hover"
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        ml: "auto",
+        color: "inherit",
+        "&:hover": {
+          cursor: "pointer",
+        },
+      }}
+      {...other}
+    >
+      <Typography variant="body2" fontWeight="bold">
+        {expand ? "Collapse" : "Expand"}
+      </Typography>
+      <ExpandMoreIcon
+        sx={{
+          m: 1,
+          transform: expand ? "rotate(180deg)" : "rotate(0deg)",
+          transition: (theme) =>
+            theme.transitions.create("transform", {
+              duration: theme.transitions.duration.short,
+            }),
+        }}
+      />
+    </Link>
+  );
+})(() => ({}));
 const ProjectDescription = React.memo(({ description }) => (
   <Typography
     align="center"
@@ -182,15 +206,13 @@ const ProjectCard = React.memo(({ project }) => {
           )}
 
           {project.screenshots.length > 0 && (
-            <Tooltip title={expanded ? "Collapse" : "Expand"} placement="top">
-              <ExpandMore
-                expand={expanded}
-                onClick={handleExpandClick}
-                aria-expanded={expanded}
-              >
-                <ExpandMoreIcon />
-              </ExpandMore>
-            </Tooltip>
+            <ExpandMore
+              expand={expanded}
+              onClick={handleExpandClick}
+              aria-expanded={expanded}
+            >
+              <ExpandMoreIcon />
+            </ExpandMore>
           )}
         </CardActions>
       </Card>

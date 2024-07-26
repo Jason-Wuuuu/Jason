@@ -19,7 +19,7 @@ export const projects = [
     description:
       "Developed a bank ledger system implementing the Event Sourcing pattern to maintain an immutable transaction history, ensuring auditability and reconstruction of account balances.",
     tech_stack: "Java, Spring Boot",
-    githubUrl: "",
+    githubUrl: "https://github.com/Jason-Wuuuu/Bank-Ledger-System",
     demoUrl: "",
     screenshots: [],
   },
