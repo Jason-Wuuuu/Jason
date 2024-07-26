@@ -183,14 +183,15 @@ const ProjectCard = React.memo(({ project }) => {
                 align="center"
                 color="lightgray"
               >
+                See full project details in the{" "}
                 <Link
                   href={project.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   color="inherit"
-                  underline="hover"
+                  underline="always"
                 >
-                  ( Full details in GitHub README )
+                  README
                 </Link>
               </Typography>
             )}
@@ -199,7 +200,7 @@ const ProjectCard = React.memo(({ project }) => {
 
         <CardActions disableSpacing>
           {project.githubUrl && (
-            <Tooltip title="Repo" placement="top">
+            <Tooltip title="GitHub Repo" placement="top">
               <IconButton
                 aria-label="github"
                 href={project.githubUrl}
