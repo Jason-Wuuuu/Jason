@@ -110,7 +110,10 @@ const TableOfContents = React.memo(({ projects }) => {
           variant="extended"
           onClick={handleClick}
           color="default"
-          sx={{ boxShadow: 10, opacity: 0.9 }}
+          sx={{
+            boxShadow: 10,
+            opacity: 0.9,
+          }}
         >
           <FormatListBulletedIcon sx={{ mr: 1 }} />
           Jump To

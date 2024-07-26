@@ -148,7 +148,12 @@ function MainPage() {
   ];
 
   return (
-    <Grid container alignItems="center" justifyContent="center" spacing={10}>
+    <Grid
+      container
+      alignItems="center"
+      justifyContent="center"
+      spacing={{ xs: 5, sm: 10 }}
+    >
       <Grid item xs={12} sm={6} md={6}>
         <ProfileSection />
       </Grid>

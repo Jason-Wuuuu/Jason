@@ -104,7 +104,7 @@ const ProjectCard = React.memo(({ project }) => {
   return (
     <Grid
       item
-      width={{ xs: "90vw", sm: "80vw", md: "70vw", lg: "55vw" }}
+      width={{ xs: "95vw", sm: "80vw", md: "70vw", lg: "55vw" }}
       mb={3}
     >
       <Card sx={{ boxShadow: 10, backgroundColor: "#202020" }}>

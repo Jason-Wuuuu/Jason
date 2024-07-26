@@ -112,7 +112,7 @@ const DynamicTechSkillsShowcase = React.memo(({ filteredProjects }) => {
   return (
     <Accordion
       sx={{
-        width: { xs: "90vw", sm: "80vw", md: "70vw", lg: "55vw" },
+        width: { xs: "95vw", sm: "80vw", md: "70vw", lg: "55vw" },
         boxShadow: 10,
         backgroundColor: "#202020",
       }}
