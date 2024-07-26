@@ -1,76 +1,110 @@
-import { useState, useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import { styled } from "@mui/material/styles";
-import Card from "@mui/material/Card";
-import CardHeader from "@mui/material/CardHeader";
-import CardMedia from "@mui/material/CardMedia";
-import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
-import Collapse from "@mui/material/Collapse";
-import Avatar from "@mui/material/Avatar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Grid from "@mui/material/Grid";
-import Tooltip from "@mui/material/Tooltip";
-import Box from "@mui/material/Box";
+import {
+  Card,
+  CardHeader,
+  CardMedia,
+  CardContent,
+  CardActions,
+  Collapse,
+  Avatar,
+  IconButton,
+  Typography,
+  Grid,
+  Tooltip,
+  Box,
+  Divider,
+} from "@mui/material";
 
 import Carousel from "react-material-ui-carousel";
+import {
+  GitHub as GitHubIcon,
+  OndemandVideo as OndemandVideoIcon,
+  ExpandMore as ExpandMoreIcon,
+} from "@mui/icons-material";
 
-import GitHubIcon from "@mui/icons-material/GitHub";
-import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import Divider from "@mui/material/Divider";
+const ExpandMore = styled(({ expand, ...other }) => <IconButton {...other} />)(
+  ({ theme, expand }) => ({
+    transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
+    marginLeft: "auto",
+    transition: theme.transitions.create("transform", {
+      duration: theme.transitions.duration.shortest,
+    }),
+  })
+);
 
-const ExpandMore = styled((props) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
-  marginLeft: "auto",
-  transition: theme.transitions.create("transform", {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
+const ProjectDescription = React.memo(({ description }) => (
+  <Typography
+    align="center"
+    lineHeight={1.5}
+    mx={1}
+    sx={{
+      fontSize: { xs: 14, sm: 15 },
+      fontWeight: "bold",
+      whiteSpace: "pre-line",
+      width: { xs: "90%", sm: "80%" },
+      margin: "0 auto",
+      hyphens: { xs: "auto", sm: "none" },
+    }}
+  >
+    {description.split(". ").map((sentence, index) => (
+      <span key={index} style={{ display: "block", marginBottom: "16px" }}>
+        {sentence}
+        {index < description.split(". ").length - 1 && <br />}
+      </span>
+    ))}
+  </Typography>
+));
 
-function ProjectCard({ project }) {
-  const [expanded, setExpanded] = useState(
-    project.screenshots.length > 0 ? false : true
-  );
+const ProjectCarousel = React.memo(({ screenshots }) => (
+  <Box width={{ xs: "90%", sm: "85%" }}>
+    <Carousel
+      autoPlay={false}
+      cycleNavigation={false}
+      swipe={false}
+      animation="slide"
+      navButtonsAlwaysVisible
+      fullHeightHover
+    >
+      {screenshots.map((image, i) => (
+        <Box
+          key={i}
+          sx={{
+            position: "relative",
+            width: "100%",
+            paddingTop: "56.25%", // 16:9 Aspect Ratio
+            overflow: "hidden",
+          }}
+        >
+          <CardMedia
+            component="img"
+            image={`./images/${image}`}
+            alt={image.split(".")[0]}
+            sx={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              objectFit: "contain",
+            }}
+            loading="lazy"
+          />
+        </Box>
+      ))}
+    </Carousel>
+  </Box>
+));
+
+const ProjectCard = React.memo(({ project }) => {
+  const [expanded, setExpanded] = useState(true);
 
   const handleExpandClick = () => setExpanded(!expanded);
-
-  const carouselItems = useMemo(() => {
-    return project.screenshots.map((image, i) => (
-      <Box
-        key={i}
-        sx={{
-          position: "relative",
-          width: "100%",
-          paddingTop: "56.25%", // 16:9 Aspect Ratio
-          overflow: "hidden",
-        }}
-      >
-        <CardMedia
-          component="img"
-          image={`./images/${image}`}
-          alt={image.split(".")[0]}
-          sx={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            objectFit: "contain",
-          }}
-          loading="lazy"
-        />
-      </Box>
-    ));
-  }, [project.screenshots]);
 
   return (
     <Grid
       item
-      width={{ xs: "90vw", sm: "80vw", md: "70vw", lg: "55vw" }}
+      width={{ xs: "90vw", sm: "80vw", md: "70vw", lg: "50vw" }}
       mb={3}
     >
       <Card sx={{ boxShadow: 10, backgroundColor: "#202020" }}>
@@ -102,18 +136,7 @@ function ProjectCard({ project }) {
           alignItems="center"
         >
           {project.screenshots.length > 0 && (
-            <Box width={{ xs: "90%", sm: "85%" }}>
-              <Carousel
-                autoPlay={false}
-                cycleNavigation={false}
-                swipe={false}
-                animation="slide"
-                navButtonsAlwaysVisible
-                fullHeightHover
-              >
-                {carouselItems}
-              </Carousel>
-            </Box>
+            <ProjectCarousel screenshots={project.screenshots} />
           )}
         </Box>
 
@@ -128,30 +151,7 @@ function ProjectCard({ project }) {
 
             <Divider sx={{ m: 2 }} />
 
-            <Typography
-              align="center"
-              lineHeight={1.5}
-              // color="text.secondary"
-              mx={1}
-              sx={{
-                fontSize: { xs: 14, sm: 15 },
-                fontWeight: "bold",
-                whiteSpace: "pre-line",
-                width: { xs: "90%", sm: "80%" },
-                margin: "0 auto",
-                hyphens: { xs: "auto", sm: "none" },
-              }}
-            >
-              {project.description.split(". ").map((sentence, index) => (
-                <span
-                  key={index}
-                  style={{ display: "block", marginBottom: "16px" }}
-                >
-                  {sentence}
-                  {index < project.description.split(". ").length - 1 && <br />}
-                </span>
-              ))}
-            </Typography>
+            <ProjectDescription description={project.description} />
           </CardContent>
         </Collapse>
 
@@ -174,9 +174,7 @@ function ProjectCard({ project }) {
                 aria-label="demo"
                 href={project.demoUrl}
                 target="_blank"
-                sx={{
-                  marginLeft: 1,
-                }}
+                sx={{ marginLeft: 1 }}
               >
                 <OndemandVideoIcon sx={{ fontSize: { sm: 32 } }} />
               </IconButton>
@@ -189,7 +187,7 @@ function ProjectCard({ project }) {
               onClick={handleExpandClick}
               aria-expanded={expanded}
             >
-              <Tooltip title="Expand" placement="top">
+              <Tooltip title={expanded ? "Collapse" : "Expand"} placement="top">
                 <ExpandMoreIcon />
               </Tooltip>
             </ExpandMore>
@@ -198,5 +196,6 @@ function ProjectCard({ project }) {
       </Card>
     </Grid>
   );
-}
+});
+
 export default ProjectCard;

@@ -1,3 +1,4 @@
+import React, { memo } from "react";
 import {
   Grid,
   Box,
@@ -8,270 +9,235 @@ import {
   Typography,
   Divider,
 } from "@mui/material";
+
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 
+import { styled } from "@mui/system";
+
+const StyledListItemButton = styled(ListItemButton)(({ theme }) => ({
+  "&:hover": {
+    backgroundColor: theme.palette.action.hover,
+  },
+}));
+
+const ExperienceItem = memo(
+  ({ title, date, company, location, responsibilities }) => (
+    <Grid
+      container
+      py={3}
+      display="flex"
+      flexDirection={{ xs: "column", sm: "row" }}
+    >
+      <Grid item xs={12} md={4}>
+        <Box
+          display="flex"
+          height="100%"
+          flexDirection="column"
+          p={{ sm: 3 }}
+          borderRight={{ sm: 2 }}
+        >
+          <Box>
+            <Typography variant="h5" fontWeight="bold">
+              {title}
+            </Typography>
+            <Typography
+              variant="h6"
+              fontWeight="bold"
+              color="text.secondary"
+              my={{ xs: 1, sm: 2 }}
+            >
+              {date}
+            </Typography>
+          </Box>
+        </Box>
+      </Grid>
+      <Grid item xs={12} md={8} pt={{ xs: 3 }}>
+        <Box pl={{ sm: 5 }} mb={1}>
+          <Box
+            display="flex"
+            justifyContent={{ xs: "block", sm: "space-between" }}
+            alignItems="baseline"
+          >
+            <Typography variant="h5" fontWeight="bold">
+              {company}
+            </Typography>
+            <Typography
+              variant="body1"
+              color="text.secondary"
+              fontWeight="bold"
+              sx={{ display: { xs: "none", sm: "block" } }}
+            >
+              {location}
+            </Typography>
+          </Box>
+          <List>
+            {responsibilities.map((resp, index) => (
+              <StyledListItemButton key={index}>
+                <ListItemIcon sx={{ display: { xs: "none", sm: "block" } }}>
+                  <ArrowRightIcon />
+                </ListItemIcon>
+                <ListItemText
+                  primary={resp.title}
+                  primaryTypographyProps={{
+                    fontSize: { xs: 16, sm: 18 },
+                    fontWeight: "bold",
+                    mb: 1,
+                  }}
+                  secondary={resp.description}
+                  secondaryTypographyProps={{
+                    variant: "body2",
+                  }}
+                />
+              </StyledListItemButton>
+            ))}
+          </List>
+        </Box>
+      </Grid>
+    </Grid>
+  )
+);
+
+const CompetitionItem = memo(
+  ({ title, date, projectName, description, awards, imageSrc }) => (
+    <Grid
+      container
+      py={3}
+      display="flex"
+      flexDirection={{ xs: "column", sm: "row" }}
+    >
+      <Grid item xs={12} md={4}>
+        <Box
+          display="flex"
+          height="100%"
+          flexDirection="column"
+          justifyContent="space-between"
+          p={{ sm: 3 }}
+          borderRight={{ sm: 2 }}
+        >
+          <Box>
+            <Typography variant="h5" fontWeight="bold">
+              {title}
+            </Typography>
+            <Typography
+              variant="h6"
+              fontWeight="bold"
+              color="text.secondary"
+              my={{ xs: 1, sm: 2 }}
+            >
+              {date}
+            </Typography>
+          </Box>
+          <Box width="100%" display="flex" justifyContent="center">
+            <img src={imageSrc} alt="Award Image" loading="lazy" width="100%" />
+          </Box>
+        </Box>
+      </Grid>
+      <Grid item xs={12} md={8} pt={{ xs: 3 }}>
+        <Box pl={{ sm: 5 }} mb={1}>
+          <Typography variant="h5" fontWeight="bold">
+            {projectName}
+          </Typography>
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            sx={{ py: { xs: 1 } }}
+          >
+            {description}
+          </Typography>
+          <List>
+            {awards.map((award, index) => (
+              <StyledListItemButton key={index}>
+                <ListItemIcon sx={{ display: { xs: "none", sm: "block" } }}>
+                  <ArrowRightIcon />
+                </ListItemIcon>
+                <ListItemText
+                  primary={award.title}
+                  primaryTypographyProps={{
+                    fontSize: { xs: 16, sm: 18 },
+                    fontWeight: "bold",
+                    mb: 1,
+                  }}
+                  secondary={award.description}
+                  secondaryTypographyProps={{
+                    fontSize: 14,
+                  }}
+                />
+              </StyledListItemButton>
+            ))}
+          </List>
+        </Box>
+      </Grid>
+    </Grid>
+  )
+);
+
 function ProfessionalHighlights() {
+  const experienceData = {
+    title: "Web3 Software Engineer Intern (Frontend)",
+    date: "May 2024 − Present",
+    company: "🧑‍💻 Crypto-Arsena",
+    location: "📍 Taipei, Taiwan (Remote)",
+    responsibilities: [
+      {
+        title: "Responsive UI Development",
+        description:
+          "Leveraged Next.js, TypeScript, and GraphQL to create dynamic and responsive UI components for the company website, ensuring a seamless user experience across devices.",
+      },
+      {
+        title: "Storybook Implementation",
+        description:
+          "Integrated Storybook into the development workflow, facilitating isolated component development and testing. This enhancement significantly improved development efficiency and overall code quality.",
+      },
+      {
+        title: "Legacy Code Modernization",
+        description:
+          "Spearheaded the transition from legacy v1 codebase to v2, aligning with the latest Next.js best practices. Utilized React hooks to optimize performance and improve code maintainability.",
+      },
+      {
+        title: "Knowledge Sharing and Agile Practices",
+        description:
+          "Actively contributed to the team's growth by presenting Git techniques and participating in Scrum meetings, fostering a collaborative and efficient development environment.",
+      },
+    ],
+  };
+
+  const competitionData = {
+    title: "Memory Maker",
+    date: "Mar 2019 − Aug 2019",
+    projectName: "🤖 Senior Project",
+    description:
+      'Pitched and led the backend development of "Memory Maker", an iOS app created with 5 teammates, featuring machine learning for photography guidance and virtual postcard creation, earning multiple awards.',
+    awards: [
+      {
+        title: "🥈 2nd Place",
+        description: "International ICT Innovative Services Competition",
+      },
+      {
+        title: "🥈 2nd Place",
+        description: "TKU iOS APP Competition",
+      },
+      {
+        title: "🏅 Excellence Award",
+        description:
+          "TKU Department of Information Management Project Competition",
+      },
+    ],
+    imageSrc: "./images/Award.png",
+  };
+
   return (
     <Box display="flex" flexDirection="column">
       <Typography variant="h4" fontWeight="bold">
         💼 Experience
       </Typography>
-
-      <Grid
-        container
-        py={3}
-        display="flex"
-        flexDirection={{ xs: "column", sm: "row" }}
-      >
-        <Grid item xs={12} md={4}>
-          <Box
-            display="flex"
-            height="100%"
-            flexDirection="column"
-            p={{ sm: 3 }}
-            borderRight={{ sm: 2 }}
-          >
-            <Box>
-              <Typography variant="h5" fontWeight="bold">
-                Web3 Software Engineer Intern (Frontend)
-              </Typography>
-
-              <Typography
-                variant="h6"
-                fontWeight="bold"
-                color="lightgray"
-                my={{ xs: 1, sm: 2 }}
-              >
-                May 2024 − Present
-              </Typography>
-            </Box>
-          </Box>
-        </Grid>
-
-        <Grid item xs={12} md={8} pt={{ xs: 3 }}>
-          <Box pl={{ sm: 5 }} mb={1}>
-            <Box
-              display="flex"
-              justifyContent={{ xs: "block", sm: "space-between" }}
-              alignItems="baseline"
-            >
-              <Typography variant="h5" fontWeight="bold">
-                🧑‍💻 Crypto-Arsena
-              </Typography>
-
-              <Typography
-                variant="body1"
-                color="lightgray"
-                fontWeight="bold"
-                sx={{ display: { xs: "none", sm: "block" } }}
-              >
-                📍 Taipei, Taiwan (Remote)
-              </Typography>
-            </Box>
-
-            <List>
-              <ListItemButton>
-                <ListItemIcon sx={{ display: { xs: "none", sm: "block" } }}>
-                  <ArrowRightIcon />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Responsive UI Development"
-                  primaryTypographyProps={{
-                    fontSize: { xs: 16, sm: 18 },
-                    fontWeight: "bold",
-                    mb: 1,
-                  }}
-                  secondary="Leveraged Next.js, TypeScript, and GraphQL to create dynamic and responsive UI components for the company website, ensuring a seamless user experience across devices."
-                  secondaryTypographyProps={{
-                    variant: "body2",
-                    // align: "justify",
-                    // display: { xs: "none", sm: "block" },
-                  }}
-                />
-              </ListItemButton>
-              <ListItemButton>
-                <ListItemIcon sx={{ display: { xs: "none", sm: "block" } }}>
-                  <ArrowRightIcon />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Storybook Implementation"
-                  primaryTypographyProps={{
-                    fontSize: { xs: 16, sm: 18 },
-                    fontWeight: "bold",
-                    mb: 1,
-                  }}
-                  secondary="Integrated Storybook into the development workflow, facilitating isolated component development and testing. This enhancement significantly improved development efficiency and overall code quality."
-                  secondaryTypographyProps={{
-                    variant: "body2",
-                    // display: { xs: "none", sm: "block" },
-                  }}
-                />
-              </ListItemButton>
-              <ListItemButton>
-                <ListItemIcon sx={{ display: { xs: "none", sm: "block" } }}>
-                  <ArrowRightIcon />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Legacy Code Modernization"
-                  primaryTypographyProps={{
-                    fontSize: { xs: 16, sm: 18 },
-                    fontWeight: "bold",
-                    mb: 1,
-                  }}
-                  secondary="Spearheaded the transition from legacy v1 codebase to v2, aligning with the latest Next.js best practices. Utilized React hooks to optimize performance and improve code maintainability."
-                  secondaryTypographyProps={{
-                    variant: "body2",
-                    // align: "justify",
-                    // display: { xs: "none", sm: "block" },
-                  }}
-                />
-              </ListItemButton>
-              <ListItemButton>
-                <ListItemIcon sx={{ display: { xs: "none", sm: "block" } }}>
-                  <ArrowRightIcon />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Knowledge Sharing and Agile Practices"
-                  primaryTypographyProps={{
-                    fontSize: { xs: 16, sm: 18 },
-                    fontWeight: "bold",
-                    mb: 1,
-                  }}
-                  secondary="Actively contributed to the team's growth by presenting Git techniques and participating in Scrum meetings, fostering a collaborative and efficient development environment."
-                  secondaryTypographyProps={{
-                    variant: "body2",
-                    // align: "justify",
-                    // display: { xs: "none", sm: "block" },
-                  }}
-                />
-              </ListItemButton>
-            </List>
-          </Box>
-        </Grid>
-      </Grid>
-
+      <ExperienceItem {...experienceData} />
       <Divider sx={{ my: 5 }} flexItem />
-
       <Typography variant="h4" fontWeight="bold">
         🏆 Competitions
       </Typography>
-
-      <Grid
-        container
-        py={3}
-        display="flex"
-        flexDirection={{ xs: "column", sm: "row" }}
-      >
-        <Grid item xs={12} md={4}>
-          <Box
-            display="flex"
-            height="100%"
-            flexDirection="column"
-            justifyContent="space-between"
-            p={{ sm: 3 }}
-            borderRight={{ sm: 2 }}
-          >
-            <Box>
-              <Typography variant="h5" fontWeight="bold">
-                Memory Maker
-              </Typography>
-
-              <Typography
-                variant="h6"
-                fontWeight="bold"
-                color="lightgray"
-                my={{ xs: 1, sm: 2 }}
-              >
-                Mar 2019 − Aug 2019
-              </Typography>
-            </Box>
-
-            <Box width="100%" display="flex" justifyContent="center">
-              <img
-                src="./images/Award.png"
-                alt="Award Image"
-                loading="lazy"
-                width="100%"
-              />
-            </Box>
-          </Box>
-        </Grid>
-
-        <Grid item xs={12} md={8} pt={{ xs: 3 }}>
-          <Box pl={{ sm: 5 }} mb={1}>
-            <Typography variant="h5" fontWeight="bold">
-              🤖 Senior Project
-            </Typography>
-
-            <Typography
-              variant="body2"
-              color="lightgray"
-              // align="justify"
-              sx={{ py: { xs: 1 } }}
-            >
-              Pitched and led the backend development of “Memory Maker”, an iOS
-              app created with 5 teammates, featuring machine learning for
-              photography guidance and virtual postcard creation, earning
-              multiple awards.
-            </Typography>
-
-            <List>
-              <ListItemButton>
-                <ListItemIcon sx={{ display: { xs: "none", sm: "block" } }}>
-                  <ArrowRightIcon />
-                </ListItemIcon>
-                <ListItemText
-                  primary="🥈 2nd Place"
-                  primaryTypographyProps={{
-                    fontSize: { xs: 16, sm: 18 },
-                    fontWeight: "bold",
-                    mb: 1,
-                  }}
-                  secondary="International ICT Innovative Services Competition"
-                  secondaryTypographyProps={{
-                    fontSize: 14,
-                  }}
-                />
-              </ListItemButton>
-              <ListItemButton>
-                <ListItemIcon sx={{ display: { xs: "none", sm: "block" } }}>
-                  <ArrowRightIcon />
-                </ListItemIcon>
-                <ListItemText
-                  primary="🥈 2nd Place"
-                  primaryTypographyProps={{
-                    fontSize: { xs: 16, sm: 18 },
-                    fontWeight: "bold",
-                    mb: 1,
-                  }}
-                  secondary="TKU iOS APP Competition"
-                  secondaryTypographyProps={{
-                    fontSize: 14,
-                  }}
-                />
-              </ListItemButton>
-              <ListItemButton>
-                <ListItemIcon sx={{ display: { xs: "none", sm: "block" } }}>
-                  <ArrowRightIcon />
-                </ListItemIcon>
-                <ListItemText
-                  primary="🏅 Excellence Award"
-                  primaryTypographyProps={{
-                    fontSize: { xs: 16, sm: 18 },
-                    fontWeight: "bold",
-                    mb: 1,
-                  }}
-                  secondary="TKU Department of Information Management Project Competition"
-                  secondaryTypographyProps={{
-                    fontSize: 14,
-                  }}
-                />
-              </ListItemButton>
-            </List>
-          </Box>
-        </Grid>
-      </Grid>
+      <CompetitionItem {...competitionData} />
     </Box>
   );
 }
-export default ProfessionalHighlights;
+
+export default memo(ProfessionalHighlights);

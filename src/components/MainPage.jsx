@@ -1,200 +1,169 @@
-import React from "react";
-import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import Tooltip from "@mui/material/Tooltip";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import IconButton from "@mui/material/IconButton";
-import Divider from "@mui/material/Divider";
+import React, { memo } from "react";
+
+import {
+  Grid,
+  Typography,
+  Box,
+  Tooltip,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  IconButton,
+  Divider,
+} from "@mui/material";
+
+import {
+  School as SchoolIcon,
+  Business as BusinessIcon,
+  CalendarMonth as CalendarMonthIcon,
+  Grade as GradeIcon,
+  Place as PlaceIcon,
+  LinkedIn as LinkedInIcon,
+  GitHub as GitHubIcon,
+} from "@mui/icons-material";
 
 import Resume from "./Resume";
 
-import SchoolIcon from "@mui/icons-material/School";
-import BusinessIcon from "@mui/icons-material/Business";
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import GradeIcon from "@mui/icons-material/Grade";
-import PlaceIcon from "@mui/icons-material/Place";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import GitHubIcon from "@mui/icons-material/GitHub";
+const InfoListItem = memo(({ icon: Icon, primary, secondary }) => (
+  <ListItem>
+    <ListItemIcon>
+      <Icon />
+    </ListItemIcon>
+    <ListItemText
+      primary={primary}
+      secondary={secondary}
+      primaryTypographyProps={{
+        fontSize: 16,
+        fontWeight: "bold",
+      }}
+    />
+  </ListItem>
+));
+
+const SocialLinks = memo(() => (
+  <Box display="flex" alignItems="center" gap={2}>
+    <Box>
+      <Tooltip title="LinkedIn" placement="bottom">
+        <IconButton
+          href="http://www.linkedin.com/in/chia-hsiang-jason-wu"
+          target="_blank"
+          size="large"
+        >
+          <LinkedInIcon fontSize="inherit" />
+        </IconButton>
+      </Tooltip>
+      <Tooltip title="GitHub" placement="bottom">
+        <IconButton
+          href="https://github.com/Jason-Wuuuu"
+          target="_blank"
+          size="large"
+        >
+          <GitHubIcon fontSize="inherit" />
+        </IconButton>
+      </Tooltip>
+    </Box>
+    <Resume />
+  </Box>
+));
+
+const ProfileSection = memo(() => (
+  <Grid
+    container
+    direction="column"
+    justifyContent="center"
+    alignItems="center"
+    gap={3}
+  >
+    <Grid item>
+      <Tooltip title="Hi! 👋" arrow placement="top">
+        <Box
+          component="img"
+          sx={{
+            height: 300,
+            width: 300,
+            borderRadius: "50%",
+            boxShadow: 10,
+            mb: 2,
+          }}
+          alt="memoji"
+          src="./images/Memoji.png"
+        />
+      </Tooltip>
+    </Grid>
+    <Grid item>
+      <Typography variant="h5" fontWeight="bold" align="center">
+        Chia-Hsiang(Jason) Wu
+      </Typography>
+      <Typography variant="body1" align="center" mt={2}>
+        Software Engineer / Web Developer
+      </Typography>
+    </Grid>
+    <Grid item>
+      <SocialLinks />
+    </Grid>
+  </Grid>
+));
+
+const InfoSection = memo(({ title, items }) => (
+  <Grid item>
+    <Typography variant="h6" fontWeight="bold">
+      {title}
+    </Typography>
+    <List dense>
+      {items.map((item, index) => (
+        <InfoListItem key={index} {...item} />
+      ))}
+    </List>
+  </Grid>
+));
 
 function MainPage() {
+  const educationItems = [
+    {
+      icon: SchoolIcon,
+      primary: "Stevens Institute of Technology",
+      secondary: "Computer Science, M.S.",
+    },
+    { icon: GradeIcon, primary: "GPA", secondary: "3.87 / 4.0" },
+    {
+      icon: CalendarMonthIcon,
+      primary: "Date",
+      secondary: "Sep 2022 - May 2024",
+    },
+  ];
+
+  const experienceItems = [
+    {
+      icon: BusinessIcon,
+      primary: "Crypto-Arsenal",
+      secondary: "Web3 Frontend Intern",
+    },
+    { icon: PlaceIcon, primary: "Location", secondary: "Remote" },
+    {
+      icon: CalendarMonthIcon,
+      primary: "Date",
+      secondary: "May 2024 - Present",
+    },
+  ];
+
   return (
-    <Grid container alignItems="center" justifyContent="center">
-      {/* Left */}
+    <Grid container alignItems="center" justifyContent="center" spacing={10}>
       <Grid item xs={12} sm={6} md={6}>
-        <Grid
-          container
-          direction="column"
-          justifyContent="center"
-          alignItems="center"
-          gap={3}
-          mb={{ xs: 4, sm: 0 }}
-        >
-          <Grid item>
-            <Tooltip title="Hi! 👋" arrow placement="top">
-              <Box
-                component="img"
-                sx={{
-                  height: 300,
-                  width: 300,
-                  borderRadius: "50%",
-                  boxShadow: 10,
-                  mb: 2,
-                }}
-                alt="memoji"
-                src="./images/Memoji.png"
-              />
-            </Tooltip>
-          </Grid>
-
-          <Grid item>
-            <Typography variant="h5" fontWeight="bold" align="center">
-              Chia-Hsiang(Jason) Wu
-            </Typography>
-
-            <Typography variant="body1" align="center" mt={2}>
-              Software Engineer / Web Developer
-            </Typography>
-          </Grid>
-
-          <Grid item>
-            <Box display="flex" alignItems="center" gap={2}>
-              <Box>
-                <Tooltip title="LinkedIn" placement="bottom">
-                  <IconButton
-                    href="http://www.linkedin.com/in/chia-hsiang-jason-wu"
-                    target="_blank"
-                    size="large"
-                  >
-                    <LinkedInIcon fontSize="inherit" />
-                  </IconButton>
-                </Tooltip>
-
-                <Tooltip title="GitHub" placement="bottom">
-                  <IconButton
-                    href="https://github.com/Jason-Wuuuu"
-                    target="_blank"
-                    size="large"
-                  >
-                    <GitHubIcon fontSize="inherit" />
-                  </IconButton>
-                </Tooltip>
-              </Box>
-
-              <Resume />
-            </Box>
-          </Grid>
-        </Grid>
+        <ProfileSection />
       </Grid>
 
-      {/* Right */}
       <Grid item xs={12} sm={6} md={6}>
-        <Grid container direction="column">
-          {/* Education Section */}
+        <Grid container direction="column" spacing={4}>
+          <InfoSection title="Education" items={educationItems} />
           <Grid item>
-            <Typography variant="h6" fontWeight="bold">
-              Education
-            </Typography>
-
-            <List dense>
-              <ListItem>
-                <ListItemIcon>
-                  <SchoolIcon />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Stevens Institute of Technology"
-                  secondary="Computer Science, M.S."
-                  primaryTypographyProps={{
-                    fontSize: 16,
-                    fontWeight: "bold",
-                  }}
-                />
-              </ListItem>
-              <ListItem>
-                <ListItemIcon>
-                  <GradeIcon />
-                </ListItemIcon>
-                <ListItemText
-                  primary="GPA"
-                  secondary="3.87 / 4.0"
-                  primaryTypographyProps={{
-                    fontSize: 16,
-                    fontWeight: "bold",
-                  }}
-                />
-              </ListItem>
-              <ListItem>
-                <ListItemIcon>
-                  <CalendarMonthIcon />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Date"
-                  secondary="Sep 2022 - May 2024"
-                  primaryTypographyProps={{
-                    fontSize: 16,
-                    fontWeight: "bold",
-                  }}
-                />
-              </ListItem>
-            </List>
+            <Divider />
           </Grid>
-
-          <Divider sx={{ my: 4 }} />
-
-          {/* Experience Section */}
-          <Grid item>
-            <Typography variant="h6" fontWeight="bold">
-              Recent Experience
-            </Typography>
-
-            <List dense>
-              <ListItem>
-                <ListItemIcon>
-                  <BusinessIcon />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Crypto-Arsenal"
-                  secondary="Web3 Frontend Intern"
-                  primaryTypographyProps={{
-                    fontSize: 16,
-                    fontWeight: "bold",
-                  }}
-                />
-              </ListItem>
-              <ListItem>
-                <ListItemIcon>
-                  <PlaceIcon />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Location"
-                  secondary="Remote"
-                  primaryTypographyProps={{
-                    fontSize: 16,
-                    fontWeight: "bold",
-                  }}
-                />
-              </ListItem>
-              <ListItem>
-                <ListItemIcon>
-                  <CalendarMonthIcon />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Date"
-                  secondary="May 2024 - Present"
-                  primaryTypographyProps={{
-                    fontSize: 16,
-                    fontWeight: "bold",
-                  }}
-                />
-              </ListItem>
-            </List>
-          </Grid>
+          <InfoSection title="Recent Experience" items={experienceItems} />
         </Grid>
       </Grid>
     </Grid>
   );
 }
-export default MainPage;
+
+export default memo(MainPage);

@@ -1,27 +1,39 @@
-import { useState, useEffect, useCallback } from "react";
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+  lazy,
+  Suspense,
+} from "react";
 
-import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Chip from "@mui/material/Chip";
-import Stepper from "@mui/material/Stepper";
-import Step from "@mui/material/Step";
-import StepLabel from "@mui/material/StepLabel";
-import StepContent from "@mui/material/StepContent";
+import {
+  Grid,
+  Typography,
+  Box,
+  Card,
+  CardContent,
+  CardMedia,
+  Chip,
+  Stepper,
+  Step,
+  StepLabel,
+  StepContent,
+} from "@mui/material";
 
-import FaceIcon from "@mui/icons-material/Face";
-import FaceOutlinedIcon from "@mui/icons-material/FaceOutlined";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
-import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
+import {
+  Face as FaceIcon,
+  FaceOutlined as FaceOutlinedIcon,
+  Favorite as FavoriteIcon,
+  FavoriteBorder as FavoriteBorderIcon,
+  ThumbUpAlt as ThumbUpAltIcon,
+  ThumbUpOffAlt as ThumbUpOffAltIcon,
+  ArrowCircleDown as ArrowCircleDownIcon,
+  ArrowCircleUp as ArrowCircleUpIcon,
+  RestartAlt as RestartAltIcon,
+} from "@mui/icons-material";
 
-import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
-import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
-import RestartAltIcon from "@mui/icons-material/RestartAlt";
+const LazyCardMedia = lazy(() => import("@mui/material/CardMedia"));
 
 const steps = [
   {
@@ -59,6 +71,52 @@ const steps = [
   },
 ];
 
+const StepContentCard = React.memo(({ step, index }) => (
+  <Card
+    sx={{
+      display: { sm: "flex" },
+      boxShadow: 10,
+      p: 1,
+      backgroundColor: "#202020",
+    }}
+  >
+    <Suspense fallback={<Box>Loading...</Box>}>
+      <LazyCardMedia
+        component="img"
+        sx={{
+          width: { xs: "100%", sm: "60%" },
+          borderRadius: 1,
+          boxShadow: 10,
+        }}
+        image={`./images/me/${step.image}.png`}
+        alt={step.title}
+      />
+    </Suspense>
+    <CardContent>
+      <Box
+        display="flex"
+        flexDirection="column"
+        height="100%"
+        gap={3}
+        px={1}
+        pt={{ xs: 1 }}
+        pl={{ sm: 1 }}
+      >
+        {step.content.map((line, i) => (
+          <Typography
+            key={`step_${index}_line_${i}`}
+            fontWeight="bold"
+            lineHeight={2}
+            sx={{ fontSize: { xs: 14, sm: 15 } }}
+          >
+            {line}
+          </Typography>
+        ))}
+      </Box>
+    </CardContent>
+  </Card>
+));
+
 function AboutPage() {
   const [activeStep, setActiveStep] = useState(0);
 
@@ -67,8 +125,10 @@ function AboutPage() {
   }, []);
 
   const handleBack = useCallback(() => {
-    setActiveStep((prevActiveStep) => activeStep !== 0 && prevActiveStep - 1);
-  }, [activeStep]);
+    setActiveStep((prevActiveStep) =>
+      prevActiveStep > 0 ? prevActiveStep - 1 : 0
+    );
+  }, []);
 
   const handleReset = useCallback(() => {
     setActiveStep(0);
@@ -82,6 +142,67 @@ function AboutPage() {
     });
   }, []);
 
+  const stepsContent = useMemo(
+    () =>
+      steps.map((step, index) => (
+        <Step key={`step_${index}`}>
+          <StepLabel
+            icon={index === activeStep ? step.icon_on : step.icon_off}
+            onClick={() => setActiveStep(index)}
+            sx={{
+              position: { xs: "sticky", sm: "unset" },
+              top: 20,
+            }}
+          >
+            <Typography
+              variant={index === activeStep ? "h5" : "subtitle2"}
+              fontWeight={index === activeStep ? "bold" : "normal"}
+              ml={index === activeStep ? 1 : 0}
+            >
+              {step.title}
+            </Typography>
+          </StepLabel>
+
+          <StepContent
+            TransitionProps={{
+              unmountOnExit: false,
+              timeout: 500,
+            }}
+          >
+            <StepContentCard step={step} index={index} />
+
+            <Box sx={{ mt: 2 }} display="flex" justifyContent="flex-end">
+              {index !== 0 && (
+                <Chip
+                  label="Back"
+                  icon={<ArrowCircleUpIcon />}
+                  sx={{
+                    fontWeight: "bold",
+                    boxShadow: 10,
+                    border: 1,
+                    mr: 2,
+                  }}
+                  variant="outlined"
+                  onClick={handleBack}
+                />
+              )}
+
+              <Chip
+                label={index === 2 ? "Back to Start" : "Continue"}
+                icon={
+                  index === 2 ? <RestartAltIcon /> : <ArrowCircleDownIcon />
+                }
+                sx={{ fontWeight: "bold", boxShadow: 10, border: 1 }}
+                variant="outlined"
+                onClick={index === 2 ? handleReset : handleNext}
+              />
+            </Box>
+          </StepContent>
+        </Step>
+      )),
+    [activeStep, handleBack, handleNext, handleReset]
+  );
+
   return (
     <Grid
       container
@@ -91,115 +212,11 @@ function AboutPage() {
     >
       <Grid item width={{ xs: "90vw", md: "70vw", lg: "60vw" }}>
         <Stepper activeStep={activeStep} orientation="vertical">
-          {steps.map((step, index) => (
-            <Step key={`step_${index}`}>
-              <StepLabel
-                icon={index === activeStep ? step.icon_on : step.icon_off}
-                onClick={() => setActiveStep(index)}
-                sx={{
-                  position: { xs: "sticky", sm: "unset" },
-                  top: 20,
-                }}
-              >
-                <Typography
-                  variant={index === activeStep ? "h5" : "subtitle2"}
-                  color={index === activeStep ? "inherit" : "text.secondary"}
-                  fontWeight={index === activeStep ? "bold" : ""}
-                  ml={index === activeStep && 1}
-                >
-                  {step.title}
-                </Typography>
-              </StepLabel>
-
-              <StepContent
-                TransitionProps={{
-                  unmountOnExit: false,
-                  timeout: 500,
-                }}
-              >
-                <Card
-                  sx={{
-                    display: { sm: "flex" },
-                    boxShadow: 10,
-                    p: 1,
-                    backgroundColor: "#202020",
-                  }}
-                >
-                  <CardMedia
-                    component="img"
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "60%",
-                      },
-                      // height: { xs: "50%", sm: "100%" },
-                      borderRadius: 1,
-                      boxShadow: 10,
-                    }}
-                    image={`./images/me/${step.image}.png`}
-                    alt={step.image}
-                    // loading="lazy"
-                  />
-
-                  <CardContent>
-                    <Box
-                      display="flex"
-                      flexDirection="column"
-                      height="100%"
-                      gap={3}
-                      px={1}
-                      pt={{ xs: 1 }}
-                      pl={{ sm: 1 }}
-                    >
-                      {step.content.map((line, i) => {
-                        return (
-                          <Typography
-                            // align="center"
-                            key={`step_${index}_line_${i}`}
-                            fontWeight="bold"
-                            lineHeight={2}
-                            sx={{ fontSize: { xs: 14, sm: 15 } }}
-                          >
-                            {line}
-                          </Typography>
-                        );
-                      })}
-                    </Box>
-                  </CardContent>
-                </Card>
-
-                <Box sx={{ mt: 2 }} display="flex" justifyContent="flex-end">
-                  {index !== 0 && (
-                    <Chip
-                      label="Back"
-                      icon={<ArrowCircleUpIcon />}
-                      sx={{
-                        fontWeight: "bold",
-                        boxShadow: 10,
-                        border: 1,
-                        mr: 2,
-                      }}
-                      variant="outlined"
-                      onClick={handleBack}
-                    />
-                  )}
-
-                  <Chip
-                    label={index === 2 ? "Back to Start" : "Continue"}
-                    icon={
-                      index === 2 ? <RestartAltIcon /> : <ArrowCircleDownIcon />
-                    }
-                    sx={{ fontWeight: "bold", boxShadow: 10, border: 1 }}
-                    variant="outlined"
-                    onClick={index === 2 ? handleReset : handleNext}
-                  />
-                </Box>
-              </StepContent>
-            </Step>
-          ))}
+          {stepsContent}
         </Stepper>
       </Grid>
     </Grid>
   );
 }
-export default AboutPage;
+
+export default React.memo(AboutPage);
