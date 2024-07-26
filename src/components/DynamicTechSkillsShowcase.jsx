@@ -115,7 +115,6 @@ const DynamicTechSkillsShowcase = React.memo(({ filteredProjects }) => {
         width: { xs: "90vw", sm: "80vw", md: "70vw", lg: "55vw" },
         boxShadow: 10,
         backgroundColor: "#202020",
-        animationDuration: 500,
       }}
     >
       <AccordionSummary
@@ -124,7 +123,9 @@ const DynamicTechSkillsShowcase = React.memo(({ filteredProjects }) => {
       >
         Core Technologies / Skills
       </AccordionSummary>
-      <Divider sx={{ mx: 1 }} />
+
+      {/* <Divider sx={{ mx: 1 }} /> */}
+
       <AccordionDetails>{renderGroupedSkills()}</AccordionDetails>
     </Accordion>
   );
