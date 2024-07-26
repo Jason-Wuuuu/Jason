@@ -182,6 +182,7 @@ const ProjectCard = React.memo(({ project }) => {
                 fontSize={{ xs: 12, sm: 14 }}
                 align="center"
                 color="lightgray"
+                mt={5}
               >
                 See full project details in the{" "}
                 <Link
