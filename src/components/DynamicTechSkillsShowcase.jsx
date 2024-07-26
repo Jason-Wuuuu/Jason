@@ -8,7 +8,9 @@ import {
   Box,
   Divider,
   Collapse,
+  useMediaQuery,
 } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const categories = {
@@ -72,21 +74,30 @@ const SkillChip = React.memo(({ skill }) => (
   />
 ));
 
-const CategorySkills = React.memo(({ category, skills }) => (
+const CategorySkills = React.memo(({ category, skills, isSmallScreen }) => (
   <Box key={category} sx={{ mb: 2 }}>
     <Typography variant="subtitle1" sx={{ fontWeight: "bold", mb: 1 }}>
       {category}
     </Typography>
 
-    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
-      {skills.map((skill) => (
-        <SkillChip key={skill} skill={skill} />
-      ))}
-    </Box>
+    {isSmallScreen ? (
+      <Typography variant="body2" color="lightgray">
+        {skills.join(", ")}
+      </Typography>
+    ) : (
+      <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
+        {skills.map((skill) => (
+          <SkillChip key={skill} skill={skill} />
+        ))}
+      </Box>
+    )}
   </Box>
 ));
 
 const DynamicTechSkillsShowcase = React.memo(({ filteredProjects }) => {
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
   const techStackUnion = useMemo(() => {
     const allTechStacks = filteredProjects.flatMap((project) =>
       project.tech_stack.split(", ")
@@ -126,7 +137,12 @@ const DynamicTechSkillsShowcase = React.memo(({ filteredProjects }) => {
 
       <AccordionDetails>
         {Object.entries(groupedSkills).map(([category, skills]) => (
-          <CategorySkills key={category} category={category} skills={skills} />
+          <CategorySkills
+            key={category}
+            category={category}
+            skills={skills}
+            isSmallScreen={isSmallScreen}
+          />
         ))}
       </AccordionDetails>
     </Accordion>
