@@ -76,6 +76,7 @@ const CategorySkills = React.memo(({ category, skills }) => (
     <Typography variant="subtitle1" sx={{ fontWeight: "bold", mb: 1 }}>
       {category}
     </Typography>
+
     <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
       {skills.map((skill) => (
         <SkillChip key={skill} skill={skill} />
@@ -89,9 +90,9 @@ const DynamicTechSkillsShowcase = React.memo(({ filteredProjects }) => {
     const allTechStacks = filteredProjects.flatMap((project) =>
       project.tech_stack.split(", ")
     );
-    return [...new Set(allTechStacks)]
-      .filter((tech) => essentialTechs.has(tech))
-      .sort();
+    return [...new Set(allTechStacks)].filter((tech) =>
+      essentialTechs.has(tech)
+    );
   }, [filteredProjects]);
 
   const groupedSkills = useMemo(() => {
