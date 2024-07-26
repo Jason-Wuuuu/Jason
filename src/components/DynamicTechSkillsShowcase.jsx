@@ -103,12 +103,6 @@ const DynamicTechSkillsShowcase = React.memo(({ filteredProjects }) => {
     }, {});
   }, [techStackUnion]);
 
-  const renderGroupedSkills = useCallback(() => {
-    return Object.entries(groupedSkills).map(([category, skills]) => (
-      <CategorySkills key={category} category={category} skills={skills} />
-    ));
-  }, [groupedSkills]);
-
   return (
     <Accordion
       sx={{
@@ -124,9 +118,13 @@ const DynamicTechSkillsShowcase = React.memo(({ filteredProjects }) => {
         Core Technologies / Skills
       </AccordionSummary>
 
-      {/* <Divider sx={{ mx: 1 }} /> */}
+      <Divider sx={{ mx: 1 }} />
 
-      <AccordionDetails>{renderGroupedSkills()}</AccordionDetails>
+      <AccordionDetails>
+        {Object.entries(groupedSkills).map(([category, skills]) => (
+          <CategorySkills key={category} category={category} skills={skills} />
+        ))}
+      </AccordionDetails>
     </Accordion>
   );
 });
