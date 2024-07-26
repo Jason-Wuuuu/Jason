@@ -139,20 +139,19 @@ const ProjectCard = React.memo(({ project }) => {
           )}
         </Box>
 
-        <Collapse in={expanded} timeout="auto">
-          <CardContent>
-            <Typography
-              align="center"
-              sx={{ fontWeight: "bold", fontSize: { xs: 16, sm: 18 } }}
-            >
-              {`${project.course} Project (${project.year})`}
-            </Typography>
+        <CardContent>
+          <Typography
+            align="center"
+            sx={{ fontWeight: "bold", fontSize: { xs: 16, sm: 18 } }}
+          >
+            {`${project.course} Project (${project.year})`}
+          </Typography>
 
+          <Collapse in={expanded} timeout="auto">
             <Divider sx={{ m: 2 }} />
-
             <ProjectDescription description={project.description} />
-          </CardContent>
-        </Collapse>
+          </Collapse>
+        </CardContent>
 
         <CardActions disableSpacing>
           {project.githubUrl && (
