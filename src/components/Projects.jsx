@@ -129,7 +129,7 @@ const TableOfContents = React.memo(({ projects }) => {
             boxShadow: 10,
           },
           maxHeight: "90vh",
-          maxWidth: { xs: "100vw", sm: "50vw" },
+          maxWidth: { xs: "95vw", sm: "60vw" },
         }}
       >
         {listItems}

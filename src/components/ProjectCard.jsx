@@ -97,14 +97,14 @@ const ProjectCarousel = React.memo(({ screenshots }) => (
 ));
 
 const ProjectCard = React.memo(({ project }) => {
-  const [expanded, setExpanded] = useState(true);
+  const [expanded, setExpanded] = useState(project.screenshots.length === 0);
 
   const handleExpandClick = () => setExpanded(!expanded);
 
   return (
     <Grid
       item
-      width={{ xs: "90vw", sm: "80vw", md: "70vw", lg: "50vw" }}
+      width={{ xs: "90vw", sm: "80vw", md: "70vw", lg: "55vw" }}
       mb={3}
     >
       <Card sx={{ boxShadow: 10, backgroundColor: "#202020" }}>
@@ -124,7 +124,6 @@ const ProjectCard = React.memo(({ project }) => {
           subheader={project.tech_stack}
           subheaderTypographyProps={{
             fontSize: { xs: 11, sm: 13 },
-            mt: 0.5,
             fontWeight: "bold",
           }}
         />
