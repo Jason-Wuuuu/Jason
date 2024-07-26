@@ -94,7 +94,7 @@ function Home() {
       <Box py={10} sx={{ width: "85%", margin: "auto" }}>
         <Section minHeight="85vh" centerContent>
           <SectionTitle>Jason's Portfolio</SectionTitle>
-          <Suspense fallback={<CircularProgress />}>
+          <Suspense fallback={<CircularProgress color="inherit" />}>
             <MainPage />
           </Suspense>
         </Section>
@@ -103,18 +103,18 @@ function Home() {
 
         <Divider sx={{ my: 5 }} />
 
-        <Section>
+        <Section centerContent>
           <SectionTitle>Professional Highlights</SectionTitle>
-          <Suspense fallback={<CircularProgress />}>
+          <Suspense fallback={<CircularProgress color="inherit" />}>
             <ProfessionalHighlights />
           </Suspense>
         </Section>
 
         <Divider sx={{ my: 5 }} />
 
-        <Section>
+        <Section centerContent>
           <SectionTitle>More About Me</SectionTitle>
-          <Suspense fallback={<CircularProgress />}>
+          <Suspense fallback={<CircularProgress color="inherit" />}>
             <AboutPage />
           </Suspense>
         </Section>

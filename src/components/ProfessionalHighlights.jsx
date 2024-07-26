@@ -1,4 +1,5 @@
 import React, { memo } from "react";
+
 import {
   Grid,
   Box,
@@ -9,10 +10,9 @@ import {
   Typography,
   Divider,
 } from "@mui/material";
+import { styled } from "@mui/system";
 
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
-
-import { styled } from "@mui/system";
 
 const StyledListItemButton = styled(ListItemButton)(({ theme }) => ({
   "&:hover": {

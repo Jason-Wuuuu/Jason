@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from "react";
+
 import { styled } from "@mui/material/styles";
 import {
   Card,
@@ -17,6 +18,7 @@ import {
 } from "@mui/material";
 
 import Carousel from "react-material-ui-carousel";
+
 import {
   GitHub as GitHubIcon,
   OndemandVideo as OndemandVideoIcon,
