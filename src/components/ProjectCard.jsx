@@ -182,15 +182,15 @@ const ProjectCard = React.memo(({ project }) => {
           )}
 
           {project.screenshots.length > 0 && (
-            <ExpandMore
-              expand={expanded}
-              onClick={handleExpandClick}
-              aria-expanded={expanded}
-            >
-              <Tooltip title={expanded ? "Collapse" : "Expand"} placement="top">
+            <Tooltip title={expanded ? "Collapse" : "Expand"} placement="top">
+              <ExpandMore
+                expand={expanded}
+                onClick={handleExpandClick}
+                aria-expanded={expanded}
+              >
                 <ExpandMoreIcon />
-              </Tooltip>
-            </ExpandMore>
+              </ExpandMore>
+            </Tooltip>
           )}
         </CardActions>
       </Card>
