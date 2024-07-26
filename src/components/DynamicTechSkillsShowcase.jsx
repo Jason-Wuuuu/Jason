@@ -123,8 +123,6 @@ const DynamicTechSkillsShowcase = React.memo(({ filteredProjects }) => {
         boxShadow: 10,
         backgroundColor: "#202020",
       }}
-      slots={{ transition: Collapse }}
-      slotProps={{ transition: { timeout: 400 } }}
     >
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
