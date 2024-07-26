@@ -161,7 +161,7 @@ const ProjectCard = React.memo(({ project }) => {
                 href={project.githubUrl}
                 target="_blank"
               >
-                <GitHubIcon sx={{ fontSize: { sm: 32 } }} />
+                <GitHubIcon />
               </IconButton>
             </Tooltip>
           )}
@@ -174,7 +174,7 @@ const ProjectCard = React.memo(({ project }) => {
                 target="_blank"
                 sx={{ marginLeft: 1 }}
               >
-                <OndemandVideoIcon sx={{ fontSize: { sm: 32 } }} />
+                <OndemandVideoIcon />
               </IconButton>
             </Tooltip>
           )}
