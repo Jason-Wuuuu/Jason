@@ -176,6 +176,16 @@ const ProjectCard = React.memo(({ project }) => {
           <Collapse in={expanded} timeout="auto">
             <Divider sx={{ m: 2 }} />
             <ProjectDescription description={project.description} />
+
+            {project.githubUrl && (
+              <Typography
+                fontSize={{ xs: 12, sm: 14 }}
+                align="center"
+                color="lightgray"
+              >
+                {`( Full details in GitHub README )`}
+              </Typography>
+            )}
           </Collapse>
         </CardContent>
 
