@@ -30,7 +30,7 @@ function MainPage() {
           direction="column"
           justifyContent="center"
           alignItems="center"
-          spacing={3}
+          gap={3}
           mb={{ xs: 4, sm: 0 }}
         >
           <Grid item>
@@ -42,6 +42,7 @@ function MainPage() {
                   width: 300,
                   borderRadius: "50%",
                   boxShadow: 10,
+                  mb: 2,
                 }}
                 alt="memoji"
                 src="./images/Memoji.png"

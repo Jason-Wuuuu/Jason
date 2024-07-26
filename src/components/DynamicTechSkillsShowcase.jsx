@@ -66,7 +66,6 @@ const SkillChip = React.memo(({ skill }) => (
     sx={{
       backgroundColor: "rgba(255, 255, 255, 0.08)",
       color: "inherit",
-      "&:hover": { backgroundColor: "rgba(255, 255, 255, 0.12)" },
       boxShadow: 10,
     }}
   />
