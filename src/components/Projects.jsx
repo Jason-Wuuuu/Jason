@@ -25,19 +25,26 @@ import ProjectCard from "./ProjectCard";
 import { projects } from "../projectsData.js";
 
 const TableOfContentsItem = React.memo(
-  ({ project, index, handleClose, handleJump }) => (
+  ({ project, index, handleClose, handleJump, isLast }) => (
     <MenuItem
       dense
       onClick={() => {
         handleClose();
         handleJump(`project-${index}`);
       }}
-      sx={{ my: 0.5 }}
+      sx={{
+        my: 1,
+        py: 1,
+        "&:hover": {
+          backgroundColor: "rgba(255, 255, 255, 0.08)",
+        },
+        transition: "background-color 0.3s",
+      }}
     >
-      <ListItemIcon>
+      <ListItemIcon sx={{ display: { xs: "none", sm: "block" } }}>
         <ChevronRightIcon fontSize="small" />
       </ListItemIcon>
-      <Box width="90%">
+      <Box width="100%">
         <Typography variant="subtitle1" sx={{ fontWeight: "bold" }} noWrap>
           {project.title}
         </Typography>
@@ -48,6 +55,7 @@ const TableOfContentsItem = React.memo(
     </MenuItem>
   )
 );
+
 const TableOfContents = React.memo(({ projects }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -79,6 +87,7 @@ const TableOfContents = React.memo(({ projects }) => {
           index={index}
           handleClose={handleClose}
           handleJump={handleJump}
+          isLast={index === projects.length - 1}
         />
       )),
     [projects, handleClose, handleJump]
@@ -131,7 +140,7 @@ const TableOfContents = React.memo(({ projects }) => {
             backgroundColor: "#202020",
             boxShadow: 10,
           },
-          maxHeight: "90vh",
+          maxHeight: { xs: "85vh", sm: "95vh" },
           maxWidth: { xs: "95vw", sm: "60vw" },
         }}
       >
@@ -189,7 +198,7 @@ function Projects() {
             alignItems="center"
           >
             <Typography variant="h4" fontWeight="bold" align="center">
-              {categories[tab]}
+              {categories[tab]} ({filteredProjects.length})
             </Typography>
           </Box>
         </Grid>
