@@ -183,7 +183,15 @@ const ProjectCard = React.memo(({ project }) => {
                 align="center"
                 color="lightgray"
               >
-                {`( Full details in GitHub README )`}
+                <Link
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  color="inherit"
+                  underline="hover"
+                >
+                  ( Full details in GitHub README )
+                </Link>
               </Typography>
             )}
           </Collapse>
