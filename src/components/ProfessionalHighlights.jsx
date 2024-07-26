@@ -67,10 +67,11 @@ const ExperienceItem = memo(
               fontWeight="bold"
               sx={{ display: { xs: "none", sm: "block" } }}
             >
-              {location}
+              📍 {location}
             </Typography>
           </Box>
-          <List>
+
+          <List sx={{ mt: 1 }}>
             {responsibilities.map((resp, index) => (
               <StyledListItemButton key={index}>
                 <ListItemIcon sx={{ display: { xs: "none", sm: "block" } }}>
@@ -176,7 +177,7 @@ function ProfessionalHighlights() {
     title: "Web3 Software Engineer Intern (Frontend)",
     date: "May 2024 − Present",
     company: "🧑‍💻 Crypto-Arsena",
-    location: "📍 Taipei, Taiwan (Remote)",
+    location: "Taipei, Taiwan (Remote)",
     responsibilities: [
       {
         title: "Responsive UI Development",
