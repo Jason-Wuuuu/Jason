@@ -13,7 +13,6 @@ import {
   Box,
   Card,
   CardContent,
-  CardMedia,
   Chip,
   Stepper,
   Step,

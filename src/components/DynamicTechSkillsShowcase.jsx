@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback } from "react";
+import React, { useMemo } from "react";
 import {
   Accordion,
   AccordionSummary,
@@ -7,7 +7,6 @@ import {
   Chip,
   Box,
   Divider,
-  Collapse,
   useMediaQuery,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
