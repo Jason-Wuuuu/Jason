@@ -25,6 +25,8 @@ import MiniGame from "./MiniGame";
 
 const ProfileSection = memo(() => {
   const greetings = [
+    "Click me for some easter eggs! 🥚✨",
+    "Hover again for more messages! 😉",
     "Behold, the digital me! 🧙‍♂️",
     "Code wizard at your service! 🧙‍♂️",
     "Warning: Awesome developer detected! 🚀",
@@ -34,12 +36,22 @@ const ProfileSection = memo(() => {
     "That's me! Nice to meet you! 😊",
   ];
 
-  const [currentGreeting, setCurrentGreeting] = useState(greetings[0]);
+  const [currentGreeting, setCurrentGreeting] = useState("");
+  const [hoverCount, setHoverCount] = useState(0);
 
   const changeGreeting = useCallback(() => {
-    const newGreeting = greetings[Math.floor(Math.random() * greetings.length)];
-    setCurrentGreeting(newGreeting);
-  }, []);
+    setHoverCount((prevCount) => prevCount + 1);
+
+    if (hoverCount === 0) {
+      setCurrentGreeting(greetings[0]);
+    } else if (hoverCount === 1) {
+      setCurrentGreeting(greetings[1]);
+    } else {
+      const newGreeting =
+        greetings[Math.floor(Math.random() * (greetings.length - 2)) + 2];
+      setCurrentGreeting(newGreeting);
+    }
+  }, [hoverCount]);
 
   const handleMouseEnter = useCallback(() => {
     changeGreeting();
@@ -70,30 +82,37 @@ const ProfileSection = memo(() => {
       gap={3}
     >
       <Grid item>
-        <Tooltip title={!isGameOpen ? currentGreeting : ""} placement="top">
+        <Tooltip
+          title={!isGameOpen ? currentGreeting : ""}
+          placement="top"
+          arrow
+        >
           <Box
-            component="img"
-            ref={memojiRef}
             sx={{
-              height: 300,
               width: 300,
-              borderRadius: "50%",
-              boxShadow: 10,
+              height: 300,
               cursor: isXsScreen ? "default" : "pointer",
-              transition: "transform 0.3s ease-in-out",
-              "&:hover": {
-                transform: isXsScreen || isGameOpen ? "none" : "scale(1.03)",
-              },
               position: "relative",
-              zIndex: (theme) => theme.zIndex.modal + 1,
+              zIndex: (theme) => theme.zIndex.modal + 2,
             }}
-            alt="memoji"
-            src="./images/Memoji_1.png"
             onMouseEnter={
               !isGameOpen && !isXsScreen ? handleMouseEnter : undefined
             }
             onClick={handleImageClick}
-          />
+          >
+            <Box
+              component="img"
+              ref={memojiRef}
+              sx={{
+                height: "100%",
+                width: "100%",
+                borderRadius: "50%",
+                boxShadow: 10,
+              }}
+              alt="memoji"
+              src="./images/Memoji_1.png"
+            />
+          </Box>
         </Tooltip>
       </Grid>
       <Grid item>
@@ -121,7 +140,7 @@ const ProfileSection = memo(() => {
             },
           }}
         >
-          <Box sx={{ zIndex: (theme) => theme.zIndex.modal + 2 }}>
+          <Box sx={{ zIndex: (theme) => theme.zIndex.modal + 3 }}>
             <MiniGame onClose={handleCloseGame} memojiRef={memojiRef} />
           </Box>
         </Modal>
