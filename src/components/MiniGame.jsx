@@ -136,10 +136,10 @@ const MiniGame = ({ onClose, memojiRef }) => {
         >
           {isPlaying ? (
             <>
-              <Typography variant="body2" fontWeight="bold">
+              <Typography variant="body1" fontWeight="bold">
                 Time left: {timeLeft}s
               </Typography>
-              <Typography variant="body2" mt={1} fontWeight="bold">
+              <Typography variant="body1" mt={1} fontWeight="bold">
                 Score: {score}
               </Typography>
               <Fade in={true} timeout={1000}>
@@ -161,6 +161,18 @@ const MiniGame = ({ onClose, memojiRef }) => {
                     variant="body1"
                     color="gold"
                     fontWeight={score >= highScore ? "bold" : "normal"}
+                    sx={
+                      score >= highScore
+                        ? {
+                            animation: "pulse 1s infinite",
+                            "@keyframes pulse": {
+                              "0%": { transform: "scale(1)" },
+                              "50%": { transform: "scale(1.05)" },
+                              "100%": { transform: "scale(1)" },
+                            },
+                          }
+                        : {}
+                    }
                   >
                     {score >= highScore && "🎉 New "}High Score: {highScore}
                   </Typography>
@@ -176,7 +188,7 @@ const MiniGame = ({ onClose, memojiRef }) => {
                   justifyContent="flex-start"
                 >
                   <Typography
-                    variant="body1"
+                    variant="h6"
                     fontWeight="bold"
                     color="lightgray"
                     sx={{
@@ -209,7 +221,13 @@ const MiniGame = ({ onClose, memojiRef }) => {
             component="button"
             variant="body1"
             onClick={startGame}
-            sx={{ fontWeight: "bold" }}
+            sx={{
+              fontWeight: "bold",
+              transition: "transform 0.2s",
+              "&:hover": {
+                transform: "scale(1.1)",
+              },
+            }}
           >
             Restart! 🔄
           </Link>
@@ -220,7 +238,13 @@ const MiniGame = ({ onClose, memojiRef }) => {
           variant="body1"
           onClick={onClose}
           color="error"
-          sx={{ fontWeight: "bold" }}
+          sx={{
+            fontWeight: "bold",
+            transition: "transform 0.2s",
+            "&:hover": {
+              transform: "scale(1.1)",
+            },
+          }}
         >
           Close ❌
         </Link>
