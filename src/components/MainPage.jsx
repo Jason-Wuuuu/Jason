@@ -1,4 +1,5 @@
 import React, { memo, useState, useCallback, useRef } from "react";
+import { useMediaQuery, useTheme } from "@mui/material";
 
 import {
   Grid,
@@ -47,8 +48,13 @@ const ProfileSection = memo(() => {
   const [isGameOpen, setIsGameOpen] = useState(false);
   const memojiRef = useRef(null);
 
+  const theme = useTheme();
+  const isXsScreen = useMediaQuery(theme.breakpoints.only("xs"));
+
   const handleImageClick = () => {
-    setIsGameOpen(true);
+    if (!isXsScreen) {
+      setIsGameOpen(true);
+    }
   };
 
   const handleCloseGame = () => {
@@ -73,17 +79,19 @@ const ProfileSection = memo(() => {
               width: 300,
               borderRadius: "50%",
               boxShadow: 10,
-              cursor: "pointer",
+              cursor: isXsScreen ? "default" : "pointer",
               transition: "transform 0.3s ease-in-out",
               "&:hover": {
-                transform: isGameOpen ? "none" : "scale(1.03)",
+                transform: isXsScreen || isGameOpen ? "none" : "scale(1.03)",
               },
               position: "relative",
               zIndex: (theme) => theme.zIndex.modal + 1,
             }}
             alt="memoji"
             src="./images/Memoji_1.png"
-            onMouseEnter={!isGameOpen ? handleMouseEnter : undefined}
+            onMouseEnter={
+              !isGameOpen && !isXsScreen ? handleMouseEnter : undefined
+            }
             onClick={handleImageClick}
           />
         </Tooltip>
@@ -99,23 +107,25 @@ const ProfileSection = memo(() => {
       <Grid item>
         <SocialLinks />
       </Grid>
-      <Modal
-        open={isGameOpen}
-        onClose={handleCloseGame}
-        slots={{ backdrop: Backdrop }}
-        slotProps={{
-          backdrop: {
-            sx: {
-              backgroundColor: "rgba(0, 0, 0, 0.8)",
-              zIndex: (theme) => theme.zIndex.drawer + 1,
+      {!isXsScreen && (
+        <Modal
+          open={isGameOpen}
+          onClose={handleCloseGame}
+          slots={{ backdrop: Backdrop }}
+          slotProps={{
+            backdrop: {
+              sx: {
+                backgroundColor: "rgba(0, 0, 0, 0.8)",
+                zIndex: (theme) => theme.zIndex.drawer + 1,
+              },
             },
-          },
-        }}
-      >
-        <Box sx={{ zIndex: (theme) => theme.zIndex.modal + 2 }}>
-          <MiniGame onClose={handleCloseGame} memojiRef={memojiRef} />
-        </Box>
-      </Modal>
+          }}
+        >
+          <Box sx={{ zIndex: (theme) => theme.zIndex.modal + 2 }}>
+            <MiniGame onClose={handleCloseGame} memojiRef={memojiRef} />
+          </Box>
+        </Modal>
+      )}
     </Grid>
   );
 });
