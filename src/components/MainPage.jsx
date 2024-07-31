@@ -33,7 +33,7 @@ const ProfileSection = memo(() => (
             mb: 2,
           }}
           alt="memoji"
-          src="./images/Memoji.png"
+          src="./images/Memoji_1.png"
         />
       </Tooltip>
     </Grid>

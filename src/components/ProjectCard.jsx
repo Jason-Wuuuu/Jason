@@ -138,7 +138,7 @@ const ProjectCard = React.memo(({ project }) => {
           avatar={
             <Avatar
               alt="memoji"
-              src="./images/Memoji.png"
+              src="./images/Memoji_2.png"
               sx={{ boxShadow: 10 }}
             />
           }
