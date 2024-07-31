@@ -44,26 +44,21 @@ const ProfileSection = memo(() => {
 
   useEffect(() => {
     if (highScore > 0) {
-      setGreetings([
+      setGreetings((prevGreetings) => [
         `High score: ${highScore}! Can you beat it? 🏆`,
-        ...baseGreetings.slice(1),
+        ...prevGreetings.slice(1),
       ]);
-      setHoverCount(0); // Reset hover count to show new greeting first
+      setHoverCount(0);
     }
   }, [highScore]);
 
   const changeGreeting = useCallback(() => {
     setHoverCount((prevCount) => prevCount + 1);
-
-    if (hoverCount === 0) {
-      setCurrentGreeting(greetings[0]);
-    } else if (hoverCount === 1) {
-      setCurrentGreeting(greetings[1]);
-    } else {
-      const newGreeting =
-        greetings[Math.floor(Math.random() * (greetings.length - 2)) + 2];
-      setCurrentGreeting(newGreeting);
-    }
+    setCurrentGreeting((prevGreeting) => {
+      if (hoverCount === 0) return greetings[0];
+      if (hoverCount === 1) return greetings[1];
+      return greetings[Math.floor(Math.random() * (greetings.length - 2)) + 2];
+    });
   }, [hoverCount, greetings]);
 
   const handleMouseEnter = useCallback(() => {

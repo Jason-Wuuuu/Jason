@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef, useCallback, memo } from "react";
 import { Box, Typography, Link, Fade } from "@mui/material";
 import confetti from "canvas-confetti";
 
-const MiniGame = ({ onClose, memojiRef, onHighScoreUpdate }) => {
+const MiniGame = memo(({ onClose, memojiRef, onHighScoreUpdate }) => {
   const [score, setScore] = useState(0);
   const [timeLeft, setTimeLeft] = useState(5); // Changed from 10 to 5
   const [isPlaying, setIsPlaying] = useState(false);
@@ -252,6 +252,6 @@ const MiniGame = ({ onClose, memojiRef, onHighScoreUpdate }) => {
       </Box>
     </Box>
   );
-};
+});
 
 export default MiniGame;
