@@ -134,7 +134,8 @@ const ProfileSection = memo(() => {
           slotProps={{
             backdrop: {
               sx: {
-                backgroundColor: "rgba(0, 0, 0, 0.8)",
+                backgroundColor: "rgba(255, 255, 255, 0.1)",
+                backdropFilter: "blur(5px)",
                 zIndex: (theme) => theme.zIndex.drawer + 1,
               },
             },

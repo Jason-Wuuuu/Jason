@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { Box, Typography, Button, Fade } from "@mui/material";
+import { Box, Typography, Link, Fade } from "@mui/material";
 import confetti from "canvas-confetti";
 
 const MiniGame = ({ onClose, memojiRef }) => {
@@ -82,10 +82,10 @@ const MiniGame = ({ onClose, memojiRef }) => {
   }, [timeLeft, endGame]);
 
   const getEncouragingMessage = () => {
-    if (score === 0) return "Come on, you can do it!";
-    if (score < 5) return "Not bad, keep going!";
-    if (score < 10) return "You're on fire!";
-    return "Wow, you're a clicking machine!";
+    if (score === 0) return "Keep on clicking! 👈";
+    if (score < 5) return "Not bad, keep going! 👍";
+    if (score < 10) return "You're on fire! 🔥";
+    return "Wow, you're a clicking machine! 🚀";
   };
 
   return (
@@ -96,8 +96,8 @@ const MiniGame = ({ onClose, memojiRef }) => {
         bgcolor: "background.paper",
         boxShadow: 24,
         p: 4,
-        borderRadius: 2,
-        width: 350,
+        borderRadius: 5,
+        width: 400,
         height: 250,
         display: "flex",
         flexDirection: "column",
@@ -111,7 +111,13 @@ const MiniGame = ({ onClose, memojiRef }) => {
         },
       }}
     >
-      <Typography variant="h5" align="center" fontWeight="bold" gutterBottom>
+      <Typography
+        variant="h5"
+        align="center"
+        fontWeight="bold"
+        gutterBottom
+        sx={{ textDecoration: "underline" }}
+      >
         Memoji Clicker!
       </Typography>
       <Box
@@ -130,10 +136,19 @@ const MiniGame = ({ onClose, memojiRef }) => {
         >
           {isPlaying ? (
             <>
-              <Typography variant="body1">Time left: {timeLeft}s</Typography>
-              <Typography variant="body1">Score: {score}</Typography>
+              <Typography variant="body2" fontWeight="bold">
+                Time left: {timeLeft}s
+              </Typography>
+              <Typography variant="body2" mt={1} fontWeight="bold">
+                Score: {score}
+              </Typography>
               <Fade in={true} timeout={1000}>
-                <Typography variant="body2" mt={2} color="primary">
+                <Typography
+                  variant="body1"
+                  mt={2}
+                  color="coral"
+                  fontWeight="bold"
+                >
                   {getEncouragingMessage()}
                 </Typography>
               </Fade>
@@ -143,12 +158,14 @@ const MiniGame = ({ onClose, memojiRef }) => {
               {timeLeft === 0 ? (
                 <Box display="flex" flexDirection="column" alignItems="center">
                   <Typography
-                    variant="body2"
-                    color={score >= highScore ? "gold" : "inherit"}
+                    variant="body1"
+                    color="gold"
+                    fontWeight={score >= highScore ? "bold" : "normal"}
                   >
                     {score >= highScore && "🎉 New "}High Score: {highScore}
                   </Typography>
-                  <Typography variant="body2" sx={{ mt: 1 }}>
+
+                  <Typography variant="body1" sx={{ mt: 1 }}>
                     Final Score: {score}
                   </Typography>
                 </Box>
@@ -157,30 +174,56 @@ const MiniGame = ({ onClose, memojiRef }) => {
                   display="flex"
                   alignItems="center"
                   justifyContent="flex-start"
-                  pl={2}
                 >
                   <Typography
-                    variant="h5"
-                    sx={{ mr: 1, color: "primary.main" }}
+                    variant="body1"
+                    fontWeight="bold"
+                    color="lightgray"
+                    sx={{
+                      animation: "pulse 1s infinite",
+                      "@keyframes pulse": {
+                        "0%": { transform: "scale(1)" },
+                        "50%": { transform: "scale(1.05)" },
+                        "100%": { transform: "scale(1)" },
+                      },
+                    }}
                   >
-                    ←
+                    ← Click to start!
                   </Typography>
-                  <Typography variant="body2">Click to start!</Typography>
                 </Box>
               )}
             </Box>
           )}
         </Box>
       </Box>
-      <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          mt: 2,
+        }}
+      >
         {!isPlaying && timeLeft === 0 && (
-          <Button variant="contained" onClick={startGame} sx={{ mr: 1 }}>
-            Try Again!
-          </Button>
+          <Link
+            component="button"
+            variant="body1"
+            onClick={startGame}
+            sx={{ fontWeight: "bold" }}
+          >
+            Restart! 🔄
+          </Link>
         )}
-        <Button variant="outlined" onClick={onClose}>
-          Close
-        </Button>
+        <Box flexGrow={1} />
+        <Link
+          component="button"
+          variant="body1"
+          onClick={onClose}
+          color="error"
+          sx={{ fontWeight: "bold" }}
+        >
+          Close ❌
+        </Link>
       </Box>
     </Box>
   );
