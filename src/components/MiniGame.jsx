@@ -4,14 +4,14 @@ import confetti from "canvas-confetti";
 
 const MiniGame = ({ onClose, memojiRef }) => {
   const [score, setScore] = useState(0);
-  const [timeLeft, setTimeLeft] = useState(10);
+  const [timeLeft, setTimeLeft] = useState(5); // Changed from 10 to 5
   const [isPlaying, setIsPlaying] = useState(false);
   const [highScore, setHighScore] = useState(0);
   const modalRef = useRef(null);
 
   const startGame = useCallback(() => {
     setScore(0);
-    setTimeLeft(10);
+    setTimeLeft(5); // Changed from 10 to 5
     setIsPlaying(true);
   }, []);
 
@@ -41,7 +41,8 @@ const MiniGame = ({ onClose, memojiRef }) => {
     const handleClick = () => {
       if (isPlaying) {
         setScore((prevScore) => prevScore + 1);
-      } else if (timeLeft === 10) {
+      } else if (timeLeft === 5) {
+        // Changed from 10 to 5
         startGame();
       }
     };
@@ -141,15 +142,14 @@ const MiniGame = ({ onClose, memojiRef }) => {
             <Box width="100%">
               {timeLeft === 0 ? (
                 <Box display="flex" flexDirection="column" alignItems="center">
-                  <Typography variant="body2">Final Score: {score}</Typography>
                   <Typography
                     variant="body2"
-                    color={score > highScore ? "gold" : "inherit"}
-                    sx={{ mt: 1 }}
+                    color={score >= highScore ? "gold" : "inherit"}
                   >
-                    {score > highScore
-                      ? "New High Score! 🎉"
-                      : `High Score: ${highScore}`}
+                    {score >= highScore && "🎉 New "}High Score: {highScore}
+                  </Typography>
+                  <Typography variant="body2" sx={{ mt: 1 }}>
+                    Final Score: {score}
                   </Typography>
                 </Box>
               ) : (
