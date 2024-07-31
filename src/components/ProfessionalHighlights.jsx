@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useState, createContext, useContext } from "react";
 
 import {
   Grid,
@@ -9,93 +9,173 @@ import {
   ListItemButton,
   Typography,
   Divider,
+  Tooltip,
 } from "@mui/material";
-import { styled } from "@mui/system";
+import { styled, keyframes } from "@mui/system";
 
-import ArrowRightIcon from "@mui/icons-material/ArrowRight";
+import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+
+const floatAnimation = keyframes`
+  0% { transform: translate(0, 0) scale(1); opacity: 1; }
+  100% { transform: translate(10px, -30px) scale(1.5); opacity: 0; }
+`;
 
 const StyledListItemButton = styled(ListItemButton)(({ theme }) => ({
+  position: "relative",
   "&:hover": {
     backgroundColor: theme.palette.action.hover,
   },
 }));
 
+const FloatingEmoji = styled("span")(({ theme, index }) => ({
+  position: "absolute",
+  top: "10px",
+  right: `${10 + index * 30}px`,
+  animation: `${floatAnimation} 1s ease-out forwards`,
+  animationDelay: `${index * 0.15}s`,
+  pointerEvents: "none",
+  fontSize: "24px",
+  color: "#FF69B4",
+}));
+
+const emojis = ["💗", "👍", "👏", "🔥", "⭐", "🚀", "💯"];
+
+// Create a context to share the first click state
+const FirstClickContext = createContext();
+
+const AnimatedListItemButton = memo(({ children, onClick, ...props }) => {
+  const [showEmojis, setShowEmojis] = useState(false);
+  const [selectedEmojis, setSelectedEmojis] = useState([]);
+  const { hasClickedAny, setHasClickedAny } = useContext(FirstClickContext);
+
+  const handleClick = (event) => {
+    const newEmojis = Array(3)
+      .fill()
+      .map(() => emojis[Math.floor(Math.random() * emojis.length)]);
+    setSelectedEmojis(newEmojis);
+    setShowEmojis(true);
+    setHasClickedAny(true);
+    setTimeout(() => setShowEmojis(false), 1000);
+    if (onClick) onClick(event);
+  };
+
+  const button = (
+    <StyledListItemButton {...props} onClick={handleClick}>
+      {children}
+      {showEmojis &&
+        selectedEmojis.map((emoji, index) => (
+          <FloatingEmoji key={index} index={index}>
+            {emoji}
+          </FloatingEmoji>
+        ))}
+    </StyledListItemButton>
+  );
+
+  return hasClickedAny ? (
+    button
+  ) : (
+    <Tooltip title="Click to give reactions! 🎉" placement="bottom-end">
+      {button}
+    </Tooltip>
+  );
+});
+
 const ExperienceItem = memo(
-  ({ title, date, company, location, responsibilities }) => (
-    <Grid
-      container
-      py={3}
-      display="flex"
-      flexDirection={{ xs: "column", sm: "row" }}
-    >
-      <Grid item xs={12} md={4}>
-        <Box
-          display="flex"
-          height="100%"
-          flexDirection="column"
-          p={{ sm: 3 }}
-          borderRight={{ sm: 2 }}
-        >
-          <Box>
-            <Typography variant="h5" fontWeight="bold">
-              {title}
-            </Typography>
-            <Typography
-              variant="h6"
-              fontWeight="bold"
-              color="text.secondary"
-              my={{ xs: 1, sm: 2 }}
-            >
-              {date}
-            </Typography>
-          </Box>
-        </Box>
-      </Grid>
-      <Grid item xs={12} md={8} pt={{ xs: 3 }}>
-        <Box pl={{ sm: 5 }} mb={1}>
+  ({ title, date, company, location, responsibilities }) => {
+    const [likedItems, setLikedItems] = useState({});
+
+    const handleItemClick = (index) => {
+      setLikedItems((prev) => ({
+        ...prev,
+        [index]: !prev[index],
+      }));
+    };
+
+    return (
+      <Grid
+        container
+        py={3}
+        display="flex"
+        flexDirection={{ xs: "column", sm: "row" }}
+      >
+        <Grid item xs={12} md={4}>
           <Box
             display="flex"
-            justifyContent={{ xs: "block", sm: "space-between" }}
-            alignItems="baseline"
+            height="100%"
+            flexDirection="column"
+            p={{ sm: 3 }}
+            borderRight={{ sm: 2 }}
           >
-            <Typography variant="h5" fontWeight="bold">
-              {company}
-            </Typography>
-            <Typography
-              variant="body1"
-              color="text.secondary"
-              fontWeight="bold"
-              sx={{ display: { xs: "none", sm: "block" } }}
-            >
-              📍 {location}
-            </Typography>
+            <Box>
+              <Typography variant="h5" fontWeight="bold">
+                {title}
+              </Typography>
+              <Typography
+                variant="h6"
+                fontWeight="bold"
+                color="text.secondary"
+                my={{ xs: 1, sm: 2 }}
+              >
+                {date}
+              </Typography>
+            </Box>
           </Box>
+        </Grid>
+        <Grid item xs={12} md={8} pt={{ xs: 3 }}>
+          <Box pl={{ sm: 5 }} mb={1}>
+            <Box
+              display="flex"
+              justifyContent={{ xs: "block", sm: "space-between" }}
+              alignItems="baseline"
+            >
+              <Typography variant="h5" fontWeight="bold">
+                {company}
+              </Typography>
+              <Typography
+                variant="body1"
+                color="text.secondary"
+                fontWeight="bold"
+                sx={{ display: { xs: "none", sm: "block" } }}
+              >
+                📍 {location}
+              </Typography>
+            </Box>
 
-          <List sx={{ mt: 1 }}>
-            {responsibilities.map((resp, index) => (
-              <StyledListItemButton key={index}>
-                <ListItemIcon sx={{ display: { xs: "none", sm: "block" } }}>
-                  <ArrowRightIcon />
-                </ListItemIcon>
-                <ListItemText
-                  primary={resp.title}
-                  primaryTypographyProps={{
-                    fontSize: { xs: 16, sm: 18 },
-                    fontWeight: "bold",
-                    mb: 1,
-                  }}
-                  secondary={resp.description}
-                  secondaryTypographyProps={{
-                    variant: "body2",
-                  }}
-                />
-              </StyledListItemButton>
-            ))}
-          </List>
-        </Box>
+            <List sx={{ mt: 1 }}>
+              {responsibilities.map((resp, index) => (
+                <AnimatedListItemButton
+                  key={index}
+                  onClick={() => handleItemClick(index)}
+                >
+                  <ListItemIcon sx={{ display: { xs: "none", sm: "block" } }}>
+                    {likedItems[index] ? (
+                      <FavoriteIcon color="error" />
+                    ) : (
+                      <FavoriteBorderIcon />
+                    )}
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={resp.title}
+                    primaryTypographyProps={{
+                      fontSize: { xs: 16, sm: 18 },
+                      fontWeight: "bold",
+                      mb: 1,
+                    }}
+                    secondary={resp.description}
+                    secondaryTypographyProps={{
+                      variant: "body2",
+                    }}
+                  />
+                </AnimatedListItemButton>
+              ))}
+            </List>
+          </Box>
+        </Grid>
       </Grid>
-    </Grid>
-  )
+    );
+  }
 );
 
 const CompetitionItem = memo(
@@ -147,9 +227,9 @@ const CompetitionItem = memo(
           </Typography>
           <List>
             {awards.map((award, index) => (
-              <StyledListItemButton key={index}>
+              <AnimatedListItemButton key={index}>
                 <ListItemIcon sx={{ display: { xs: "none", sm: "block" } }}>
-                  <ArrowRightIcon />
+                  <EmojiEventsOutlinedIcon />
                 </ListItemIcon>
                 <ListItemText
                   primary={award.title}
@@ -163,7 +243,7 @@ const CompetitionItem = memo(
                     fontSize: 14,
                   }}
                 />
-              </StyledListItemButton>
+              </AnimatedListItemButton>
             ))}
           </List>
         </Box>
@@ -173,6 +253,8 @@ const CompetitionItem = memo(
 );
 
 function ProfessionalHighlights() {
+  const [hasClickedAny, setHasClickedAny] = useState(false);
+
   const experienceData = {
     title: "Web3 Software Engineer Intern (Frontend)",
     date: "May 2024 − Present",
@@ -227,17 +309,19 @@ function ProfessionalHighlights() {
   };
 
   return (
-    <Box display="flex" flexDirection="column">
-      <Typography variant="h4" fontWeight="bold">
-        💼 Experience
-      </Typography>
-      <ExperienceItem {...experienceData} />
-      <Divider sx={{ my: 5 }} flexItem />
-      <Typography variant="h4" fontWeight="bold">
-        🏆 Competitions
-      </Typography>
-      <CompetitionItem {...competitionData} />
-    </Box>
+    <FirstClickContext.Provider value={{ hasClickedAny, setHasClickedAny }}>
+      <Box display="flex" flexDirection="column">
+        <Typography variant="h4" fontWeight="bold">
+          💼 Experience
+        </Typography>
+        <ExperienceItem {...experienceData} />
+        <Divider sx={{ my: 5 }} flexItem />
+        <Typography variant="h4" fontWeight="bold">
+          🏆 Competitions
+        </Typography>
+        <CompetitionItem {...competitionData} />
+      </Box>
+    </FirstClickContext.Provider>
   );
 }
 

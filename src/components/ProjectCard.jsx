@@ -127,6 +127,11 @@ const ProjectCard = React.memo(({ project }) => {
 
   const handleExpandClick = () => setExpanded(!expanded);
 
+  const getTooltipMessage = (techStack) => {
+    const mainLanguage = techStack.split(",")[0].trim();
+    return `Made with ${mainLanguage}! 🚀 Expand for more!`;
+  };
+
   return (
     <Grid
       item
@@ -136,11 +141,17 @@ const ProjectCard = React.memo(({ project }) => {
       <Card sx={{ boxShadow: 10, backgroundColor: "#202020" }}>
         <CardHeader
           avatar={
-            <Avatar
-              alt="memoji"
-              src="./images/Memoji_2.png"
-              sx={{ boxShadow: 10 }}
-            />
+            <Tooltip
+              title={getTooltipMessage(project.tech_stack)}
+              arrow
+              placement="bottom-start"
+            >
+              <Avatar
+                alt="memoji"
+                src="./images/Memoji_2.png"
+                sx={{ boxShadow: 10 }}
+              />
+            </Tooltip>
           }
           title={project.title}
           titleTypographyProps={{
@@ -201,7 +212,7 @@ const ProjectCard = React.memo(({ project }) => {
 
         <CardActions disableSpacing>
           {project.githubUrl && (
-            <Tooltip title="GitHub Repo" placement="top">
+            <Tooltip title="GitHub Repo" placement="top-start">
               <IconButton
                 aria-label="github"
                 href={project.githubUrl}
@@ -213,7 +224,7 @@ const ProjectCard = React.memo(({ project }) => {
           )}
 
           {project.demoUrl && (
-            <Tooltip title="Demo" placement="top">
+            <Tooltip title="Demo" placement="top-start">
               <IconButton
                 aria-label="demo"
                 href={project.demoUrl}
