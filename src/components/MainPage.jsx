@@ -46,7 +46,7 @@ const ProfileSection = memo(() => {
     if (highScore > 0) {
       setGreetings([
         `High score: ${highScore}! Can you beat it? 🏆`,
-        ...baseGreetings,
+        ...baseGreetings.slice(1),
       ]);
       setHoverCount(0); // Reset hover count to show new greeting first
     }
@@ -168,10 +168,11 @@ const ProfileSection = memo(() => {
           slotProps={{
             backdrop: {
               sx: {
-                backgroundColor: "rgba(255, 255, 255, 0.05)",
+                backgroundColor: "rgba(255, 255, 255, 0.08)",
                 backdropFilter: "blur(5px)",
                 zIndex: (theme) => theme.zIndex.drawer + 1,
               },
+              transitionDuration: 300,
             },
           }}
         >

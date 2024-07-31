@@ -94,10 +94,10 @@ const MiniGame = ({ onClose, memojiRef, onHighScoreUpdate }) => {
       ref={modalRef}
       sx={{
         position: "fixed",
-        bgcolor: "background.paper",
+        bgcolor: "#1E1E1E",
         boxShadow: 24,
         p: 4,
-        borderRadius: 5,
+        borderRadius: 2,
         width: 400,
         height: 250,
         display: "flex",
