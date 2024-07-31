@@ -82,11 +82,7 @@ const ProfileSection = memo(() => {
       gap={3}
     >
       <Grid item>
-        <Tooltip
-          title={!isGameOpen ? currentGreeting : ""}
-          placement="top"
-          arrow
-        >
+        <Tooltip title={!isGameOpen ? currentGreeting : ""} placement="top">
           <Box
             sx={{
               width: 300,
@@ -95,9 +91,7 @@ const ProfileSection = memo(() => {
               position: "relative",
               zIndex: (theme) => theme.zIndex.modal + 2,
             }}
-            onMouseEnter={
-              !isGameOpen && !isXsScreen ? handleMouseEnter : undefined
-            }
+            onMouseEnter={!isXsScreen ? handleMouseEnter : undefined}
             onClick={handleImageClick}
           >
             <Box
@@ -108,6 +102,10 @@ const ProfileSection = memo(() => {
                 width: "100%",
                 borderRadius: "50%",
                 boxShadow: 10,
+                transition: "transform 0.3s ease-in-out",
+                "&:hover": {
+                  transform: isGameOpen ? "scale(1.03)" : "none",
+                },
               }}
               alt="memoji"
               src="./images/Memoji_1.png"
@@ -115,14 +113,16 @@ const ProfileSection = memo(() => {
           </Box>
         </Tooltip>
       </Grid>
+
       <Grid item>
-        <Typography variant="h5" fontWeight="bold" align="center">
+        <Typography variant="h5" fontWeight="bold" align="center" mt={2}>
           Chia-Hsiang(Jason) Wu
         </Typography>
         <Typography variant="body1" align="center" mt={2}>
           Software Engineer / Web Developer
         </Typography>
       </Grid>
+
       <Grid item>
         <SocialLinks />
       </Grid>

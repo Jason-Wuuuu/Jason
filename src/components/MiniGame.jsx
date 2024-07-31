@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Box, Typography, Button, Fade } from "@mui/material";
 import confetti from "canvas-confetti";
 
@@ -8,6 +8,12 @@ const MiniGame = ({ onClose, memojiRef }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [highScore, setHighScore] = useState(0);
   const modalRef = useRef(null);
+
+  const startGame = useCallback(() => {
+    setScore(0);
+    setTimeLeft(10);
+    setIsPlaying(true);
+  }, []);
 
   useEffect(() => {
     const memojiRect = memojiRef.current?.getBoundingClientRect();
@@ -49,32 +55,30 @@ const MiniGame = ({ onClose, memojiRef }) => {
         memojiElement.removeEventListener("click", handleClick);
       }
     };
-  }, [memojiRef, isPlaying, timeLeft]);
+  }, [memojiRef, isPlaying, timeLeft, startGame]);
 
-  const startGame = () => {
-    setScore(0);
-    setTimeLeft(10);
-    setIsPlaying(true);
-  };
+  const triggerConfetti = useCallback(() => {
+    confetti({
+      zIndex: 10000,
+      particleCount: 100,
+      spread: 70,
+      origin: { y: 0.6 },
+    });
+  }, []);
 
-  const endGame = () => {
+  const endGame = useCallback(() => {
     setIsPlaying(false);
     if (score > highScore) {
       setHighScore(score);
-      confetti({
-        zIndex: 10000,
-        particleCount: 100,
-        spread: 70,
-        origin: { y: 0.6 },
-      });
+      triggerConfetti();
     }
-  };
+  }, [score, highScore, triggerConfetti]);
 
   useEffect(() => {
     if (timeLeft === 0) {
       endGame();
     }
-  }, [timeLeft]);
+  }, [timeLeft, endGame]);
 
   const getEncouragingMessage = () => {
     if (score === 0) return "Come on, you can do it!";
@@ -134,7 +138,7 @@ const MiniGame = ({ onClose, memojiRef }) => {
               </Fade>
             </>
           ) : (
-            <Box>
+            <Box width="100%">
               {timeLeft === 0 ? (
                 <Box display="flex" flexDirection="column" alignItems="center">
                   <Typography variant="body2">Final Score: {score}</Typography>
@@ -153,6 +157,7 @@ const MiniGame = ({ onClose, memojiRef }) => {
                   display="flex"
                   alignItems="center"
                   justifyContent="flex-start"
+                  pl={2}
                 >
                   <Typography
                     variant="h5"
