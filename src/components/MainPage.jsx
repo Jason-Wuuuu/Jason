@@ -1,4 +1,4 @@
-import React, { memo, useState, useCallback, useRef } from "react";
+import React, { memo, useState, useCallback, useRef, useEffect } from "react";
 import { useMediaQuery, useTheme } from "@mui/material";
 
 import {
@@ -9,6 +9,7 @@ import {
   Divider,
   Modal,
   Backdrop,
+  Chip,
 } from "@mui/material";
 
 import {
@@ -24,20 +25,32 @@ import InfoSection from "./InfoSection";
 import MiniGame from "./MiniGame";
 
 const ProfileSection = memo(() => {
-  const greetings = [
+  const baseGreetings = [
     "Click me for some easter eggs! 🥚✨",
     "Hover again for more messages! 😉",
     "Behold, the digital me! 🧙‍♂️",
     "Code wizard at your service! 🧙‍♂️",
     "Warning: Awesome developer detected! 🚀",
-    "Hello, world! ...I always wanted to say that 😄",
+    "Hello, world! Always wanted to say that 😄",
     "Powered by coffee and curiosity 💡",
     "Turning caffeine into code since 2018 ⚡️",
     "That's me! Nice to meet you! 😊",
   ];
 
+  const [greetings, setGreetings] = useState(baseGreetings);
   const [currentGreeting, setCurrentGreeting] = useState("");
   const [hoverCount, setHoverCount] = useState(0);
+  const [highScore, setHighScore] = useState(0);
+
+  useEffect(() => {
+    if (highScore > 0) {
+      setGreetings([
+        `High score: ${highScore}! Can you beat it? 🏆`,
+        ...baseGreetings,
+      ]);
+      setHoverCount(0); // Reset hover count to show new greeting first
+    }
+  }, [highScore]);
 
   const changeGreeting = useCallback(() => {
     setHoverCount((prevCount) => prevCount + 1);
@@ -51,7 +64,7 @@ const ProfileSection = memo(() => {
         greetings[Math.floor(Math.random() * (greetings.length - 2)) + 2];
       setCurrentGreeting(newGreeting);
     }
-  }, [hoverCount]);
+  }, [hoverCount, greetings]);
 
   const handleMouseEnter = useCallback(() => {
     changeGreeting();
@@ -73,6 +86,10 @@ const ProfileSection = memo(() => {
     setIsGameOpen(false);
   };
 
+  const handleHighScoreUpdate = (newHighScore) => {
+    setHighScore(newHighScore);
+  };
+
   return (
     <Grid
       container
@@ -82,7 +99,7 @@ const ProfileSection = memo(() => {
       gap={3}
     >
       <Grid item>
-        <Tooltip title={!isGameOpen ? currentGreeting : ""} placement="top">
+        <Tooltip title={!isGameOpen && currentGreeting} placement="top">
           <Box
             sx={{
               width: 300,
@@ -110,6 +127,23 @@ const ProfileSection = memo(() => {
               alt="memoji"
               src="./images/Memoji_1.png"
             />
+            {highScore > 0 && (
+              <Chip
+                label={`🏆 ${highScore}`}
+                size="small"
+                sx={{
+                  position: "absolute",
+                  top: 20,
+                  right: 20,
+                  fontWeight: "bold",
+                  fontSize: 14,
+                  padding: "0 4px",
+                  backgroundColor: "gold",
+                  color: "black",
+                  boxShadow: 10,
+                }}
+              />
+            )}
           </Box>
         </Tooltip>
       </Grid>
@@ -134,7 +168,7 @@ const ProfileSection = memo(() => {
           slotProps={{
             backdrop: {
               sx: {
-                backgroundColor: "rgba(255, 255, 255, 0.1)",
+                backgroundColor: "rgba(255, 255, 255, 0.05)",
                 backdropFilter: "blur(5px)",
                 zIndex: (theme) => theme.zIndex.drawer + 1,
               },
@@ -142,7 +176,11 @@ const ProfileSection = memo(() => {
           }}
         >
           <Box sx={{ zIndex: (theme) => theme.zIndex.modal + 3 }}>
-            <MiniGame onClose={handleCloseGame} memojiRef={memojiRef} />
+            <MiniGame
+              onClose={handleCloseGame}
+              memojiRef={memojiRef}
+              onHighScoreUpdate={handleHighScoreUpdate}
+            />
           </Box>
         </Modal>
       )}

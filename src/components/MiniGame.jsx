@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Box, Typography, Link, Fade } from "@mui/material";
 import confetti from "canvas-confetti";
 
-const MiniGame = ({ onClose, memojiRef }) => {
+const MiniGame = ({ onClose, memojiRef, onHighScoreUpdate }) => {
   const [score, setScore] = useState(0);
   const [timeLeft, setTimeLeft] = useState(5); // Changed from 10 to 5
   const [isPlaying, setIsPlaying] = useState(false);
@@ -71,9 +71,10 @@ const MiniGame = ({ onClose, memojiRef }) => {
     setIsPlaying(false);
     if (score > highScore) {
       setHighScore(score);
+      onHighScoreUpdate(score); // Add this line to update the parent component
       triggerConfetti();
     }
-  }, [score, highScore, triggerConfetti]);
+  }, [score, highScore, triggerConfetti, onHighScoreUpdate]);
 
   useEffect(() => {
     if (timeLeft === 0) {
