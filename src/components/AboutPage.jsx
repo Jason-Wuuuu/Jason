@@ -86,9 +86,13 @@ const StepContentCard = React.memo(({ step, index }) => (
           width: { xs: "100%", sm: "60%" },
           borderRadius: 1,
           boxShadow: 10,
+          userSelect: "none",
+          pointerEvents: "none",
         }}
         image={`./images/me/${step.image}.png`}
         alt={step.title}
+        draggable="false"
+        onContextMenu={(e) => e.preventDefault()}
       />
     </Suspense>
     <CardContent>

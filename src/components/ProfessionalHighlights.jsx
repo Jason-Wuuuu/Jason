@@ -233,6 +233,8 @@ const CompetitionItem = memo(
                 alt="Award Image"
                 loading="lazy"
                 width="100%"
+                draggable="false"
+                onContextMenu={(e) => e.preventDefault()}
               />
             </Box>
           </Box>

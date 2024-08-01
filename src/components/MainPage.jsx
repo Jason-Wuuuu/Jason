@@ -119,9 +119,13 @@ const ProfileSection = memo(() => {
                   transform: isGameOpen ? "scale(1.03)" : "none",
                   transition: "transform 0.3s ease-in-out",
                 },
+                userSelect: "none",
+                pointerEvents: "none",
               }}
               alt="memoji"
               src="./images/Memoji_1.png"
+              draggable="false"
+              onContextMenu={(e) => e.preventDefault()}
             />
             {highScore > 0 && (
               <Chip

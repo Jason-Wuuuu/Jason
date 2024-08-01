@@ -113,8 +113,12 @@ const ProjectCarousel = React.memo(({ screenshots }) => (
               width: "100%",
               height: "100%",
               objectFit: "contain",
+              userSelect: "none",
+              pointerEvents: "none",
             }}
             loading="lazy"
+            draggable="false"
+            onContextMenu={(e) => e.preventDefault()}
           />
         </Box>
       ))}
@@ -139,8 +143,20 @@ const ProjectCard = React.memo(({ project }) => {
             <Avatar
               alt="memoji"
               src="./images/Memoji_2.png"
-              sx={{ boxShadow: 10 }}
-            />
+              sx={{ boxShadow: 10, userSelect: "none", pointerEvents: "none" }}
+              draggable="false"
+              onContextMenu={(e) => e.preventDefault()}
+            >
+              <Box
+                component="img"
+                src="./images/Memoji_2.png"
+                alt="memoji"
+                sx={{
+                  width: "100%",
+                  height: "100%",
+                }}
+              />
+            </Avatar>
           }
           title={project.title}
           titleTypographyProps={{
