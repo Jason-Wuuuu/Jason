@@ -32,6 +32,7 @@ function Header() {
       <AppBar
         position="fixed"
         sx={{
+          zIndex: 9999, // Add this line
           opacity: 0.9,
           // backdropFilter: "blur(5px)",
           boxShadow:

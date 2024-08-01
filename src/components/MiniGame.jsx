@@ -4,15 +4,17 @@ import confetti from "canvas-confetti";
 
 const MiniGame = memo(({ onClose, memojiRef, onHighScoreUpdate }) => {
   const [score, setScore] = useState(0);
-  const [timeLeft, setTimeLeft] = useState(5); // Changed from 10 to 5
+  const [timeLeft, setTimeLeft] = useState(5);
   const [isPlaying, setIsPlaying] = useState(false);
   const [highScore, setHighScore] = useState(0);
+  const [shake, setShake] = useState(false);
   const modalRef = useRef(null);
 
   const startGame = useCallback(() => {
     setScore(0);
-    setTimeLeft(5); // Changed from 10 to 5
+    setTimeLeft(5);
     setIsPlaying(true);
+    setShake(true);
   }, []);
 
   useEffect(() => {
@@ -33,6 +35,7 @@ const MiniGame = memo(({ onClose, memojiRef, onHighScoreUpdate }) => {
       }, 1000);
     } else if (timeLeft === 0) {
       setIsPlaying(false);
+      setShake(false);
     }
     return () => clearInterval(timer);
   }, [isPlaying, timeLeft]);
@@ -42,7 +45,6 @@ const MiniGame = memo(({ onClose, memojiRef, onHighScoreUpdate }) => {
       if (isPlaying) {
         setScore((prevScore) => prevScore + 1);
       } else if (timeLeft === 5) {
-        // Changed from 10 to 5
         startGame();
       }
     };
@@ -50,17 +52,21 @@ const MiniGame = memo(({ onClose, memojiRef, onHighScoreUpdate }) => {
     const memojiElement = memojiRef.current;
     if (memojiElement) {
       memojiElement.addEventListener("click", handleClick);
+      memojiElement.style.animation =
+        isPlaying || timeLeft === 5 ? "pulse 1s infinite" : "none";
+      memojiElement.style.transformOrigin = "center";
     }
     return () => {
       if (memojiElement) {
         memojiElement.removeEventListener("click", handleClick);
+        memojiElement.style.animation = "none";
       }
     };
   }, [memojiRef, isPlaying, timeLeft, startGame]);
 
   const triggerConfetti = useCallback(() => {
     confetti({
-      zIndex: 10000,
+      zIndex: 9000,
       particleCount: 100,
       spread: 70,
       origin: { y: 0.6 },
@@ -71,7 +77,7 @@ const MiniGame = memo(({ onClose, memojiRef, onHighScoreUpdate }) => {
     setIsPlaying(false);
     if (score > highScore) {
       setHighScore(score);
-      onHighScoreUpdate(score); // Add this line to update the parent component
+      onHighScoreUpdate(score);
       triggerConfetti();
     }
   }, [score, highScore, triggerConfetti, onHighScoreUpdate]);
@@ -104,11 +110,14 @@ const MiniGame = memo(({ onClose, memojiRef, onHighScoreUpdate }) => {
         flexDirection: "column",
         justifyContent: "space-between",
         zIndex: (theme) => theme.zIndex.modal + 1,
-        animation: isPlaying ? "pulse 1s infinite" : "none",
-        "@keyframes pulse": {
-          "0%": { transform: "scale(1)" },
-          "50%": { transform: "scale(1.05)" },
-          "100%": { transform: "scale(1)" },
+        animation: shake
+          ? "shake 0.82s cubic-bezier(.36,.07,.19,.97) both infinite"
+          : "none",
+        "@keyframes shake": {
+          "10%, 90%": { transform: "translate3d(-1px, 0, 0)" },
+          "20%, 80%": { transform: "translate3d(2px, 0, 0)" },
+          "30%, 50%, 70%": { transform: "translate3d(-4px, 0, 0)" },
+          "40%, 60%": { transform: "translate3d(4px, 0, 0)" },
         },
       }}
     >
