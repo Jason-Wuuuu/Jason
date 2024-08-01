@@ -85,6 +85,21 @@ const ProfileSection = memo(() => {
     setHighScore(newHighScore);
   };
 
+  const skillChips = [
+    { label: "AI & ML", color: "#8E44AD" },
+    { label: "Web Dev", color: "#61DAFB" },
+    { label: "JS/TS", color: "#F7DF1E" },
+    { label: "Python", color: "#4B8BBE" },
+    { label: "Java", color: "#f89820" },
+  ];
+
+  const highScoreChip =
+    highScore > 0
+      ? [{ label: `🏆 ${highScore}`, color: "gold", isHighScore: true }]
+      : [];
+
+  const allChips = [...skillChips, ...highScoreChip];
+
   return (
     <Grid
       container
@@ -126,38 +141,52 @@ const ProfileSection = memo(() => {
               draggable="false"
               onContextMenu={(e) => e.preventDefault()}
             />
-            {highScore > 0 && (
-              <Chip
-                label={`🏆 ${highScore}`}
-                size="small"
-                sx={{
-                  position: "absolute",
-                  top: 20,
-                  right: 20,
-                  fontWeight: "bold",
-                  fontSize: 14,
-                  padding: "0 4px",
-                  backgroundColor: "gold",
-                  color: "black",
-                  boxShadow: 10,
-                  animation: "shakeAndFloat 3s ease-in-out infinite",
-                  "@keyframes shakeAndFloat": {
-                    "0%, 100%": {
-                      transform: "translateY(0) rotate(0deg)",
-                    },
-                    "25%": {
-                      transform: "translateY(-5px) rotate(-5deg)",
-                    },
-                    "50%": {
-                      transform: "translateY(0) rotate(0deg)",
-                    },
-                    "75%": {
-                      transform: "translateY(-5px) rotate(5deg)",
-                    },
-                  },
-                }}
-              />
-            )}
+            {allChips.map((chip, index) => {
+              let angle;
+              if (chip.isHighScore) {
+                angle = -Math.PI / 4; // Place high score chip at top right
+              } else {
+                // Distribute skill chips along a wider bottom arc
+                angle =
+                  Math.PI * 0.8 +
+                  Math.PI * 0.4 * (index / (skillChips.length - 1));
+              }
+              const x = 150 + 155 * Math.cos(angle);
+              const y = 150 + 155 * Math.sin(angle);
+              return (
+                <Chip
+                  key={index}
+                  label={chip.label}
+                  size="small"
+                  sx={{
+                    position: "absolute",
+                    left: x,
+                    top: y,
+                    transform: "translate(-50%, -50%)",
+                    fontWeight: "bold",
+                    fontSize: 14,
+                    padding: "0 4px",
+                    backgroundColor: chip.color,
+                    color:
+                      chip.isHighScore ||
+                      chip.label === "JS/TS" ||
+                      chip.label === "Web Dev"
+                        ? "black"
+                        : "white",
+                    boxShadow: 10,
+                    ...(chip.isHighScore && {
+                      animation: `float 3s ease-in-out infinite`,
+                      "@keyframes float": {
+                        "0%, 100%": { transform: "translate(-50%, -50%)" },
+                        "50%": {
+                          transform: "translate(-50%, calc(-50% - 10px))",
+                        },
+                      },
+                    }),
+                  }}
+                />
+              );
+            })}
           </Box>
         </Tooltip>
       </Grid>
