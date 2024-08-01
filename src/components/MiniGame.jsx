@@ -198,7 +198,7 @@ const MiniGame = memo(({ onClose, memojiRef, onHighScoreUpdate }) => {
                       color="gold"
                       fontWeight="bold"
                       sx={
-                        score > highScore
+                        score >= highScore
                           ? {
                               animation: "pulse 1s infinite",
                               "@keyframes pulse": {
@@ -210,7 +210,7 @@ const MiniGame = memo(({ onClose, memojiRef, onHighScoreUpdate }) => {
                           : {}
                       }
                     >
-                      {score > highScore && "🎉 New "}High Score: {highScore}
+                      {score >= highScore && "🎉 New "}High Score: {highScore}
                     </Typography>
 
                     <Typography variant="body1" sx={{ mt: 1 }}>
