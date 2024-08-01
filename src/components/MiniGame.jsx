@@ -43,8 +43,13 @@ const MiniGame = memo(({ onClose, memojiRef, onHighScoreUpdate }) => {
     const modalElement = modalRef.current;
 
     if (memojiRect && modalElement) {
+      const modalWidth = modalElement.offsetWidth;
+      const modalHeight = modalElement.offsetHeight;
+
       modalElement.style.left = `${memojiRect.right + 20}px`;
-      modalElement.style.top = `${memojiRect.top}px`;
+      modalElement.style.top = `${
+        memojiRect.top + memojiRect.height / 2 - modalHeight / 2
+      }px`;
     }
   }, [memojiRef]);
 
@@ -61,7 +66,9 @@ const MiniGame = memo(({ onClose, memojiRef, onHighScoreUpdate }) => {
     if (memojiElement) {
       memojiElement.addEventListener("click", handleClick);
       memojiElement.style.animation =
-        isPlaying || (timeLeft === 5 && countdown === null)
+        isPlaying ||
+        (timeLeft === 5 && countdown === null) ||
+        countdown !== null
           ? "pulse 1s infinite"
           : "none";
       memojiElement.style.transformOrigin = "center";
@@ -229,7 +236,7 @@ const MiniGame = memo(({ onClose, memojiRef, onHighScoreUpdate }) => {
                         },
                       }}
                     >
-                      ← Click to start!
+                      👈 Click to start!
                     </Typography>
                   </Box>
                 )}
@@ -248,7 +255,7 @@ const MiniGame = memo(({ onClose, memojiRef, onHighScoreUpdate }) => {
       >
         {isPlaying ? (
           <Typography variant="body2" color="lightgray">
-            ← Keep clicking!
+            👈 Keep clicking!
           </Typography>
         ) : timeLeft === 0 ? (
           <Link
@@ -256,10 +263,10 @@ const MiniGame = memo(({ onClose, memojiRef, onHighScoreUpdate }) => {
             variant="body1"
             onClick={startGame}
             sx={{
-              fontWeight: "bold",
               transition: "transform 0.2s",
               "&:hover": {
                 transform: "scale(1.1)",
+                fontWeight: "bold",
               },
             }}
           >
@@ -273,10 +280,10 @@ const MiniGame = memo(({ onClose, memojiRef, onHighScoreUpdate }) => {
           onClick={onClose}
           color="error"
           sx={{
-            fontWeight: "bold",
             transition: "transform 0.2s",
             "&:hover": {
               transform: "scale(1.1)",
+              fontWeight: "bold",
             },
           }}
         >
