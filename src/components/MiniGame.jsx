@@ -148,7 +148,7 @@ const MiniGame = memo(({ onClose, memojiRef, onHighScoreUpdate }) => {
       >
         {countdown !== null ? (
           <Typography variant="h2" align="center" fontWeight="bold">
-            {countdown === 0 ? "GO!" : countdown}
+            {countdown}
           </Typography>
         ) : (
           <Box
@@ -244,7 +244,11 @@ const MiniGame = memo(({ onClose, memojiRef, onHighScoreUpdate }) => {
           mt: 2,
         }}
       >
-        {!isPlaying && timeLeft === 0 && (
+        {isPlaying ? (
+          <Typography variant="body2" color="lightgray">
+            ← Keep clicking!
+          </Typography>
+        ) : timeLeft === 0 ? (
           <Link
             component="button"
             variant="body1"
@@ -259,7 +263,7 @@ const MiniGame = memo(({ onClose, memojiRef, onHighScoreUpdate }) => {
           >
             Restart! 🔄
           </Link>
-        )}
+        ) : null}
         <Box flexGrow={1} />
         <Link
           component="button"

@@ -14,8 +14,19 @@ import {
 import { styled, keyframes } from "@mui/system";
 
 import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import FavoriteIcon from "@mui/icons-material/Favorite";
+import LaptopMacIcon from "@mui/icons-material/LaptopMac";
+
+const shakeAnimation = keyframes`
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+  75% { transform: rotate(-5deg); }
+  100% { transform: rotate(0deg); }
+`;
+
+const ShakingIcon = styled("div")(({ theme, isShaking }) => ({
+  animation: isShaking ? `${shakeAnimation} 0.5s ease-in-out` : "none",
+}));
 
 const floatAnimation = keyframes`
   0% { transform: translate(0, 0) scale(1); opacity: 1; }
@@ -36,7 +47,7 @@ const FloatingEmoji = styled("span")(({ theme, index }) => ({
   animation: `${floatAnimation} 1s ease-out forwards`,
   animationDelay: `${index * 0.15}s`,
   pointerEvents: "none",
-  fontSize: "24px",
+  fontSize: "28px",
   color: "#FF69B4",
 }));
 
@@ -84,13 +95,13 @@ const AnimatedListItemButton = memo(({ children, onClick, ...props }) => {
 
 const ExperienceItem = memo(
   ({ title, date, company, location, responsibilities }) => {
-    const [likedItems, setLikedItems] = useState({});
+    const [shakingIcons, setShakingIcons] = useState({});
 
-    const handleItemClick = (index) => {
-      setLikedItems((prev) => ({
-        ...prev,
-        [index]: !prev[index],
-      }));
+    const handleIconShake = (index) => {
+      setShakingIcons((prev) => ({ ...prev, [index]: true }));
+      setTimeout(() => {
+        setShakingIcons((prev) => ({ ...prev, [index]: false }));
+      }, 500);
     };
 
     return (
@@ -147,14 +158,12 @@ const ExperienceItem = memo(
               {responsibilities.map((resp, index) => (
                 <AnimatedListItemButton
                   key={index}
-                  onClick={() => handleItemClick(index)}
+                  onClick={() => handleIconShake(index)}
                 >
                   <ListItemIcon sx={{ display: { xs: "none", sm: "block" } }}>
-                    {likedItems[index] ? (
-                      <FavoriteIcon color="error" />
-                    ) : (
-                      <FavoriteBorderIcon />
-                    )}
+                    <ShakingIcon isShaking={shakingIcons[index]}>
+                      <LaptopMacIcon />
+                    </ShakingIcon>
                   </ListItemIcon>
                   <ListItemText
                     primary={resp.title}
@@ -179,77 +188,98 @@ const ExperienceItem = memo(
 );
 
 const CompetitionItem = memo(
-  ({ title, date, projectName, description, awards, imageSrc }) => (
-    <Grid
-      container
-      py={3}
-      display="flex"
-      flexDirection={{ xs: "column", sm: "row" }}
-    >
-      <Grid item xs={12} md={4}>
-        <Box
-          display="flex"
-          height="100%"
-          flexDirection="column"
-          justifyContent="space-between"
-          p={{ sm: 3 }}
-          borderRight={{ sm: 2 }}
-        >
-          <Box>
+  ({ title, date, projectName, description, awards, imageSrc }) => {
+    const [shakingIcons, setShakingIcons] = useState({});
+
+    const handleIconShake = (index) => {
+      setShakingIcons((prev) => ({ ...prev, [index]: true }));
+      setTimeout(() => {
+        setShakingIcons((prev) => ({ ...prev, [index]: false }));
+      }, 500);
+    };
+
+    return (
+      <Grid
+        container
+        py={3}
+        display="flex"
+        flexDirection={{ xs: "column", sm: "row" }}
+      >
+        <Grid item xs={12} md={4}>
+          <Box
+            display="flex"
+            height="100%"
+            flexDirection="column"
+            justifyContent="space-between"
+            p={{ sm: 3 }}
+            borderRight={{ sm: 2 }}
+          >
+            <Box>
+              <Typography variant="h5" fontWeight="bold">
+                {title}
+              </Typography>
+              <Typography
+                variant="h6"
+                fontWeight="bold"
+                color="text.secondary"
+                my={{ xs: 1, sm: 2 }}
+              >
+                {date}
+              </Typography>
+            </Box>
+            <Box width="100%" display="flex" justifyContent="center">
+              <img
+                src={imageSrc}
+                alt="Award Image"
+                loading="lazy"
+                width="100%"
+              />
+            </Box>
+          </Box>
+        </Grid>
+        <Grid item xs={12} md={8} pt={{ xs: 3 }}>
+          <Box pl={{ sm: 5 }} mb={1}>
             <Typography variant="h5" fontWeight="bold">
-              {title}
+              {projectName}
             </Typography>
             <Typography
-              variant="h6"
-              fontWeight="bold"
+              variant="body2"
               color="text.secondary"
-              my={{ xs: 1, sm: 2 }}
+              sx={{ py: { xs: 1 } }}
             >
-              {date}
+              {description}
             </Typography>
+            <List>
+              {awards.map((award, index) => (
+                <AnimatedListItemButton
+                  key={index}
+                  onClick={() => handleIconShake(index)}
+                >
+                  <ListItemIcon sx={{ display: { xs: "none", sm: "block" } }}>
+                    <ShakingIcon isShaking={shakingIcons[index]}>
+                      <EmojiEventsOutlinedIcon />
+                    </ShakingIcon>
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={award.title}
+                    primaryTypographyProps={{
+                      fontSize: { xs: 16, sm: 18 },
+                      fontWeight: "bold",
+                      mb: 1,
+                    }}
+                    secondary={award.description}
+                    secondaryTypographyProps={{
+                      fontSize: 14,
+                    }}
+                  />
+                </AnimatedListItemButton>
+              ))}
+            </List>
           </Box>
-          <Box width="100%" display="flex" justifyContent="center">
-            <img src={imageSrc} alt="Award Image" loading="lazy" width="100%" />
-          </Box>
-        </Box>
+        </Grid>
       </Grid>
-      <Grid item xs={12} md={8} pt={{ xs: 3 }}>
-        <Box pl={{ sm: 5 }} mb={1}>
-          <Typography variant="h5" fontWeight="bold">
-            {projectName}
-          </Typography>
-          <Typography
-            variant="body2"
-            color="text.secondary"
-            sx={{ py: { xs: 1 } }}
-          >
-            {description}
-          </Typography>
-          <List>
-            {awards.map((award, index) => (
-              <AnimatedListItemButton key={index}>
-                <ListItemIcon sx={{ display: { xs: "none", sm: "block" } }}>
-                  <EmojiEventsOutlinedIcon />
-                </ListItemIcon>
-                <ListItemText
-                  primary={award.title}
-                  primaryTypographyProps={{
-                    fontSize: { xs: 16, sm: 18 },
-                    fontWeight: "bold",
-                    mb: 1,
-                  }}
-                  secondary={award.description}
-                  secondaryTypographyProps={{
-                    fontSize: 14,
-                  }}
-                />
-              </AnimatedListItemButton>
-            ))}
-          </List>
-        </Box>
-      </Grid>
-    </Grid>
-  )
+    );
+  }
 );
 
 function ProfessionalHighlights() {
