@@ -17,26 +17,30 @@ import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
 import LaptopMacIcon from "@mui/icons-material/LaptopMac";
 
 const shakeAnimation = keyframes`
-  0% { transform: rotate(0deg); }
-  25% { transform: rotate(-5deg); }
-  50% { transform: rotate(5deg); }
-  75% { transform: rotate(-5deg); }
-  100% { transform: rotate(0deg); }
+  0% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(-10deg) scale(1.2); }
+  50% { transform: rotate(10deg) scale(1.2); }
+  75% { transform: rotate(-10deg) scale(1.2); }
+  100% { transform: rotate(0deg) scale(1); }
 `;
 
 const ShakingIcon = styled("div")(({ theme, isShaking }) => ({
+  display: "inline-block",
   animation: isShaking ? `${shakeAnimation} 0.5s ease-in-out` : "none",
+  transformOrigin: "center",
 }));
 
 const floatAnimation = keyframes`
   0% { transform: translate(0, 0) scale(1); opacity: 1; }
-  100% { transform: translate(10px, -30px) scale(1.5); opacity: 0; }
+   100% { transform: translate(10px, -30px) scale(1.5); opacity: 0; }
 `;
 
 const StyledListItemButton = styled(ListItemButton)(({ theme }) => ({
   position: "relative",
+  transition: "all 0.3s ease-in-out",
   "&:hover": {
     backgroundColor: theme.palette.action.hover,
+    transform: "scale(1.03)",
   },
 }));
 

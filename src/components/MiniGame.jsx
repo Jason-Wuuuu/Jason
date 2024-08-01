@@ -52,7 +52,7 @@ const MiniGame = memo(({ onClose, memojiRef, onHighScoreUpdate }) => {
     const handleClick = () => {
       if (isPlaying) {
         setScore((prevScore) => prevScore + 1);
-      } else if (timeLeft === 5) {
+      } else if (timeLeft === 5 && countdown === null) {
         startGame();
       }
     };
@@ -61,7 +61,9 @@ const MiniGame = memo(({ onClose, memojiRef, onHighScoreUpdate }) => {
     if (memojiElement) {
       memojiElement.addEventListener("click", handleClick);
       memojiElement.style.animation =
-        isPlaying || timeLeft === 5 ? "pulse 1s infinite" : "none";
+        isPlaying || (timeLeft === 5 && countdown === null)
+          ? "pulse 1s infinite"
+          : "none";
       memojiElement.style.transformOrigin = "center";
     }
     return () => {
@@ -70,7 +72,7 @@ const MiniGame = memo(({ onClose, memojiRef, onHighScoreUpdate }) => {
         memojiElement.style.animation = "none";
       }
     };
-  }, [memojiRef, isPlaying, timeLeft, startGame]);
+  }, [memojiRef, isPlaying, timeLeft, startGame, countdown]);
 
   const triggerConfetti = useCallback(() => {
     confetti({
