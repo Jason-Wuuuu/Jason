@@ -142,16 +142,22 @@ const ProfileSection = memo(() => {
               onContextMenu={(e) => e.preventDefault()}
             />
             {allChips.map((chip, index) => {
-              let angle;
-              let radius = 155; // Default radius
-              if (chip.isHighScore) {
-                angle = -Math.PI / 4; // Place high score chip at top right
+              let angle, radius;
+              if (isXsScreen) {
+                // Distribute chips evenly around the circle for xs screens
+                angle = (2 * Math.PI * index) / allChips.length - Math.PI / 2;
+                radius = 150;
               } else {
-                // Distribute skill chips along a wider bottom arc
-                angle =
-                  Math.PI * 0.8 +
-                  Math.PI * 0.4 * (index / (skillChips.length - 1));
-                radius = 165; // Increase radius by 10 pixels for skill chips
+                // Existing positioning logic for larger screens
+                if (chip.isHighScore) {
+                  angle = -Math.PI / 4;
+                  radius = 155;
+                } else {
+                  angle =
+                    Math.PI * 0.8 +
+                    Math.PI * 0.4 * (index / (skillChips.length - 1));
+                  radius = 165;
+                }
               }
               const x = 150 + radius * Math.cos(angle);
               const y = 150 + radius * Math.sin(angle);
