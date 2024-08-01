@@ -1,6 +1,5 @@
-import React, { useState, useRef, useEffect, forwardRef } from "react";
+import React, { useState } from "react";
 
-import { styled } from "@mui/material/styles";
 import {
   Card,
   CardHeader,
@@ -26,13 +25,12 @@ import {
   ExpandMore as ExpandMoreIcon,
 } from "@mui/icons-material";
 
-const ExpandMore = forwardRef(({ expand, onClick, ...other }, ref) => {
+const ExpandMore = ({ expand, onClick, ...other }) => {
   return (
     <Link
       component="button"
       onClick={onClick}
       underline="hover"
-      ref={ref}
       sx={{
         display: "flex",
         alignItems: "center",
@@ -59,7 +57,7 @@ const ExpandMore = forwardRef(({ expand, onClick, ...other }, ref) => {
       />
     </Link>
   );
-});
+};
 
 const ProjectDescription = React.memo(({ description }) => (
   <Typography
@@ -126,38 +124,8 @@ const ProjectCarousel = React.memo(({ screenshots }) => (
 
 const ProjectCard = React.memo(({ project }) => {
   const [expanded, setExpanded] = useState(project.screenshots.length === 0);
-  const [showTooltip, setShowTooltip] = useState(false);
-  const expandRef = useRef(null);
 
   const handleExpandClick = () => setExpanded(!expanded);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setShowTooltip(true);
-          setTimeout(() => setShowTooltip(false), 2000);
-        } else {
-          setShowTooltip(false);
-        }
-      },
-      {
-        root: null,
-        rootMargin: "-50% 0px -10% 0px",
-        threshold: 0.5,
-      }
-    );
-
-    if (expandRef.current) {
-      observer.observe(expandRef.current);
-    }
-
-    return () => {
-      if (expandRef.current) {
-        observer.unobserve(expandRef.current);
-      }
-    };
-  }, []);
 
   return (
     <Grid
@@ -258,20 +226,11 @@ const ProjectCard = React.memo(({ project }) => {
           )}
 
           {project.screenshots.length > 0 && (
-            <Tooltip
-              title={expanded ? "Collapse details" : "Expand for more details"}
-              arrow
-              placement="top-end"
-              open={showTooltip}
-              TransitionProps={{ timeout: 500 }}
-            >
-              <ExpandMore
-                expand={expanded}
-                onClick={handleExpandClick}
-                aria-expanded={expanded}
-                ref={expandRef}
-              />
-            </Tooltip>
+            <ExpandMore
+              expand={expanded}
+              onClick={handleExpandClick}
+              aria-expanded={expanded}
+            />
           )}
         </CardActions>
       </Card>
