@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import {
@@ -29,8 +29,8 @@ const SectionTitle = React.memo(({ children }) => (
   </Typography>
 ));
 
-const ProjectButton = React.memo(({ navigate }) => (
-  <Grow in timeout={1000}>
+const ProjectButton = React.memo(({ navigate, visible }) => (
+  <Grow in={visible} timeout={500}>
     <Box
       display="flex"
       justifyContent="center"
@@ -88,6 +88,33 @@ const Section = React.memo(
 
 function Home() {
   const navigate = useNavigate();
+  const [isButtonVisible, setIsButtonVisible] = useState(true);
+  const [scrollTimeout, setScrollTimeout] = useState(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsButtonVisible(false);
+
+      if (scrollTimeout) {
+        clearTimeout(scrollTimeout);
+      }
+
+      const timeout = setTimeout(() => {
+        setIsButtonVisible(true);
+      }, 250); // Show button after 1 second of inactivity
+
+      setScrollTimeout(timeout);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (scrollTimeout) {
+        clearTimeout(scrollTimeout);
+      }
+    };
+  }, [scrollTimeout]);
 
   return (
     <Fade in timeout={{ appear: 500, enter: 1000 }}>
@@ -99,7 +126,7 @@ function Home() {
           </Suspense>
         </Section>
 
-        <ProjectButton navigate={navigate} />
+        <ProjectButton navigate={navigate} visible={isButtonVisible} />
 
         <Divider sx={{ my: 5 }} />
 
