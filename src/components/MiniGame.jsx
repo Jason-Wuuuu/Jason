@@ -8,14 +8,35 @@ const MiniGame = memo(({ onClose, memojiRef, onHighScoreUpdate }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [highScore, setHighScore] = useState(0);
   const [shake, setShake] = useState(false);
+  const [countdown, setCountdown] = useState(null);
   const modalRef = useRef(null);
 
   const startGame = useCallback(() => {
     setScore(0);
     setTimeLeft(5);
-    setIsPlaying(true);
-    setShake(true);
+    setCountdown(3);
   }, []);
+
+  useEffect(() => {
+    let timer;
+    if (countdown !== null) {
+      if (countdown > 0) {
+        timer = setTimeout(() => setCountdown(countdown - 1), 1000);
+      } else {
+        setIsPlaying(true);
+        setShake(true);
+        setCountdown(null);
+      }
+    } else if (isPlaying && timeLeft > 0) {
+      timer = setInterval(() => {
+        setTimeLeft((prevTime) => prevTime - 1);
+      }, 1000);
+    } else if (timeLeft === 0) {
+      setIsPlaying(false);
+      setShake(false);
+    }
+    return () => clearTimeout(timer);
+  }, [countdown, isPlaying, timeLeft]);
 
   useEffect(() => {
     const memojiRect = memojiRef.current?.getBoundingClientRect();
@@ -26,19 +47,6 @@ const MiniGame = memo(({ onClose, memojiRef, onHighScoreUpdate }) => {
       modalElement.style.top = `${memojiRect.top}px`;
     }
   }, [memojiRef]);
-
-  useEffect(() => {
-    let timer;
-    if (isPlaying && timeLeft > 0) {
-      timer = setInterval(() => {
-        setTimeLeft((prevTime) => prevTime - 1);
-      }, 1000);
-    } else if (timeLeft === 0) {
-      setIsPlaying(false);
-      setShake(false);
-    }
-    return () => clearInterval(timer);
-  }, [isPlaying, timeLeft]);
 
   useEffect(() => {
     const handleClick = () => {
@@ -138,85 +146,95 @@ const MiniGame = memo(({ onClose, memojiRef, onHighScoreUpdate }) => {
           justifyContent: "center",
         }}
       >
-        <Box
-          display="flex"
-          width="100%"
-          flexDirection="column"
-          alignItems="center"
-        >
-          {isPlaying ? (
-            <>
-              <Typography variant="body1" fontWeight="bold">
-                Time left: {timeLeft}s
-              </Typography>
-              <Typography variant="body1" mt={1} fontWeight="bold">
-                Score: {score}
-              </Typography>
-              <Fade in={true} timeout={1000}>
-                <Typography
-                  variant="body1"
-                  mt={2}
-                  color="coral"
-                  fontWeight="bold"
-                >
-                  {getEncouragingMessage()}
+        {countdown !== null ? (
+          <Typography variant="h2" align="center" fontWeight="bold">
+            {countdown === 0 ? "GO!" : countdown}
+          </Typography>
+        ) : (
+          <Box
+            display="flex"
+            width="100%"
+            flexDirection="column"
+            alignItems="center"
+          >
+            {isPlaying ? (
+              <>
+                <Typography variant="body1" fontWeight="bold">
+                  Time left: {timeLeft}s
                 </Typography>
-              </Fade>
-            </>
-          ) : (
-            <Box width="100%">
-              {timeLeft === 0 ? (
-                <Box display="flex" flexDirection="column" alignItems="center">
+                <Typography variant="body1" mt={1} fontWeight="bold">
+                  Score: {score}
+                </Typography>
+                <Fade in={true} timeout={1000}>
                   <Typography
                     variant="body1"
-                    color="gold"
-                    fontWeight={score >= highScore ? "bold" : "normal"}
-                    sx={
-                      score >= highScore
-                        ? {
-                            animation: "pulse 1s infinite",
-                            "@keyframes pulse": {
-                              "0%": { transform: "scale(1)" },
-                              "50%": { transform: "scale(1.05)" },
-                              "100%": { transform: "scale(1)" },
-                            },
-                          }
-                        : {}
-                    }
-                  >
-                    {score >= highScore && "🎉 New "}High Score: {highScore}
-                  </Typography>
-
-                  <Typography variant="body1" sx={{ mt: 1 }}>
-                    Final Score: {score}
-                  </Typography>
-                </Box>
-              ) : (
-                <Box
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="flex-start"
-                >
-                  <Typography
-                    variant="h6"
+                    mt={2}
+                    color="coral"
                     fontWeight="bold"
-                    color="lightgray"
-                    sx={{
-                      animation: "pulse 1s infinite",
-                      "@keyframes pulse": {
-                        "0%": { transform: "scale(1)" },
-                        "50%": { transform: "scale(1.05)" },
-                        "100%": { transform: "scale(1)" },
-                      },
-                    }}
                   >
-                    ← Click to start!
+                    {getEncouragingMessage()}
                   </Typography>
-                </Box>
-              )}
-            </Box>
-          )}
-        </Box>
+                </Fade>
+              </>
+            ) : (
+              <Box width="100%">
+                {timeLeft === 0 ? (
+                  <Box
+                    display="flex"
+                    flexDirection="column"
+                    alignItems="center"
+                  >
+                    <Typography
+                      variant="body1"
+                      color="gold"
+                      fontWeight={score >= highScore ? "bold" : "normal"}
+                      sx={
+                        score >= highScore
+                          ? {
+                              animation: "pulse 1s infinite",
+                              "@keyframes pulse": {
+                                "0%": { transform: "scale(1)" },
+                                "50%": { transform: "scale(1.05)" },
+                                "100%": { transform: "scale(1)" },
+                              },
+                            }
+                          : {}
+                      }
+                    >
+                      {score >= highScore && "🎉 New "}High Score: {highScore}
+                    </Typography>
+
+                    <Typography variant="body1" sx={{ mt: 1 }}>
+                      Final Score: {score}
+                    </Typography>
+                  </Box>
+                ) : (
+                  <Box
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="flex-start"
+                  >
+                    <Typography
+                      variant="h6"
+                      fontWeight="bold"
+                      color="lightgray"
+                      sx={{
+                        animation: "pulse 1s infinite",
+                        "@keyframes pulse": {
+                          "0%": { transform: "scale(1)" },
+                          "50%": { transform: "scale(1.05)" },
+                          "100%": { transform: "scale(1)" },
+                        },
+                      }}
+                    >
+                      ← Click to start!
+                    </Typography>
+                  </Box>
+                )}
+              </Box>
+            )}
+          </Box>
+        )}
       </Box>
       <Box
         sx={{

@@ -137,21 +137,6 @@ const ProfileSection = memo(() => {
                   backgroundColor: "gold",
                   color: "black",
                   boxShadow: 10,
-                  animation: "shakeAndFloat 2s infinite",
-                  "@keyframes shakeAndFloat": {
-                    "0%, 100%": {
-                      transform: "translateY(0) rotate(0)",
-                    },
-                    "25%": {
-                      transform: "translateY(-5px) rotate(-5deg)",
-                    },
-                    "50%": {
-                      transform: "translateY(-10px) rotate(0)",
-                    },
-                    "75%": {
-                      transform: "translateY(-5px) rotate(5deg)",
-                    },
-                  },
                 }}
               />
             )}
