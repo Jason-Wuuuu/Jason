@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect, forwardRef } from "react";
 
 import { styled } from "@mui/material/styles";
 import {
@@ -26,12 +26,13 @@ import {
   ExpandMore as ExpandMoreIcon,
 } from "@mui/icons-material";
 
-const ExpandMore = styled(({ expand, onClick, ...other }) => {
+const ExpandMore = forwardRef(({ expand, onClick, ...other }, ref) => {
   return (
     <Link
       component="button"
       onClick={onClick}
       underline="hover"
+      ref={ref}
       sx={{
         display: "flex",
         alignItems: "center",
@@ -58,7 +59,8 @@ const ExpandMore = styled(({ expand, onClick, ...other }) => {
       />
     </Link>
   );
-})(() => ({}));
+});
+
 const ProjectDescription = React.memo(({ description }) => (
   <Typography
     align="center"
@@ -124,34 +126,53 @@ const ProjectCarousel = React.memo(({ screenshots }) => (
 
 const ProjectCard = React.memo(({ project }) => {
   const [expanded, setExpanded] = useState(project.screenshots.length === 0);
+  const [showTooltip, setShowTooltip] = useState(false);
+  const expandRef = useRef(null);
 
   const handleExpandClick = () => setExpanded(!expanded);
 
-  const getTooltipMessage = (techStack) => {
-    const mainLanguage = techStack.split(",")[0].trim();
-    return `Made with ${mainLanguage}! 🚀 Expand for more!`;
-  };
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShowTooltip(true);
+          setTimeout(() => setShowTooltip(false), 2000);
+        } else {
+          setShowTooltip(false);
+        }
+      },
+      {
+        root: null,
+        rootMargin: "-50% 0px -10% 0px",
+        threshold: 0.5,
+      }
+    );
+
+    if (expandRef.current) {
+      observer.observe(expandRef.current);
+    }
+
+    return () => {
+      if (expandRef.current) {
+        observer.unobserve(expandRef.current);
+      }
+    };
+  }, []);
 
   return (
     <Grid
       item
       width={{ xs: "95vw", sm: "80vw", md: "70vw", lg: "55vw" }}
-      mb={3}
+      mb={4}
     >
       <Card sx={{ boxShadow: 10, backgroundColor: "#202020" }}>
         <CardHeader
           avatar={
-            <Tooltip
-              title={getTooltipMessage(project.tech_stack)}
-              arrow
-              placement="bottom-start"
-            >
-              <Avatar
-                alt="memoji"
-                src="./images/Memoji_2.png"
-                sx={{ boxShadow: 10 }}
-              />
-            </Tooltip>
+            <Avatar
+              alt="memoji"
+              src="./images/Memoji_2.png"
+              sx={{ boxShadow: 10 }}
+            />
           }
           title={project.title}
           titleTypographyProps={{
@@ -237,13 +258,20 @@ const ProjectCard = React.memo(({ project }) => {
           )}
 
           {project.screenshots.length > 0 && (
-            <ExpandMore
-              expand={expanded}
-              onClick={handleExpandClick}
-              aria-expanded={expanded}
+            <Tooltip
+              title={expanded ? "Collapse details" : "Expand for more details"}
+              arrow
+              placement="top-end"
+              open={showTooltip}
+              TransitionProps={{ timeout: 500 }}
             >
-              <ExpandMoreIcon />
-            </ExpandMore>
+              <ExpandMore
+                expand={expanded}
+                onClick={handleExpandClick}
+                aria-expanded={expanded}
+                ref={expandRef}
+              />
+            </Tooltip>
           )}
         </CardActions>
       </Card>

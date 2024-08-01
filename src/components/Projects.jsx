@@ -203,7 +203,7 @@ function Projects() {
           </Box>
         </Grid>
 
-        <Grid item my={3}>
+        <Grid item mt={2} mb={4}>
           <Box
             display="flex"
             flexDirection="column"
