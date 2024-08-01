@@ -99,7 +99,7 @@ const MiniGame = memo(({ onClose, memojiRef, onHighScoreUpdate }) => {
   }, [timeLeft, endGame]);
 
   const getEncouragingMessage = () => {
-    if (score === 0) return "Keep on clicking! 👈";
+    if (score === 0) return "Keep on clicking! 🫵";
     if (score < 5) return "Not bad, keep going! 👍";
     if (score < 10) return "You're on fire! 🔥";
     return "Wow, you're a clicking machine! 🚀";
@@ -189,9 +189,9 @@ const MiniGame = memo(({ onClose, memojiRef, onHighScoreUpdate }) => {
                     <Typography
                       variant="body1"
                       color="gold"
-                      fontWeight={score >= highScore ? "bold" : "normal"}
+                      fontWeight="bold"
                       sx={
-                        score >= highScore
+                        score > highScore
                           ? {
                               animation: "pulse 1s infinite",
                               "@keyframes pulse": {
@@ -203,7 +203,7 @@ const MiniGame = memo(({ onClose, memojiRef, onHighScoreUpdate }) => {
                           : {}
                       }
                     >
-                      {score >= highScore && "🎉 New "}High Score: {highScore}
+                      {score > highScore && "🎉 New "}High Score: {highScore}
                     </Typography>
 
                     <Typography variant="body1" sx={{ mt: 1 }}>
