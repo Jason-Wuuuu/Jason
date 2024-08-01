@@ -254,6 +254,14 @@ function Projects() {
               variant="scrollable"
               scrollButtons="auto"
               allowScrollButtonsMobile
+              sx={{
+                "& .MuiTab-root": {
+                  transition: "background-color 0.3s",
+                  "&:hover": {
+                    backgroundColor: "rgba(255, 255, 255, 0.08)",
+                  },
+                },
+              }}
             >
               {categories.map((category, index) => (
                 <Tab key={`${category}-${index}`} label={category} />
