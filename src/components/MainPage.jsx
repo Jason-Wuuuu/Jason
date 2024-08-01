@@ -120,7 +120,6 @@ const ProfileSection = memo(() => {
                   transition: "transform 0.3s ease-in-out",
                 },
                 userSelect: "none",
-                pointerEvents: "none",
               }}
               alt="memoji"
               src="./images/Memoji_1.png"
