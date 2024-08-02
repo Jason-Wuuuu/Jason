@@ -179,10 +179,10 @@ const ProfileSection = memo(() => {
                 }
               }
               const x =
-                (isGameOpen && !chip.isHighScore ? 130 : 150) +
-                radius * Math.cos(angle); // Adjust this value to shift left
+                (isGameOpen && !chip.isHighScore ? 120 : 150) + // Adjust this value to shift left
+                radius * Math.cos(angle);
               const y =
-                (isGameOpen && !chip.isHighScore ? 120 : 150) +
+                (isGameOpen && !chip.isHighScore ? 150 : 150) +
                 radius * Math.sin(angle);
 
               const chipElement = (
@@ -267,13 +267,10 @@ const ProfileSection = memo(() => {
                       }),
                       ...(isGameOpen &&
                         !chip.isHighScore && {
-                          animation: `floatAround 5s infinite`,
-                          "@keyframes floatAround": {
-                            "0%": { transform: "translate(0, 0)" },
-                            "25%": { transform: "translate(-10px, -10px)" },
-                            "50%": { transform: "translate(-20px, 10px)" },
-                            "75%": { transform: "translate(-10px, 10px)" },
-                            "100%": { transform: "translate(0, 0)" },
+                          animation: `float 3s ease-in-out infinite`,
+                          "@keyframes float": {
+                            "0%, 100%": { transform: "translateY(0)" },
+                            "50%": { transform: "translateY(-10px)" },
                           },
                         }),
                     }}
