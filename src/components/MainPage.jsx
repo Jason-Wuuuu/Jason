@@ -10,6 +10,7 @@ import {
   Modal,
   Backdrop,
   Chip,
+  Fade,
 } from "@mui/material";
 
 import {
@@ -176,14 +177,14 @@ const ProfileSection = memo(() => {
                 "🏆 Win!",
               ];
 
-              return (
+              const chipElement = (
                 <Chip
                   key={index}
                   label={
                     isGameOpen && !chip.isHighScore
                       ? gameOpenLabels[index]
                       : chip.label
-                  } // Change label when game is open, except for high score chip
+                  }
                   size="small"
                   sx={{
                     position: "absolute",
@@ -214,7 +215,9 @@ const ProfileSection = memo(() => {
                       !chip.isHighScore && {
                         animation: `floatAround 5s infinite`,
                         "@keyframes floatAround": {
-                          "0%": { transform: `translate(${x - 20}px, ${y}px)` },
+                          "0%": {
+                            transform: `translate(${x - 20}px, ${y}px)`,
+                          },
                           "25%": {
                             transform: `translate(${x - 30}px, ${y - 10}px)`,
                           },
@@ -231,6 +234,14 @@ const ProfileSection = memo(() => {
                       }),
                   }}
                 />
+              );
+
+              return isGameOpen ? (
+                <Fade in={isGameOpen} timeout={1000} key={index}>
+                  {chipElement}
+                </Fade>
+              ) : (
+                chipElement
               );
             })}
           </Box>
