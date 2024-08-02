@@ -11,6 +11,7 @@ import {
   Backdrop,
   Chip,
   Fade,
+  Grow,
 } from "@mui/material";
 
 import {
@@ -237,9 +238,9 @@ const ProfileSection = memo(() => {
               );
 
               return isGameOpen ? (
-                <Fade in={isGameOpen} timeout={1000} key={index}>
+                <Grow in={isGameOpen} timeout={(index + 1) * 500} key={index}>
                   {chipElement}
-                </Fade>
+                </Grow>
               ) : (
                 chipElement
               );
@@ -276,7 +277,7 @@ const ProfileSection = memo(() => {
             },
           }}
         >
-          <Fade in={isGameOpen} timeout={{ enter: 1000, exit: 300 }}>
+          <Fade in={isGameOpen} timeout={{ enter: 2500, exit: 250 }}>
             <Box
               sx={{
                 zIndex: (theme) => theme.zIndex.modal + 3,
