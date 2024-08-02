@@ -99,7 +99,7 @@ const TableOfContents = React.memo(({ projects }) => {
         open={open}
         onClick={handleClose}
         sx={{
-          zIndex: 1200,
+          zIndex: (theme) => theme.zIndex.drawer + 1,
           backgroundColor: "rgba(0, 0, 0, 0.5)",
           backdropFilter: "blur(5px)",
         }}
@@ -135,7 +135,7 @@ const TableOfContents = React.memo(({ projects }) => {
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
         transformOrigin={{ vertical: "center", horizontal: "right" }}
         sx={{
-          zIndex: 1400,
+          zIndex: (theme) => theme.zIndex.modal,
           "& .MuiPaper-root": {
             backgroundColor: "#202020",
             boxShadow: 10,

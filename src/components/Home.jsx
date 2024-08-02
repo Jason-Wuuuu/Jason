@@ -40,7 +40,7 @@ const ProjectButton = React.memo(({ navigate, visible }) => (
         bottom: { xs: 16, sm: 32 },
         left: 0,
         right: 0,
-        zIndex: 20,
+        zIndex: (theme) => theme.zIndex.speedDial,
       }}
     >
       <Button

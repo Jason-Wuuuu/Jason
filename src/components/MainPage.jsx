@@ -118,7 +118,10 @@ const ProfileSection = memo(() => {
               height: 300,
               cursor: isXsScreen ? "default" : "pointer",
               position: "relative",
-              zIndex: (theme) => theme.zIndex.modal + 2,
+              zIndex: (theme) =>
+                isGameOpen
+                  ? theme.zIndex.modal + 2
+                  : theme.zIndex.speedDial - 1,
             }}
             onMouseEnter={!isXsScreen ? handleMouseEnter : undefined}
             onClick={handleImageClick}
@@ -280,7 +283,7 @@ const ProfileSection = memo(() => {
           <Fade in={isGameOpen} timeout={{ enter: 2500, exit: 250 }}>
             <Box
               sx={{
-                zIndex: (theme) => theme.zIndex.modal + 3,
+                zIndex: (theme) => theme.zIndex.modal + 1,
                 position: "relative",
               }}
             >

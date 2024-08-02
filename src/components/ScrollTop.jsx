@@ -33,7 +33,7 @@ export default function ScrollTop() {
           position: "fixed",
           bottom: location.pathname === "/projects" ? 112 : 16,
           right: 16,
-          zIndex: 1000,
+          zIndex: (theme) => theme.zIndex.speedDial,
         }}
       >
         <Tooltip title="Back to Top" placement="left">

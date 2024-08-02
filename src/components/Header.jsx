@@ -32,7 +32,7 @@ function Header() {
       <AppBar
         position="fixed"
         sx={{
-          zIndex: 9999, // Add this line
+          zIndex: (theme) => theme.zIndex.appBar,
           opacity: 0.9,
           // backdropFilter: "blur(5px)",
           boxShadow:
