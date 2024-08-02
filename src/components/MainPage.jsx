@@ -124,7 +124,7 @@ const ProfileSection = memo(() => {
           sx={{
             width: 300,
             height: 300,
-            cursor: isXsScreen ? "default" : "pointer",
+            cursor: "default",
             position: "relative",
             zIndex: (theme) =>
               isGameOpen ? theme.zIndex.modal + 2 : theme.zIndex.speedDial - 1,
@@ -149,6 +149,7 @@ const ProfileSection = memo(() => {
                   transition: "transform 0.3s ease-in-out",
                 },
                 userSelect: "none",
+                cursor: isXsScreen ? "default" : "pointer",
               }}
               alt="memoji"
               src="./images/Memoji_1.png"
@@ -230,6 +231,7 @@ const ProfileSection = memo(() => {
                       boxShadow: 10,
                       pointerEvents:
                         isGameOpen || chip.isHighScore ? "none" : "auto",
+                      cursor: chip.isHighScore ? "default" : "pointer",
                       ...(chip.isHighScore && {
                         animation: `float 3s ease-in-out infinite`,
                         "@keyframes float": {
