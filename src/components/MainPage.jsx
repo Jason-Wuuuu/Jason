@@ -44,7 +44,7 @@ const ProfileSection = memo(() => {
   const [currentGreeting, setCurrentGreeting] = useState("");
   const [hoverCount, setHoverCount] = useState(0);
   const [highScore, setHighScore] = useState(0);
-  const [hoveredChip, setHoveredChip] = useState(null);
+  const [hovered, setHovered] = useState(false);
 
   useEffect(() => {
     if (highScore > 0) {
@@ -198,8 +198,8 @@ const ProfileSection = memo(() => {
                       isGameOpen || chip.isHighScore ? "none" : "auto",
                     cursor: chip.isHighScore ? "default" : "pointer",
                   }}
-                  onMouseEnter={() => setHoveredChip(index)}
-                  onMouseLeave={() => setHoveredChip(null)}
+                  onMouseEnter={() => setHovered(true)}
+                  onMouseLeave={() => setHovered(false)}
                 >
                   <Chip
                     label={
@@ -217,27 +217,25 @@ const ProfileSection = memo(() => {
                             ? gameOpenLabels[index]
                             : chip.label}
                         </span>
-                        {!chip.isHighScore &&
-                          !isGameOpen &&
-                          hoveredChip === index && (
-                            <Rating
-                              name={`rating-${chip.label}`}
-                              value={chip.rating}
-                              precision={0.1}
-                              readOnly
-                              size="small"
-                              max={3}
-                              sx={{
-                                "& .MuiRating-icon": {
-                                  color:
-                                    chip.label === "JS/TS" ||
-                                    chip.label === "Web Dev"
-                                      ? "black"
-                                      : "white",
-                                },
-                              }}
-                            />
-                          )}
+                        {!chip.isHighScore && !isGameOpen && hovered && (
+                          <Rating
+                            name={`rating-${chip.label}`}
+                            value={chip.rating}
+                            precision={0.1}
+                            readOnly
+                            size="small"
+                            max={3}
+                            sx={{
+                              "& .MuiRating-icon": {
+                                color:
+                                  chip.label === "JS/TS" ||
+                                  chip.label === "Web Dev"
+                                    ? "black"
+                                    : "white",
+                              },
+                            }}
+                          />
+                        )}
                       </Box>
                     }
                     size="small"
