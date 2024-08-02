@@ -44,6 +44,7 @@ const ProfileSection = memo(() => {
   const [currentGreeting, setCurrentGreeting] = useState("");
   const [hoverCount, setHoverCount] = useState(0);
   const [highScore, setHighScore] = useState(0);
+  const [hoveredChip, setHoveredChip] = useState(null);
 
   useEffect(() => {
     if (highScore > 0) {
@@ -185,42 +186,64 @@ const ProfileSection = memo(() => {
                 radius * Math.sin(angle);
 
               const chipElement = (
-                <Tooltip
+                <Box
                   key={index}
-                  arrow
-                  title={
-                    !chip.isHighScore &&
-                    !isGameOpen && (
-                      <Box sx={{ display: "flex", justifyContent: "center" }}>
-                        <Rating
-                          name={`rating-${chip.label}`}
-                          value={chip.rating}
-                          precision={0.1}
-                          readOnly
-                          size="small"
-                          max={3}
-                          sx={{ my: -0.1 }}
-                        />
-                      </Box>
-                    )
-                  }
-                  placement="left"
+                  sx={{
+                    position: "absolute",
+                    left: x,
+                    top: y,
+                    transform: "translate(-50%, -50%)",
+                    transition: "all 0.3s ease",
+                    pointerEvents:
+                      isGameOpen || chip.isHighScore ? "none" : "auto",
+                    cursor: chip.isHighScore ? "default" : "pointer",
+                  }}
+                  onMouseEnter={() => setHoveredChip(index)}
+                  onMouseLeave={() => setHoveredChip(null)}
                 >
                   <Chip
                     label={
-                      isGameOpen && !chip.isHighScore
-                        ? gameOpenLabels[index]
-                        : chip.label
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                          width: "100%",
+                          gap: 1,
+                        }}
+                      >
+                        <span>
+                          {isGameOpen && !chip.isHighScore
+                            ? gameOpenLabels[index]
+                            : chip.label}
+                        </span>
+                        {!chip.isHighScore &&
+                          !isGameOpen &&
+                          hoveredChip === index && (
+                            <Rating
+                              name={`rating-${chip.label}`}
+                              value={chip.rating}
+                              precision={0.1}
+                              readOnly
+                              size="small"
+                              max={3}
+                              sx={{
+                                "& .MuiRating-icon": {
+                                  color:
+                                    chip.label === "JS/TS" ||
+                                    chip.label === "Web Dev"
+                                      ? "black"
+                                      : "white",
+                                },
+                              }}
+                            />
+                          )}
+                      </Box>
                     }
                     size="small"
                     sx={{
-                      position: "absolute",
-                      left: x,
-                      top: y,
-                      transform: "translate(-50%, -50%)",
                       fontWeight: "bold",
                       fontSize: 14,
-                      padding: "0 4px",
                       backgroundColor: chip.color,
                       color:
                         chip.isHighScore ||
@@ -229,42 +252,35 @@ const ProfileSection = memo(() => {
                           ? "black"
                           : "white",
                       boxShadow: 10,
-                      pointerEvents:
-                        isGameOpen || chip.isHighScore ? "none" : "auto",
-                      cursor: chip.isHighScore ? "default" : "pointer",
+                      transition: "all 0.3s ease",
+                      "& .MuiChip-label": {
+                        padding: "0 8px",
+                        display: "flex",
+                        width: "100%",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                      },
                       ...(chip.isHighScore && {
                         animation: `float 3s ease-in-out infinite`,
                         "@keyframes float": {
-                          "0%, 100%": { transform: "translate(-50%, -50%)" },
-                          "50%": {
-                            transform: "translate(-50%, calc(-50% - 10px))",
-                          },
+                          "0%, 100%": { transform: "translateY(0)" },
+                          "50%": { transform: "translateY(-10px)" },
                         },
                       }),
                       ...(isGameOpen &&
                         !chip.isHighScore && {
                           animation: `floatAround 5s infinite`,
                           "@keyframes floatAround": {
-                            "0%": {
-                              transform: `translate(${x - 20}px, ${y}px)`,
-                            },
-                            "25%": {
-                              transform: `translate(${x - 30}px, ${y - 10}px)`,
-                            },
-                            "50%": {
-                              transform: `translate(${x - 40}px, ${y + 10}px)`,
-                            },
-                            "75%": {
-                              transform: `translate(${x - 30}px, ${y + 10}px)`,
-                            },
-                            "100%": {
-                              transform: `translate(${x - 20}px, ${y}px)`,
-                            },
+                            "0%": { transform: "translate(0, 0)" },
+                            "25%": { transform: "translate(-10px, -10px)" },
+                            "50%": { transform: "translate(-20px, 10px)" },
+                            "75%": { transform: "translate(-10px, 10px)" },
+                            "100%": { transform: "translate(0, 0)" },
                           },
                         }),
                     }}
                   />
-                </Tooltip>
+                </Box>
               );
 
               return isGameOpen ? (
