@@ -12,6 +12,7 @@ import {
   Chip,
   Fade,
   Grow,
+  Rating,
 } from "@mui/material";
 
 import {
@@ -88,11 +89,11 @@ const ProfileSection = memo(() => {
   };
 
   const skillChips = [
-    { label: "AI & ML", color: "#8E44AD" },
-    { label: "Web Dev", color: "#61DAFB" },
-    { label: "JS/TS", color: "#F7DF1E" },
-    { label: "Python", color: "#4B8BBE" },
-    { label: "Java", color: "#f89820" },
+    { label: "AI & ML", color: "#8E44AD", rating: 2 },
+    { label: "Web Dev", color: "#61DAFB", rating: 2.5 },
+    { label: "JS/TS", color: "#F7DF1E", rating: 2.5 },
+    { label: "Python", color: "#4B8BBE", rating: 2.5 },
+    { label: "Java", color: "#f89820", rating: 2.3 },
   ];
 
   const highScoreChip =
@@ -100,7 +101,15 @@ const ProfileSection = memo(() => {
       ? { label: `🏆 ${highScore}`, color: "gold", isHighScore: true }
       : { label: "🥚?", color: "#FFD700", isHighScore: true };
 
-  const allChips = isXsScreen ? skillChips : [...skillChips, highScoreChip];
+  const allChips = isXsScreen ? [] : [...skillChips, highScoreChip];
+
+  const gameOpenLabels = [
+    "Let's Go!",
+    "🎮 Play",
+    "🚀 Boost",
+    "💥 Smash",
+    "🏆 Win!",
+  ];
 
   return (
     <Grid
@@ -111,21 +120,21 @@ const ProfileSection = memo(() => {
       gap={3}
     >
       <Grid item>
-        <Tooltip title={!isGameOpen && currentGreeting} placement="top">
-          <Box
-            sx={{
-              width: 300,
-              height: 300,
-              cursor: isXsScreen ? "default" : "pointer",
-              position: "relative",
-              zIndex: (theme) =>
-                isGameOpen
-                  ? theme.zIndex.modal + 2
-                  : theme.zIndex.speedDial - 1,
-            }}
-            onMouseEnter={!isXsScreen ? handleMouseEnter : undefined}
-            onClick={handleImageClick}
-          >
+        <Box
+          sx={{
+            width: 300,
+            height: 300,
+            cursor: isXsScreen ? "default" : "pointer",
+            position: "relative",
+            zIndex: (theme) =>
+              isGameOpen ? theme.zIndex.modal + 2 : theme.zIndex.speedDial - 1,
+          }}
+          onMouseEnter={
+            !isXsScreen && !isGameOpen ? handleMouseEnter : undefined
+          }
+          onClick={handleImageClick}
+        >
+          <Tooltip title={!isGameOpen && currentGreeting} placement="top">
             <Box
               component="img"
               ref={memojiRef}
@@ -146,7 +155,9 @@ const ProfileSection = memo(() => {
               draggable="false"
               onContextMenu={(e) => e.preventDefault()}
             />
-            {allChips.map((chip, index) => {
+          </Tooltip>
+          {!isXsScreen &&
+            allChips.map((chip, index) => {
               let angle, radius;
               if (isXsScreen) {
                 // Distribute chips evenly around the circle for xs screens
@@ -172,72 +183,86 @@ const ProfileSection = memo(() => {
                 (isGameOpen && !chip.isHighScore ? 120 : 150) +
                 radius * Math.sin(angle);
 
-              // Define new content for each chip when the game is open
-              const gameOpenLabels = [
-                "Let's Go!",
-                "🎮 Play",
-                "🚀 Boost",
-                "💥 Smash",
-                "🏆 Win!",
-              ];
-
               const chipElement = (
-                <Chip
+                <Tooltip
                   key={index}
-                  label={
-                    isGameOpen && !chip.isHighScore
-                      ? gameOpenLabels[index]
-                      : chip.label
+                  arrow
+                  title={
+                    !chip.isHighScore &&
+                    !isGameOpen && (
+                      <Box sx={{ display: "flex", justifyContent: "center" }}>
+                        <Rating
+                          name={`rating-${chip.label}`}
+                          value={chip.rating}
+                          precision={0.1}
+                          readOnly
+                          size="small"
+                          max={3}
+                          sx={{ my: -0.1 }}
+                        />
+                      </Box>
+                    )
                   }
-                  size="small"
-                  sx={{
-                    position: "absolute",
-                    left: x,
-                    top: y,
-                    transform: "translate(-50%, -50%)",
-                    fontWeight: "bold",
-                    fontSize: 14,
-                    padding: "0 4px",
-                    backgroundColor: chip.color,
-                    color:
-                      chip.isHighScore ||
-                      chip.label === "JS/TS" ||
-                      chip.label === "Web Dev"
-                        ? "black"
-                        : "white",
-                    boxShadow: 10,
-                    ...(chip.isHighScore && {
-                      animation: `float 3s ease-in-out infinite`,
-                      "@keyframes float": {
-                        "0%, 100%": { transform: "translate(-50%, -50%)" },
-                        "50%": {
-                          transform: "translate(-50%, calc(-50% - 10px))",
-                        },
-                      },
-                    }),
-                    ...(isGameOpen &&
-                      !chip.isHighScore && {
-                        animation: `floatAround 5s infinite`,
-                        "@keyframes floatAround": {
-                          "0%": {
-                            transform: `translate(${x - 20}px, ${y}px)`,
-                          },
-                          "25%": {
-                            transform: `translate(${x - 30}px, ${y - 10}px)`,
-                          },
+                  placement="left"
+                >
+                  <Chip
+                    label={
+                      isGameOpen && !chip.isHighScore
+                        ? gameOpenLabels[index]
+                        : chip.label
+                    }
+                    size="small"
+                    sx={{
+                      position: "absolute",
+                      left: x,
+                      top: y,
+                      transform: "translate(-50%, -50%)",
+                      fontWeight: "bold",
+                      fontSize: 14,
+                      padding: "0 4px",
+                      backgroundColor: chip.color,
+                      color:
+                        chip.isHighScore ||
+                        chip.label === "JS/TS" ||
+                        chip.label === "Web Dev"
+                          ? "black"
+                          : "white",
+                      boxShadow: 10,
+                      pointerEvents:
+                        isGameOpen || chip.isHighScore ? "none" : "auto",
+                      ...(chip.isHighScore && {
+                        animation: `float 3s ease-in-out infinite`,
+                        "@keyframes float": {
+                          "0%, 100%": { transform: "translate(-50%, -50%)" },
                           "50%": {
-                            transform: `translate(${x - 40}px, ${y + 10}px)`,
-                          },
-                          "75%": {
-                            transform: `translate(${x - 30}px, ${y + 10}px)`,
-                          },
-                          "100%": {
-                            transform: `translate(${x - 20}px, ${y}px)`,
+                            transform: "translate(-50%, calc(-50% - 10px))",
                           },
                         },
                       }),
-                  }}
-                />
+                      ...(isGameOpen &&
+                        !chip.isHighScore && {
+                          animation: `floatAround 5s infinite`,
+                          "@keyframes floatAround": {
+                            "0%": {
+                              transform: `translate(${x - 20}px, ${y}px)`,
+                            },
+                            "25%": {
+                              transform: `translate(${x - 30}px, ${y - 10}px)`,
+                            },
+                            "50%": {
+                              transform: `translate(${x - 40}px, ${y + 10}px)`,
+                            },
+                            "75%": {
+                              transform: `translate(${x - 30}px, ${y + 10}px)`,
+                            },
+                            "100%": {
+                              transform: `translate(${x - 20}px, ${y}px)`,
+                            },
+                          },
+                        }),
+                    }}
+                  />
+                </Tooltip>
               );
 
               return isGameOpen ? (
@@ -248,8 +273,7 @@ const ProfileSection = memo(() => {
                 chipElement
               );
             })}
-          </Box>
-        </Tooltip>
+        </Box>
       </Grid>
 
       <Grid item>
