@@ -30,7 +30,7 @@ const SectionTitle = React.memo(({ children }) => (
 ));
 
 const ProjectButton = React.memo(({ navigate, visible }) => (
-  <Grow in={visible} timeout={500}>
+  <Grow in={visible} timeout={250}>
     <Box
       display="flex"
       justifyContent="center"

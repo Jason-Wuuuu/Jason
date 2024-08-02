@@ -99,7 +99,7 @@ const ProfileSection = memo(() => {
       ? { label: `🏆 ${highScore}`, color: "gold", isHighScore: true }
       : { label: "🥚?", color: "#FFD700", isHighScore: true };
 
-  const allChips = [...skillChips, highScoreChip];
+  const allChips = isXsScreen ? skillChips : [...skillChips, highScoreChip];
 
   return (
     <Grid
@@ -147,7 +147,7 @@ const ProfileSection = memo(() => {
               if (isXsScreen) {
                 // Distribute chips evenly around the circle for xs screens
                 angle = (2 * Math.PI * index) / allChips.length - Math.PI / 2;
-                radius = 150;
+                radius = 155;
               } else {
                 // Existing positioning logic for larger screens
                 if (chip.isHighScore) {
@@ -276,13 +276,20 @@ const ProfileSection = memo(() => {
             },
           }}
         >
-          <Box sx={{ zIndex: (theme) => theme.zIndex.modal + 3 }}>
-            <MiniGame
-              onClose={handleCloseGame}
-              memojiRef={memojiRef}
-              onHighScoreUpdate={handleHighScoreUpdate}
-            />
-          </Box>
+          <Fade in={isGameOpen} timeout={{ enter: 1000, exit: 300 }}>
+            <Box
+              sx={{
+                zIndex: (theme) => theme.zIndex.modal + 3,
+                position: "relative",
+              }}
+            >
+              <MiniGame
+                onClose={handleCloseGame}
+                memojiRef={memojiRef}
+                onHighScoreUpdate={handleHighScoreUpdate}
+              />
+            </Box>
+          </Fade>
         </Modal>
       )}
     </Grid>
