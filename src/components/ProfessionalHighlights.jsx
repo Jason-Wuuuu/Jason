@@ -169,12 +169,13 @@ const ExperienceItem = memo(
                       <LaptopMacIcon />
                     </ShakingIcon>
                   </ListItemIcon>
+
                   <ListItemText
                     primary={resp.title}
                     primaryTypographyProps={{
                       fontSize: { xs: 16, sm: 18 },
                       fontWeight: "bold",
-                      mb: 1,
+                      mb: 0.5,
                     }}
                     secondary={resp.description}
                     secondaryTypographyProps={{
@@ -249,7 +250,7 @@ const CompetitionItem = memo(
               {projectName}
             </Typography>
             <Typography
-              variant="body2"
+              variant="body1"
               color="text.secondary"
               sx={{ py: { xs: 1 } }}
             >
@@ -271,7 +272,7 @@ const CompetitionItem = memo(
                     primaryTypographyProps={{
                       fontSize: { xs: 16, sm: 18 },
                       fontWeight: "bold",
-                      mb: 1,
+                      mb: 0.5,
                     }}
                     secondary={award.description}
                     secondaryTypographyProps={{
