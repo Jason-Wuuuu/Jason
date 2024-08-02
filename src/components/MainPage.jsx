@@ -91,9 +91,9 @@ const ProfileSection = memo(() => {
   const skillChips = [
     { label: "AI & ML", color: "#8E44AD", rating: 2 },
     { label: "Web Dev", color: "#61DAFB", rating: 2.5 },
-    { label: "JS/TS", color: "#F7DF1E", rating: 2.5 },
-    { label: "Python", color: "#4B8BBE", rating: 2.5 },
-    { label: "Java", color: "#f89820", rating: 2.3 },
+    { label: "JS/TS", color: "#F7DF1E", rating: 2.8 },
+    { label: "Python", color: "#4B8BBE", rating: 2.8 },
+    { label: "Java", color: "#f89820", rating: 2.5 },
   ];
 
   const highScoreChip =
