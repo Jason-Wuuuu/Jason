@@ -95,10 +95,10 @@ const ProfileSection = memo(() => {
 
   const highScoreChip =
     highScore > 0
-      ? [{ label: `🏆 ${highScore}`, color: "gold", isHighScore: true }]
-      : [];
+      ? { label: `🏆 ${highScore}`, color: "gold", isHighScore: true }
+      : { label: "🥚?", color: "#FFD700", isHighScore: true };
 
-  const allChips = [...skillChips, ...highScoreChip];
+  const allChips = [...skillChips, highScoreChip];
 
   return (
     <Grid
@@ -151,20 +151,39 @@ const ProfileSection = memo(() => {
                 // Existing positioning logic for larger screens
                 if (chip.isHighScore) {
                   angle = -Math.PI / 4;
-                  radius = 155;
+                  radius = 155; // Adjust this value to change spacing for the high score chip
                 } else {
+                  // Adjust the density of the chips by changing the angle calculation
                   angle =
                     Math.PI * 0.8 +
-                    Math.PI * 0.4 * (index / (skillChips.length - 1));
-                  radius = 165;
+                    Math.PI * 0.4 * (index / (skillChips.length - 1)); // Adjust this multiplier to change density
+                  radius = isGameOpen && !chip.isHighScore ? 180 : 165; // Adjust this value to change spacing for other chips
                 }
               }
-              const x = 150 + radius * Math.cos(angle);
-              const y = 150 + radius * Math.sin(angle);
+              const x =
+                (isGameOpen && !chip.isHighScore ? 130 : 150) +
+                radius * Math.cos(angle); // Adjust this value to shift left
+              const y =
+                (isGameOpen && !chip.isHighScore ? 120 : 150) +
+                radius * Math.sin(angle);
+
+              // Define new content for each chip when the game is open
+              const gameOpenLabels = [
+                "Let's Go!",
+                "🎮 Play",
+                "🚀 Boost",
+                "💥 Smash",
+                "🏆 Win!",
+              ];
+
               return (
                 <Chip
                   key={index}
-                  label={chip.label}
+                  label={
+                    isGameOpen && !chip.isHighScore
+                      ? gameOpenLabels[index]
+                      : chip.label
+                  } // Change label when game is open, except for high score chip
                   size="small"
                   sx={{
                     position: "absolute",
@@ -191,6 +210,25 @@ const ProfileSection = memo(() => {
                         },
                       },
                     }),
+                    ...(isGameOpen &&
+                      !chip.isHighScore && {
+                        animation: `floatAround 5s infinite`,
+                        "@keyframes floatAround": {
+                          "0%": { transform: `translate(${x - 20}px, ${y}px)` },
+                          "25%": {
+                            transform: `translate(${x - 30}px, ${y - 10}px)`,
+                          },
+                          "50%": {
+                            transform: `translate(${x - 40}px, ${y + 10}px)`,
+                          },
+                          "75%": {
+                            transform: `translate(${x - 30}px, ${y + 10}px)`,
+                          },
+                          "100%": {
+                            transform: `translate(${x - 20}px, ${y}px)`,
+                          },
+                        },
+                      }),
                   }}
                 />
               );
