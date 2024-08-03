@@ -488,6 +488,7 @@ const ProfileSection = memo(() => {
                 onClose={handleCloseGame}
                 memojiRef={memojiRef}
                 onHighScoreUpdate={handleHighScoreUpdate}
+                isClosing={isClosing}
               />
             </Box>
           </Fade>
