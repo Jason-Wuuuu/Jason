@@ -169,21 +169,20 @@ const ProfileSection = memo(() => {
                 // Existing positioning logic for larger screens
                 if (chip.isHighScore) {
                   angle = -Math.PI / 4;
-                  radius = 155; // Adjust this value to change spacing for the high score chip
+                  radius = 130; // Adjust this value to change spacing for the high score chip
                 } else {
                   // Adjust the density of the chips by changing the angle calculation
                   angle =
                     Math.PI * 0.8 +
                     Math.PI * 0.4 * (index / (skillChips.length - 1)); // Adjust this multiplier to change density
-                  radius = isGameOpen && !chip.isHighScore ? 180 : 165; // Adjust this value to change spacing for other chips
+                  radius = 180; // Adjust this value to change spacing for other chips
                 }
               }
               const x =
-                (isGameOpen && !chip.isHighScore ? 120 : 150) + // Adjust this value to shift left
+                // 300 - // Change this to 300 (width of the box)
+                (isGameOpen ? (chip.isHighScore ? 175 : 115) : 200) +
                 radius * Math.cos(angle);
-              const y =
-                (isGameOpen && !chip.isHighScore ? 150 : 150) +
-                radius * Math.sin(angle);
+              const y = 150 + radius * Math.sin(angle);
 
               const chipElement = (
                 <Box
@@ -192,8 +191,8 @@ const ProfileSection = memo(() => {
                     position: "absolute",
                     left: x,
                     top: y,
-                    transform: "translate(-50%, -50%)",
-                    transition: "all 0.3s ease",
+                    transform: "translate(-100%, -50%)",
+                    transition: "all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1)",
                     pointerEvents:
                       isGameOpen || chip.isHighScore ? "none" : "auto",
                     cursor: chip.isHighScore ? "default" : "pointer",
@@ -207,35 +206,38 @@ const ProfileSection = memo(() => {
                         sx={{
                           display: "flex",
                           alignItems: "center",
-                          justifyContent: "space-between",
+                          justifyContent: "flex-end",
                           width: "100%",
                           gap: 1,
+                          transition: "all 0.3s ease 0.1s",
                         }}
                       >
+                        {!chip.isHighScore && !isGameOpen && hovered && (
+                          <Grow in={hovered} timeout={300}>
+                            <Rating
+                              name={`rating-${chip.label}`}
+                              value={chip.rating}
+                              precision={0.1}
+                              readOnly
+                              size="small"
+                              max={3}
+                              sx={{
+                                "& .MuiRating-icon": {
+                                  color:
+                                    chip.label === "JS/TS" ||
+                                    chip.label === "Web Dev"
+                                      ? "black"
+                                      : "white",
+                                },
+                              }}
+                            />
+                          </Grow>
+                        )}
                         <span>
                           {isGameOpen && !chip.isHighScore
                             ? gameOpenLabels[index]
                             : chip.label}
                         </span>
-                        {!chip.isHighScore && !isGameOpen && hovered && (
-                          <Rating
-                            name={`rating-${chip.label}`}
-                            value={chip.rating}
-                            precision={0.1}
-                            readOnly
-                            size="small"
-                            max={3}
-                            sx={{
-                              "& .MuiRating-icon": {
-                                color:
-                                  chip.label === "JS/TS" ||
-                                  chip.label === "Web Dev"
-                                    ? "black"
-                                    : "white",
-                              },
-                            }}
-                          />
-                        )}
                       </Box>
                     }
                     size="small"
@@ -250,7 +252,7 @@ const ProfileSection = memo(() => {
                           ? "black"
                           : "white",
                       boxShadow: 10,
-                      transition: "all 0.3s ease",
+                      transition: "all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1)",
                       "& .MuiChip-label": {
                         padding: "0 8px",
                         display: "flex",
