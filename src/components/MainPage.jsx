@@ -211,6 +211,7 @@ const ProfileSection = memo(() => {
                           <Grow in={hovered} timeout={300}>
                             <Rating
                               name={`rating-${chip.label}`}
+                              value={chip.rating} // Added this line
                               precision={0.1}
                               readOnly
                               size="small"
