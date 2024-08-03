@@ -225,7 +225,7 @@ const ProfileSection = memo(() => {
           }
           onClick={handleImageClick}
         >
-          <Tooltip title={!isGameOpen && currentGreeting} placement="top">
+          <Tooltip title={!isGameOpen && currentGreeting} arrow placement="top">
             <Box
               component="img"
               ref={memojiRef}
