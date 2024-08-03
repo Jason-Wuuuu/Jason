@@ -120,7 +120,7 @@ const MiniGame = memo(
         sx={{
           position: "fixed",
           bgcolor: "#1E1E1E",
-          boxShadow: 24,
+          boxShadow: 10,
           p: 4,
           borderRadius: 2,
           width: 400,
