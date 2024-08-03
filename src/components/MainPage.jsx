@@ -49,6 +49,9 @@ const ProfileSection = memo(() => {
   const [isExpanded, setIsExpanded] = useState(false);
   const expandTimeoutRef = useRef(null);
 
+  const [chipHoverStates, setChipHoverStates] = useState({});
+  const chipTimeouts = useRef({});
+
   useEffect(() => {
     if (highScore > 0) {
       setGreetings((prevGreetings) => [
@@ -84,26 +87,24 @@ const ProfileSection = memo(() => {
 
   const handleChipHover = useCallback((index, isHovered) => {
     if (!skillChips[index].isHighScore) {
-      setChipHovered(isHovered);
-
       if (isHovered) {
-        setIsExpanded(true);
-        if (expandTimeoutRef.current) {
-          clearTimeout(expandTimeoutRef.current);
+        setChipHoverStates((prev) => ({ ...prev, [index]: true }));
+        if (chipTimeouts.current[index]) {
+          clearTimeout(chipTimeouts.current[index]);
         }
       } else {
-        expandTimeoutRef.current = setTimeout(() => {
-          setIsExpanded(false);
-        }, 1500);
+        chipTimeouts.current[index] = setTimeout(() => {
+          setChipHoverStates((prev) => ({ ...prev, [index]: false }));
+        }, 1500); // Set to 1500ms
       }
     }
   }, []);
 
   useEffect(() => {
     return () => {
-      if (expandTimeoutRef.current) {
-        clearTimeout(expandTimeoutRef.current);
-      }
+      Object.values(chipTimeouts.current).forEach((timeout) =>
+        clearTimeout(timeout)
+      );
     };
   }, []);
 
@@ -254,8 +255,11 @@ const ProfileSection = memo(() => {
                       >
                         {!chip.isHighScore &&
                           !isGameOpen &&
-                          (isExpanded || chipHovered) && (
-                            <Grow in={isExpanded || chipHovered} timeout={300}>
+                          (chipHoverStates[index] || chipHovered) && (
+                            <Grow
+                              in={chipHoverStates[index] || chipHovered}
+                              timeout={300}
+                            >
                               <Rating
                                 name={`rating-${chip.label}`}
                                 value={chip.rating}
@@ -296,7 +300,9 @@ const ProfileSection = memo(() => {
                       boxShadow: 10,
                       transition: "all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1)",
                       "&:hover": {
-                        transform: chipHovered ? "scale(1.1)" : "none",
+                        transform: chipHoverStates[index]
+                          ? "scale(1.1)"
+                          : "none",
                         transition: "transform 0.3s ease-in-out",
                       },
                       "& .MuiChip-label": {
