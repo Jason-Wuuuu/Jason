@@ -31,23 +31,18 @@ const ProfileSection = memo(() => {
   const baseGreetings = [
     "Click me for some easter eggs! 🥚✨",
     "Hover again for more messages! 😉",
-    "Behold, the digital me! 🧙‍♂️",
-    "Code wizard at your service! 🧙‍♂️",
-    "Warning: Awesome developer detected! 🚀",
+    // "Behold, the digital me! 🧙‍♂️",
+    // "Code wizard at your service! 🧙‍♂️",
+    // "Warning: Awesome developer detected! 🚀",
     "Hello, world! Always wanted to say that 😄",
     "Powered by coffee and curiosity 💡",
-    "Turning caffeine into code since 2018 ⚡️",
+    // "Turning caffeine into code since 2018 ⚡️",
     "That's me! Nice to meet you! 😊",
   ];
 
   const [greetings, setGreetings] = useState(baseGreetings);
-  const [currentGreeting, setCurrentGreeting] = useState("");
-  const [hoverCount, setHoverCount] = useState(0);
+  const [currentGreeting, setCurrentGreeting] = useState(baseGreetings[0]);
   const [highScore, setHighScore] = useState(0);
-  const [memojiHovered, setMemojiHovered] = useState(false);
-  const [chipHovered, setChipHovered] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(false);
-  const expandTimeoutRef = useRef(null);
 
   const [chipHoverStates, setChipHoverStates] = useState({});
   const chipTimeouts = useRef({});
@@ -58,32 +53,20 @@ const ProfileSection = memo(() => {
         `High score: ${highScore}! Can you beat it? 🏆`,
         ...prevGreetings.slice(1),
       ]);
-      setHoverCount(0);
     }
   }, [highScore]);
 
   const changeGreeting = useCallback(() => {
-    setHoverCount((prevCount) => {
-      const newCount = prevCount + 1;
-      setCurrentGreeting(() => {
-        if (newCount === 1) return greetings[0];
-        if (newCount === 2) return greetings[1];
-        return greetings[
-          Math.floor(Math.random() * (greetings.length - 2)) + 2
-        ];
-      });
-      return newCount;
+    setCurrentGreeting((prevGreeting) => {
+      const currentIndex = greetings.indexOf(prevGreeting);
+      const nextIndex = (currentIndex + 1) % greetings.length;
+      return greetings[nextIndex];
     });
   }, [greetings]);
 
   const handleMemojiMouseEnter = useCallback(() => {
-    setMemojiHovered(true);
     changeGreeting();
   }, [changeGreeting]);
-
-  const handleMemojiMouseLeave = useCallback(() => {
-    setMemojiHovered(false);
-  }, []);
 
   const handleChipHover = useCallback((index, isHovered) => {
     if (!skillChips[index].isHighScore) {
@@ -95,7 +78,7 @@ const ProfileSection = memo(() => {
       } else {
         chipTimeouts.current[index] = setTimeout(() => {
           setChipHoverStates((prev) => ({ ...prev, [index]: false }));
-        }, 1500); // Set to 1500ms
+        }, 2000);
       }
     }
   }, []);
@@ -172,9 +155,6 @@ const ProfileSection = memo(() => {
           }}
           onMouseEnter={
             !isXsScreen && !isGameOpen ? handleMemojiMouseEnter : undefined
-          }
-          onMouseLeave={
-            !isXsScreen && !isGameOpen ? handleMemojiMouseLeave : undefined
           }
           onClick={handleImageClick}
         >
@@ -255,11 +235,8 @@ const ProfileSection = memo(() => {
                       >
                         {!chip.isHighScore &&
                           !isGameOpen &&
-                          (chipHoverStates[index] || chipHovered) && (
-                            <Grow
-                              in={chipHoverStates[index] || chipHovered}
-                              timeout={300}
-                            >
+                          chipHoverStates[index] && (
+                            <Grow in={chipHoverStates[index]} timeout={300}>
                               <Rating
                                 name={`rating-${chip.label}`}
                                 value={chip.rating}
