@@ -143,9 +143,15 @@ const ProfileSection = memo(() => {
     }
   };
 
-  const handleCloseGame = () => {
-    setIsGameOpen(false);
-  };
+  const [isClosing, setIsClosing] = useState(false);
+
+  const handleCloseGame = useCallback(() => {
+    setIsClosing(true);
+    setTimeout(() => {
+      setIsGameOpen(false);
+      setIsClosing(false);
+    }, 1000); // Adjust this delay as needed
+  }, []);
 
   const handleHighScoreUpdate = (newHighScore) => {
     setHighScore(newHighScore);
@@ -416,7 +422,14 @@ const ProfileSection = memo(() => {
               );
 
               return isGameOpen ? (
-                <Grow in={isGameOpen} timeout={(index + 1) * 500} key={index}>
+                <Grow
+                  in={isGameOpen && !isClosing}
+                  timeout={{
+                    enter: (index + 1) * 500,
+                    exit: (allChips.length - index) * 300,
+                  }}
+                  key={index}
+                >
                   {chipElement}
                 </Grow>
               ) : (
@@ -456,11 +469,14 @@ const ProfileSection = memo(() => {
                 backdropFilter: "blur(5px)",
                 zIndex: (theme) => theme.zIndex.drawer + 1,
               },
-              transitionDuration: 300,
+              transitionDuration: 1000,
             },
           }}
         >
-          <Fade in={isGameOpen} timeout={{ enter: 2500, exit: 500 }}>
+          <Fade
+            in={isGameOpen && !isClosing}
+            timeout={{ enter: 2500, exit: 1000 }}
+          >
             <Box
               sx={{
                 zIndex: (theme) => theme.zIndex.modal + 1,
