@@ -476,7 +476,7 @@ const ProfileSection = memo(() => {
         >
           <Fade
             in={isGameOpen && !isClosing}
-            timeout={{ enter: 2500, exit: 1000 }}
+            timeout={{ enter: 2000, exit: 1000 }}
           >
             <Box
               sx={{
