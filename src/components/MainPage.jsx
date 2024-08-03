@@ -212,6 +212,12 @@ const ProfileSection = memo(() => {
     [skillChips, setHasClickedAny]
   );
 
+  useEffect(() => {
+    if (isGameOpen) {
+      window.scrollTo({ top: 0, behavior: "instant" });
+    }
+  }, [isGameOpen]);
+
   return (
     <Grid
       container
