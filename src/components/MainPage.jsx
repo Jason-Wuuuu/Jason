@@ -420,7 +420,13 @@ const ProfileSection = memo(() => {
                   {chipElement}
                 </Grow>
               ) : (
-                chipElement
+                <Fade
+                  in={!isGameOpen}
+                  timeout={{ enter: 500, exit: 300 }}
+                  key={index}
+                >
+                  {chipElement}
+                </Fade>
               );
             })}
         </Box>
@@ -454,7 +460,7 @@ const ProfileSection = memo(() => {
             },
           }}
         >
-          <Fade in={isGameOpen} timeout={{ enter: 2500, exit: 250 }}>
+          <Fade in={isGameOpen} timeout={{ enter: 2500, exit: 500 }}>
             <Box
               sx={{
                 zIndex: (theme) => theme.zIndex.modal + 1,
@@ -462,6 +468,7 @@ const ProfileSection = memo(() => {
               }}
             >
               <MiniGame
+                open={isGameOpen}
                 onClose={handleCloseGame}
                 memojiRef={memojiRef}
                 onHighScoreUpdate={handleHighScoreUpdate}
