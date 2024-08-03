@@ -161,7 +161,7 @@ const ProfileSection = memo(() => {
           {!isXsScreen &&
             allChips.map((chip, index) => {
               let angle,
-                radius = 150;
+                radius = isGameOpen ? 200 : 150;
 
               if (chip.isHighScore) {
                 angle = -Math.PI / 6;
