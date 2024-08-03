@@ -45,6 +45,8 @@ const ProfileSection = memo(() => {
   const [hoverCount, setHoverCount] = useState(0);
   const [highScore, setHighScore] = useState(0);
   const [hovered, setHovered] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const expandTimeoutRef = useRef(null);
 
   useEffect(() => {
     if (highScore > 0) {
@@ -66,8 +68,13 @@ const ProfileSection = memo(() => {
   }, [hoverCount, greetings]);
 
   const handleMouseEnter = useCallback(() => {
+    setIsHovered(true);
     changeGreeting();
   }, [changeGreeting]);
+
+  const handleMouseLeave = useCallback(() => {
+    setIsHovered(false);
+  }, []);
 
   const [isGameOpen, setIsGameOpen] = useState(false);
   const memojiRef = useRef(null);
@@ -75,8 +82,9 @@ const ProfileSection = memo(() => {
   const theme = useTheme();
   const isXsScreen = useMediaQuery(theme.breakpoints.only("xs"));
 
-  const handleImageClick = () => {
-    if (!isXsScreen) {
+  const handleImageClick = (event) => {
+    // Only open the game if clicking on the memoji image
+    if (!isXsScreen && event.target.tagName === "IMG") {
       setIsGameOpen(true);
     }
   };
@@ -112,6 +120,31 @@ const ProfileSection = memo(() => {
     "🏆 Win!",
   ];
 
+  const handleChipHover = useCallback((index, isHovered) => {
+    if (!skillChips[index].isHighScore) {
+      setHovered(isHovered);
+
+      if (isHovered) {
+        setIsExpanded(true);
+        if (expandTimeoutRef.current) {
+          clearTimeout(expandTimeoutRef.current);
+        }
+      } else {
+        expandTimeoutRef.current = setTimeout(() => {
+          setIsExpanded(false);
+        }, 1500);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (expandTimeoutRef.current) {
+        clearTimeout(expandTimeoutRef.current);
+      }
+    };
+  }, []);
+
   return (
     <Grid
       container
@@ -132,6 +165,9 @@ const ProfileSection = memo(() => {
           }}
           onMouseEnter={
             !isXsScreen && !isGameOpen ? handleMouseEnter : undefined
+          }
+          onMouseLeave={
+            !isXsScreen && !isGameOpen ? handleMouseLeave : undefined
           }
           onClick={handleImageClick}
         >
@@ -188,12 +224,12 @@ const ProfileSection = memo(() => {
                     top: y,
                     transform: "translate(-100%, -50%)",
                     transition: "all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1)",
-                    pointerEvents:
-                      isGameOpen || chip.isHighScore ? "none" : "auto",
+                    pointerEvents: "auto",
                     cursor: chip.isHighScore ? "default" : "pointer",
                   }}
-                  onMouseEnter={() => setHovered(true)}
-                  onMouseLeave={() => setHovered(false)}
+                  onMouseEnter={() => handleChipHover(index, true)}
+                  onMouseLeave={() => handleChipHover(index, false)}
+                  onClick={(e) => e.stopPropagation()}
                 >
                   <Chip
                     label={
@@ -207,27 +243,29 @@ const ProfileSection = memo(() => {
                           transition: "all 0.3s ease 0.1s",
                         }}
                       >
-                        {!chip.isHighScore && !isGameOpen && hovered && (
-                          <Grow in={hovered} timeout={300}>
-                            <Rating
-                              name={`rating-${chip.label}`}
-                              value={chip.rating} // Added this line
-                              precision={0.1}
-                              readOnly
-                              size="small"
-                              max={3}
-                              sx={{
-                                "& .MuiRating-icon": {
-                                  color:
-                                    chip.label === "JS/TS" ||
-                                    chip.label === "Web Dev"
-                                      ? "black"
-                                      : "white",
-                                },
-                              }}
-                            />
-                          </Grow>
-                        )}
+                        {!chip.isHighScore &&
+                          !isGameOpen &&
+                          (isExpanded || hovered) && (
+                            <Grow in={isExpanded || hovered} timeout={300}>
+                              <Rating
+                                name={`rating-${chip.label}`}
+                                value={chip.rating}
+                                precision={0.1}
+                                readOnly
+                                size="small"
+                                max={3}
+                                sx={{
+                                  "& .MuiRating-icon": {
+                                    color:
+                                      chip.label === "JS/TS" ||
+                                      chip.label === "Web Dev"
+                                        ? "black"
+                                        : "white",
+                                  },
+                                }}
+                              />
+                            </Grow>
+                          )}
                         <span>
                           {isGameOpen && !chip.isHighScore
                             ? gameOpenLabels[index]
@@ -248,6 +286,10 @@ const ProfileSection = memo(() => {
                           : "white",
                       boxShadow: 10,
                       transition: "all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1)",
+                      "&:hover": {
+                        transform: isExpanded ? "scale(1.1)" : "none",
+                        transition: "transform 0.3s ease-in-out",
+                      },
                       "& .MuiChip-label": {
                         padding: "0 8px",
                         display: "flex",
