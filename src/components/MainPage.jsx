@@ -211,7 +211,6 @@ const ProfileSection = memo(() => {
                           <Grow in={hovered} timeout={300}>
                             <Rating
                               name={`rating-${chip.label}`}
-                              value={chip.rating}
                               precision={0.1}
                               readOnly
                               size="small"
@@ -255,24 +254,24 @@ const ProfileSection = memo(() => {
                         justifyContent: "space-between",
                         alignItems: "center",
                       },
-                      // ...(chip.isHighScore &&
-                      //   !isGameOpen && {
-                      //     animation: `shakeAndFloat 2s ease-in-out infinite`,
-                      //     "@keyframes shakeAndFloat": {
-                      //       "0%, 100%": {
-                      //         transform: "rotate(0deg) translateY(0)",
-                      //       },
-                      //       "25%": {
-                      //         transform: "rotate(-5deg) translateY(-5px)",
-                      //       },
-                      //       "50%": {
-                      //         transform: "rotate(0deg) translateY(-10px)",
-                      //       },
-                      //       "75%": {
-                      //         transform: "rotate(5deg) translateY(-5px)",
-                      //       },
-                      //     },
-                      //   }),
+                      ...(chip.isHighScore &&
+                        !isGameOpen && {
+                          animation: `shakeAndFloat 2s ease-in-out infinite`,
+                          "@keyframes shakeAndFloat": {
+                            "0%, 100%": {
+                              transform: "rotate(0deg) translateY(0)",
+                            },
+                            "25%": {
+                              transform: "rotate(-5deg) translateY(-5px)",
+                            },
+                            "50%": {
+                              transform: "rotate(0deg) translateY(-10px)",
+                            },
+                            "75%": {
+                              transform: "rotate(5deg) translateY(-5px)",
+                            },
+                          },
+                        }),
                       ...(isGameOpen && {
                         animation: `float 3s ease-in-out infinite`,
                         "@keyframes float": {
