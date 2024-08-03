@@ -336,6 +336,12 @@ const ProfileSection = memo(() => {
                                       chip.label === "Web Dev"
                                         ? "black"
                                         : "white",
+                                    transition: "transform 0.3s ease",
+                                    transform:
+                                      chipHoverStates[index] ||
+                                      chipExpandStates[index]
+                                        ? "scale(1)"
+                                        : "scale(0.8)",
                                   },
                                 }}
                               />
