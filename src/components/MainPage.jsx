@@ -160,36 +160,31 @@ const ProfileSection = memo(() => {
           </Tooltip>
           {!isXsScreen &&
             allChips.map((chip, index) => {
-              let angle, radius;
-              if (isXsScreen) {
-                // Distribute chips evenly around the circle for xs screens
-                angle = (2 * Math.PI * index) / allChips.length - Math.PI / 2;
-                radius = 155;
+              let angle,
+                radius = 150;
+
+              if (chip.isHighScore) {
+                angle = -Math.PI / 6;
               } else {
-                // Existing positioning logic for larger screens
-                if (chip.isHighScore) {
-                  angle = -Math.PI / 4;
-                  radius = 130; // Adjust this value to change spacing for the high score chip
-                } else {
-                  // Adjust the density of the chips by changing the angle calculation
-                  angle =
-                    Math.PI * 0.8 +
-                    Math.PI * 0.4 * (index / (skillChips.length - 1)); // Adjust this multiplier to change density
-                  radius = 180; // Adjust this value to change spacing for other chips
-                }
+                const startAngle = (Math.PI * 4.5) / 6;
+                const endAngle = (Math.PI * 7.5) / 6;
+                const chipCount = skillChips.length;
+                angle =
+                  startAngle +
+                  (endAngle - startAngle) * (index / (chipCount - 1));
               }
-              const x =
-                // 300 - // Change this to 300 (width of the box)
-                (isGameOpen ? (chip.isHighScore ? 175 : 115) : 200) +
-                radius * Math.cos(angle);
+
+              const x = 150 + radius * Math.cos(angle);
               const y = 150 + radius * Math.sin(angle);
+
+              const offset = isGameOpen ? (chip.isHighScore ? 20 : 60) : -25;
 
               const chipElement = (
                 <Box
                   key={index}
                   sx={{
                     position: "absolute",
-                    left: x,
+                    left: x - offset,
                     top: y,
                     transform: "translate(-100%, -50%)",
                     transition: "all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1)",
@@ -260,21 +255,31 @@ const ProfileSection = memo(() => {
                         justifyContent: "space-between",
                         alignItems: "center",
                       },
-                      ...(chip.isHighScore && {
+                      // ...(chip.isHighScore &&
+                      //   !isGameOpen && {
+                      //     animation: `shakeAndFloat 2s ease-in-out infinite`,
+                      //     "@keyframes shakeAndFloat": {
+                      //       "0%, 100%": {
+                      //         transform: "rotate(0deg) translateY(0)",
+                      //       },
+                      //       "25%": {
+                      //         transform: "rotate(-5deg) translateY(-5px)",
+                      //       },
+                      //       "50%": {
+                      //         transform: "rotate(0deg) translateY(-10px)",
+                      //       },
+                      //       "75%": {
+                      //         transform: "rotate(5deg) translateY(-5px)",
+                      //       },
+                      //     },
+                      //   }),
+                      ...(isGameOpen && {
                         animation: `float 3s ease-in-out infinite`,
                         "@keyframes float": {
                           "0%, 100%": { transform: "translateY(0)" },
                           "50%": { transform: "translateY(-10px)" },
                         },
                       }),
-                      ...(isGameOpen &&
-                        !chip.isHighScore && {
-                          animation: `float 3s ease-in-out infinite`,
-                          "@keyframes float": {
-                            "0%, 100%": { transform: "translateY(0)" },
-                            "50%": { transform: "translateY(-10px)" },
-                          },
-                        }),
                     }}
                   />
                 </Box>
