@@ -51,18 +51,26 @@ const ProfileSection = memo(() => {
     if (highScore > 0) {
       setGreetings((prevGreetings) => [
         `High score: ${highScore}! Can you beat it? 🏆`,
-        ...prevGreetings.slice(1),
+        ...baseGreetings.slice(1),
       ]);
+      setCurrentGreeting(`High score: ${highScore}! Can you beat it? 🏆`);
+    } else {
+      setGreetings(baseGreetings);
+      setCurrentGreeting(baseGreetings[0]);
     }
   }, [highScore]);
 
   const changeGreeting = useCallback(() => {
-    setCurrentGreeting((prevGreeting) => {
-      const currentIndex = greetings.indexOf(prevGreeting);
-      const nextIndex = (currentIndex + 1) % greetings.length;
-      return greetings[nextIndex];
-    });
-  }, [greetings]);
+    if (highScore === 0) {
+      setCurrentGreeting(baseGreetings[0]);
+    } else {
+      setCurrentGreeting((prevGreeting) => {
+        const currentIndex = greetings.indexOf(prevGreeting);
+        const nextIndex = (currentIndex + 1) % greetings.length;
+        return greetings[nextIndex];
+      });
+    }
+  }, [greetings, highScore]);
 
   const handleMemojiMouseEnter = useCallback(() => {
     changeGreeting();
