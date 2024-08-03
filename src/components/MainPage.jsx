@@ -231,7 +231,10 @@ const ProfileSection = memo(() => {
                     transform: "translate(-100%, -50%)",
                     transition: "all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1)",
                     pointerEvents: "auto",
-                    cursor: chip.isHighScore ? "default" : "pointer",
+                    cursor:
+                      chip.isHighScore || (isGameOpen && !chip.isHighScore)
+                        ? "default"
+                        : "pointer",
                   }}
                   onMouseEnter={() => handleChipHover(index, true)}
                   onMouseLeave={() => handleChipHover(index, false)}
