@@ -1,4 +1,12 @@
-import React, { memo, useState, useCallback, useRef, useEffect } from "react";
+import React, {
+  memo,
+  useState,
+  useCallback,
+  useRef,
+  useEffect,
+  createContext,
+  useContext,
+} from "react";
 import { useMediaQuery, useTheme } from "@mui/material";
 
 import {
@@ -14,6 +22,7 @@ import {
   Grow,
   Rating,
 } from "@mui/material";
+import { keyframes, styled } from "@mui/system";
 
 import {
   School as SchoolIcon,
@@ -26,6 +35,24 @@ import {
 import SocialLinks from "./SocialLinks";
 import InfoSection from "./InfoSection";
 import MiniGame from "./MiniGame";
+
+const floatAnimation = keyframes`
+  0% { transform: translate(0, 0) scale(1); opacity: 1; }
+   100% { transform: translate(10px, -30px) scale(1.5); opacity: 0; }
+`;
+
+const FloatingEmoji = styled("span")(({ theme, index }) => ({
+  position: "absolute",
+  top: -20,
+  left: -20,
+  animation: `${floatAnimation} 1s ease-out forwards`,
+  animationDelay: `${index * 0.15}s`,
+  pointerEvents: "none",
+  fontSize: "32px",
+  zIndex: 1000,
+}));
+
+const FirstClickContext = createContext();
 
 const ProfileSection = memo(() => {
   const baseGreetings = [
@@ -143,6 +170,38 @@ const ProfileSection = memo(() => {
     "🏆 Win!",
   ];
 
+  const [chipEmojis, setChipEmojis] = useState({});
+  const { hasClickedAny, setHasClickedAny } = useContext(FirstClickContext);
+
+  const handleChipClick = useCallback(
+    (index) => {
+      if (!skillChips[index].isHighScore) {
+        const newEmoji = (() => {
+          switch (skillChips[index].label) {
+            case "AI & ML":
+              return "🤖";
+            case "Web Dev":
+              return "🕸️";
+            case "JS/TS":
+              return "🚀";
+            case "Python":
+              return "🐍";
+            case "Java":
+              return "🍵";
+            default:
+              return "✨";
+          }
+        })();
+        setChipEmojis((prev) => ({ ...prev, [index]: [newEmoji] }));
+        setHasClickedAny(true);
+        setTimeout(() => {
+          setChipEmojis((prev) => ({ ...prev, [index]: [] }));
+        }, 1000);
+      }
+    },
+    [skillChips, setHasClickedAny]
+  );
+
   return (
     <Grid
       container
@@ -227,7 +286,10 @@ const ProfileSection = memo(() => {
                   }}
                   onMouseEnter={() => handleChipHover(index, true)}
                   onMouseLeave={() => handleChipHover(index, false)}
-                  onClick={(e) => e.stopPropagation()}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleChipClick(index);
+                  }}
                 >
                   <Chip
                     label={
@@ -324,6 +386,12 @@ const ProfileSection = memo(() => {
                       }),
                     }}
                   />
+                  {chipEmojis[index] &&
+                    chipEmojis[index].map((emoji, emojiIndex) => (
+                      <FloatingEmoji key={emojiIndex} index={emojiIndex}>
+                        {emoji}
+                      </FloatingEmoji>
+                    ))}
                 </Box>
               );
 
@@ -415,27 +483,31 @@ function MainPage() {
     },
   ];
 
-  return (
-    <Grid
-      container
-      alignItems="center"
-      justifyContent="center"
-      spacing={{ xs: 5, sm: 10 }}
-    >
-      <Grid item xs={12} sm={6} md={6}>
-        <ProfileSection />
-      </Grid>
+  const [hasClickedAny, setHasClickedAny] = useState(false);
 
-      <Grid item xs={12} sm={6} md={6}>
-        <Grid container direction="column" spacing={4}>
-          <InfoSection title="Education" items={educationItems} />
-          <Grid item>
-            <Divider />
+  return (
+    <FirstClickContext.Provider value={{ hasClickedAny, setHasClickedAny }}>
+      <Grid
+        container
+        alignItems="center"
+        justifyContent="center"
+        spacing={{ xs: 5, sm: 10 }}
+      >
+        <Grid item xs={12} sm={6} md={6}>
+          <ProfileSection />
+        </Grid>
+
+        <Grid item xs={12} sm={6} md={6}>
+          <Grid container direction="column" spacing={4}>
+            <InfoSection title="Education" items={educationItems} />
+            <Grid item>
+              <Divider />
+            </Grid>
+            <InfoSection title="Recent Experience" items={experienceItems} />
           </Grid>
-          <InfoSection title="Recent Experience" items={experienceItems} />
         </Grid>
       </Grid>
-    </Grid>
+    </FirstClickContext.Provider>
   );
 }
 
