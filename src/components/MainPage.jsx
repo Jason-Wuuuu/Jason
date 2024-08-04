@@ -8,6 +8,7 @@ import React, {
   useContext,
 } from "react";
 import { useMediaQuery, useTheme } from "@mui/material";
+import { alpha } from "@mui/material/styles";
 
 import {
   Grid,
@@ -53,6 +54,15 @@ const FloatingEmoji = styled("span")(({ theme, index }) => ({
 }));
 
 const FirstClickContext = createContext();
+
+const AnimatedBackdrop = styled(Backdrop)(({ theme, closing }) => ({
+  backgroundColor: "rgba(0, 0, 0, 0.3)",
+  backdropFilter: "blur(5px)",
+  opacity: closing ? 0 : 1,
+  transition: theme.transitions.create(["opacity"], {
+    duration: 500,
+  }),
+}));
 
 const ProfileSection = memo(() => {
   const baseGreetings = [
@@ -147,10 +157,6 @@ const ProfileSection = memo(() => {
 
   const handleCloseGame = useCallback(() => {
     setIsClosing(true);
-    setTimeout(() => {
-      setIsGameOpen(false);
-      setIsClosing(false);
-    }, 1000); // Adjust this delay as needed
   }, []);
 
   const handleHighScoreUpdate = (newHighScore) => {
@@ -217,6 +223,17 @@ const ProfileSection = memo(() => {
       window.scrollTo({ top: 0, behavior: "instant" });
     }
   }, [isGameOpen]);
+
+  const [chipsMounted, setChipsMounted] = useState(false);
+
+  useEffect(() => {
+    // Delay the mounting of chips to ensure smooth animation
+    const timer = setTimeout(() => {
+      setChipsMounted(true);
+    }, 500); // Adjust this delay as needed
+
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <Grid
@@ -440,8 +457,9 @@ const ProfileSection = memo(() => {
                 </Grow>
               ) : (
                 <Fade
-                  in={!isGameOpen}
+                  in={chipsMounted && !isGameOpen}
                   timeout={{ enter: 500, exit: 300 }}
+                  style={{ transitionDelay: `${index * 100}ms` }}
                   key={index}
                 >
                   {chipElement}
@@ -465,24 +483,25 @@ const ProfileSection = memo(() => {
       </Grid>
       {!isXsScreen && (
         <Modal
-          open={isGameOpen}
+          open={isGameOpen || isClosing}
           onClose={handleCloseGame}
-          slots={{ backdrop: Backdrop }}
+          slots={{ backdrop: AnimatedBackdrop }}
           slotProps={{
             backdrop: {
-              sx: {
-                // backgroundColor: "rgba(255, 255, 255, 0.03)",
-                backgroundColor: "rgba(0, 0, 0, 0.3)",
-                backdropFilter: "blur(5px)",
-                zIndex: (theme) => theme.zIndex.drawer + 1,
-              },
-              transitionDuration: 1000,
+              closing: isClosing,
+              transitionDuration: 500,
             },
+          }}
+          onTransitionEnd={() => {
+            if (isClosing) {
+              setIsGameOpen(false);
+              setIsClosing(false);
+            }
           }}
         >
           <Fade
             in={isGameOpen && !isClosing}
-            timeout={{ enter: 2000, exit: 1000 }}
+            timeout={{ enter: 2000, exit: 500 }}
           >
             <Box
               sx={{
