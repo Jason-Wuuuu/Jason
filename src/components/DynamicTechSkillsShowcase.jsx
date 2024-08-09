@@ -24,7 +24,7 @@ const categories = {
     "FastAPI",
   ],
   Databases: ["MongoDB", "Redis", "SQL"],
-  "Machine Learning / AI": ["TensorFlow", "scikit-learn", "NLTK"],
+  "ML / DL / AI": ["TensorFlow", "scikit-learn", "NLTK"],
   "Data Analysis": ["Pandas", "NumPy", "Matplotlib", "Seaborn"],
   "DevOps & Cloud": ["Docker", "Git", "AWS"],
   "Mobile Development": ["Swift", "React Native"],

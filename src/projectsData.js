@@ -3,7 +3,7 @@ export const projects = [
     title: "Firstrade Portfolio Analysis",
     year: "2024",
     course: "Side",
-    category: "Data Ana.",
+    category: "ML / Data Ana.",
     description:
       "Jupyter notebooks for analyzing and visualizing Firstrade investment portfolios. Firstrade_History.ipynb recreates all transactions from Firstrade account history, allowing portfolio composition viewing on any given day. Firstrade_Performance.ipynb focuses on analyzing the performance of the current portfolio.",
     tech_stack: "Python, Pandas, Matplotlib, Seaborn",
@@ -39,7 +39,7 @@ export const projects = [
     title: "Seq2Seq Translation Model",
     year: "2024",
     course: "NLP Course",
-    category: "ML/AI",
+    category: "ML / Data Ana.",
     description:
       "A seq2seq model to translate French text into English using the iwslt2017 dataset, processing over 50,000 sentence pairs.",
     tech_stack: "Python, TensorFlow",
@@ -55,7 +55,7 @@ export const projects = [
     title: "Stock Price Forecast",
     year: "2024",
     course: "Side",
-    category: "ML/AI",
+    category: "ML / Data Ana.",
     description:
       "A LSTM model designed to forecast stock prices based on historical data, trained using a variety of features and technical indicators. It achieves an average R^2 score of 0.96 and an average Mean Absolute Percentage Error of 0.1%.",
     tech_stack: "Python, TensorFlow, scikit-learn, pandas",
@@ -84,7 +84,7 @@ export const projects = [
     title: "IMDB Movie Review Analysis (Word2Vec)",
     year: "2024",
     course: "NLP Course",
-    category: "ML/AI",
+    category: "ML / Data Ana.",
     description:
       "A Word2Vec Skip-Gram model developed with TensorFlow to analyze and generate word embeddings from the IMDB movie review dataset, enhancing understanding of semantic word relationships.",
     tech_stack: "Python, TensorFlow, NLTK",
@@ -96,7 +96,7 @@ export const projects = [
     title: "Author Classification (MLP)",
     year: "2024",
     course: "NLP Course",
-    category: "ML/AI",
+    category: "ML / Data Ana.",
     description:
       "A Multi-Layer Perceptron (MLP) model, fully coded from scratch in Python, to classify sentences by their corresponding authors. It employs tokenization and TF-IDF vectorization with optimization, regularization, and cross-validation.",
     tech_stack: "Python, TensorFlow, NLTK, scikit-learn",
@@ -158,7 +158,7 @@ export const projects = [
     title: "Support Vector Machine",
     year: "2022",
     course: "ML Course",
-    category: "ML/AI",
+    category: "ML / Data Ana.",
     description:
       "Coursework that involves deriving the hyperplane equation from given data points and Lagrange multipliers, calculating distances to the hyperplane, and classifying new points.",
     tech_stack: "Python, NumPy, pandas",
@@ -170,7 +170,7 @@ export const projects = [
     title: "Breast Cancer Detection",
     year: "2022",
     course: "ML Course",
-    category: "ML/AI",
+    category: "ML / Data Ana.",
     description:
       "Coursework that includes implementing logistic regression from scratch for breast cancer diagnosis, with a focus on Stochastic and Mini-Batch Gradient Descent optimizations, and model performance evaluation through precision, recall, and accuracy metrics.",
     tech_stack: "Python, NumPy, pandas",
@@ -182,7 +182,7 @@ export const projects = [
     title: "Diabetes Detection (PCA)",
     year: "2022",
     course: "ML Course",
-    category: "ML/AI",
+    category: "ML / Data Ana.",
     description:
       "Coursework that involves dimensionality reduction on a diabetes dataset using Principal Component Analysis (PCA), implemented with Python's sklearn library. PCA was applied to reduce the feature space from eight dimensions to two.",
     tech_stack: "Python, scikit-learn, pandas",
@@ -194,7 +194,7 @@ export const projects = [
     title: "Image Compression (SVD)",
     year: "2022",
     course: "ML Course",
-    category: "ML/AI",
+    category: "ML / Data Ana.",
     description:
       "Coursework that involves the practical application of Singular Value Decomposition (SVD) to compress images. SVD was used to decompose and reconstruct images at varying levels of compression.",
     tech_stack: "Python, NumPy",
