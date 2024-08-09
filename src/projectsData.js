@@ -3,7 +3,7 @@ export const projects = [
     title: "Firstrade Portfolio Analysis",
     year: "2024",
     course: "Side",
-    category: "Data Analysis",
+    category: "Data Ana.",
     description:
       "Jupyter notebooks for Analyzing and visualizing your Firstrade investment portfolio",
     tech_stack: "Python, Pandas, Matplotlib, Seaborn",

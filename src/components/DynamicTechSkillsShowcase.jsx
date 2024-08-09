@@ -25,6 +25,7 @@ const categories = {
   ],
   Databases: ["MongoDB", "Redis", "SQL"],
   "Machine Learning / AI": ["TensorFlow", "scikit-learn", "NLTK"],
+  "Data Analysis": ["Pandas", "NumPy", "Matplotlib", "Seaborn"],
   "DevOps & Cloud": ["Docker", "Git", "AWS"],
   "Mobile Development": ["Swift", "React Native"],
 };
@@ -51,6 +52,10 @@ const essentialTechs = new Set([
   "AWS",
   "FastAPI",
   "GraphQL",
+  "Pandas",
+  "NumPy",
+  "Matplotlib",
+  "Seaborn",
 ]);
 
 const getCategory = (skill) => {
