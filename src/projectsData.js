@@ -5,7 +5,7 @@ export const projects = [
     course: "Side",
     category: "Data Ana.",
     description:
-      "Jupyter notebooks for Analyzing and visualizing your Firstrade investment portfolio",
+      "Jupyter notebooks for analyzing and visualizing Firstrade investment portfolios. Firstrade_History.ipynb recreates all transactions from Firstrade account history, allowing portfolio composition viewing on any given day. Firstrade_Performance.ipynb focuses on analyzing the performance of the current portfolio.",
     tech_stack: "Python, Pandas, Matplotlib, Seaborn",
     githubUrl: "https://github.com/Jason-Wuuuu/Firstrade-Portfolio-Analyzer",
     demoUrl: "",
