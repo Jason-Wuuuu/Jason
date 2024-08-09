@@ -1,5 +1,17 @@
 export const projects = [
   {
+    title: "Firstrade Portfolio Analysis",
+    year: "2024",
+    course: "Side",
+    category: "Data Analysis",
+    description:
+      "Jupyter notebooks for Analyzing and visualizing your Firstrade investment portfolio",
+    tech_stack: "Python, Pandas, Matplotlib, Seaborn",
+    githubUrl: "https://github.com/Jason-Wuuuu/Firstrade-Portfolio-Analyzer",
+    demoUrl: "",
+    screenshots: ["firstrade/output1.png", "firstrade/output2.png"],
+  },
+  {
     title: "Tripper",
     year: "2024",
     course: "Side",
