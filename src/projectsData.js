@@ -9,7 +9,11 @@ export const projects = [
     tech_stack: "Python, Pandas, Matplotlib, Seaborn",
     githubUrl: "https://github.com/Jason-Wuuuu/Firstrade-Portfolio-Analyzer",
     demoUrl: "",
-    screenshots: ["firstrade/output1.png", "firstrade/output2.png"],
+    screenshots: [
+      "firstrade/output1.png",
+      "firstrade/output2.png",
+      "firstrade/output3.png",
+    ],
   },
   {
     title: "Tripper",
