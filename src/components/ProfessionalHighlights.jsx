@@ -250,7 +250,7 @@ const CompetitionItem = memo(
               {projectName}
             </Typography>
             <Typography
-              variant="body1"
+              variant="body2"
               color="text.secondary"
               sx={{ py: { xs: 1 } }}
             >
