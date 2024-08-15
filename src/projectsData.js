@@ -13,6 +13,7 @@ export const projects = [
       "firstrade/output1.png",
       "firstrade/output2.png",
       "firstrade/output3.png",
+      "firstrade/output4.png",
     ],
   },
   {
