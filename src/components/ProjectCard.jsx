@@ -15,6 +15,8 @@ import {
   Box,
   Divider,
   Link,
+  Dialog,
+  DialogContent,
 } from "@mui/material";
 
 import Carousel from "react-material-ui-carousel";
@@ -128,12 +130,23 @@ const ProjectCarousel = React.memo(({ screenshots }) => (
 
 const ProjectCard = React.memo(({ project }) => {
   const [expanded, setExpanded] = useState(project.screenshots.length === 0);
+  const [openDialog, setOpenDialog] = useState(false);
 
   const handleExpandClick = () => setExpanded(!expanded);
 
-  const handleDemoClick = (e) => {
-    e.preventDefault();
-    window.open(project.demoUrl, "_blank", "noopener,noreferrer");
+  const handleDemoClick = () => {
+    if (
+      project.demoUrl.startsWith("http") ||
+      project.demoUrl.startsWith("www")
+    ) {
+      window.open(project.demoUrl, "_blank", "noopener,noreferrer");
+    } else {
+      setOpenDialog(true);
+    }
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
   };
 
   return (
@@ -254,6 +267,29 @@ const ProjectCard = React.memo(({ project }) => {
           )}
         </CardActions>
       </Card>
+
+      <Dialog
+        open={openDialog}
+        onClose={handleCloseDialog}
+        maxWidth={false}
+        PaperProps={{
+          sx: {
+            width: "1440px",
+            height: "900px",
+            maxWidth: "75vw",
+          },
+        }}
+      >
+        <DialogContent sx={{ p: 0, height: "100%" }}>
+          <iframe
+            src={project.demoUrl}
+            title="Demo"
+            width="100%"
+            height="100%"
+            style={{ border: "none" }}
+          />
+        </DialogContent>
+      </Dialog>
     </Grid>
   );
 });
