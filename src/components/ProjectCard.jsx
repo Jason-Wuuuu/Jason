@@ -304,8 +304,8 @@ const ProjectCard = React.memo(({ project }) => {
           sx: {
             width: 1440,
             height: 900,
-            maxWidth: { xs: "90vw", sm: "75vw" },
-            maxHeight: { xs: "85vh", sm: "80vh" },
+            maxWidth: "90vw",
+            maxHeight: "85vh",
           },
         }}
       >
