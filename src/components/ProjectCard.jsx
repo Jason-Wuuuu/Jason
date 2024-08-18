@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import {
   Card,
@@ -131,6 +131,7 @@ const ProjectCarousel = React.memo(({ screenshots }) => (
 const ProjectCard = React.memo(({ project }) => {
   const [expanded, setExpanded] = useState(project.screenshots.length === 0);
   const [openDialog, setOpenDialog] = useState(false);
+  const [demoContent, setDemoContent] = useState("");
 
   const handleExpandClick = () => setExpanded(!expanded);
 
@@ -142,12 +143,37 @@ const ProjectCard = React.memo(({ project }) => {
       window.open(project.demoUrl, "_blank", "noopener,noreferrer");
     } else {
       setOpenDialog(true);
+      if (project.demoUrl.endsWith(".html")) {
+        fetch(project.demoUrl)
+          .then((response) => response.text())
+          .then((html) => setDemoContent(html))
+          .catch((error) => console.error("Error loading demo:", error));
+      }
     }
   };
 
   const handleCloseDialog = () => {
     setOpenDialog(false);
   };
+
+  useEffect(() => {
+    if (openDialog && project.demoUrl.endsWith(".html")) {
+      fetch(project.demoUrl)
+        .then((response) => response.text())
+        .then((html) => {
+          setDemoContent(html);
+          setTimeout(() => {
+            const scripts = document.querySelectorAll(".dialog-content script");
+            scripts.forEach((script) => {
+              const newScript = document.createElement("script");
+              newScript.textContent = script.textContent;
+              script.parentNode.replaceChild(newScript, script);
+            });
+          }, 0);
+        })
+        .catch((error) => console.error("Error loading demo:", error));
+    }
+  }, [openDialog, project.demoUrl]);
 
   return (
     <Grid
@@ -274,20 +300,28 @@ const ProjectCard = React.memo(({ project }) => {
         maxWidth={false}
         PaperProps={{
           sx: {
-            width: "1440px",
-            height: "900px",
+            width: 1440,
+            height: 900,
             maxWidth: "75vw",
+            maxHeight: "80vh",
           },
         }}
       >
-        <DialogContent sx={{ p: 0, height: "100%" }}>
-          <iframe
-            src={project.demoUrl}
-            title="Demo"
-            width="100%"
-            height="100%"
-            style={{ border: "none" }}
-          />
+        <DialogContent sx={{ p: 0, height: "100%", overflow: "auto" }}>
+          {project.demoUrl.endsWith(".html") ? (
+            <div
+              className="dialog-content"
+              dangerouslySetInnerHTML={{ __html: demoContent }}
+            />
+          ) : (
+            <iframe
+              src={project.demoUrl}
+              title="Demo"
+              width="100%"
+              height="100%"
+              style={{ border: "none" }}
+            />
+          )}
         </DialogContent>
       </Dialog>
     </Grid>
