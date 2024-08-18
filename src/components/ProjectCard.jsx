@@ -169,7 +169,9 @@ const ProjectCard = React.memo(({ project }) => {
               newScript.textContent = script.textContent;
               script.parentNode.replaceChild(newScript, script);
             });
-          }, 0);
+            // Add this line to trigger a resize event
+            window.dispatchEvent(new Event("resize"));
+          }, 100); // Increase the timeout to 100ms
         })
         .catch((error) => console.error("Error loading demo:", error));
     }
