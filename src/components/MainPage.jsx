@@ -88,7 +88,7 @@ const ProfileSection = memo(() => {
   useEffect(() => {
     if (highScore > 0) {
       setGreetings((prevGreetings) => [
-        `High score: ${highScore}! Can you beat it? 🏆`,
+        `High score: ${highScore}! Can you beat it? ���`,
         ...baseGreetings.slice(1),
       ]);
       setCurrentGreeting(`High score: ${highScore}! Can you beat it? 🏆`);
@@ -110,27 +110,35 @@ const ProfileSection = memo(() => {
     }
   }, [greetings, highScore]);
 
-  const handleMemojiMouseEnter = useCallback(() => {
-    changeGreeting();
-  }, [changeGreeting]);
+  const theme = useTheme();
+  const isXsScreen = useMediaQuery(theme.breakpoints.only("xs"));
 
-  const handleChipHover = useCallback((index, isHovered) => {
-    if (!skillChips[index].isHighScore) {
-      setChipHoverStates((prev) => ({ ...prev, [index]: isHovered }));
-      if (isHovered) {
-        // Clear any existing timeout when hovering
-        if (chipTimeouts.current[index]) {
-          clearTimeout(chipTimeouts.current[index]);
-        }
-        setChipExpandStates((prev) => ({ ...prev, [index]: true }));
-      } else {
-        // Set a timeout to remove the expand state after 2 seconds
-        chipTimeouts.current[index] = setTimeout(() => {
-          setChipExpandStates((prev) => ({ ...prev, [index]: false }));
-        }, 2000);
-      }
+  const handleMemojiMouseEnter = useCallback(() => {
+    if (!isXsScreen) {
+      changeGreeting();
     }
-  }, []);
+  }, [changeGreeting, isXsScreen]);
+
+  const handleChipHover = useCallback(
+    (index, isHovered) => {
+      if (!isXsScreen && !skillChips[index].isHighScore) {
+        setChipHoverStates((prev) => ({ ...prev, [index]: isHovered }));
+        if (isHovered) {
+          // Clear any existing timeout when hovering
+          if (chipTimeouts.current[index]) {
+            clearTimeout(chipTimeouts.current[index]);
+          }
+          setChipExpandStates((prev) => ({ ...prev, [index]: true }));
+        } else {
+          // Set a timeout to remove the expand state after 2 seconds
+          chipTimeouts.current[index] = setTimeout(() => {
+            setChipExpandStates((prev) => ({ ...prev, [index]: false }));
+          }, 2000);
+        }
+      }
+    },
+    [isXsScreen]
+  );
 
   useEffect(() => {
     return () => {
@@ -142,9 +150,6 @@ const ProfileSection = memo(() => {
 
   const [isGameOpen, setIsGameOpen] = useState(false);
   const memojiRef = useRef(null);
-
-  const theme = useTheme();
-  const isXsScreen = useMediaQuery(theme.breakpoints.only("xs"));
 
   const handleImageClick = (event) => {
     // Only open the game if clicking on the memoji image
@@ -248,7 +253,7 @@ const ProfileSection = memo(() => {
           sx={{
             width: 300,
             height: 300,
-            cursor: "default",
+            cursor: isXsScreen ? "default" : "pointer",
             position: "relative",
             zIndex: (theme) =>
               isGameOpen ? theme.zIndex.modal + 2 : theme.zIndex.speedDial - 1,
@@ -258,7 +263,11 @@ const ProfileSection = memo(() => {
           }
           onClick={handleImageClick}
         >
-          <Tooltip title={!isGameOpen && currentGreeting} arrow placement="top">
+          <Tooltip
+            title={!isXsScreen && !isGameOpen ? currentGreeting : ""}
+            arrow
+            placement="top"
+          >
             <Box
               component="img"
               ref={memojiRef}
@@ -269,7 +278,7 @@ const ProfileSection = memo(() => {
                 boxShadow: 10,
                 transition: "transform 0.3s ease-in-out",
                 "&:hover": {
-                  transform: isGameOpen ? "scale(1.03)" : "none",
+                  transform: !isXsScreen && isGameOpen ? "scale(1.03)" : "none",
                   transition: "transform 0.3s ease-in-out",
                 },
                 userSelect: "none",
