@@ -12,6 +12,8 @@ import {
   Tooltip,
 } from "@mui/material";
 import { styled, keyframes } from "@mui/system";
+import SpeedIcon from "@mui/icons-material/Speed";
+import EmojiEventsIcon from "@mui/icons-material/EmojiEvents"; // Added this import for the ranking icon
 
 import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
 import LaptopMacIcon from "@mui/icons-material/LaptopMac";
@@ -345,6 +347,28 @@ function ProfessionalHighlights() {
     imageSrc: "./images/Award.png",
   };
 
+  const typingSpeedData = {
+    title: "Fast Typer",
+    date: "Oct 2022",
+    subtitle: "🤘 I can type fast!",
+    description:
+      "This has nothing to do with the rest of my portfolio, but it's a fun skill I'm proud of!",
+    icon: <SpeedIcon />,
+    imageSrc: "./images/TypingSpeed.png",
+    achievements: [
+      {
+        title: "118 WPM with 100% Accuracy",
+        description: "Achieved in a 15-second typing test",
+        icon: <SpeedIcon />,
+      },
+      {
+        title: "Top 26.24% on MonkeyType",
+        description: "Ranked among the fastest typists globally",
+        icon: <EmojiEventsIcon />,
+      },
+    ],
+  };
+
   return (
     <FirstClickContext.Provider value={{ hasClickedAny, setHasClickedAny }}>
       <Box display="flex" flexDirection="column">
@@ -357,6 +381,89 @@ function ProfessionalHighlights() {
           🏆 Competitions
         </Typography>
         <CompetitionItem {...competitionData} />
+        <Divider sx={{ my: 5 }} flexItem />
+        <Typography variant="h4" fontWeight="bold">
+          🎨 Random Fun Fact
+        </Typography>
+        <Grid
+          container
+          py={3}
+          display="flex"
+          flexDirection={{ xs: "column", sm: "row" }}
+        >
+          <Grid item xs={12} md={4}>
+            <Box
+              display="flex"
+              height="100%"
+              flexDirection="column"
+              justifyContent="space-between"
+              p={{ sm: 3 }}
+              borderRight={{ sm: 2 }}
+            >
+              <Box>
+                <Typography variant="h5" fontWeight="bold">
+                  {typingSpeedData.title}
+                </Typography>
+                <Typography
+                  variant="h6"
+                  fontWeight="bold"
+                  color="text.secondary"
+                  my={{ xs: 1, sm: 2 }}
+                >
+                  {typingSpeedData.date} (118 WPM Record)
+                </Typography>
+              </Box>
+              <Box width="100%" display="flex" justifyContent="center">
+                <img
+                  src={typingSpeedData.imageSrc}
+                  alt="Typing Speed Test Results"
+                  loading="lazy"
+                  style={{
+                    maxWidth: "100%",
+                    height: "auto",
+                    borderRadius: "8px",
+                    boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+                  }}
+                />
+              </Box>
+            </Box>
+          </Grid>
+          <Grid item xs={12} md={8} pt={{ xs: 3 }}>
+            <Box pl={{ sm: 5 }} mb={1}>
+              <Typography variant="h5" fontWeight="bold">
+                {typingSpeedData.subtitle}
+              </Typography>
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                sx={{ py: { xs: 1 } }}
+              >
+                {typingSpeedData.description}
+              </Typography>
+              <List>
+                {typingSpeedData.achievements.map((achievement, index) => (
+                  <AnimatedListItemButton key={index}>
+                    <ListItemIcon sx={{ display: { xs: "none", sm: "block" } }}>
+                      {achievement.icon}
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={achievement.title}
+                      secondary={achievement.description}
+                      primaryTypographyProps={{
+                        fontSize: 18,
+                        fontWeight: "bold",
+                        mb: 0.5,
+                      }}
+                      secondaryTypographyProps={{
+                        fontSize: 14,
+                      }}
+                    />
+                  </AnimatedListItemButton>
+                ))}
+              </List>
+            </Box>
+          </Grid>
+        </Grid>
       </Box>
     </FirstClickContext.Provider>
   );
