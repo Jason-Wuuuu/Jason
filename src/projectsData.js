@@ -8,7 +8,7 @@ export const projects = [
       "This suite of Python scripts and Jupyter notebook reconstructs a complete Firstrade portfolio transaction history from CSV data. It enables precise tracking of portfolio evolution, detailed performance analysis over any time period, and accurate return calculations that account for dividends, reinvestments, and corporate actions like stock splits.",
     tech_stack: "Python, Pandas, Matplotlib, Seaborn",
     githubUrl: "https://github.com/Jason-Wuuuu/Firstrade-Portfolio-Analyzer",
-    demoUrl: "",
+    demoUrl: "/portfolio_report_2023-12-19.html",
     screenshots: [
       "firstrade/output1.png",
       "firstrade/output2.png",
