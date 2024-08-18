@@ -131,6 +131,11 @@ const ProjectCard = React.memo(({ project }) => {
 
   const handleExpandClick = () => setExpanded(!expanded);
 
+  const handleDemoClick = (e) => {
+    e.preventDefault();
+    window.open(project.demoUrl, "_blank", "noopener,noreferrer");
+  };
+
   return (
     <Grid
       item
@@ -232,8 +237,7 @@ const ProjectCard = React.memo(({ project }) => {
             <Tooltip title="Demo" placement="top-start">
               <IconButton
                 aria-label="demo"
-                href={project.demoUrl}
-                target="_blank"
+                onClick={handleDemoClick}
                 sx={{ marginLeft: 1 }}
               >
                 <OndemandVideoIcon />
