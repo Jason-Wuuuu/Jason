@@ -304,22 +304,22 @@ function ProfessionalHighlights() {
       {
         title: "Responsive UI Development",
         description:
-          "Leveraged Next.js, TypeScript, and GraphQL to create dynamic and responsive UI components for the company website, ensuring a seamless user experience across devices.",
+          "Leveraged Next.js, TypeScript, and GraphQL to create dynamic and responsive UI components for the company website.",
       },
       {
-        title: "Storybook Implementation",
+        title: "Storybook Integration",
         description:
-          "Integrated Storybook into the development workflow, facilitating isolated component development and testing. This enhancement significantly improved development efficiency and overall code quality.",
+          "Implemented Storybook for isolated component development, improving documentation, enhancing code quality, and boosting team efficiency.",
       },
       {
-        title: "Legacy Code Modernization",
+        title: "Code Modernization",
         description:
-          "Spearheaded the transition from legacy v1 codebase to v2, aligning with the latest Next.js best practices. Utilized React hooks to optimize performance and improve code maintainability.",
+          "Helped transition from v1 to v2 codebase, adopting Next.js best practices and React hooks for better performance.",
       },
       {
-        title: "Knowledge Sharing and Agile Practices",
+        title: "Team Collaboration",
         description:
-          "Actively contributed to the team's growth by presenting Git techniques and participating in Scrum meetings, fostering a collaborative and efficient development environment.",
+          "Shared Git knowledge and participated in Scrum meetings, contributing to a collaborative development environment.",
       },
     ],
   };
