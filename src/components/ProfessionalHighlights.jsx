@@ -10,6 +10,7 @@ import {
   Typography,
   Divider,
   Tooltip,
+  Link,
 } from "@mui/material";
 import { styled, keyframes } from "@mui/system";
 import SpeedIcon from "@mui/icons-material/Speed";
@@ -329,6 +330,7 @@ function ProfessionalHighlights() {
     subtitle: "🤖 Senior Project",
     description:
       'Pitched and led the backend development of "Memory Maker", an iOS app created with 5 teammates, featuring machine learning for photography guidance and virtual postcard creation, earning multiple awards.',
+    imageSrc: "./images/Award.png",
     content: [
       {
         title: "🥈 2nd Place",
@@ -344,12 +346,29 @@ function ProfessionalHighlights() {
           "TKU Department of Information Management Project Competition",
       },
     ],
-    imageSrc: "./images/Award.png",
   };
 
   const typingSpeedData = {
     title: "Fast Typer",
-    date: "Oct 2022",
+    date: (
+      <>
+        Tested on{" "}
+        <Link
+          href="https://monkeytype.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          sx={{
+            color: "inherit",
+            textDecoration: "underline",
+            "&:hover": {
+              color: "whitesmoke",
+            },
+          }}
+        >
+          MonkeyType
+        </Link>
+      </>
+    ),
     subtitle: "🤘 I can type fast!",
     description:
       "This has nothing to do with the rest of my portfolio, but it's a fun skill I'm proud of!",
