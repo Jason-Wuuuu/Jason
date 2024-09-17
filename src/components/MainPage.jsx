@@ -551,14 +551,14 @@ function MainPage() {
   const experienceItems = [
     {
       icon: BusinessIcon,
-      primary: "Crypto-Arsenal",
-      secondary: "Web3 SWE Intern (Frontend)",
+      primary: "Blockhouse",
+      secondary: "Full Stack Engineer (Part-Time)",
     },
-    { icon: PlaceIcon, primary: "Location", secondary: "Remote" },
+    { icon: PlaceIcon, primary: "Location", secondary: "NYC (Remote)" },
     {
       icon: CalendarMonthIcon,
       primary: "Date",
-      secondary: "May 2024 - Present",
+      secondary: "Aug 2024 - Present",
     },
   ];
 
