@@ -41,9 +41,11 @@ const floatAnimation = keyframes`
 const StyledListItemButton = styled(ListItemButton)(({ theme }) => ({
   position: "relative",
   transition: "all 0.3s ease-in-out",
+  borderRadius: "5px", // Add rounded corners
   "&:hover": {
     backgroundColor: theme.palette.action.hover,
     transform: "scale(1.03)",
+    boxShadow: "0 6px 12px rgba(0, 0, 0, 0.15)",
   },
 }));
 
@@ -100,6 +102,13 @@ const AnimatedListItemButton = memo(({ children, onClick, ...props }) => {
   );
 });
 
+const EmphasizedWord = styled("strong")(({ theme }) => ({
+  color: "#FFFFFF", // White color
+  fontSize: "1.05em",
+  display: "inline-block",
+  textDecoration: "underline", // Add underline
+}));
+
 const ExperienceItem = memo(
   ({ title, date, company, location, responsibilities }) => {
     const [shakingIcons, setShakingIcons] = useState({});
@@ -114,7 +123,7 @@ const ExperienceItem = memo(
     return (
       <Grid
         container
-        py={3}
+        py={5}
         display="flex"
         flexDirection={{ xs: "column", sm: "row" }}
       >
@@ -128,7 +137,10 @@ const ExperienceItem = memo(
           >
             <Box>
               <Typography variant="h5" fontWeight="bold">
-                {title}
+                {title.split("\n")[0]}
+              </Typography>
+              <Typography variant="h6" fontWeight="bold">
+                {title.split("\n")[1]}
               </Typography>
               <Typography
                 variant="h6"
@@ -295,34 +307,114 @@ const HighlightItem = memo(
 function ProfessionalHighlights() {
   const [hasClickedAny, setHasClickedAny] = useState(false);
 
-  const experienceData = {
-    title: "Web3 Software Engineer Intern (Frontend)",
-    date: "May 2024 − Present",
-    company: "🧑‍💻 Crypto-Arsena",
-    location: "Taipei, Taiwan (Remote)",
-    responsibilities: [
-      {
-        title: "Responsive UI Development",
-        description:
-          "Leveraged Next.js, TypeScript, and GraphQL to create dynamic and responsive UI components for the company website.",
-      },
-      {
-        title: "Storybook Integration",
-        description:
-          "Implemented Storybook for isolated component development, improving documentation, enhancing code quality, and boosting team efficiency.",
-      },
-      {
-        title: "Code Modernization",
-        description:
-          "Helped transition from v1 to v2 codebase, adopting Next.js best practices and React hooks for better performance.",
-      },
-      {
-        title: "Team Collaboration",
-        description:
-          "Shared Git knowledge and participated in Scrum meetings, contributing to a collaborative development environment.",
-      },
-    ],
-  };
+  const experienceData = [
+    {
+      title: "Full Stack Engineer\n(Part-time)",
+      date: "Aug 2023 − Present",
+      company: "🧑‍💻 Blockhouse",
+      location: "New York City (Remote)",
+      responsibilities: [
+        {
+          title: "Full Stack Development",
+          description: (
+            <>
+              Develop full-stack applications using{" "}
+              <EmphasizedWord>Next.js</EmphasizedWord>,{" "}
+              <EmphasizedWord>TypeScript</EmphasizedWord>,{" "}
+              <EmphasizedWord>Python</EmphasizedWord>,{" "}
+              <EmphasizedWord>Django</EmphasizedWord>, and{" "}
+              <EmphasizedWord>FastAPI</EmphasizedWord>, ensuring pixel-perfect
+              implementation from <EmphasizedWord>Figma</EmphasizedWord>{" "}
+              designs.
+            </>
+          ),
+        },
+        {
+          title: "Full-Stack Optimization",
+          description: (
+            <>
+              Optimize <EmphasizedWord>API calls</EmphasizedWord> and implement{" "}
+              <EmphasizedWord>caching strategies</EmphasizedWord> on the
+              frontend, while fine-tuning{" "}
+              <EmphasizedWord>database queries</EmphasizedWord> using{" "}
+              <EmphasizedWord>PostgreSQL</EmphasizedWord> on the backend,
+              enhancing overall application performance and data retrieval
+              efficiency.
+            </>
+          ),
+        },
+        {
+          title: "Feature Implementation",
+          description: (
+            <>
+              Implement new features collaboratively, ensuring seamless
+              integration across the stack and adherence to specifications.
+            </>
+          ),
+        },
+        {
+          title: "Agile and Performance Optimization",
+          description: (
+            <>
+              Participate in <EmphasizedWord>Agile processes</EmphasizedWord>{" "}
+              and utilize <EmphasizedWord>Posthog</EmphasizedWord> for
+              application monitoring and performance optimization.
+            </>
+          ),
+        },
+      ],
+    },
+    {
+      title: "Web3 Frontend Engineer\n(Intern)",
+      date: "May 2024 − Present",
+      company: "🧑‍💻 Crypto-Arsena",
+      location: "Taipei, Taiwan (Remote)",
+      responsibilities: [
+        {
+          title: "Responsive UI Development",
+          description: (
+            <>
+              Leveraged <EmphasizedWord>Next.js</EmphasizedWord>,{" "}
+              <EmphasizedWord>TypeScript</EmphasizedWord>, and{" "}
+              <EmphasizedWord>GraphQL</EmphasizedWord> to create dynamic and
+              responsive UI components for the company website.
+            </>
+          ),
+        },
+        {
+          title: "Storybook Integration",
+          description: (
+            <>
+              Implemented <EmphasizedWord>Storybook</EmphasizedWord> for
+              isolated component development, improving documentation, enhancing
+              code quality, and boosting team efficiency.
+            </>
+          ),
+        },
+        {
+          title: "Code Modernization",
+          description: (
+            <>
+              Helped transition from v1 to v2 codebase, adopting{" "}
+              <EmphasizedWord>Next.js best practices</EmphasizedWord> and{" "}
+              <EmphasizedWord>React hooks</EmphasizedWord> for better
+              performance.
+            </>
+          ),
+        },
+        {
+          title: "Team Collaboration",
+          description: (
+            <>
+              Shared <EmphasizedWord>Git</EmphasizedWord> knowledge and
+              participated in <EmphasizedWord>Scrum</EmphasizedWord> meetings,
+              contributing to a collaborative development environment.
+            </>
+          ),
+        },
+      ],
+    },
+  ];
 
   const competitionData = {
     title: "Memory Maker",
@@ -393,7 +485,9 @@ function ProfessionalHighlights() {
         <Typography variant="h4" fontWeight="bold">
           💼 Experience
         </Typography>
-        <ExperienceItem {...experienceData} />
+        {experienceData.map((experience, index) => (
+          <ExperienceItem key={index} {...experience} />
+        ))}
 
         <Divider sx={{ my: 5 }} flexItem />
 
