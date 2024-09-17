@@ -318,28 +318,24 @@ function ProfessionalHighlights() {
           title: "Full Stack Development",
           description: (
             <>
-              Develop full-stack applications using{" "}
+              Develop pixel-perfect web applications using{" "}
               <EmphasizedWord>Next.js</EmphasizedWord>,{" "}
-              <EmphasizedWord>TypeScript</EmphasizedWord>,{" "}
-              <EmphasizedWord>Python</EmphasizedWord>,{" "}
-              <EmphasizedWord>Django</EmphasizedWord>, and{" "}
-              <EmphasizedWord>FastAPI</EmphasizedWord>, ensuring pixel-perfect
-              implementation from <EmphasizedWord>Figma</EmphasizedWord>{" "}
-              designs.
+              <EmphasizedWord>TypeScript</EmphasizedWord>, and{" "}
+              <EmphasizedWord>Python</EmphasizedWord>, meticulously translating{" "}
+              <EmphasizedWord>Figma</EmphasizedWord> designs into precise,
+              functional interfaces.
             </>
           ),
         },
         {
-          title: "Full-Stack Optimization",
+          title: "Performance Optimization",
           description: (
             <>
-              Optimize <EmphasizedWord>API calls</EmphasizedWord> and implement{" "}
-              <EmphasizedWord>caching strategies</EmphasizedWord> on the
-              frontend, while fine-tuning{" "}
-              <EmphasizedWord>database queries</EmphasizedWord> using{" "}
-              <EmphasizedWord>PostgreSQL</EmphasizedWord> on the backend,
-              enhancing overall application performance and data retrieval
-              efficiency.
+              Enhance application speed and visual fidelity by refining{" "}
+              <EmphasizedWord>API calls</EmphasizedWord>, implementing{" "}
+              <EmphasizedWord>caching strategies</EmphasizedWord>, and
+              optimizing <EmphasizedWord>PostgreSQL</EmphasizedWord> queries for
+              efficient data retrieval.
             </>
           ),
         },
@@ -347,18 +343,20 @@ function ProfessionalHighlights() {
           title: "Feature Implementation",
           description: (
             <>
-              Implement new features collaboratively, ensuring seamless
-              integration across the stack and adherence to specifications.
+              Collaborate with team members to develop and integrate new
+              features across the full stack, ensuring pixel-perfect alignment
+              with project requirements and design specifications.
             </>
           ),
         },
         {
-          title: "Agile and Performance Optimization",
+          title: "Agile Practices",
           description: (
             <>
-              Participate in <EmphasizedWord>Agile processes</EmphasizedWord>{" "}
+              Participate in <EmphasizedWord>Agile workflows</EmphasizedWord>{" "}
               and utilize <EmphasizedWord>Posthog</EmphasizedWord> for
-              application monitoring and performance optimization.
+              continuous monitoring and improvement of application performance
+              and visual consistency.
             </>
           ),
         },
@@ -371,34 +369,34 @@ function ProfessionalHighlights() {
       location: "Taipei, Taiwan (Remote)",
       responsibilities: [
         {
-          title: "Responsive UI Development",
+          title: "UI Development",
           description: (
             <>
-              Leveraged <EmphasizedWord>Next.js</EmphasizedWord>,{" "}
+              Create responsive UI components using{" "}
+              <EmphasizedWord>Next.js</EmphasizedWord>,{" "}
               <EmphasizedWord>TypeScript</EmphasizedWord>, and{" "}
-              <EmphasizedWord>GraphQL</EmphasizedWord> to create dynamic and
-              responsive UI components for the company website.
+              <EmphasizedWord>GraphQL</EmphasizedWord> to enhance the company
+              website.
             </>
           ),
         },
         {
-          title: "Storybook Integration",
+          title: "Component Documentation",
           description: (
             <>
-              Implemented <EmphasizedWord>Storybook</EmphasizedWord> for
-              isolated component development, improving documentation, enhancing
-              code quality, and boosting team efficiency.
+              Implement <EmphasizedWord>Storybook</EmphasizedWord> for improved
+              component documentation and development efficiency.
             </>
           ),
         },
         {
-          title: "Code Modernization",
+          title: "Codebase Modernization",
           description: (
             <>
-              Helped transition from v1 to v2 codebase, adopting{" "}
+              Assist in transitioning from v1 to v2 codebase, incorporating{" "}
               <EmphasizedWord>Next.js best practices</EmphasizedWord> and{" "}
-              <EmphasizedWord>React hooks</EmphasizedWord> for better
-              performance.
+              <EmphasizedWord>React hooks</EmphasizedWord> for enhanced
+              functionality.
             </>
           ),
         },
@@ -406,9 +404,9 @@ function ProfessionalHighlights() {
           title: "Team Collaboration",
           description: (
             <>
-              Shared <EmphasizedWord>Git</EmphasizedWord> knowledge and
-              participated in <EmphasizedWord>Scrum</EmphasizedWord> meetings,
-              contributing to a collaborative development environment.
+              Share <EmphasizedWord>Git</EmphasizedWord> expertise and actively
+              participate in <EmphasizedWord>Scrum</EmphasizedWord> meetings to
+              foster a collaborative development environment.
             </>
           ),
         },
