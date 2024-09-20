@@ -312,7 +312,7 @@ function ProfessionalHighlights() {
       title: "Full Stack Engineer\n(Part-time)",
       date: "Aug 2023 − Present",
       company: "🧑‍💻 Blockhouse",
-      location: "New York City (Remote)",
+      location: "New York City, USA (Remote)",
       responsibilities: [
         {
           title: "Full Stack Development",

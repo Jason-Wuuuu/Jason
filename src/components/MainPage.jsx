@@ -554,7 +554,7 @@ function MainPage() {
       primary: "Blockhouse",
       secondary: "Full Stack Engineer",
     },
-    { icon: PlaceIcon, primary: "Location", secondary: "NYC" },
+    { icon: PlaceIcon, primary: "Location", secondary: "New York City, USA" },
     {
       icon: CalendarMonthIcon,
       primary: "Date",
