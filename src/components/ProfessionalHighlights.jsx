@@ -318,12 +318,13 @@ function ProfessionalHighlights() {
           title: "Full Stack Development",
           description: (
             <>
-              Develop pixel-perfect web applications using{" "}
+              Develop and maintain apps using{" "}
               <EmphasizedWord>Next.js</EmphasizedWord>,{" "}
-              <EmphasizedWord>TypeScript</EmphasizedWord>, and{" "}
-              <EmphasizedWord>Python</EmphasizedWord>, meticulously translating{" "}
-              <EmphasizedWord>Figma</EmphasizedWord> designs into precise,
-              functional interfaces.
+              <EmphasizedWord>TypeScript</EmphasizedWord>,{" "}
+              <EmphasizedWord>Django</EmphasizedWord>, and{" "}
+              <EmphasizedWord>FastAPI</EmphasizedWord>. Turn{" "}
+              <EmphasizedWord>Figma</EmphasizedWord> designs into pixel-perfect
+              reality and smoothly integrate new features.
             </>
           ),
         },
@@ -331,32 +332,31 @@ function ProfessionalHighlights() {
           title: "Performance Optimization",
           description: (
             <>
-              Enhance application speed and visual fidelity by refining{" "}
-              <EmphasizedWord>API calls</EmphasizedWord>, implementing{" "}
-              <EmphasizedWord>caching strategies</EmphasizedWord>, and
-              optimizing <EmphasizedWord>PostgreSQL</EmphasizedWord> queries for
-              efficient data retrieval.
+              Boost app performance by optimizing{" "}
+              <EmphasizedWord>API calls</EmphasizedWord>,{" "}
+              <EmphasizedWord>caching strategies</EmphasizedWord>, and{" "}
+              <EmphasizedWord>PostgreSQL</EmphasizedWord> queries.
             </>
           ),
         },
         {
-          title: "Feature Implementation",
+          title: "Testing and CI/CD",
           description: (
             <>
-              Collaborate with team members to develop and integrate new
-              features across the full stack, ensuring pixel-perfect alignment
-              with project requirements and design specifications.
+              Set up <EmphasizedWord>Cypress</EmphasizedWord> end-to-end tests
+              for core features and automate deployments with{" "}
+              <EmphasizedWord>GitHub Actions</EmphasizedWord> to keep our code
+              solid.
             </>
           ),
         },
         {
-          title: "Agile Practices",
+          title: "Team Player",
           description: (
             <>
-              Participate in <EmphasizedWord>Agile workflows</EmphasizedWord>{" "}
-              and utilize <EmphasizedWord>Posthog</EmphasizedWord> for
-              continuous monitoring and improvement of application performance
-              and visual consistency.
+              Actively join Agile processes and use{" "}
+              <EmphasizedWord>Posthog</EmphasizedWord> to monitor and optimize
+              our application.
             </>
           ),
         },
@@ -372,11 +372,11 @@ function ProfessionalHighlights() {
           title: "UI Development",
           description: (
             <>
-              Create responsive UI components using{" "}
+              Create responsive UI components with{" "}
               <EmphasizedWord>Next.js</EmphasizedWord>,{" "}
               <EmphasizedWord>TypeScript</EmphasizedWord>, and{" "}
-              <EmphasizedWord>GraphQL</EmphasizedWord> to enhance the company
-              website.
+              <EmphasizedWord>GraphQL</EmphasizedWord>, including building
+              queries and mutations.
             </>
           ),
         },
@@ -384,29 +384,30 @@ function ProfessionalHighlights() {
           title: "Component Documentation",
           description: (
             <>
-              Implement <EmphasizedWord>Storybook</EmphasizedWord> for improved
-              component documentation and development efficiency.
+              Implement <EmphasizedWord>Storybook</EmphasizedWord> for component
+              development and testing, boosting efficiency and code quality.
             </>
           ),
         },
         {
-          title: "Codebase Modernization",
+          title: "Code Upgrade",
           description: (
             <>
-              Assist in transitioning from v1 to v2 codebase, incorporating{" "}
-              <EmphasizedWord>Next.js best practices</EmphasizedWord> and{" "}
-              <EmphasizedWord>React hooks</EmphasizedWord> for enhanced
-              functionality.
+              Rewrite legacy v1 codebase to v2, following latest{" "}
+              <EmphasizedWord>Next.js</EmphasizedWord> practices and optimizing
+              performance with <EmphasizedWord>React hooks</EmphasizedWord>.
+              Introduce <EmphasizedWord>React-Aria</EmphasizedWord> and{" "}
+              <EmphasizedWord>React-Resizable</EmphasizedWord> components.
             </>
           ),
         },
         {
-          title: "Team Collaboration",
+          title: "Collaboration",
           description: (
             <>
-              Share <EmphasizedWord>Git</EmphasizedWord> expertise and actively
-              participate in <EmphasizedWord>Scrum</EmphasizedWord> meetings to
-              foster a collaborative development environment.
+              Contribute to team growth by sharing{" "}
+              <EmphasizedWord>Git</EmphasizedWord> techniques and actively
+              participating in <EmphasizedWord>Scrum</EmphasizedWord> meetings.
             </>
           ),
         },
