@@ -31,7 +31,7 @@ export const projects = [
   {
     title: "Bank Ledger System",
     year: "2024",
-    course: "Interview 2nd Round",
+    course: "Side",
     category: "Web Dev",
     description:
       "Developed a bank ledger system implementing the Event Sourcing pattern to maintain an immutable transaction history, ensuring auditability and reconstruction of account balances.",
