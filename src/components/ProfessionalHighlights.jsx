@@ -365,7 +365,7 @@ function ProfessionalHighlights() {
     {
       title: "Web3 Frontend Engineer\n(Intern)",
       date: "May 2024 − Present",
-      company: "🧑‍💻 Crypto-Arsena",
+      company: "🧑‍💻 Crypto-Arsenal",
       location: "Taipei, Taiwan (Remote)",
       responsibilities: [
         {
