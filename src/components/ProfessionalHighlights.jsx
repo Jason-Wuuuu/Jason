@@ -309,7 +309,7 @@ function ProfessionalHighlights() {
 
   const experienceData = [
     {
-      title: "Full Stack Engineer\n(Part-time)",
+      title: "Full Stack Intern\n",
       date: "Aug 2023 − Present",
       company: "🧑‍💻 Blockhouse",
       location: "New York City, USA (Remote)",
@@ -364,7 +364,7 @@ function ProfessionalHighlights() {
     },
     {
       title: "Web3 Frontend Engineer\n(Intern)",
-      date: "May 2024 − Present",
+      date: "May 2024 − Nov 2024",
       company: "🧑‍💻 Crypto-Arsenal",
       location: "Taipei, Taiwan (Remote)",
       responsibilities: [
