@@ -118,7 +118,7 @@ function Home() {
 
   return (
     <Fade in timeout={{ appear: 500, enter: 1000 }}>
-      <Box py={{ xs: 12, sm: 10 }} sx={{ width: "85%", margin: "auto" }}>
+      <Box py={{ xs: 12, sm: 10 }} sx={{ width: "95%", margin: "auto" }}>
         <Section minHeight="85vh" centerContent>
           <SectionTitle>Jason's Portfolio</SectionTitle>
           <Suspense fallback={<CircularProgress color="inherit" />}>

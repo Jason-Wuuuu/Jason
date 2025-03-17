@@ -194,7 +194,8 @@ const ExperienceItem = memo(
                     }}
                     secondary={resp.description}
                     secondaryTypographyProps={{
-                      variant: "body2",
+                      fontSize: { xs: 13, sm: 15 },
+                      textAlign: "justify",
                     }}
                   />
                 </AnimatedListItemButton>
@@ -265,8 +266,8 @@ const HighlightItem = memo(
               {subtitle}
             </Typography>
             <Typography
-              variant="body2"
               color="text.secondary"
+              fontSize={{ xs: 13, sm: 15 }}
               sx={{ py: { xs: 1 } }}
             >
               {description}
@@ -291,7 +292,7 @@ const HighlightItem = memo(
                     }}
                     secondary={item.description}
                     secondaryTypographyProps={{
-                      fontSize: 14,
+                      fontSize: { xs: 13, sm: 15 },
                     }}
                   />
                 </AnimatedListItemButton>
@@ -315,38 +316,48 @@ function ProfessionalHighlights() {
       location: "New York City, USA (Remote)",
       responsibilities: [
         {
-          title: "Full Stack Development",
+          title: "Full Stack Web App Development",
           description: (
             <>
-              Develop and maintain apps using{" "}
-              <EmphasizedWord>Next.js</EmphasizedWord>,{" "}
-              <EmphasizedWord>TypeScript</EmphasizedWord>,{" "}
-              <EmphasizedWord>Django</EmphasizedWord>, and{" "}
+              Build awesome apps with <EmphasizedWord>Next.js</EmphasizedWord>,{" "}
+              <EmphasizedWord>TypeScript</EmphasizedWord>, and{" "}
               <EmphasizedWord>FastAPI</EmphasizedWord>. Turn{" "}
               <EmphasizedWord>Figma</EmphasizedWord> designs into pixel-perfect
-              reality and smoothly integrate new features.
+              reality across all devices.
             </>
           ),
         },
         {
-          title: "Performance Optimization",
+          title: "Mobile Development",
           description: (
             <>
-              Boost app performance by optimizing{" "}
-              <EmphasizedWord>API calls</EmphasizedWord>,{" "}
-              <EmphasizedWord>caching strategies</EmphasizedWord>, and{" "}
-              <EmphasizedWord>PostgreSQL</EmphasizedWord> queries.
+              Expanded our reach by building cross-platform mobile features with{" "}
+              <EmphasizedWord>React Native</EmphasizedWord>, making sure
+              everything works smoothly on both iOS and Android.
             </>
           ),
         },
         {
-          title: "Testing and CI/CD",
+          title: "Performance Wizard",
           description: (
             <>
-              Set up <EmphasizedWord>Cypress</EmphasizedWord> end-to-end tests
-              for core features and automate deployments with{" "}
-              <EmphasizedWord>GitHub Actions</EmphasizedWord> to keep our code
-              solid.
+              Supercharged app speed by <EmphasizedWord>40%</EmphasizedWord>{" "}
+              using <EmphasizedWord>Server-Side Rendering(SSR)</EmphasizedWord>,{" "}
+              <EmphasizedWord>SWR</EmphasizedWord> for smart data fetching, and
+              React's <EmphasizedWord>useMemo/useCallback</EmphasizedWord>{" "}
+              magic.
+            </>
+          ),
+        },
+        {
+          title: "Testing & CI/CD",
+          description: (
+            <>
+              Slashed testing time by <EmphasizedWord>60%</EmphasizedWord> with{" "}
+              <EmphasizedWord>Cypress</EmphasizedWord> tests and built robust{" "}
+              <EmphasizedWord>CI/CD</EmphasizedWord> pipelines using{" "}
+              <EmphasizedWord>GitHub Actions</EmphasizedWord>. No more sneaky
+              bugs in production!
             </>
           ),
         },
@@ -354,9 +365,10 @@ function ProfessionalHighlights() {
           title: "Team Player",
           description: (
             <>
-              Actively join Agile processes and use{" "}
-              <EmphasizedWord>Posthog</EmphasizedWord> to monitor and optimize
-              our application.
+              Keep things running smooth with{" "}
+              <EmphasizedWord>Posthog</EmphasizedWord> and{" "}
+              <EmphasizedWord>Retool</EmphasizedWord> monitoring, while rocking
+              our <EmphasizedWord>Agile</EmphasizedWord> sprints.
             </>
           ),
         },

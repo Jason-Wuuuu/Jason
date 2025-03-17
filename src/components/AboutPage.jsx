@@ -110,7 +110,7 @@ const StepContentCard = React.memo(({ step, index }) => (
             key={`step_${index}_line_${i}`}
             fontWeight="bold"
             lineHeight={2}
-            sx={{ fontSize: { xs: 14, sm: 15 } }}
+            sx={{ fontSize: { xs: 14, sm: 16 } }}
           >
             {line}
           </Typography>
@@ -213,7 +213,7 @@ function AboutPage() {
       alignContent="center"
       direction="column"
     >
-      <Grid item width={{ xs: "90vw", md: "70vw", lg: "60vw" }}>
+      <Grid item width={{ xs: "90vw", md: "70vw", lg: "70vw" }}>
         <Stepper activeStep={activeStep} orientation="vertical">
           {stepsContent}
         </Stepper>
