@@ -540,7 +540,7 @@ function MainPage() {
       primary: "Stevens Institute of Technology",
       secondary: "Computer Science, M.S.",
     },
-    { icon: GradeIcon, primary: "GPA", secondary: "3.87 / 4.0" },
+    { icon: GradeIcon, primary: "GPA", secondary: "3.9 / 4.0" },
     {
       icon: CalendarMonthIcon,
       primary: "Date",
