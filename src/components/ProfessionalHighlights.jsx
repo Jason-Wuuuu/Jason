@@ -384,11 +384,11 @@ function ProfessionalHighlights() {
           title: "UI Development",
           description: (
             <>
-              Create responsive UI components with{" "}
+              Built responsive UI components with{" "}
               <EmphasizedWord>Next.js</EmphasizedWord>,{" "}
               <EmphasizedWord>TypeScript</EmphasizedWord>, and{" "}
-              <EmphasizedWord>GraphQL</EmphasizedWord>, including building
-              queries and mutations.
+              <EmphasizedWord>GraphQL</EmphasizedWord>, mastering queries and
+              mutations along the way.
             </>
           ),
         },
@@ -396,8 +396,9 @@ function ProfessionalHighlights() {
           title: "Component Documentation",
           description: (
             <>
-              Implement <EmphasizedWord>Storybook</EmphasizedWord> for component
-              development and testing, boosting efficiency and code quality.
+              Implemented <EmphasizedWord>Storybook</EmphasizedWord> to
+              streamline component development and testing, making our codebase
+              more maintainable and developer-friendly.
             </>
           ),
         },
@@ -405,11 +406,10 @@ function ProfessionalHighlights() {
           title: "Code Upgrade",
           description: (
             <>
-              Rewrite legacy v1 codebase to v2, following latest{" "}
-              <EmphasizedWord>Next.js</EmphasizedWord> practices and optimizing
-              performance with <EmphasizedWord>React hooks</EmphasizedWord>.
-              Introduce <EmphasizedWord>React-Aria</EmphasizedWord> and{" "}
-              <EmphasizedWord>React-Resizable</EmphasizedWord> components.
+              Modernized legacy v1 codebase to v2 with latest{" "}
+              <EmphasizedWord>Next.js</EmphasizedWord> practices. Added{" "}
+              <EmphasizedWord>React-Aria</EmphasizedWord> and{" "}
+              <EmphasizedWord>React-Resizable</EmphasizedWord> for better UX.
             </>
           ),
         },
@@ -417,9 +417,10 @@ function ProfessionalHighlights() {
           title: "Collaboration",
           description: (
             <>
-              Contribute to team growth by sharing{" "}
-              <EmphasizedWord>Git</EmphasizedWord> techniques and actively
-              participating in <EmphasizedWord>Scrum</EmphasizedWord> meetings.
+              Shared valuable <EmphasizedWord>Git</EmphasizedWord> knowledge
+              while actively participating in{" "}
+              <EmphasizedWord>Scrum</EmphasizedWord> meetings to keep projects
+              moving forward.
             </>
           ),
         },
