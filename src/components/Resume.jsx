@@ -4,7 +4,7 @@ import { OpenInNew as OpenInNewIcon } from "@mui/icons-material";
 
 const Resume = () => {
   const resumeUrl =
-    "https://drive.google.com/file/d/16smLpB8f-Cr7NqT-kJnWzxGh7SrcWrbp/preview";
+    "https://drive.google.com/file/d/1NHWFbXm8ztQXxG5Xjcbhuh9pe662B21A/preview";
 
   const handleOpenResume = () => {
     window.open(resumeUrl, "_blank", "noopener,noreferrer");
