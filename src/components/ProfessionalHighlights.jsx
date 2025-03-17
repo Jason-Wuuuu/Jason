@@ -343,9 +343,8 @@ function ProfessionalHighlights() {
             <>
               Supercharged app speed by <EmphasizedWord>40%</EmphasizedWord>{" "}
               using <EmphasizedWord>Server-Side Rendering(SSR)</EmphasizedWord>,{" "}
-              <EmphasizedWord>SWR</EmphasizedWord> for smart data fetching, and
-              React's <EmphasizedWord>useMemo/useCallback</EmphasizedWord>{" "}
-              magic.
+              efficient data fetching, and React's{" "}
+              <EmphasizedWord>useMemo/useCallback</EmphasizedWord> magic.
             </>
           ),
         },
