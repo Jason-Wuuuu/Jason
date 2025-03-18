@@ -188,14 +188,14 @@ const ExperienceItem = memo(
                   <ListItemText
                     primary={resp.title}
                     primaryTypographyProps={{
-                      fontSize: { xs: 16, sm: 18 },
+                      fontSize: 18,
                       fontWeight: "bold",
                       mb: 0.5,
                     }}
                     secondary={resp.description}
                     secondaryTypographyProps={{
-                      fontSize: { xs: 13, sm: 15 },
-                      textAlign: "justify",
+                      fontSize: 15,
+                      textAlign: { xs: "left", sm: "justify" },
                     }}
                   />
                 </AnimatedListItemButton>
@@ -267,7 +267,7 @@ const HighlightItem = memo(
             </Typography>
             <Typography
               color="text.secondary"
-              fontSize={{ xs: 13, sm: 15 }}
+              fontSize={15}
               sx={{ py: { xs: 1 } }}
             >
               {description}
@@ -286,13 +286,13 @@ const HighlightItem = memo(
                   <ListItemText
                     primary={item.title}
                     primaryTypographyProps={{
-                      fontSize: { xs: 16, sm: 18 },
+                      fontSize: 18,
                       fontWeight: "bold",
                       mb: 0.5,
                     }}
                     secondary={item.description}
                     secondaryTypographyProps={{
-                      fontSize: { xs: 13, sm: 15 },
+                      fontSize: 15,
                     }}
                   />
                 </AnimatedListItemButton>
