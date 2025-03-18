@@ -213,7 +213,7 @@ function AboutPage() {
       alignContent="center"
       direction="column"
     >
-      <Grid item width={{ xs: "90vw", md: "70vw", lg: "70vw" }}>
+      <Grid item width={{ xs: "90vw", md: "70vw", lg: "70vw" }} maxWidth={900}>
         <Stepper activeStep={activeStep} orientation="vertical">
           {stepsContent}
         </Stepper>
