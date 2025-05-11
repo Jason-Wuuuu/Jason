@@ -323,17 +323,28 @@ function ProfessionalHighlights() {
               <EmphasizedWord>TypeScript</EmphasizedWord>, and{" "}
               <EmphasizedWord>FastAPI</EmphasizedWord>. Turn{" "}
               <EmphasizedWord>Figma</EmphasizedWord> designs into pixel-perfect
-              reality across all devices.
+              reality.
             </>
           ),
         },
         {
-          title: "Mobile Development",
+          title: "Mobile & Extension Development",
           description: (
             <>
-              Expanded our reach by building cross-platform mobile features with{" "}
-              <EmphasizedWord>React Native</EmphasizedWord>, making sure
-              everything works smoothly on both iOS and Android.
+              Expanded reach by bringing web magic to iOS, Android, and all
+              major browsers with <EmphasizedWord>React Native</EmphasizedWord>{" "}
+              and <EmphasizedWord>Plasmo</EmphasizedWord>, making sure
+              everything works smoothly everywhere.
+            </>
+          ),
+        },
+        {
+          title: "Interactive Data Visualization",
+          description: (
+            <>
+              Developed interactive <EmphasizedWord>charts</EmphasizedWord> and{" "}
+              <EmphasizedWord>dashboards</EmphasizedWord> for financial data,
+              enhancing user insight with complex metrics.
             </>
           ),
         },
@@ -341,8 +352,8 @@ function ProfessionalHighlights() {
           title: "Performance Wizard",
           description: (
             <>
-              Supercharged app speed by <EmphasizedWord>40%</EmphasizedWord>{" "}
-              using <EmphasizedWord>Server-Side Rendering(SSR)</EmphasizedWord>,{" "}
+              Supercharged app speed by <EmphasizedWord>38%</EmphasizedWord>{" "}
+              using <EmphasizedWord>Server-Side Rendering</EmphasizedWord>,{" "}
               efficient data fetching, and React's{" "}
               <EmphasizedWord>useMemo/useCallback</EmphasizedWord> magic.
             </>
@@ -352,22 +363,11 @@ function ProfessionalHighlights() {
           title: "Testing & CI/CD",
           description: (
             <>
-              Slashed testing time by <EmphasizedWord>60%</EmphasizedWord> with{" "}
+              Slashed testing time by <EmphasizedWord>61%</EmphasizedWord> with{" "}
               <EmphasizedWord>Cypress</EmphasizedWord> tests and built robust{" "}
               <EmphasizedWord>CI/CD</EmphasizedWord> pipelines using{" "}
               <EmphasizedWord>GitHub Actions</EmphasizedWord>. No more sneaky
               bugs in production!
-            </>
-          ),
-        },
-        {
-          title: "Team Player",
-          description: (
-            <>
-              Keep things running smooth with{" "}
-              <EmphasizedWord>Posthog</EmphasizedWord> and{" "}
-              <EmphasizedWord>Retool</EmphasizedWord> monitoring, while rocking
-              our <EmphasizedWord>Agile</EmphasizedWord> sprints.
             </>
           ),
         },

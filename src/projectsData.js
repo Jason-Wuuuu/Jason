@@ -1,6 +1,21 @@
 export const projects = [
   {
-    title: "Firstrade Portfolio Analysis",
+    title: "Firstrade Portfolio Dashboard",
+    year: "2025",
+    course: "Side",
+    category: "Web Dev",
+    description:
+      "A Full-stack web app with FastAPI, Next.js, Tailwind CSS, and Recharts to visualize trading data and portfolio performance",
+    tech_stack: "Next.js, Tailwind CSS, Recharts, FastAPI, yfinance",
+    githubUrl: "",
+    demoUrl: "",
+    screenshots: [
+      "firstrade-dashboard/dashboard.png",
+      "firstrade-dashboard/single-stock.png",
+    ],
+  },
+  {
+    title: "Firstrade Portfolio Analysis (Deprecated)",
     year: "2024",
     course: "Side",
     category: "ML / Data Ana.",
