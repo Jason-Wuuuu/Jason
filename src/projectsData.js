@@ -31,18 +31,18 @@ export const projects = [
       "firstrade/output4.png",
     ],
   },
-  {
-    title: "Tripper",
-    year: "2024",
-    course: "Side",
-    category: "Web Dev",
-    description:
-      "A dynamic, user-friendly web app designed to transform the way travelers plan and experience trips.",
-    tech_stack: "Java, TypeScript, Spring Boot, Next.js, MongoDB",
-    githubUrl: "https://github.com/Jason-Wuuuu/Tripper",
-    demoUrl: "",
-    screenshots: ["tripper/trips.png", "tripper/trips_2.png"],
-  },
+  // {
+  //   title: "Tripper",
+  //   year: "2024",
+  //   course: "Side",
+  //   category: "Web Dev",
+  //   description:
+  //     "A dynamic, user-friendly web app designed to transform the way travelers plan and experience trips.",
+  //   tech_stack: "Java, TypeScript, Spring Boot, Next.js, MongoDB",
+  //   githubUrl: "https://github.com/Jason-Wuuuu/Tripper",
+  //   demoUrl: "",
+  //   screenshots: ["tripper/trips.png", "tripper/trips_2.png"],
+  // },
   {
     title: "Bank Ledger System",
     year: "2024",
