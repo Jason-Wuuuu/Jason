@@ -205,7 +205,7 @@ const ExperienceItem = memo(
         </Grid>
       </Grid>
     );
-  }
+  },
 );
 
 const HighlightItem = memo(
@@ -302,7 +302,7 @@ const HighlightItem = memo(
         </Grid>
       </Grid>
     );
-  }
+  },
 );
 
 function ProfessionalHighlights() {
@@ -310,8 +310,8 @@ function ProfessionalHighlights() {
 
   const experienceData = [
     {
-      title: "Full Stack Engineer\n(Intern)",
-      date: "Aug 2023 − Present",
+      title: "Full Stack Engineer\n",
+      date: "Aug 2024 − Present",
       company: "🧑‍💻 Blockhouse",
       location: "New York City, USA",
       responsibilities: [
@@ -375,7 +375,7 @@ function ProfessionalHighlights() {
     },
     {
       title: "Web3 Frontend Engineer\n(Intern)",
-      date: "May 2024 − Nov 2024",
+      date: "May 2024 − Oct 2024",
       company: "🧑‍💻 Crypto-Arsenal",
       location: "Taipei, Taiwan (Remote)",
       responsibilities: [
