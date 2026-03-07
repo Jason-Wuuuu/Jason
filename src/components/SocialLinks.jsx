@@ -28,7 +28,7 @@ const SocialLinks = memo(() => (
         </IconButton>
       </Tooltip>
     </Box>
-    <Resume />
+    {/* <Resume /> */}
   </Box>
 ));
 

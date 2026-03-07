@@ -20,7 +20,7 @@ function Header() {
 
   const disableHysteresis = useMemo(
     () => location.pathname === "/",
-    [location.pathname]
+    [location.pathname],
   );
 
   const trigger = useScrollTrigger({
@@ -62,9 +62,9 @@ function Header() {
             </Box>
 
             <Box display="flex" gap={{ xs: 1, sm: 2 }}>
-              <Box display={location.pathname !== "/projects" && "none"}>
+              {/* <Box display={location.pathname !== "/projects" && "none"}>
                 <Resume />
-              </Box>
+              </Box> */}
 
               <Chip
                 icon={<LaptopChromebookIcon sx={{ pl: 1 }} />}
