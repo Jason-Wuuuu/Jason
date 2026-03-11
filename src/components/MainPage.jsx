@@ -137,13 +137,13 @@ const ProfileSection = memo(() => {
         }
       }
     },
-    [isXsScreen]
+    [isXsScreen],
   );
 
   useEffect(() => {
     return () => {
       Object.values(chipTimeouts.current).forEach((timeout) =>
-        clearTimeout(timeout)
+        clearTimeout(timeout),
       );
     };
   }, []);
@@ -220,7 +220,7 @@ const ProfileSection = memo(() => {
         }, 1000);
       }
     },
-    [skillChips, setHasClickedAny]
+    [skillChips, setHasClickedAny],
   );
 
   useEffect(() => {
@@ -487,9 +487,9 @@ const ProfileSection = memo(() => {
         </Typography>
       </Grid>
 
-      <Grid item>
+      {/* <Grid item>
         <SocialLinks />
-      </Grid>
+      </Grid> */}
       {!isXsScreen && (
         <Modal
           open={isGameOpen || isClosing}
