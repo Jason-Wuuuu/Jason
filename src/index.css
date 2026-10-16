@@ -77,8 +77,8 @@ p { margin: 0 0 1rem; }
 
 main, footer { padding-inline: max(1.25rem, calc((100vw - 960px) / 2)); }
 section { padding-block: 4rem 1rem; }
-footer { padding-block: 4rem 8rem; color: var(--mute); }
-@media (min-width: 1280px) { footer { padding-block: 1.5rem 1.5rem; } } /* the dock moves to the side here, so no bottom room needed and the page ends sooner */
+footer { padding-block: 2.5rem 4.5rem; color: var(--mute); } /* bottom room just clears the phone dock; the old 8rem left a screen of nothing */
+@media (min-width: 1280px) { footer { padding-block: 3rem 4rem; } } /* the dock moves to the side here: no dock clearance, but a little air so the page does not end flush with the last block */
 #experience { padding-top: 2rem; } /* tight under the hero so its heading peeks on the first screen */
 #experience .timeline { filter: blur(6px); transition: filter .5s steps(5); } /* the heading stays sharp; what follows is blurred until you scroll */
 .scrolled #experience .timeline { filter: none; }
@@ -167,6 +167,33 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
 .photos[data-stack="true"] img:hover { translate: -3px -3px; }
 .photos canvas.mosaic { position: absolute; display: none; pointer-events: none; z-index: 100; } /* the transform effect (see About.jsx) lies over the front photo */
 .about img { border: 4px solid var(--ink); box-shadow: var(--shadow); }
+/* hobbies: the Bag (item slots + a dialog box) and Side Quests (a log), two takes to compare */
+.hobbies { margin-top: 3.5rem; display: grid; gap: 3rem; }
+.hb { font-size: 1.4rem; letter-spacing: .12em; text-transform: uppercase; color: var(--mute); margin-bottom: 1rem; }
+.hb::before { content: "▸ "; color: var(--accent); }
+.pxi { display: block; width: 100%; height: auto; }
+.slots { display: grid; grid-template-columns: repeat(6, 1fr); gap: .9rem; max-width: 40rem; }
+.slot {
+  aspect-ratio: 1; padding: .7rem; display: grid; place-items: center; color: var(--ink);
+  background: color-mix(in srgb, var(--bg) 40%, transparent); border: 3px solid var(--ink); box-shadow: 3px 3px 0 var(--ink);
+  transition: translate .15s steps(2), box-shadow .15s steps(2);
+}
+@media (hover: hover) { .slot:hover { translate: 0 -3px; box-shadow: 3px 6px 0 var(--ink); } }
+.slot:active { translate: 3px 3px; box-shadow: none; }
+.slot[aria-pressed="true"] { border-color: var(--accent); box-shadow: 3px 3px 0 var(--accent); background: color-mix(in srgb, var(--accent) 18%, var(--bg)); }
+.dialog { margin-top: 1.5rem; max-width: 40rem; padding: 1rem 1.25rem; min-height: 5.5rem; background: var(--box); color: var(--box-text); border: 4px solid var(--ink); box-shadow: 6px 6px 0 var(--sky); }
+.dialog b { display: block; margin-bottom: .25rem; color: var(--box-link); letter-spacing: .08em; text-transform: uppercase; font-weight: 400; }
+.dialog p { margin: 0; font-size: 1.3rem; }
+@media (prefers-reduced-motion: no-preference) { .dialog p { animation: scan .5s steps(12); } } /* the line types in left to right */
+.quests .timeline > li { grid-template-columns: 4rem 1fr; gap: 1rem; align-items: center; padding: 1.1rem 0; }
+.quests .q-icon { width: 3rem; }
+.quests h3 { margin-bottom: .15rem; }
+.quests p { margin: 0; color: var(--mute); }
+@media (max-width: 700px) {
+  .slots { grid-template-columns: repeat(3, 1fr); }
+  .quests .timeline > li { grid-template-columns: 3.5rem 1fr; gap: 1rem; }
+}
+
 
 @media (max-width: 700px) {
   .timeline > li { grid-template-columns: 1fr; gap: .5rem; }
