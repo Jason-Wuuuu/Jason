@@ -273,9 +273,12 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
   .card { position: relative; padding: 44px 16px 20px; background: color-mix(in srgb, var(--bg) 30%, transparent); background-clip: padding-box; border: 3px solid color-mix(in srgb, var(--ink) 60%, transparent); box-shadow: 4px 4px 0 color-mix(in srgb, var(--ink) 45%, transparent); }
   .card > .bar { display: block; position: absolute; inset: 0 0 auto; padding: .05rem .75rem; font-size: .9rem; background: color-mix(in srgb, var(--ink) 60%, transparent); color: var(--bg); letter-spacing: .15em; }
   .card { text-align: center; } /* centred stack: avatar, name, class, tagline, links, stats */
-  .card .avatar-wrap { margin-inline: auto; } /* the wrapper is fit-content wide, so it needs the auto margins */
-  .card .pixel-avatar { margin: 4px 4px .75rem; }
-  .card h1 { font-size: clamp(56px, 20vw, 88px); margin-bottom: .75rem; }
+  .card { display: grid; grid-template-columns: 1fr auto auto 1fr; align-items: center; column-gap: 16px; } /* avatar and name share the top row, centred as a pair between two spacer columns */
+  .card .who { display: contents; }
+  .card .who > *:not(h1), .card .stats { grid-column: 1 / -1; }
+  .card .avatar-wrap { grid-column: 2; }
+  .card h1 { grid-column: 3; white-space: nowrap; font-size: clamp(52px, 18vw, 88px); margin: 0 0 .5rem; text-align: left; }
+  .card .cls { margin-top: .75rem; }
   .lead { font-size: 1.15rem; margin-inline: auto; }
   .cls { display: block; margin: 0 0 1rem; color: var(--blue); }
   .cls::before { content: "CLASS ▸ "; color: var(--mute); }
@@ -284,7 +287,7 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
   .stats li { flex: 0 0 33.333%; font-size: .9rem; }
   .pips, .pips::after { display: block; height: 10px; background: repeating-linear-gradient(90deg, var(--mute) 0 10px, transparent 10px 14px); }
   .pips { position: relative; width: 66px; /* 5 boxes x 14px, minus the last gap */ margin: .35rem auto 0; opacity: .9; }
-  .pips::after { content: ""; position: absolute; inset: 0 auto 0 0; width: calc(var(--h) * 14px); background: repeating-linear-gradient(90deg, var(--accent) 0 10px, transparent 10px 14px); } /* --h: the 0-10 level halved and rounded up, in boxes */
+  .pips::after { content: ""; position: absolute; inset: 0 auto 0 0; width: calc(var(--h) * 14px - 4px); background: repeating-linear-gradient(90deg, var(--accent) 0 10px, transparent 10px 14px); } /* --h: the 0-10 level halved and rounded up, in boxes; minus the trailing gap so a full bar equals the track */
 }
 @media (max-width: 560px) {
   #experience .timeline { filter: blur(2px); } /* lighter on phones */
