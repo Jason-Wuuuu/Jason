@@ -158,17 +158,18 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
 .prose { font-size: 1.4rem; max-width: 36rem; }
 .photos { display: grid; }
 .photos img { grid-area: 1 / 1; width: 100%; aspect-ratio: 1; object-fit: cover; } /* reserves the space before the photo loads */
-.photos[data-stack="true"] { padding: 0 2rem 2rem 0; }
+.photos[data-stack="true"] { padding: 0 calc((var(--n) - 1) * 12px) calc((var(--n) - 1) * 12px) 0; }
 .photos[data-stack="true"] img {
   cursor: pointer; transition: transform .25s steps(4); aspect-ratio: 4 / 5; object-fit: cover;
-  transform: translate(calc(var(--d) * 16px), calc(var(--d) * 14px)) rotate(calc(var(--d) * 5deg));
+  transform: translate(calc(var(--d) * 12px), calc(var(--d) * 12px)); /* a square-cornered pile: each photo sits a few whole pixels down and right of the one above, no tilt */
+  filter: brightness(calc(1 - var(--d) * .14));
 }
 .photos[data-stack="true"] img:hover { translate: -3px -3px; }
 /* the photo you click is dealt off the top in a few choppy frames, then lands at the back of the pile */
 @keyframes deal {
-  0%, 50% { z-index: 99; }
+  0%, 50% { z-index: 99; filter: brightness(1); } /* full brightness while it slides, then it dims into the pile */
   0% { transform: none; }
-  50% { transform: translate(75%, -8%) rotate(9deg); }
+  50% { transform: translate(80%, -6%); }
 }
 @media (prefers-reduced-motion: no-preference) {
   .photos[data-stack="true"] img.dealt { animation: deal .4s steps(4); transition: none; }

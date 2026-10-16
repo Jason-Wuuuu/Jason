@@ -19,7 +19,7 @@ export default function About() {
           ))}
         </div>
         {images.length > 0 && (
-          <div className="photos" data-stack={images.length > 1}>
+          <div className="photos" data-stack={images.length > 1} style={{ "--n": images.length }}>
             {images.map((img, i) => {
               const depth = (i - top + images.length) % images.length; // 0 = front
               return (
