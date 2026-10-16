@@ -363,7 +363,6 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
   }
   .dock a[aria-current="true"] .lb::after { color: var(--accent); }
 }
-}
 
 
 ::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
