@@ -64,21 +64,28 @@ function Images({ images, ctx, site, onDeleted }) {
     for (const f of e.target.files) await ctx.upload(f);
     e.target.value = "";
   };
+  const groups = {}; // folder -> images; files at the top level go under ""
+  for (const img of images) (groups[img.path.split("/").slice(0, -1).join("/")] ||= []).push(img);
   return (
     <>
       <label className="btn">
         Upload images
         <input type="file" accept="image/*" multiple hidden onChange={upload} />
       </label>
-      <div className="gallery-admin">
-        {images.map((img) => (
-          <figure key={img.path}>
-            <img src={ctx.rawUrl(img.path)} alt="" loading="lazy" />
-            <figcaption>{img.path}{inUse(img.path) ? "" : " (unused)"}</figcaption>
-            <button className="btn danger" onClick={() => remove(img)}>Delete</button>
-          </figure>
-        ))}
-      </div>
+      {Object.keys(groups).sort().map((dir) => (
+        <details className="item img-group" key={dir} open>
+          <summary>{dir || "(top level)"} <span className="muted">{groups[dir].length}</span></summary>
+          <div className="gallery-admin">
+            {groups[dir].map((img) => (
+              <figure key={img.path}>
+                <img src={ctx.rawUrl(img.path)} alt="" loading="lazy" />
+                <figcaption>{img.path.split("/").pop()}{inUse(img.path) ? "" : " (unused)"}</figcaption>
+                <button className="btn danger" onClick={() => remove(img)}>Delete</button>
+              </figure>
+            ))}
+          </div>
+        </details>
+      ))}
     </>
   );
 }

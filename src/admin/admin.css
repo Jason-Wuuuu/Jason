@@ -44,9 +44,11 @@
 .row-edit .controls { white-space: nowrap; }
 .row-edit .btn { margin-bottom: 0; }
 .gallery-admin { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1rem; margin-top: 1rem; }
-.gallery-admin figure { margin: 0; }
+.gallery-admin figure { margin: 0; display: flex; flex-direction: column; align-items: flex-start; }
 .gallery-admin img { width: 100%; aspect-ratio: 4 / 3; object-fit: contain; background: var(--panel); border: 3px solid var(--ink); }
-.gallery-admin figcaption { word-break: break-all; font-size: 1rem; color: var(--mute); margin: .3rem 0; }
+.gallery-admin figcaption { word-break: break-all; font-size: 1rem; color: var(--mute); margin: .3rem 0; flex: 1; } /* flex: 1 pushes every Delete button to the same line whatever the name length */
+.img-group { margin-top: 1rem; }
+.img-group .gallery-admin { margin-top: 0; }
 .muted { color: var(--mute); }
 .login h1 { margin-bottom: 1rem; font-size: 3rem; }
 
