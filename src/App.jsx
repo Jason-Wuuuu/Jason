@@ -24,6 +24,14 @@ export default function App() {
     return () => removeEventListener("hashchange", onHash);
   }, []);
 
+  // At the very top, the Experience peek under the hero is blurred; the first scroll brings it into focus (see #experience in index.css).
+  useEffect(() => {
+    const update = () => document.documentElement.classList.toggle("scrolled", scrollY > 30);
+    update();
+    addEventListener("scroll", update, { passive: true });
+    return () => removeEventListener("scroll", update);
+  }, []);
+
   if (hash.startsWith("#/admin")) {
     return (
       <Suspense fallback={null}>

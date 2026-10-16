@@ -72,7 +72,8 @@ p { margin: 0 0 1rem; }
 main, footer { padding-inline: max(1.25rem, calc((100vw - 960px) / 2)); }
 section { padding-block: 4rem 1rem; }
 footer { padding-block: 4rem 8rem; color: var(--mute); }
-#experience { padding-top: 2rem; } /* tight under the hero, so its heading peeks on the first screen */
+#experience { padding-top: 2rem; filter: blur(6px); transition: filter .5s steps(5); } /* tight under the hero so it peeks on the first screen, blurred until you scroll */
+.scrolled #experience { filter: none; }
 
 /* hero */
 .hero { padding-top: 2.5rem; }
