@@ -271,7 +271,7 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
 }
 /* phones: a simpler player card, everything stacked */
 @media (max-width: 700px) {
-  .hero { padding-top: .75rem; }
+  .hero { padding-top: 3.25rem; } /* clears the fixed theme toggle, so it no longer sits on the PLAYER 1 bar */
   .card { position: relative; padding: 44px 16px 20px; background: color-mix(in srgb, var(--bg) 30%, transparent); background-clip: padding-box; border: 3px solid color-mix(in srgb, var(--ink) 60%, transparent); box-shadow: 4px 4px 0 color-mix(in srgb, var(--ink) 45%, transparent); }
   .card > .bar { display: block; position: absolute; inset: 0 0 auto; padding: .05rem .75rem; font-size: .9rem; background: color-mix(in srgb, var(--ink) 60%, transparent); color: var(--bg); letter-spacing: .15em; }
   .card { text-align: center; } /* centred stack: avatar, name, class, tagline, links, stats */
