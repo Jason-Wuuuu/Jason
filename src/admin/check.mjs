@@ -17,4 +17,9 @@ const rows = [...src.matchAll(/^\s+"([.A-Za-z]{24})",$/gm)].map((m) => m[1]);
 assert.strictEqual(rows.length, 24);
 const keys = new Set([...src.matchAll(/^\s+(\S+): "#[0-9a-f]{6}",/gm)].map((m) => m[1].replace(/"/g, "")));
 for (const r of rows) for (const ch of r) assert(keys.has(ch), `unknown colour ${ch}`);
+// a missing content file on the branch gives an actionable message (the "404 after login" case)
+const { client } = await import("./github.js");
+globalThis.fetch = async () => ({ ok: false, status: 404, statusText: "Not Found", json: async () => ({ message: "Not Found" }) });
+await assert.rejects(client({ repo: "a/b", branch: "main", token: "t" }).readJson("src/content/site.json"), /not found on branch "main" of a\/b/);
+await assert.rejects(client({ repo: "a/b", branch: "main", token: "t" }).verify(), /Repository "a\/b" not found/);
 console.log("ok");

@@ -29,7 +29,7 @@ export function client({ repo, branch, token }) {
       },
     });
     const body = await res.json().catch(() => ({}));
-    if (!res.ok) throw new Error(`${res.status}: ${body.message || res.statusText}`);
+    if (!res.ok) throw Object.assign(new Error(`${res.status}: ${body.message || res.statusText}`), { status: res.status });
     return body;
   };
   const file = (path) => `/repos/${repo}/contents/${path.split("/").map(encodeURIComponent).join("/")}`;
@@ -41,10 +41,23 @@ export function client({ repo, branch, token }) {
 
   return {
     // Fine-grained tokens may omit `permissions`; only an explicit false is a refusal.
-    verify: () => req(`/repos/${repo}`).then((r) => r.permissions?.push !== false),
+    verify: () =>
+      req(`/repos/${repo}`).then(
+        (r) => r.permissions?.push !== false,
+        (e) => {
+          throw e.status === 404 ? new Error(`Repository "${repo}" not found, or this token can't access it.`) : e;
+        },
+      ),
     async readJson(path) {
-      const f = await req(`${file(path)}?ref=${encodeURIComponent(branch)}`);
-      return { data: JSON.parse(utf8Decode(f.content)), sha: f.sha };
+      try {
+        const f = await req(`${file(path)}?ref=${encodeURIComponent(branch)}`);
+        return { data: JSON.parse(utf8Decode(f.content)), sha: f.sha };
+      } catch (e) {
+        if (e.status !== 404) throw e;
+        throw new Error(
+          `${path} was not found on branch "${branch}" of ${repo}. Push or merge the redesign into that branch, or sign in with a different branch.`,
+        );
+      }
     },
     async saveJson(path, data, sha, message) {
       const r = await write(path, utf8Encode(JSON.stringify(data, null, 2) + "\n"), message, sha);

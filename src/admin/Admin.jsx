@@ -21,7 +21,9 @@ function Login({ onLogin }) {
   const submit = async (e) => {
     e.preventDefault();
     try {
-      if (!(await client(a).verify())) throw new Error("This token can't push to the repo.");
+      const gh = client(a);
+      if (!(await gh.verify())) throw new Error("This token can't push to the repo.");
+      await gh.readJson("src/content/site.json"); // fail here, with a clear message, rather than after sign-in
       const store = remember ? localStorage : sessionStorage;
       store.setItem(KEY, JSON.stringify(a));
       onLogin(a);
