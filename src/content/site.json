@@ -382,7 +382,7 @@
     ],
     "paragraphs": [
       "I'm from Taiwan and moved to the US for a CS master's at Stevens. I like web development, and I like digging into AI and machine learning. Building a project with unfamiliar tech is how I learn fastest.",
-      "Fun fact: I type [118 WPM](#typing). Away from the keyboard I have more hobbies than fit in a sentence, so they live below."
+      "Away from the keyboard I have more hobbies than fit in a sentence, so they live below."
     ],
     "hobbies": [
       {
@@ -415,6 +415,7 @@
         "icon": "chart",
         "line": "Following the market and learning by doing."
       }
-    ]
+    ],
+    "funFact": "Fun fact: I type [118 WPM](#typing)."
   }
 }

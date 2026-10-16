@@ -80,6 +80,7 @@ export const sections = [
     fields: [
       { key: "paragraphs", label: "Paragraphs (blank line between; - bullets, **bold**, *italic*, [text](url))", type: "lines", sep: "\n\n" },
       { key: "images", label: "Photos", type: "images", folder: "me" },
+      { key: "funFact", label: "Fun fact (last line of the page; [text](#typing) opens the typing game)", type: "text" },
       {
         key: "hobbies",
         label: "Hobbies (shown as the Bag and Side Quests)",

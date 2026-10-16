@@ -8,7 +8,7 @@ const STEPS = [64, 32, 16, 8]; // mosaic blocks across the photo, fine to coarse
 const TICK = 70; // ms per frame: choppy on purpose, like the rest of the site
 
 export default function About() {
-  const { paragraphs, images = [], hobbies = [] } = site.about;
+  const { paragraphs, images = [], hobbies = [], funFact = "" } = site.about;
   const [egg, setEgg] = useState(false);
   const [top, setTop] = useState(0); // which photo is on top of the stack
   const photos = useRef([]);
@@ -78,6 +78,11 @@ export default function About() {
         )}
       </div>
       <Hobbies items={hobbies} />
+      {funFact && (
+        <div className="funfact">
+          <Md text={funFact} onEgg={() => setEgg((v) => !v)} eggOpen={egg} />
+        </div>
+      )}
       {egg && <TypeTest autoFocus />}
     </section>
   );
