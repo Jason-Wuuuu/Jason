@@ -278,10 +278,10 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
   .card { display: grid; grid-template-columns: 1fr auto auto 1fr; align-items: center; column-gap: clamp(12px, calc(100vw - 340px), 28px); } /* avatar and name share the top row, centred as a pair between two spacer columns */
   .card .who { display: contents; }
   .card .who > *:not(h1), .card .stats { grid-column: 1 / -1; }
-  .card .avatar-wrap { grid-column: 2; }
-  .card h1 { grid-column: 3; white-space: nowrap; font-size: clamp(46px, 17vw, 88px); margin: 0 0 .5rem; text-align: left; }
+  .card .avatar-wrap { grid-column: 2; translate: 0 5vw; } /* sits level with the gap between "Jason" and "Wu" (the letters' boxes sit lower than the line box) */
+  .card h1 { grid-column: 3; white-space: nowrap; font-size: clamp(46px, 17vw, 88px); margin: 0; text-align: left; } /* no bottom margin: it would pull the name's centre off the avatar's */
   @media (max-width: 340px) { .card .pixel-avatar { width: 72px; } }
-  .card .cls { margin-top: .75rem; }
+  .card .cls { margin-top: 1.25rem; }
   .lead { font-size: 1.15rem; margin-inline: auto; }
   .cls { display: block; margin: 0 0 1rem; color: var(--blue); }
   .cls::before { content: "CLASS ▸ "; color: var(--mute); }
