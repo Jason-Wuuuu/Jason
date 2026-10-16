@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import "./admin.css";
 import { client, fileToBase64 } from "./github";
-import { sections, clean } from "./schema";
+import { sections, clean, changes } from "./schema";
 import { Form, ItemList } from "./Fields";
 
 const KEY = "admin.auth";
@@ -45,6 +45,9 @@ function Login({ onLogin }) {
       <label className="check"><input type="checkbox" checked={remember} onChange={(e) => setRemember(e.target.checked)} /> Remember on this device</label>
       {err && <p className="err" role="alert">{err}</p>}
       <button className="btn primary" disabled={!a.token}>Sign in</button>
+      {import.meta.env.DEV && (
+        <button type="button" className="btn" onClick={() => onLogin({ local: true })}>Edit local files (dev only)</button>
+      )}
     </form>
   );
 }
@@ -80,15 +83,32 @@ function Images({ images, ctx, site, onDeleted }) {
   );
 }
 
+function Changes({ diff }) {
+  if (!diff.length) return <p className="muted">No unsaved changes.</p>;
+  return diff.map((c, i) => (
+    <div className="item change" key={i}>
+      <strong>{c.section}{c.item && ` › ${c.item}`}</strong> <span className="muted">{c.kind}</span>
+      {c.fields.map((f) => (
+        <p key={f.key}>
+          <span className="lbl">{f.key}</span>
+          <del>{f.from}</del> <ins>{f.to}</ins>
+        </p>
+      ))}
+    </div>
+  ));
+}
+
 export default function Admin() {
   const [auth, setAuth] = useState(saved);
   const [site, setSite] = useState(null);
   const [sha, setSha] = useState("");
+  const [base, setBase] = useState(null); // the saved content, for the Changes tab
   const [images, setImages] = useState([]);
   const [tab, setTab] = useState("profile");
   const [dirty, setDirty] = useState(false);
   const [status, setStatus] = useState({ text: "", error: false });
   const loaded = useRef(false);
+  const preview = useRef();
   const gh = useMemo(() => auth && client(auth), [auth]);
 
   const run = async (okText, fn) => {
@@ -106,9 +126,11 @@ export default function Admin() {
   useEffect(() => {
     if (!gh || loaded.current) return;
     loaded.current = true;
-    run("Loaded the latest content from GitHub.", async () => {
+    sessionStorage.removeItem("admin.preview"); // never start from a stale draft
+    run(auth.local ? "Loaded local files." : "Loaded the latest content from GitHub.", async () => {
       const [{ data, sha }, imgs] = await Promise.all([gh.readJson("src/content/site.json"), gh.listImages()]);
       setSite(data);
+      setBase(clean(data));
       setSha(sha);
       setImages(imgs);
     }).catch(() => {});
@@ -123,16 +145,47 @@ export default function Admin() {
 
   if (!auth) return <Login onLogin={setAuth} />;
 
+  const extOf = (name) => (name.match(/\.\w+$/) || [".png"])[0].toLowerCase();
+  // <folder>/<folder>_<n>.<ext>; n is unique per folder whatever the extension
+  const nextPath = (folder, ext, taken = images.map((i) => i.path)) => {
+    let n = 1;
+    while (taken.some((p) => p.startsWith(`${folder}/${folder}_${n}.`))) n++;
+    return `${folder}/${folder}_${n}${ext}`;
+  };
+
   const ctx = {
     gh,
     images,
     run,
     rawUrl: gh.rawUrl,
-    async upload(file) {
-      const path = `uploads/${Date.now()}-${file.name.replace(/[^\w.-]+/g, "_")}`;
+    async upload(file, folder) {
+      const ext = extOf(file.name);
+      const path = folder ? nextPath(folder, ext) : `uploads/${Date.now()}-${file.name.replace(/[^\w.-]+/g, "_")}`;
       const img = await run(`Uploaded ${path}`, async () => gh.uploadImage(path, await fileToBase64(file)));
       setImages((list) => [...list, img]);
       return path;
+    },
+    // Copy + delete on GitHub; every use of the old paths in the (unsaved) content is repointed, so Save afterwards.
+    async rename(froms, folder) {
+      const taken = images.map((i) => i.path);
+      const done = new Map();
+      try {
+        await run(`Renamed ${froms.length} image(s). Save to publish.`, async () => {
+          for (const from of froms) {
+            const to = nextPath(folder, extOf(from), taken);
+            done.set(from, await gh.renameImage(from, to, images.find((i) => i.path === from).sha));
+            taken.push(to);
+          }
+        });
+      } finally {
+        if (done.size) {
+          setImages((list) => list.map((i) => done.get(i.path) || i));
+          let json = JSON.stringify(site);
+          for (const [from, { path }] of done) json = json.split(`"${from}"`).join(`"${path}"`);
+          setSite(JSON.parse(json));
+          setDirty(true);
+        }
+      }
     },
   };
 
@@ -141,32 +194,50 @@ export default function Admin() {
       const next = clean(site);
       setSha(await gh.saveJson("src/content/site.json", next, sha, "Update site content via admin"));
       setSite(next);
+      setBase(next);
       setDirty(false);
+      sessionStorage.removeItem("admin.preview");
     }).catch(() => {});
 
   const change = (key) => (value) => {
     setSite({ ...site, [key]: value });
     setDirty(true);
   };
+  const diff = site && base ? changes(base, clean(site)) : [];
   const section = sections.find((s) => s.key === tab);
 
   return (
+    <div className={auth.local ? "split" : undefined}>
     <div className="admin">
       <header className="bar">
         <strong>Admin</strong>
         <a href="#top">View site</a>
         <button className="btn" onClick={() => { sessionStorage.removeItem(KEY); localStorage.removeItem(KEY); setAuth(null); setSite(null); loaded.current = false; }}>Sign out</button>
+        {auth.local && (
+          <button
+            className="btn"
+            disabled={!site}
+            onClick={() => {
+              sessionStorage.setItem("admin.preview", JSON.stringify(clean(site)));
+              preview.current?.contentWindow.location.reload();
+            }}
+          >
+            Preview
+          </button>
+        )}
         <button className="btn primary" disabled={!dirty} onClick={save}>{dirty ? "Save changes" : "Saved"}</button>
       </header>
       <p className={status.error ? "err" : "muted"} role="status">{status.text}</p>
       {site && (
         <>
           <div className="tabs" role="tablist">
-            {[...sections, { key: "images", label: "Images" }].map((s) => (
+            {[...sections, { key: "images", label: "Images" }, ...(diff.length ? [{ key: "changes", label: `Changes (${diff.length})` }] : [])].map((s) => (
               <button key={s.key} role="tab" aria-selected={tab === s.key} onClick={() => setTab(s.key)}>{s.label}</button>
             ))}
           </div>
-          {tab === "images" ? (
+          {tab === "changes" ? (
+            <Changes diff={diff} />
+          ) : tab === "images" ? (
             <Images images={images} ctx={ctx} site={site} onDeleted={(p) => setImages((l) => l.filter((i) => i.path !== p))} />
           ) : section.list ? (
             <ItemList fields={section.fields} titleKey={section.titleKey} items={site[tab]} onChange={change(tab)} ctx={ctx} />
@@ -175,6 +246,8 @@ export default function Admin() {
           )}
         </>
       )}
+    </div>
+    {auth.local && <iframe ref={preview} className="preview" src="/" title="Live preview" />}
     </div>
   );
 }

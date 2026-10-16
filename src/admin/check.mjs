@@ -1,11 +1,20 @@
 // Run: node src/admin/check.mjs — checks the pure helpers behind Save, the avatar style table, and admin error messages.
 import assert from "node:assert";
-import { clean, blank } from "./schema.js";
+import { clean, blank, changes } from "./schema.js";
 
 assert.deepStrictEqual(clean({ points: ["a", "  ", "", " b "], n: 3, list: [{ s: ["x", ""] }] }), {
   points: ["a", "b"], n: 3, list: [{ s: ["x"] }],
 });
 assert.deepStrictEqual(blank([{ key: "t", type: "text" }, { key: "p", type: "lines" }, { key: "n", type: "number" }, { key: "b", type: "bool" }]), { t: "", p: [], n: 0, b: false });
+
+// changes(): edits are matched by content/title, so an insert or a move doesn't flag the other items
+const exp = (o) => ({ role: o, company: "c", place: "p", date: "d", points: [] });
+const was = { experience: [exp("A"), exp("B")], projects: [], education: [], profile: { name: "x" }, about: {} };
+assert.deepStrictEqual(changes(was, was), []);
+assert.deepStrictEqual(changes(was, { ...was, experience: [exp("N"), exp("A"), exp("B")] }).map((c) => [c.kind, c.item]), [["added", "N"]]);
+assert.deepStrictEqual(changes(was, { ...was, experience: [{ ...exp("A"), date: "e" }, exp("B")] })[0].fields, [{ key: "date", from: "d", to: "e" }]);
+assert.deepStrictEqual(changes(was, { ...was, experience: [exp("B"), exp("A")] }).map((c) => c.kind), ["reordered"]);
+assert.deepStrictEqual(changes(was, { ...was, experience: [exp("A")] }).map((c) => [c.kind, c.item]), [["removed", "B"]]);
 
 const b64 = (s) => Buffer.from(s, "utf8").toString("base64");
 assert.strictEqual(new TextDecoder().decode(Uint8Array.from(atob(b64("Aug 2024 – now 🏂")), (c) => c.charCodeAt(0))), "Aug 2024 – now 🏂");

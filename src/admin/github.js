@@ -18,7 +18,28 @@ export const fileToBase64 = (file) =>
     r.readAsDataURL(file);
   });
 
-export function client({ repo, branch, token }) {
+// Dev-server stand-in (see localAdmin in vite.config.js): same interface, files on disk.
+const local = () => {
+  const req = async (path, method = "GET", body) => {
+    const res = await fetch("/__local" + path, { method, body });
+    const j = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(j.message || res.statusText);
+    return j;
+  };
+  return {
+    verify: async () => true,
+    readJson: async () => ({ data: JSON.parse((await req("/site")).text), sha: "" }),
+    saveJson: async (_p, data) => (await req("/site", "PUT", JSON.stringify(data, null, 2) + "\n"), ""),
+    listImages: () => req("/images"),
+    uploadImage: async (path, base64) => (await req("/images/" + path, "PUT", base64), { path, sha: "" }),
+    deleteImage: (path) => req("/images/" + path, "DELETE"),
+    renameImage: async (from, to) => (await req("/rename", "POST", JSON.stringify({ from, to })), { path: to, sha: "" }),
+    rawUrl: (path) => `/images/${path}`,
+  };
+};
+
+export function client({ repo, branch, token, local: isLocal }) {
+  if (isLocal) return local();
   const req = async (path, opts = {}) => {
     const res = await fetch(API + path, {
       ...opts,
@@ -86,6 +107,12 @@ export function client({ repo, branch, token }) {
     async uploadImage(path, base64) {
       const r = await write(IMG_DIR + path, base64, `Add image ${path}`);
       return { path, sha: r.content.sha };
+    },
+    async renameImage(from, to, sha) {
+      const blob = await req(`/repos/${repo}/git/blobs/${sha}`);
+      const img = await this.uploadImage(to, blob.content.replace(/\s/g, ""));
+      await this.deleteImage(from, sha);
+      return img;
     },
     deleteImage: writing((path, sha) =>
       req(file(IMG_DIR + path), {
