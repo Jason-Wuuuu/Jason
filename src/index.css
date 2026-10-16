@@ -375,7 +375,7 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
   .dock[data-pos] { left: .75rem; right: .75rem; transform: none; width: auto; max-width: none; }
   .dock a { flex: 1 1 auto; justify-content: center; } /* buttons share the leftover width evenly */
   .track { display: none; }
-  .theme-toggle { top: .75rem; right: .75rem; }
+  .theme-toggle { position: absolute; top: .75rem; right: .75rem; } /* scrolls away with the page so it never sits over the text */
   .dock a, .dock button { padding: .3rem .3rem; }
   /* the buttons are the progress bar: each paints left to right (--f, set in Dock.jsx) while you scroll through its section */
   .dock a, .dock a[aria-current="true"] {
