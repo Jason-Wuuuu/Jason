@@ -48,7 +48,6 @@
         "Wrote the FastAPI endpoints that let the frontend and quant teams talk, and helped ship ML-driven smart order routers for institutional trading.",
         "Worked with the quants to plug in their models; average trade slippage dropped 12%.",
         "Kept portfolio and watchlist views in sync with Redux Toolkit, powering live Value at Risk and margin numbers.",
-        "Took the product to iOS, Android and the browser with React Native and Plasmo.",
         "Made it 38% faster to load (SSR, smarter fetching, memoization) and 61% faster to test (Cypress, CI/CD on GitHub Actions)."
       ]
     },
