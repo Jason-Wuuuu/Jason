@@ -272,7 +272,11 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
   .hero { padding-top: .75rem; }
   .card { position: relative; padding: 44px 16px 20px; background: color-mix(in srgb, var(--bg) 30%, transparent); background-clip: padding-box; border: 3px solid color-mix(in srgb, var(--ink) 60%, transparent); box-shadow: 4px 4px 0 color-mix(in srgb, var(--ink) 45%, transparent); }
   .card > .bar { display: block; position: absolute; inset: 0 0 auto; padding: .05rem .75rem; font-size: .9rem; background: color-mix(in srgb, var(--ink) 60%, transparent); color: var(--bg); letter-spacing: .15em; }
-  .card .pixel-avatar { margin: 4px 0 .6rem 4px; }
+  .card { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 16px; align-items: center; }
+  .card .who { display: contents; } /* so the name can sit beside the avatar while the rest spans the card */
+  .card .who > *:not(h1), .card .stats { grid-column: 1 / -1; }
+  .card .pixel-avatar { margin: 4px; }
+  .card h1 { font-size: clamp(52px, 18vw, 96px); margin-bottom: 0; }
   .lead { font-size: 1.15rem; } /* the extra class line must not push the GitHub link under the dock */
   .hero h1 { margin-bottom: 1rem; }
   .cls { display: block; margin: 0 0 .9rem; color: var(--blue); }
