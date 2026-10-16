@@ -321,8 +321,8 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
   .track { left: .75rem; right: .75rem; }
   /* opaque bar behind the dock and progress line, so page text never shows below the tabs */
   body::after {
-    content: ""; position: fixed; inset: auto 0 0; z-index: 8; pointer-events: none;
-    height: calc(4.7rem + env(safe-area-inset-bottom)); background: var(--bg);
+    content: ""; position: fixed; inset: auto 0 -8rem; z-index: 8; pointer-events: none; /* reaches past the viewport edge, under Safari's toolbar */
+    height: calc(12.7rem + env(safe-area-inset-bottom)); background: var(--bg);
     border-top: 3px solid color-mix(in srgb, var(--ink) 35%, transparent);
   }
   .theme-toggle { top: .75rem; right: .75rem; }
