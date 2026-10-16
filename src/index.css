@@ -317,17 +317,13 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
   .dock[data-pos="side"] { animation: dock-in-side .4s steps(6); }
 }
 @media (max-width: 560px) {
-  .dock { font-size: .7rem; gap: .3rem; bottom: calc(2.2rem + env(safe-area-inset-bottom)); } /* four links must fit a 360px phone */
-  .track { left: .75rem; right: .75rem; }
-  /* opaque bar behind the dock and progress line, so page text never shows below the tabs */
-  body::after {
-    content: ""; position: fixed; inset: auto 0 -8rem; z-index: 8; pointer-events: none; /* reaches past the viewport edge, under Safari's toolbar */
-    height: calc(12.7rem + env(safe-area-inset-bottom)); background: var(--bg);
-    border-top: 3px solid color-mix(in srgb, var(--ink) 35%, transparent);
-  }
+  /* phones: the four links spread across the bottom, no progress line */
+  .dock { font-size: .7rem; bottom: calc(1.5rem + env(safe-area-inset-bottom)); }
+  .dock[data-pos] { left: .75rem; right: .75rem; transform: none; width: auto; max-width: none; justify-content: space-between; }
+  .track { display: none; }
   .theme-toggle { top: .75rem; right: .75rem; }
-  .dock[data-pos="bottom"] { left: 50%; right: auto; transform: translateX(-50%); }
   .dock a, .dock button { padding: .1rem .4rem; }
+}
 }
 
 
