@@ -2,7 +2,7 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import DescriptionIcon from "@mui/icons-material/Description";
 import TypeTest from "./TypeTest";
-import { asset } from "../App";
+import PixelAvatar from "./PixelAvatar";
 
 const links = [
   { href: "https://github.com/Jason-Wuuuu", label: "GitHub", Icon: GitHubIcon },
@@ -25,7 +25,7 @@ export default function Hero() {
         Jason
         <br />
         Wu
-        <img src={asset("images/Memoji_1.png")} alt="Jason's memoji" width="160" height="160" />
+        <PixelAvatar />
       </h1>
       <p className="lead">
         Full stack engineer in New York City. Next.js, TypeScript, FastAPI, and
