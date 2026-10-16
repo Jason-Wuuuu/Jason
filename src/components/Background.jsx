@@ -137,8 +137,9 @@ export default function Background() {
       }
     };
 
+    const onResize = () => { resize(); if (still) draw(0, 0); }; // resizing clears the canvas; iOS fires it as the toolbar collapses on scroll
     resize();
-    addEventListener("resize", resize);
+    addEventListener("resize", onResize);
     if (still) draw(0, 0);
     else {
       raf = requestAnimationFrame(frame);
@@ -147,7 +148,7 @@ export default function Background() {
     }
     return () => {
       cancelAnimationFrame(raf);
-      removeEventListener("resize", resize);
+      removeEventListener("resize", onResize);
       removeEventListener("pointermove", onMove);
       removeEventListener("pointerdown", onDown);
     };

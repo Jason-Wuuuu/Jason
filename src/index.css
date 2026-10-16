@@ -198,7 +198,7 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
 
 @media (prefers-reduced-motion: no-preference) {
   /* the one orchestrated moment: name drops in letter by letter, then the rest follows */
-  .hero h1 .ch { display: inline-block; animation: drop .5s steps(5) both; animation-delay: calc(var(--i) * 70ms); }
+  .hero h1 .ch { display: inline-block; animation: drop .5s steps(5) backwards; /* backwards, not both: iOS can leave a letter stuck on the end frame */ animation-delay: calc(var(--i) * 70ms); }
   .pixel-avatar { animation: float 3.2s steps(8) infinite; } /* hover (hop) takes over while pointed at */
   .hero .lead { animation: rise .4s steps(4) .75s both; }
   .hero .social { animation: rise .4s steps(4) .95s both; }
@@ -319,6 +319,12 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
 @media (max-width: 560px) {
   .dock { font-size: .7rem; gap: .3rem; bottom: calc(2.2rem + env(safe-area-inset-bottom)); } /* four links must fit a 360px phone */
   .track { left: .75rem; right: .75rem; }
+  /* opaque bar behind the dock and progress line, so page text never shows below the tabs */
+  body::after {
+    content: ""; position: fixed; inset: auto 0 0; z-index: 8; pointer-events: none;
+    height: calc(4.7rem + env(safe-area-inset-bottom)); background: var(--bg);
+    border-top: 3px solid color-mix(in srgb, var(--ink) 35%, transparent);
+  }
   .theme-toggle { top: .75rem; right: .75rem; }
   .dock[data-pos="bottom"] { left: 50%; right: auto; transform: translateX(-50%); }
   .dock a, .dock button { padding: .1rem .4rem; }
