@@ -4,12 +4,14 @@ import Experience from "./components/Experience";
 import Projects from "./components/Projects";
 import About from "./components/About";
 import Dock from "./components/Dock";
+import ProgressCat from "./components/ProgressCat";
 import ThemeToggle from "./components/ThemeToggle";
 import Background from "./components/Background";
 import site from "./content";
 
 // Loaded only at #/admin-LFG, so visitors never download it.
 const Admin = lazy(() => import("./admin/Admin"));
+const AvatarPreview = lazy(() => import("./components/AvatarPreview")); // temporary, while choosing an avatar
 
 export const asset = (path) =>
   import.meta.env.BASE_URL + path.replace(/^\.?\//, "");
@@ -32,6 +34,14 @@ export default function App() {
     return () => removeEventListener("scroll", update);
   }, []);
 
+  if (hash === "#/avatars") {
+    return (
+      <Suspense fallback={null}>
+        <AvatarPreview />
+      </Suspense>
+    );
+  }
+
   if (hash === "#/admin-LFG") {
     return (
       <Suspense fallback={null}>
@@ -44,6 +54,7 @@ export default function App() {
     <>
       <Background />
       <Dock />
+      <ProgressCat />
       <ThemeToggle />
       <main id="top">
         <Hero />

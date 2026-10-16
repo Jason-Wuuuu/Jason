@@ -1,6 +1,5 @@
-// Run: node src/admin/check.mjs — checks the pure helpers behind Save, and the avatar sprite's shape.
+// Run: node src/admin/check.mjs — checks the pure helpers behind Save, the avatar sprites' shape, and admin error messages.
 import assert from "node:assert";
-import fs from "node:fs";
 import { clean, blank } from "./schema.js";
 
 assert.deepStrictEqual(clean({ points: ["a", "  ", "", " b "], n: 3, list: [{ s: ["x", ""] }] }), {
@@ -11,12 +10,16 @@ assert.deepStrictEqual(blank([{ key: "t", type: "text" }, { key: "p", type: "lin
 const b64 = (s) => Buffer.from(s, "utf8").toString("base64");
 assert.strictEqual(new TextDecoder().decode(Uint8Array.from(atob(b64("Aug 2024 – now 🏂")), (c) => c.charCodeAt(0))), "Aug 2024 – now 🏂");
 
-// every sprite row is exactly 24 wide and uses only known colours
-const src = fs.readFileSync(new URL("../avatar.js", import.meta.url), "utf8");
-const rows = [...src.matchAll(/^\s+"([.A-Za-z]{24})",$/gm)].map((m) => m[1]);
-assert.strictEqual(rows.length, 24);
-const keys = new Set([...src.matchAll(/^\s+(\S+): "#[0-9a-f]{6}",/gm)].map((m) => m[1].replace(/"/g, "")));
-for (const r of rows) for (const ch of r) assert(keys.has(ch), `unknown colour ${ch}`);
+// every avatar sprite is 32×32 and uses only colours it defines
+const { SPRITES, SIZE } = await import("../avatar.js");
+for (const [name, { colors, rows }] of Object.entries(SPRITES)) {
+  assert.strictEqual(rows.length, SIZE, `${name}: rows`);
+  for (const r of rows) {
+    assert.strictEqual(r.length, SIZE, `${name}: row width`);
+    for (const ch of r) assert(ch in colors, `${name}: unknown colour ${ch}`);
+  }
+}
+
 // a missing content file on the branch gives an actionable message (the "404 after login" case)
 const { client } = await import("./github.js");
 globalThis.fetch = async () => ({ ok: false, status: 404, statusText: "Not Found", json: async () => ({ message: "Not Found" }) });
