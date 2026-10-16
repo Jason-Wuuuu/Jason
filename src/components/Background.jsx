@@ -24,7 +24,7 @@ export default function Background() {
     const canvas = ref.current;
     const ctx = canvas.getContext("2d");
     const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
-    let W, H, img, raf, last = 0;
+    let W, H, img, raf, last = 0, k = 1; // k: particle density, 1 at desktop size
     const ptr = { x: -999, y: -999, tx: -999, ty: -999 };
     const bursts = [];
     const flies = Array.from({ length: 24 }, (_, i) => ({ x: rand(i + 1), y: rand(i + 50), s: 0.01 + rand(i + 9) * 0.02, p: rand(i + 3) * 6 }));
@@ -36,6 +36,7 @@ export default function Background() {
       canvas.width = W;
       canvas.height = H;
       img = ctx.createImageData(W, H);
+      k = Math.min(1, Math.max(0.35, (W * H) / 30000)); // fewer stars and fireflies on small screens
     };
 
     const rect = (x, y, w, h, color) => {
@@ -72,7 +73,7 @@ export default function Background() {
       ctx.putImageData(img, 0, 0);
 
       if (dark) {
-        for (let i = 0; i < 70; i++) { // stars twinkle in steps
+        for (let i = 0; i < 70 * k; i++) { // stars twinkle in steps
           if (Math.floor(t * 1.5 + rand(i + 200) * 9) % 4 === 0) continue;
           const x = rand(i + 1) * W, y = rand(i + 90) * H * 0.75 + oy * 0.5;
           rect(x, y, 1, 1, th.sprite[i % 3]);
@@ -101,6 +102,7 @@ export default function Background() {
       }
       // fireflies rise and wobble, blinking
       flies.forEach((f, i) => {
+        if (i >= flies.length * k) return;
         f.y -= f.s * dt; if (f.y < -0.05) f.y = 1.05;
         if (Math.floor(t * 2 + f.p) % 3 === 0) return;
         rect(f.x * W + Math.sin(t + f.p) * 3, f.y * H, 1, 1, th.sprite[i % 3]);

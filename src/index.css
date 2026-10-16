@@ -265,11 +265,11 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
 .pixel-avatar { cursor: pointer; }
 
 .hero h1 .ch { transition: translate .12s steps(2); }
-.hero h1 .ch:hover { translate: 0 -.12em; }
+@media (hover: hover) { .hero h1 .ch:hover { translate: 0 -.12em; } } /* no sticky hover after a tap on touch screens */
 
 /* floating dock: the page's navigation, with the section you're in highlighted */
 .dock {
-  position: fixed; left: 50%; bottom: 2.4rem; z-index: 10; transform: translateX(-50%);
+  position: fixed; left: 50%; bottom: calc(2.4rem + env(safe-area-inset-bottom)); z-index: 10; transform: translateX(-50%);
   display: flex; align-items: center; gap: .7rem; width: max-content; max-width: 96vw;
 }
 .dock a, .dock button {
@@ -280,11 +280,11 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
 .dock a:hover, .dock button:hover { color: var(--accent); }
 /* hover: the link hops up in pixel steps while its label rolls up to an accent copy */
 .dock a { transition: translate .25s steps(3), box-shadow .25s steps(3); }
-.dock a:hover { translate: 0 -5px; box-shadow: 3px 8px 0 var(--ink); }
+@media (hover: hover) { .dock a:hover { translate: 0 -5px; box-shadow: 3px 8px 0 var(--ink); } }
 .dock .lb { position: relative; display: inline-block; overflow: hidden; }
 .dock .lb > span, .dock .lb::after { transition: translate .25s steps(3); }
 .dock .lb::after { content: attr(data-t); position: absolute; left: 0; top: 100%; color: var(--accent); }
-.dock a:hover .lb > span, .dock a:hover .lb::after { translate: 0 -100%; }
+@media (hover: hover) { .dock a:hover .lb > span, .dock a:hover .lb::after { translate: 0 -100%; } }
 .dock a[aria-current="true"] .lb::after { color: var(--on-accent); }
 .dock a[aria-current="true"] { background: var(--accent); color: var(--on-accent); }
 .dock a:active, .dock button:active { transform: translate(3px, 3px); box-shadow: none; }
@@ -317,7 +317,7 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
   .dock[data-pos="side"] { animation: dock-in-side .4s steps(6); }
 }
 @media (max-width: 560px) {
-  .dock { font-size: .7rem; gap: .3rem; bottom: 2.2rem; } /* four links must fit a 360px phone */
+  .dock { font-size: .7rem; gap: .3rem; bottom: calc(2.2rem + env(safe-area-inset-bottom)); } /* four links must fit a 360px phone */
   .track { left: .75rem; right: .75rem; }
   .theme-toggle { top: .75rem; right: .75rem; }
   .dock[data-pos="bottom"] { left: 50%; right: auto; transform: translateX(-50%); }
@@ -336,7 +336,7 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
 
 /* scroll progress: an inset lane (see ProgressBar.jsx) */
 .track {
-  --p: 0; position: fixed; left: 1.25rem; right: 1.25rem; bottom: .75rem; height: 3px; z-index: 9; pointer-events: none;
+  --p: 0; position: fixed; left: 1.25rem; right: 1.25rem; bottom: calc(.75rem + env(safe-area-inset-bottom)); height: 3px; z-index: 9; pointer-events: none;
   border-bottom: 3px dashed color-mix(in srgb, var(--ink) 35%, transparent);
 }
 .track .fill { position: absolute; left: 0; bottom: -3px; height: 3px; width: calc(100% * var(--p)); background: var(--accent); }
