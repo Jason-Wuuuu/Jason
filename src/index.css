@@ -89,6 +89,7 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
 }
 .lead { white-space: pre-line; font-size: clamp(1.4rem, 3vw, 1.9rem); max-width: 34rem; }
 .social { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; margin-top: 1.5rem; }
+.proj .social { justify-content: flex-end; } /* project links (a live demo, now that the repos are private) sit at the right */
 .social a { display: inline-flex; align-items: center; gap: .35rem; }
 
 /* typing test: the one loud moment */
