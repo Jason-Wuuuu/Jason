@@ -158,3 +158,47 @@ footer { padding-block: 4rem; color: var(--mute); }
 .theme-toggle { background: none; border: 3px solid var(--ink); padding: .1rem .4rem; box-shadow: 3px 3px 0 var(--ink); display: inline-flex; align-items: center; margin-left: 1rem; }
 .theme-toggle:active { transform: translate(3px, 3px); box-shadow: none; }
 .nav nav { align-items: center; }
+
+/* ── motion: stepped frames to match the pixel look; all of it off under reduced-motion ── */
+.pixel-avatar:hover { animation: hop .4s steps(4); }
+.proj summary .ti { transition: transform .12s steps(2); }
+.proj summary:hover .ti { transform: translateX(8px); }
+.tt-result { position: relative; }
+.burst { position: absolute; left: 4rem; top: 50%; pointer-events: none; }
+.burst i { position: absolute; width: 8px; height: 8px; background: var(--accent); }
+.burst i:nth-child(3n) { background: var(--sky); }
+.burst i:nth-child(3n + 1) { background: var(--box-text); }
+
+@keyframes hop { 50% { transform: translateY(-14px); } }
+@keyframes drop { from { transform: translateY(-1.1em); opacity: 0; } 50% { opacity: 1; } }
+@keyframes rise { from { transform: translateY(16px); opacity: 0; } }
+@keyframes unfold { from { clip-path: inset(0 0 100% 0); } }
+@keyframes scan { from { clip-path: inset(0 100% 0 0); } }
+@keyframes fly {
+  to { transform: translate(calc(cos(var(--a)) * var(--d)), calc(sin(var(--a)) * var(--d))); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* the one orchestrated moment: name drops in letter by letter, then the rest follows */
+  .hero h1 .ch { display: inline-block; animation: drop .5s steps(5) both; animation-delay: calc(var(--i) * 70ms); }
+  .hero .lead { animation: rise .4s steps(4) .75s both; }
+  .hero .typetest { animation: rise .4s steps(4) .95s both; }
+  .hero .social { animation: rise .4s steps(4) 1.15s both; }
+
+  /* responds to a click: a project unfolds, a finished typing test bursts */
+  .proj[open] .body { animation: unfold .4s steps(8); }
+  .burst i { animation: fly .7s steps(7) forwards; }
+
+  /* rows scan in from the left as they scroll into view (where supported; otherwise they're just there) */
+  @supports (animation-timeline: view()) {
+    .timeline > li, .proj {
+      animation: scan linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 40%;
+    }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pixel-avatar:hover { animation: none; }
+  .proj summary:hover .ti { transform: none; }
+}

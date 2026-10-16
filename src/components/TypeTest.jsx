@@ -3,6 +3,11 @@ import site from "../content";
 
 const { typingLine: TARGET, typingRecord: RECORD } = site.profile;
 
+const BURST = Array.from({ length: 16 }, (_, i) => ({
+  a: i * 22.5 + ((i * 37) % 15),
+  d: 70 + ((i * 53) % 70),
+}));
+
 export default function TypeTest() {
   const [typed, setTyped] = useState("");
   const [wpm, setWpm] = useState(null);
@@ -56,6 +61,13 @@ export default function TypeTest() {
         />
       </div>
       <p className="tt-result" aria-live="polite">
+        {done && (
+          <span className="burst" aria-hidden="true">
+            {BURST.map((b, i) => (
+              <i key={i} style={{ "--a": `${b.a}deg`, "--d": `${b.d}px` }} />
+            ))}
+          </span>
+        )}
         {done
           ? `${wpm} WPM. ${wpm >= RECORD ? "You beat him." : "Not bad."}`
           : " "}

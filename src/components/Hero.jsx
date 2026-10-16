@@ -16,11 +16,19 @@ export default function Hero() {
   const { name, tagline, links } = site.profile;
   return (
     <section className="hero">
-      <h1>
-        {name.split(" ").map((word, i) => (
-          <span key={i}>
-            {i > 0 && <br />}
-            {word}
+      <h1 aria-label={name}>
+        {name.split(" ").map((word, w, words) => (
+          <span key={w} aria-hidden="true">
+            {w > 0 && <br />}
+            {[...word].map((ch, i) => (
+              <span
+                key={i}
+                className="ch"
+                style={{ "--i": i + words.slice(0, w).join("").length }}
+              >
+                {ch}
+              </span>
+            ))}
           </span>
         ))}
         <PixelAvatar />
