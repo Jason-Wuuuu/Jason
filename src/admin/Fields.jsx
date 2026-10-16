@@ -144,7 +144,7 @@ export function ItemList({ fields, titleKey, items, onChange, ctx }) {
       {items.map((item, i) => (
         <details key={i} className={item.archived ? "item archived" : "item"}>
           <summary>
-            {item[titleKey] || "(untitled)"}{item.archived && " (hidden)"}
+            <span className="ttl">{item[titleKey] || "(untitled)"}{item.archived && " (hidden)"}</span>
             <span className="flags">
               {flag && (
                 <label className="flag">

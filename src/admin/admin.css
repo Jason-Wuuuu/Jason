@@ -17,7 +17,7 @@
 .admin label.btn { display: inline-flex; margin: 0 .4rem .4rem 0; } /* beats ".admin label" (block + bottom margin) */
 .admin .picker .btn { margin: 0; }
 .btn:active { transform: translate(3px, 3px); box-shadow: none; }
-.btn:disabled { opacity: .5; cursor: default; }
+.btn:disabled, .btn.primary:disabled { opacity: 1; cursor: default; color: var(--mute); background: transparent; border: 3px dashed var(--mute); box-shadow: none; } /* reads as "nothing to do", not as a faded button */
 .btn.primary { background: var(--accent); color: var(--on-accent); }
 .btn.danger { color: var(--box-bad, #b3261e); }
 .err { color: #b3261e; }
@@ -31,6 +31,7 @@
 .item summary::before { content: "▸"; font-size: 1rem; } /* flex summary loses the native marker */
 .item[open] summary::before { content: "▾"; }
 .item .flags { display: flex; gap: 1rem; margin-left: auto; }
+.item .ttl { flex: 1 1 12rem; min-width: 0; } /* the title takes the row; flags wrap below it on phones */
 .item.archived { opacity: .55; border-style: dashed; } /* hidden on the site; tick Archived again to bring it back */
 .item .flag { display: inline-flex !important; gap: .4rem; align-items: center; margin: 0; font-family: inherit; font-size: 1rem; cursor: pointer; }
 .item[open] summary { margin-bottom: 1rem; }
@@ -63,3 +64,8 @@
 .change ins { text-decoration: none; background: var(--accent); color: var(--on-accent); padding: 0 .25rem; }
 .daterange { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
 .daterange input[type="month"] { width: auto; }
+
+@media (max-width: 560px) {
+  .item summary { flex-wrap: wrap; }
+  .item .flags { flex-basis: 100%; margin-left: 1.5rem; } /* checkboxes drop under a long title */
+}

@@ -133,8 +133,8 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
 .proj[open] .yr::before { content: "- "; }
 .proj summary:hover .ti { color: var(--blue); }
 .yr { color: var(--mute); }
-.ti { font-family: var(--display); font-size: 1.9rem; line-height: 1; }
-.st { color: var(--mute); }
+.ti { font-family: var(--display); font-size: 1.9rem; line-height: 1; text-wrap: balance; }
+.st { color: var(--mute); text-wrap: balance; } /* no lone "CSS" on the second line */
 .proj[open] .ti { color: var(--blue); }
 .ti::after { content: "\00a0▸"; color: var(--accent); font-size: .7em; } /* says the row opens */
 .proj[open] .ti::after { content: "\00a0▾"; }
@@ -267,10 +267,12 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
   .card { grid-template-columns: auto minmax(0, 1fr); }
   .stats { grid-column: 1 / -1; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); margin-top: 1.75rem; }
 }
-/* phones: no card, but the class line and skill bars still show, as a compact row under the links */
+/* phones: a simpler player card, everything stacked */
 @media (max-width: 700px) {
   .hero { padding-top: .75rem; }
-  .hero .pixel-avatar { margin-bottom: .6rem; }
+  .card { position: relative; padding: 44px 16px 20px; background: color-mix(in srgb, var(--bg) 30%, transparent); background-clip: padding-box; border: 3px solid color-mix(in srgb, var(--ink) 60%, transparent); box-shadow: 4px 4px 0 color-mix(in srgb, var(--ink) 45%, transparent); }
+  .card > .bar { display: block; position: absolute; inset: 0 0 auto; padding: .05rem .75rem; font-size: .9rem; background: color-mix(in srgb, var(--ink) 60%, transparent); color: var(--bg); letter-spacing: .15em; }
+  .card .pixel-avatar { margin: 4px 0 .6rem 4px; }
   .lead { font-size: 1.3rem; } /* the extra class line must not push the GitHub link under the dock */
   .hero h1 { margin-bottom: 1rem; }
   .cls { display: block; margin: 0 0 .9rem; color: var(--blue); }
