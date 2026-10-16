@@ -32,12 +32,26 @@ export function client({ repo, branch, token }) {
     if (!res.ok) throw Object.assign(new Error(`${res.status}: ${body.message || res.statusText}`), { status: res.status });
     return body;
   };
+  // GitHub's 403 for a token that can read but not write is cryptic; say how to fix the token instead.
+  const writing = (fn) => async (...args) => {
+    try {
+      return await fn(...args);
+    } catch (e) {
+      if (e.status !== 403 && e.status !== 401) throw e;
+      throw new Error(
+        `GitHub refused the change (${e.message}). This token can read ${repo} but not write to it. In GitHub go to ` +
+          `Settings → Developer settings → Personal access tokens → Fine-grained tokens → your token, set Repository access to include ` +
+          `${repo}, and under Repository permissions set Contents to "Read and write". Then click Save again; the token itself stays the same.`,
+      );
+    }
+  };
   const file = (path) => `/repos/${repo}/contents/${path.split("/").map(encodeURIComponent).join("/")}`;
-  const write = (path, content, message, sha) =>
+  const write = writing((path, content, message, sha) =>
     req(file(path), {
       method: "PUT",
       body: JSON.stringify({ message, content, branch, sha }),
-    });
+    }),
+  );
 
   return {
     // Fine-grained tokens may omit `permissions`; only an explicit false is a refusal.
@@ -73,11 +87,12 @@ export function client({ repo, branch, token }) {
       const r = await write(IMG_DIR + path, base64, `Add image ${path}`);
       return { path, sha: r.content.sha };
     },
-    deleteImage: (path, sha) =>
+    deleteImage: writing((path, sha) =>
       req(file(IMG_DIR + path), {
         method: "DELETE",
         body: JSON.stringify({ message: `Delete image ${path}`, sha, branch }),
       }),
+    ),
     rawUrl: (path) => `https://raw.githubusercontent.com/${repo}/${branch}/${IMG_DIR}${path}`,
   };
 }

@@ -23,4 +23,9 @@ const { client } = await import("./github.js");
 globalThis.fetch = async () => ({ ok: false, status: 404, statusText: "Not Found", json: async () => ({ message: "Not Found" }) });
 await assert.rejects(client({ repo: "a/b", branch: "main", token: "t" }).readJson("src/content/site.json"), /not found on branch "main" of a\/b/);
 await assert.rejects(client({ repo: "a/b", branch: "main", token: "t" }).verify(), /Repository "a\/b" not found/);
+// a token that can read but not write (the "403: Resource not accessible by personal access token" case)
+globalThis.fetch = async () => ({ ok: false, status: 403, statusText: "Forbidden", json: async () => ({ message: "Resource not accessible by personal access token" }) });
+const gh = client({ repo: "a/b", branch: "main", token: "t" });
+await assert.rejects(gh.saveJson("src/content/site.json", {}, "sha", "msg"), /Contents to "Read and write"/);
+await assert.rejects(gh.deleteImage("x.png", "sha"), /Contents to "Read and write"/);
 console.log("ok");
