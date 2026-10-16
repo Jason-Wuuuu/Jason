@@ -4,8 +4,8 @@ import Experience from "./components/Experience";
 import Projects from "./components/Projects";
 import About from "./components/About";
 import Dock from "./components/Dock";
+import ThemeToggle from "./components/ThemeToggle";
 import Background from "./components/Background";
-import { avatarURL } from "./avatar";
 import site from "./content";
 
 // Loaded only at #/admin, so visitors never download it.
@@ -36,9 +36,7 @@ export default function App() {
     <>
       <Background />
       <Dock />
-      <span className="runner" aria-hidden="true">
-        <img src={avatarURL()} alt="" />
-      </span>
+      <ThemeToggle />
       <main id="top">
         <Hero />
         <Experience />

@@ -200,7 +200,7 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
 }
 @media (prefers-reduced-motion: reduce) { .egg::after { animation: none; } }
 
-/* ── background canvas, scroll runner, theme wipe, letter hop ── */
+/* ── background canvas, theme wipe, letter hop ── */
 .bg { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; image-rendering: pixelated; }
 .pixel-avatar { cursor: pointer; }
 
@@ -209,7 +209,7 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
 
 /* floating dock: the page's navigation, with the section you're in highlighted */
 .dock {
-  position: fixed; left: 50%; bottom: 2.2rem; z-index: 10; transform: translateX(-50%);
+  position: fixed; left: 50%; bottom: 1.5rem; z-index: 10; transform: translateX(-50%);
   display: flex; align-items: center; gap: .7rem; width: max-content; max-width: 96vw;
 }
 .dock a, .dock button {
@@ -220,7 +220,15 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
 .dock a:hover, .dock button:hover { color: var(--accent); }
 .dock a[aria-current="true"] { background: var(--accent); color: var(--on-accent); }
 .dock a:active, .dock button:active { transform: translate(3px, 3px); box-shadow: none; }
-.dock .theme-toggle { padding: .15rem .45rem; }
+
+/* theme toggle: its own button, top-right */
+.theme-toggle {
+  position: fixed; top: 1rem; right: 1.25rem; z-index: 10; display: inline-flex; align-items: center;
+  padding: .15rem .45rem; font: inherit; color: var(--ink); background: var(--bg);
+  border: 3px solid var(--ink); box-shadow: 3px 3px 0 var(--ink); cursor: pointer;
+}
+.theme-toggle:hover { color: var(--accent); }
+.theme-toggle:active { transform: translate(3px, 3px); box-shadow: none; }
 @keyframes dock-in-bottom { from { translate: 0 40px; opacity: 0; } }
 @keyframes dock-in-side { from { translate: 90px 0; opacity: 0; } }
 @media (prefers-reduced-motion: no-preference) {
@@ -243,25 +251,11 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
   .dock[data-pos="side"] { animation: dock-in-side .4s steps(6); }
 }
 @media (max-width: 560px) {
-  .dock { font-size: .8rem; gap: .4rem; bottom: 2rem; }
+  .dock { font-size: .8rem; gap: .4rem; bottom: 1.25rem; }
+  .theme-toggle { top: .75rem; right: .75rem; }
   .dock a, .dock button { padding: .1rem .55rem; }
-  .dock .theme-toggle { padding: .1rem .35rem; }
 }
 
-/* a tiny you runs along the bottom of the screen as the page scrolls (where scroll-driven animation is supported) */
-.runner { display: none; }
-@supports (animation-timeline: scroll()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .runner { display: block; position: fixed; left: 0; right: 0; bottom: 0; height: 6px; z-index: 9; pointer-events: none; border-top: 3px dashed var(--ink); }
-    .runner img {
-      position: absolute; bottom: 0; width: 24px; height: 24px; image-rendering: pixelated;
-      animation: run linear both, bob .35s steps(2) infinite;
-      animation-timeline: scroll(root), auto;
-    }
-  }
-}
-@keyframes run { from { left: 0; } to { left: calc(100% - 24px); } }
-@keyframes bob { 50% { margin-bottom: 3px; } }
 
 ::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
 ::view-transition-new(root) { animation: reveal .8s steps(14) both; }

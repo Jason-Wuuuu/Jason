@@ -56,6 +56,3 @@ export function avatarCanvas() {
   );
   return canvas;
 }
-
-let url;
-export const avatarURL = () => (url ??= avatarCanvas().toDataURL());

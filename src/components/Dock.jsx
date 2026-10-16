@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import ThemeToggle from "./ThemeToggle";
 
 const LINKS = [
   ["experience", "Experience"],
@@ -33,7 +32,6 @@ export default function Dock() {
           {label}
         </a>
       ))}
-      <ThemeToggle />
     </nav>
   );
 }
