@@ -148,7 +148,7 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
 .about { display: grid; grid-template-columns: 1fr minmax(0, 15rem); gap: 3rem; align-items: start; }
 .prose { font-size: 1.4rem; max-width: 36rem; }
 .photos { display: grid; }
-.photos img { grid-area: 1 / 1; width: 100%; }
+.photos img { grid-area: 1 / 1; width: 100%; aspect-ratio: 1; object-fit: cover; } /* reserves the space before the photo loads */
 .photos[data-stack="true"] { padding: 0 2rem 2rem 0; }
 .photos[data-stack="true"] img {
   cursor: pointer; transition: transform .25s steps(4); aspect-ratio: 4 / 5; object-fit: cover;
@@ -229,7 +229,7 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
 #about .typetest { margin-top: 2rem; }
 .tt-result { margin-bottom: 0; }
 /* wide screens: the hero is a game "player card": avatar | name, class, tagline, links | skill bars. Phones keep the plain stack. */
-.bar, .cls, .stats { display: none; }
+.card > .bar, .cls, .stats { display: none; }
 @media (min-width: 901px) {
   /* the card is centred in the first screen minus a strip at the bottom, so "Experience" still peeks */
   .hero { min-height: calc(100svh - 175px); padding-block: 0; display: flex; align-items: center; }
@@ -240,7 +240,7 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
     display: grid; grid-template-columns: auto minmax(0, 1fr) 150px; gap: 0 32px; align-items: start; /* px: rem is fluid on this page */
     padding: 52px 32px 32px; background: color-mix(in srgb, var(--bg) 30%, transparent); /* see-through: moon and stars show */ background-clip: padding-box; border: 3px solid color-mix(in srgb, var(--ink) 60%, transparent); box-shadow: 6px 6px 0 color-mix(in srgb, var(--ink) 45%, transparent);
   }
-  .bar { display: block; position: absolute; inset: 0 0 auto; padding: .15rem 1rem; background: color-mix(in srgb, var(--ink) 60%, transparent); color: var(--bg); letter-spacing: .15em; }
+  .card > .bar { display: block; position: absolute; inset: 0 0 auto; padding: .15rem 1rem; background: color-mix(in srgb, var(--ink) 60%, transparent); color: var(--bg); letter-spacing: .15em; }
   .card .pixel-avatar { margin: 12px 0 0; }
   .card h1 { font-size: clamp(64px, min(9vw, 15vh), 104px); margin-bottom: .75rem; }
   .cls { display: block; margin: 0 0 1rem; color: var(--blue); }
@@ -370,3 +370,9 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
   border-bottom: 3px dashed color-mix(in srgb, var(--ink) 35%, transparent);
 }
 .track .fill { position: absolute; left: 0; bottom: -3px; height: 3px; width: calc(100% * var(--p)); background: var(--accent); }
+
+/* a soft blur under the bottom dock so body text doesn't run between its buttons */
+html:has(.dock[data-pos="bottom"]) body::after {
+  content: ""; position: fixed; inset: auto 0 0; height: 6rem; z-index: 8; pointer-events: none;
+  backdrop-filter: blur(5px); -webkit-mask-image: linear-gradient(transparent, #000 55%); mask-image: linear-gradient(transparent, #000 55%);
+}
