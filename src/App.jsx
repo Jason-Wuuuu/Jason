@@ -56,7 +56,7 @@ export default function App() {
         <About />
       </main>
       <footer>
-        © {new Date().getFullYear()} {site.profile.fullName}
+        © {new Date().getFullYear()} {site.profile.name}
       </footer>
     </>
   );

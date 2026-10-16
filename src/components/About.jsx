@@ -76,7 +76,7 @@ export default function About() {
           </div>
         )}
       </div>
-      {egg && <TypeTest autoFocus />}
+      {egg && <TypeTest autoFocus onClose={() => setEgg(false)} />}
     </section>
   );
 }

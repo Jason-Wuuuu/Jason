@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import site from "../content";
 
 const { typingLine: TARGET, typingRecord: RECORD } = site.profile;
@@ -8,7 +8,7 @@ const BURST = Array.from({ length: 16 }, (_, i) => ({
   d: 70 + ((i * 53) % 70),
 }));
 
-export default function TypeTest({ autoFocus }) {
+export default function TypeTest({ autoFocus, onClose }) {
   const [typed, setTyped] = useState("");
   const [wpm, setWpm] = useState(null);
   const start = useRef(0);
@@ -31,9 +31,21 @@ export default function TypeTest({ autoFocus }) {
     input.current.focus();
   };
 
+  useEffect(() => {
+    const esc = (e) => e.key === "Escape" && onClose();
+    addEventListener("keydown", esc);
+    return () => removeEventListener("keydown", esc);
+  }, [onClose]);
+
   const done = wpm !== null;
   return (
-    <div className="typetest">
+    <div className="typetest win" role="dialog" aria-label="Typing test">
+      <span className="bar">
+        TYPING TEST
+        <span className="wm">
+          <button onClick={onClose} aria-label="Close">×</button>
+        </span>
+      </span>
       <label htmlFor="tt" className="tt-hint">
         Type this line. Jason's record is {RECORD} WPM.
       </label>

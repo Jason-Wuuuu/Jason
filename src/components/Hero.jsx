@@ -1,3 +1,4 @@
+import { useRef, useState } from "react";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import DescriptionIcon from "@mui/icons-material/Description";
@@ -13,10 +14,26 @@ const icons = {
 
 export default function Hero() {
   const { name, tagline, links, class: cls, stats = [] } = site.profile;
+  const [state, setState] = useState("open"); // open | closing | closed
+  const card = useRef(null);
+  const close = () => setState(matchMedia("(prefers-reduced-motion: reduce)").matches ? "closed" : "closing");
+  if (state === "closed")
+    return (
+      <section className="hero">
+        <p className="respawn">
+          PLAYER 1 has left the game. <button onClick={() => setState("open")}>Respawn</button>
+        </p>
+      </section>
+    );
   return (
     <section className="hero">
-      <div className="card">
-        <span className="bar">PLAYER 1</span>
+      <div className="card" ref={card} data-state={state} onAnimationEnd={(e) => e.animationName === "poof" && setState("closed")}>
+        <span className="bar">
+          PLAYER 1
+          <span className="wm">
+            <button onClick={close} aria-label="Close">×</button>
+          </span>
+        </span>
         <PixelAvatar />
         <div className="who">
           <h1 aria-label={name}>

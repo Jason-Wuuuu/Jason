@@ -66,7 +66,7 @@ if (matchMedia("(hover: hover) and (pointer: fine)").matches) {
     cur.hidden = false;
     cur.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
     cur.classList.toggle("txt", !!e.target.closest?.(TEXT));
-    const el = e.target.closest?.(SEL);
+    const el = e.target.closest?.(SEL + ", .grip, .bar"); // the progress arrow and the title bars count for the cursor, but gets no brackets
     cur.classList.toggle("hot", !!el); // over something clickable: the arrow grows a step
     if (el && el !== over) cur.firstChild.style.setProperty("--r", ++flips * 180 + "deg"); // and flips another half turn, so sliding between neighbours flips each time
     over = el;
@@ -75,3 +75,52 @@ if (matchMedia("(hover: hover) and (pointer: fine)").matches) {
   document.addEventListener("pointerup", () => cur.classList.remove("down"));
   document.addEventListener("mouseout", (e) => { if (!e.relatedTarget) cur.hidden = true; });
 }
+
+// The player card and the typing test window drag by their title bars, in whole 4px steps, and stays where it is dropped (double-click the bar to put it back).
+const SNAP = 4, BAR = ".card > .bar, .win > .bar";
+const place = (card, x, y) => { card.dataset.x = x; card.dataset.y = y; card.style.setProperty("--dx", x + "px"); card.style.setProperty("--dy", y + "px"); };
+// Easter egg: shake the player card (five quick turns in one second) and everything on it falls off, then climbs back.
+const FALL = ".ch, .pixel-avatar, .cls, .lead, .social a, .stats li";
+function shakeOff(card) {
+  if (card.matches(".shaken, .back") || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  card.querySelectorAll(FALL).forEach((el) => {
+    el.style.setProperty("--fx", Math.round(Math.random() * 240 - 120) + "px");
+    el.style.setProperty("--fr", Math.round(Math.random() * 360 - 180) + "deg");
+    el.style.setProperty("--fd", Math.round(Math.random() * 300) + "ms");
+  });
+  card.classList.add("shaken");
+  setTimeout(() => { card.classList.replace("shaken", "back"); setTimeout(() => card.classList.remove("back"), 500); }, 1800);
+}
+document.addEventListener("pointerdown", (e) => {
+  const bar = e.target.closest?.(BAR);
+  if (!bar || e.target.closest("button") || e.button || !matchMedia("(min-width: 701px) and (hover: hover)").matches) return; // phones scroll instead
+  e.preventDefault(); // no text selection while dragging
+  const card = bar.parentElement, r = card.getBoundingClientRect(), x0 = +card.dataset.x || 0, y0 = +card.dataset.y || 0;
+  const h = card.parentElement.matches(".hero") ? card.parentElement.getBoundingClientRect() : { top: 0, bottom: innerHeight };
+  const b = { left: 0, right: innerWidth, top: h.top, bottom: h.bottom }; // free across the screen; the card stays within the hero's height (never over other sections), the window within the screen
+  let dir = 0, ext = e.clientX, turns = []; // the card's own shake detector: direction changes of 40px or more
+  const move = (m) => {
+    if (card.matches(".card")) {
+      if ((m.clientX - ext) * dir > 0) ext = m.clientX;
+      else if (Math.abs(m.clientX - ext) > 40) {
+        dir = m.clientX > ext ? 1 : -1; ext = m.clientX;
+        const now = performance.now();
+        turns = [...turns.filter((t) => now - t < 1000), now];
+        if (turns.length >= 5) { turns = []; shakeOff(card); }
+      }
+    }
+    const x = Math.min(b.right - r.right + x0, Math.max(b.left - r.left + x0, x0 + m.clientX - e.clientX));
+    const y = Math.min(b.bottom - r.bottom + y0, Math.max(b.top - r.top + y0, y0 + m.clientY - e.clientY));
+    place(card, Math.round(x / SNAP) * SNAP, Math.round(y / SNAP) * SNAP);
+  };
+  const drop = () => { card.classList.remove("lifted"); bar.removeEventListener("pointermove", move); bar.removeEventListener("pointerup", drop); bar.removeEventListener("pointercancel", drop); };
+  card.classList.add("lifted");
+  bar.setPointerCapture(e.pointerId);
+  bar.addEventListener("pointermove", move);
+  bar.addEventListener("pointerup", drop);
+  bar.addEventListener("pointercancel", drop);
+});
+document.addEventListener("dblclick", (e) => {
+  const bar = e.target.closest?.(BAR);
+  if (bar) place(bar.parentElement, 0, 0);
+});

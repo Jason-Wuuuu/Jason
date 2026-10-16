@@ -78,6 +78,7 @@ p { margin: 0 0 1rem; }
 main, footer { padding-inline: max(1.25rem, calc((100vw - 960px) / 2)); }
 section { padding-block: 4rem 1rem; }
 footer { padding-block: 2.5rem 4.5rem; color: var(--mute); } /* bottom room just clears the phone dock; the old 8rem left a screen of nothing */
+#about { min-height: calc(100svh - 190px); display: flex; flex-direction: column; justify-content: center; } /* on tall screens the last section fills the screen above the footer (190px) and its content sits in the middle, instead of the page running out early */
 @media (min-width: 1280px) { footer { padding-block: 3rem 4rem; } } /* the dock moves to the side here: no dock clearance, but a little air so the page does not end flush with the last block */
 #experience { padding-top: 2rem; } /* tight under the hero so its heading peeks on the first screen */
 #experience .timeline { filter: blur(6px); transition: filter .5s steps(5); } /* the heading stays sharp; what follows is blurred until you scroll */
@@ -98,7 +99,7 @@ footer { padding-block: 2.5rem 4.5rem; color: var(--mute); } /* bottom room just
 .social a { display: inline-flex; align-items: center; gap: .35rem; }
 
 /* typing test: the one loud moment */
-.typetest { margin-top: 2.5rem; padding: 1.5rem; background: var(--box); color: var(--box-text); border: 4px solid var(--ink); box-shadow: 6px 6px 0 var(--sky); }
+.typetest { padding: 3.25rem 1.5rem 1.5rem; background: var(--box); color: var(--box-text); border: 4px solid var(--ink); box-shadow: 6px 6px 0 var(--sky); }
 .tt-hint { display: block; font-size: 1.1rem; color: var(--box-dim); margin-bottom: .75rem; }
 .tt-line { position: relative; font-family: var(--display); font-size: clamp(1.6rem, 4vw, 2.5rem); line-height: 1.3; cursor: text; }
 .tt-line span { color: var(--box-dim); }
@@ -202,6 +203,8 @@ footer { padding-block: 2.5rem 4.5rem; color: var(--mute); } /* bottom room just
 @keyframes float { 50% { transform: translateY(-10px); } }
 @keyframes hop { 50% { transform: translateY(-14px); } }
 @keyframes drop { from { transform: translateY(-1.1em); opacity: 0; } 50% { opacity: 1; } }
+@keyframes shake-off { 25% { rotate: calc(var(--fr) * .3); } to { translate: var(--fx) 60vh; rotate: var(--fr); opacity: 0; } }
+@keyframes poof { to { scale: 0; opacity: 0; } }
 @keyframes rise { from { transform: translateY(16px); opacity: 0; } }
 @keyframes unfold { from { clip-path: inset(0 0 100% 0); } }
 @keyframes scan { from { clip-path: inset(0 100% 0 0); } }
@@ -213,6 +216,9 @@ footer { padding-block: 2.5rem 4.5rem; color: var(--mute); } /* bottom room just
   /* the one orchestrated moment: name drops in letter by letter, then the rest follows */
   .hero h1 .ch { display: inline-block; animation: drop .5s steps(5) backwards; /* backwards, not both: iOS can leave a letter stuck on the end frame */ animation-delay: calc(var(--i) * 70ms); }
   .pixel-avatar { animation: float 3.2s steps(8) infinite; } /* hover (hop) takes over while pointed at */
+  .card[data-state="closing"] { animation: poof .3s steps(4) forwards; } /* closing the player card: it shrinks away */
+  .card.shaken :is(.ch, .pixel-avatar, .cls, .lead, .social a, .stats li) { animation: shake-off .9s steps(9) var(--fd) forwards; } /* the shake easter egg (hoverRing.js) */
+  .card.back :is(.ch, .pixel-avatar, .cls, .lead, .social a, .stats li) { animation: rise .4s steps(4) both; }
   .hero .lead { animation: rise .4s steps(4) .75s both; }
   .hero .social { animation: rise .4s steps(4) .95s both; }
 
@@ -238,21 +244,33 @@ footer { padding-block: 2.5rem 4.5rem; color: var(--mute); } /* bottom room just
 .egg { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; border-bottom: 3px dotted var(--accent); }
 .egg::after { content: ""; display: inline-block; width: .4em; height: .85em; margin-left: .2em; vertical-align: -.1em; background: var(--accent); animation: blink 1s steps(2) infinite; }
 .egg:hover { color: var(--accent); }
-#about .typetest { margin-top: 2rem; }
+/* a floating window: opened from the "118 WPM" egg, dragged by its bar (hoverRing.js) */
+.win { position: fixed; left: 50%; top: 22vh; z-index: 25; width: min(40rem, calc(100vw - 2rem)); translate: -50% 0; transform: translate(var(--dx, 0px), var(--dy, 0px)); }
+.win.lifted { box-shadow: 12px 12px 0 var(--sky); }
+.win > .bar { position: absolute; inset: 0 0 auto; display: flex; justify-content: space-between; align-items: center; padding: .15rem .75rem; background: var(--ink); color: var(--bg); letter-spacing: .15em; touch-action: none; user-select: none; }
+@media (hover: hover) { .card > .bar:hover, .win > .bar:hover { background: var(--accent); color: var(--on-accent); } } /* a title bar lights up: grab here */
+.wm { display: flex; gap: .4rem; letter-spacing: 0; }
+.wm button { width: 1.15rem; height: 1.15rem; padding: 0; display: grid; place-items: center; line-height: 1; font-size: 1rem; background: none; border: 2px solid currentColor; color: inherit; }
+.wm button:hover { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+.respawn { width: 100%; margin: 0; text-align: center; font-size: 1.4rem; color: var(--mute); }
+.respawn button { padding: 0; background: none; border: 0; color: var(--accent); text-decoration: underline; }
 .tt-result { margin-bottom: 0; }
 /* wide screens: the hero is a game "player card": avatar | name, class, tagline, links | skill bars. Phones keep the plain stack. */
 .card > .bar, .cls, .stats { display: none; }
+.card { -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); } /* just enough to soften the stars behind the see-through card */
 @media (min-width: 701px) {
   /* the card is centred in the first screen minus a strip at the bottom, so "Experience" still peeks */
   .hero { min-height: calc(100svh - 175px); padding-block: 0; display: flex; align-items: center; }
-  .hero > .card { width: 100%; translate: 0 12px; } /* keeps the card where it was while the strip below shrinks */
+  .hero > .card { width: 100%; translate: 0 12px; transform: translate(var(--dx, 0px), var(--dy, 0px)); } /* --dx/--dy: where the card has been dragged to (hoverRing.js) */
+  .card > .bar { touch-action: none; user-select: none; }
+  .card.lifted { box-shadow: 12px 12px 0 color-mix(in srgb, var(--ink) 45%, transparent); } /* picked up: a deeper shadow */ /* keeps the card where it was while the strip below shrinks */
   #experience { padding-top: .8rem; }
   .card {
     position: relative;
     display: grid; grid-template-columns: auto minmax(0, 1fr) 150px; gap: 0 32px; align-items: start; /* px: rem is fluid on this page */
     padding: 52px 32px 32px; background: color-mix(in srgb, var(--bg) 30%, transparent); /* see-through: moon and stars show */ background-clip: padding-box; border: 3px solid color-mix(in srgb, var(--ink) 60%, transparent); box-shadow: 6px 6px 0 color-mix(in srgb, var(--ink) 45%, transparent);
   }
-  .card > .bar { display: block; position: absolute; inset: 0 0 auto; padding: .15rem 1rem; background: color-mix(in srgb, var(--ink) 60%, transparent); color: var(--bg); letter-spacing: .15em; }
+  .card > .bar { display: flex; justify-content: space-between; align-items: center; position: absolute; inset: 0 0 auto; padding: .15rem 1rem; background: color-mix(in srgb, var(--ink) 60%, transparent); color: var(--bg); letter-spacing: .15em; }
   .card .pixel-avatar { margin: 12px 0 0; }
   .card h1 { font-size: clamp(64px, min(9vw, 15vh), 104px); margin-bottom: .75rem; }
   .cls { display: block; margin: 0 0 1rem; color: var(--blue); }
@@ -274,6 +292,7 @@ footer { padding-block: 2.5rem 4.5rem; color: var(--mute); } /* bottom room just
 }
 /* phones: a simpler player card, everything stacked */
 @media (max-width: 700px) {
+  .card .wm { display: none; } /* the card isn't a window on phones */
   .hero { padding-top: 3.25rem; } /* clears the fixed theme toggle, so it no longer sits on the PLAYER 1 bar */
   .card { position: relative; padding: 44px 16px 20px; background: color-mix(in srgb, var(--bg) 30%, transparent); background-clip: padding-box; border: 3px solid color-mix(in srgb, var(--ink) 60%, transparent); box-shadow: 4px 4px 0 color-mix(in srgb, var(--ink) 45%, transparent); }
   .card > .bar { display: block; position: absolute; inset: 0 0 auto; padding: .05rem .75rem; font-size: .9rem; background: color-mix(in srgb, var(--ink) 60%, transparent); color: var(--bg); letter-spacing: .15em; }
@@ -409,6 +428,14 @@ footer { padding-block: 2.5rem 4.5rem; color: var(--mute); } /* bottom room just
   border-bottom: 3px dashed color-mix(in srgb, var(--ink) 35%, transparent);
 }
 .track .fill { position: absolute; left: 0; bottom: -3px; height: 3px; width: calc(100% * var(--p)); background: var(--accent); }
+/* the arrow over the head of the fill is a 32px grab area (ProgressBar.jsx); a pixel "v" floats in it */
+.grip { position: absolute; left: calc(var(--p) * 100%); bottom: 0; width: 32px; height: 32px; translate: -50% 0; pointer-events: auto; touch-action: none; }
+.grip::before {
+  content: ""; position: absolute; left: 4px; bottom: 8px; width: 24px; height: 12px; background: var(--accent);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='12' viewBox='0 0 8 4' shape-rendering='crispEdges'%3E%3Crect x='0' y='0' width='1' height='1'/%3E%3Crect x='1' y='0' width='1' height='1'/%3E%3Crect x='6' y='0' width='1' height='1'/%3E%3Crect x='7' y='0' width='1' height='1'/%3E%3Crect x='1' y='1' width='1' height='1'/%3E%3Crect x='2' y='1' width='1' height='1'/%3E%3Crect x='5' y='1' width='1' height='1'/%3E%3Crect x='6' y='1' width='1' height='1'/%3E%3Crect x='2' y='2' width='1' height='1'/%3E%3Crect x='3' y='2' width='1' height='1'/%3E%3Crect x='4' y='2' width='1' height='1'/%3E%3Crect x='5' y='2' width='1' height='1'/%3E%3Crect x='3' y='3' width='1' height='1'/%3E%3Crect x='4' y='3' width='1' height='1'/%3E%3C/svg%3E") center / 100% 100%; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='12' viewBox='0 0 8 4' shape-rendering='crispEdges'%3E%3Crect x='0' y='0' width='1' height='1'/%3E%3Crect x='1' y='0' width='1' height='1'/%3E%3Crect x='6' y='0' width='1' height='1'/%3E%3Crect x='7' y='0' width='1' height='1'/%3E%3Crect x='1' y='1' width='1' height='1'/%3E%3Crect x='2' y='1' width='1' height='1'/%3E%3Crect x='5' y='1' width='1' height='1'/%3E%3Crect x='6' y='1' width='1' height='1'/%3E%3Crect x='2' y='2' width='1' height='1'/%3E%3Crect x='3' y='2' width='1' height='1'/%3E%3Crect x='4' y='2' width='1' height='1'/%3E%3Crect x='5' y='2' width='1' height='1'/%3E%3Crect x='3' y='3' width='1' height='1'/%3E%3Crect x='4' y='3' width='1' height='1'/%3E%3C/svg%3E") center / 100% 100%;
+}
+@keyframes bob { 50% { translate: 0 -4px; } }
+@media (prefers-reduced-motion: no-preference) { .grip::before { animation: bob 1s steps(2) infinite; } }
 
 /* a soft blur under the bottom dock so body text doesn't run between its buttons */
 body::after {
@@ -427,7 +454,8 @@ html.scrolled:has(.dock[data-pos="bottom"]) body::after { /* not at the very top
 .pxcur i { display: block; width: 25px; height: 35px; margin: -2.5px 0 0 -2.5px; background: url(/cursor.svg) 0 0 / 100% 100%; image-rendering: pixelated; } /* margin puts the arrow's tip on the pointer */
 .pxcur i { transform: scale(var(--s, 1)) rotate3d(.41, .91, 0, var(--r, 0deg)); transform-origin: 2.5px 2.5px; transition: transform .24s steps(4); } /* scales and flips about the tip */
 .pxcur.hot i { --s: 1.2; } /* --r (set in hoverRing.js) adds a half turn per target, about the arrow's own diagonal axis: it squashes edge-on and comes back looking the same */
-.pxcur.down i { --s: .8; } /* held down: pushed in, still flipped if over something clickable */
+.pxcur.down i { --s: .6; transition-duration: .1s; } /* held down: pushed in quick and deep, still flipped if over something clickable */
+.pxcur.down { opacity: 1; } /* and a flash to full opacity */
 @media (prefers-reduced-motion: reduce) { .pxcur i { transition: none; } }
 .pxcur.txt i { width: 17.5px; height: 35px; margin: -17.5px 0 0 -8.75px; background-image: url(/cursor-text.svg); } /* I-beam: centred on the pointer */
 @media (prefers-color-scheme: dark) {
