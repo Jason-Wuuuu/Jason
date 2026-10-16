@@ -10,7 +10,7 @@ export default function About() {
   const [gone, setGone] = useState(-1); // the photo that was just sent to the back (it animates)
   return (
     <section id="about">
-      <h2>About</h2>
+      <h2>Player Log<small>About</small></h2>
       <div className="about">
         <div className="prose">
           {paragraphs.map((p, i) => (

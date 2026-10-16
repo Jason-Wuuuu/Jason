@@ -8,10 +8,10 @@ const nest = (points) =>
     return out;
   }, []);
 
-export default function Experience({ id = "experience", title = "Experience", items = site.experience }) {
+export default function Experience({ id = "experience", title = "Quests", sub = "Experience", items = site.experience }) {
   return (
     <section id={id}>
-      <h2>{title}</h2>
+      <h2>{title}<small>{sub}</small></h2>
       <ol className="timeline">
         {items.map((j, i) => (
           <li key={i}>

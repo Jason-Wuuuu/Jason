@@ -12,6 +12,7 @@
 .check { display: flex !important; gap: .5rem; align-items: center; }
 .bar { position: sticky; top: 0; z-index: 5; display: flex; flex-wrap: wrap; gap: 0 1rem; align-items: center; padding: .7rem 0; background: var(--bg); border-bottom: 3px solid var(--ink); }
 .bar a { margin-right: auto; }
+.bar .btn { margin: 0; } /* wrapped rows stay aligned */
 .btn { white-space: nowrap; display: inline-flex; align-items: center; padding: .15rem .8rem; margin: 0 .4rem .4rem 0; font: inherit; color: var(--ink); background: var(--bg); border: 3px solid var(--ink); box-shadow: 3px 3px 0 var(--ink); cursor: pointer; }
 .admin label.btn { display: inline-flex; margin: 0 .4rem .4rem 0; } /* beats ".admin label" (block + bottom margin) */
 .admin .picker .btn { margin: 0; }

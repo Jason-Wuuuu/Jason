@@ -225,7 +225,8 @@ export default function Admin() {
             Preview
           </button>
         )}
-        <button className="btn primary" disabled={!dirty} onClick={save}>{dirty ? "Save changes" : "Saved"}</button>
+        <button className="btn" disabled={!dirty} onClick={() => confirm("Throw away all unsaved edits?") && (setSite(base), setDirty(false))}>Discard</button>
+        <button className="btn primary" disabled={!dirty} onClick={save}>{dirty ? "● Save changes" : "Saved"}</button>
       </header>
       <p className={status.error ? "err" : "muted"} role="status">{status.text}</p>
       {site && (

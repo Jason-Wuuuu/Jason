@@ -43,6 +43,7 @@ export default function App() {
 
   return (
     <>
+      <a className="skip" href="#experience">Skip to content</a>
       <Background />
       <Dock />
       <ProgressBar />
@@ -50,7 +51,7 @@ export default function App() {
       <main id="top">
         <Hero />
         <Experience />
-        <Experience id="education" title="Education" items={site.education} />
+        <Experience id="education" title="Training" sub="Education" items={site.education} />
         <Projects />
         <About />
       </main>
