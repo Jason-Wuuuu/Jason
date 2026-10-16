@@ -53,6 +53,7 @@ function Login({ onLogin }) {
 }
 
 function Images({ images, ctx, site, onDeleted }) {
+  const [unusedOnly, setUnusedOnly] = useState(false);
   const inUse = (path) => JSON.stringify(site).includes(`"${path}"`);
   const remove = async (img) => {
     const warn = inUse(img.path) ? `\n\n"${img.path}" is still used in your unsaved or saved content.` : "";
@@ -65,13 +66,18 @@ function Images({ images, ctx, site, onDeleted }) {
     e.target.value = "";
   };
   const groups = {}; // folder -> images; files at the top level go under ""
-  for (const img of images) (groups[img.path.split("/").slice(0, -1).join("/")] ||= []).push(img);
+  const unused = images.filter((i) => !inUse(i.path)).length;
+  for (const img of unusedOnly ? images.filter((i) => !inUse(i.path)) : images) (groups[img.path.split("/").slice(0, -1).join("/")] ||= []).push(img);
   return (
     <>
       <label className="btn">
         Upload images
         <input type="file" accept="image/*" multiple hidden onChange={upload} />
       </label>
+      <button className={unusedOnly ? "btn primary" : "btn"} aria-pressed={unusedOnly} onClick={() => setUnusedOnly(!unusedOnly)}>
+        Unused only ({unused})
+      </button>
+      {unusedOnly && !unused && <p className="muted">Every image is in use.</p>}
       {Object.keys(groups).sort().map((dir) => (
         <details className="item img-group" key={dir} open>
           <summary>{dir || "(top level)"} <span className="muted">{groups[dir].length}</span></summary>
