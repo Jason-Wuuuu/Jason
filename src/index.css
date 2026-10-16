@@ -220,6 +220,23 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
 .dock a[aria-current="true"] { background: var(--accent); color: var(--on-accent); }
 .dock a:active, .dock button:active { transform: translate(3px, 3px); box-shadow: none; }
 .dock .theme-toggle { padding: .15rem .45rem; }
+@keyframes dock-in-bottom { from { translate: 0 40px; opacity: 0; } }
+@keyframes dock-in-side { from { translate: 90px 0; opacity: 0; } }
+@media (prefers-reduced-motion: no-preference) {
+  .dock[data-pos="bottom"] { animation: dock-in-bottom .4s steps(6); }
+}
+/* wide screens have empty margins beside the 960px column: once you scroll, the dock lives there */
+@media (min-width: 1280px) {
+  .dock[data-pos="side"] {
+    left: auto; right: 1.25rem; bottom: 50%; transform: translateY(50%);
+    flex-direction: column; align-items: stretch; gap: .6rem; font-size: .85rem;
+  }
+  .dock[data-pos="side"] a { justify-content: center; }
+  .dock[data-pos="side"] .theme-toggle { justify-content: center; }
+}
+@media (min-width: 1280px) and (prefers-reduced-motion: no-preference) {
+  .dock[data-pos="side"] { animation: dock-in-side .4s steps(6); }
+}
 @media (max-width: 560px) {
   .dock { font-size: .8rem; gap: .4rem; bottom: 2rem; }
   .dock a, .dock button { padding: .1rem .55rem; }
