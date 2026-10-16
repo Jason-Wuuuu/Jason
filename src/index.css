@@ -275,11 +275,12 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
   .card { position: relative; padding: 44px 16px 20px; background: color-mix(in srgb, var(--bg) 30%, transparent); background-clip: padding-box; border: 3px solid color-mix(in srgb, var(--ink) 60%, transparent); box-shadow: 4px 4px 0 color-mix(in srgb, var(--ink) 45%, transparent); }
   .card > .bar { display: block; position: absolute; inset: 0 0 auto; padding: .05rem .75rem; font-size: .9rem; background: color-mix(in srgb, var(--ink) 60%, transparent); color: var(--bg); letter-spacing: .15em; }
   .card { text-align: center; } /* centred stack: avatar, name, class, tagline, links, stats */
-  .card { display: grid; grid-template-columns: 1fr auto auto 1fr; align-items: center; column-gap: 16px; } /* avatar and name share the top row, centred as a pair between two spacer columns */
+  .card { display: grid; grid-template-columns: 1fr auto auto 1fr; align-items: center; column-gap: clamp(12px, calc(100vw - 340px), 28px); } /* avatar and name share the top row, centred as a pair between two spacer columns */
   .card .who { display: contents; }
   .card .who > *:not(h1), .card .stats { grid-column: 1 / -1; }
   .card .avatar-wrap { grid-column: 2; }
-  .card h1 { grid-column: 3; white-space: nowrap; font-size: clamp(52px, 18vw, 88px); margin: 0 0 .5rem; text-align: left; }
+  .card h1 { grid-column: 3; white-space: nowrap; font-size: clamp(46px, 17vw, 88px); margin: 0 0 .5rem; text-align: left; }
+  @media (max-width: 340px) { .card .pixel-avatar { width: 72px; } }
   .card .cls { margin-top: .75rem; }
   .lead { font-size: 1.15rem; margin-inline: auto; }
   .cls { display: block; margin: 0 0 1rem; color: var(--blue); }
@@ -311,7 +312,7 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
   content: ""; position: absolute; left: -9px; top: .5rem; width: 10px; height: 10px; rotate: 45deg;
   background: var(--bg); border-left: 3px solid var(--ink); border-bottom: 3px solid var(--ink);
 }
-@media (min-width: 901px) {
+@media (min-width: 901px), (max-width: 700px) { /* under the avatar; beside it would cover the name on the phone card */
   .bubble { left: 0; top: calc(100% + 14px); }
   .bubble::before { left: 20px; top: -9px; border-bottom: 0; border-top: 3px solid var(--ink); }
 }
