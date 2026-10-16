@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from "react";
 
 const LINKS = [
   ["experience", "Quests", "Experience"],
-  ["education", "Training", "Education"],
   ["projects", "Inventory", "Projects"],
+  ["education", "Training", "Education"],
   ["about", "Player Log", "About"],
 ];
 

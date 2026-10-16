@@ -51,8 +51,8 @@ export default function App() {
       <main id="top">
         <Hero />
         <Experience />
-        <Experience id="education" title="Training" sub="Education" items={site.education} />
         <Projects />
+        <Experience id="education" title="Training" sub="Education" items={site.education} />
         <About />
       </main>
       <footer>
