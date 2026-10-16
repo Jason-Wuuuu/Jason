@@ -116,6 +116,8 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
 .timeline { list-style: none; margin: 0; padding: 0; }
 .timeline > li { display: grid; grid-template-columns: 11rem 1fr; gap: 1rem 2rem; padding: 1.75rem 0; border-top: 3px dashed var(--ink); }
 .when { color: var(--mute); margin: 0; }
+.when .dot { display: none; }
+@media (max-width: 700px) { .when .dot { display: inline; } .when br { display: none; } } /* one line on phones: date · place */
 .org { color: var(--blue); font-size: 1.15em; margin: .25rem 0 .75rem; }
 .timeline ul { margin: 0; padding-left: 1.2rem; max-width: 42rem; list-style: square; }
 .timeline ul li { margin-bottom: .35rem; }
@@ -338,7 +340,7 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
 /* hover: the link hops up in pixel steps while its label rolls up to an accent copy */
 .dock a { transition: translate .25s steps(3), box-shadow .25s steps(3); }
 @media (hover: hover) { .dock a:hover { translate: 0 -5px; box-shadow: 3px 8px 0 var(--ink); } }
-.dock .lb { position: relative; display: inline-block; overflow: hidden; }
+.dock .lb { position: relative; display: inline-block; overflow: hidden; white-space: nowrap; }
 .dock .lb > span, .dock .lb::after { transition: translate .25s steps(3); }
 .dock .lb::after { content: attr(data-t); position: absolute; left: 0; top: 100%; color: var(--accent); }
 @media (hover: hover) { .dock a:hover .lb > span, .dock a:hover .lb::after { translate: 0 -100%; } }

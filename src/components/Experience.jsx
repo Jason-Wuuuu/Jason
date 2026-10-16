@@ -18,6 +18,7 @@ export default function Experience({ id = "experience", title = "Quests", sub = 
           <li key={i}>
             <p className="when">
               {j.date}
+              {j.place && <span className="dot"> · </span>}
               <br />
               {j.place}
             </p>
