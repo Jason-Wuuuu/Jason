@@ -11,7 +11,7 @@ const nest = (points) =>
 export default function Experience({ id = "experience", title = "Quests", sub = "Experience", items = site.experience }) {
   return (
     <section id={id}>
-      <h2>{title}<small>{sub}</small></h2>
+      <h2 aria-label={`${title}, ${sub}`}>{title}<small>{sub}</small></h2>
       <ol className="timeline">
         {items.map((j, i) => (
           <li key={i}>

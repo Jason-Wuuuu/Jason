@@ -109,7 +109,7 @@ export default function Projects() {
         : projects.filter((p) => p.category === cat);
   return (
     <section id="projects">
-      <h2>Inventory<small>Projects</small></h2>
+      <h2 aria-label="Inventory, Projects">Inventory<small>Projects</small></h2>
       {grouped && (
         <div className="filters" role="group" aria-label="Filter projects">
           {categories.map((c) => (

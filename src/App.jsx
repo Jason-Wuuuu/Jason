@@ -43,7 +43,7 @@ export default function App() {
 
   return (
     <>
-      <a className="skip" href="#experience">Skip to content</a>
+      <a className="skip" href="#top">Skip to content</a>
       <Background />
       <Dock />
       <ProgressBar />
