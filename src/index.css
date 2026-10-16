@@ -259,8 +259,8 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
   .pips { position: relative; width: 108px; /* 10 pips x 11px */ margin-top: .3rem; opacity: .9; }
   .pips::after { content: ""; position: absolute; inset: 0 auto 0 0; width: calc(var(--n) * 11px); background: repeating-linear-gradient(90deg, var(--accent) 0 8px, transparent 8px 11px); }
 }
-@media (min-width: 701px) and (prefers-reduced-motion: no-preference) {
-  .pips::after { animation: scan .6s steps(10) 1s both; }
+@media (prefers-reduced-motion: no-preference) {
+  .pips::after { animation: scan .6s steps(10) calc(1s + var(--k, 0) * .2s) both; } /* one bar after another */
 }
 /* tablets: no room for a third column, so the skill bars drop to a row under the text */
 @media (min-width: 701px) and (max-width: 900px) {

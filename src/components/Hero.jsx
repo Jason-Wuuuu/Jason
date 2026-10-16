@@ -50,10 +50,10 @@ export default function Hero() {
         </div>
         {stats.length > 0 && (
           <ul className="stats" aria-label="Skills">
-            {stats.map((t) => {
+            {stats.map((t, k) => {
               const m = t.match(/^(.*?)\s+(\d+)$/);
               return (
-                <li key={t}>
+                <li key={t} style={{ "--k": k }}>
                   {m ? m[1] : t}
                   {m && <span className="pips" style={{ "--n": Math.min(+m[2], 10) }} />}
                 </li>
