@@ -425,9 +425,9 @@ html.scrolled:has(.dock[data-pos="bottom"]) body::after { /* not at the very top
 .pxcur { position: fixed; left: 0; top: 0; z-index: 40; pointer-events: none; opacity: .8; }
 .pxcur[hidden] { display: none; }
 .pxcur i { display: block; width: 25px; height: 35px; margin: -2.5px 0 0 -2.5px; background: url(/cursor.svg) 0 0 / 100% 100%; image-rendering: pixelated; } /* margin puts the arrow's tip on the pointer */
-.pxcur i { transform-origin: 2.5px 2.5px; transition: transform .12s steps(2); } /* scales about the tip */
-.pxcur.hot i { transform: scale(1.2); }
-.pxcur.hot { opacity: 1; }
+.pxcur i { transform: scale(var(--s, 1)) rotate3d(.41, .91, 0, var(--r, 0deg)); transform-origin: 2.5px 2.5px; transition: transform .24s steps(4); } /* scales and flips about the tip */
+.pxcur.hot i { --s: 1.2; } /* --r (set in hoverRing.js) adds a half turn per target, about the arrow's own diagonal axis: it squashes edge-on and comes back looking the same */
+.pxcur.down i { --s: .8; } /* held down: pushed in, still flipped if over something clickable */
 @media (prefers-reduced-motion: reduce) { .pxcur i { transition: none; } }
 .pxcur.txt i { width: 17.5px; height: 35px; margin: -17.5px 0 0 -8.75px; background-image: url(/cursor-text.svg); } /* I-beam: centred on the pointer */
 @media (prefers-color-scheme: dark) {

@@ -57,6 +57,7 @@ document.addEventListener("mouseout", (e) => { if (!e.relatedTarget) set(null); 
 // The cursor itself is a DOM element (a native cursor image can't be translucent); an arrow, or an I-beam over text.
 if (matchMedia("(hover: hover) and (pointer: fine)").matches) {
   const TEXT = "input, textarea, [contenteditable], .tt-line";
+  let over = null, flips = 0;
   const cur = Object.assign(document.createElement("div"), { className: "pxcur", hidden: true }); // shown on the first move
   cur.append(document.createElement("i"));
   document.body.append(cur);
@@ -65,7 +66,12 @@ if (matchMedia("(hover: hover) and (pointer: fine)").matches) {
     cur.hidden = false;
     cur.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
     cur.classList.toggle("txt", !!e.target.closest?.(TEXT));
-    cur.classList.toggle("hot", !!e.target.closest?.(SEL)); // over something clickable: the arrow grows a step
+    const el = e.target.closest?.(SEL);
+    cur.classList.toggle("hot", !!el); // over something clickable: the arrow grows a step
+    if (el && el !== over) cur.firstChild.style.setProperty("--r", ++flips * 180 + "deg"); // and flips another half turn, so sliding between neighbours flips each time
+    over = el;
   });
+  document.addEventListener("pointerdown", () => cur.classList.add("down"));
+  document.addEventListener("pointerup", () => cur.classList.remove("down"));
   document.addEventListener("mouseout", (e) => { if (!e.relatedTarget) cur.hidden = true; });
 }
