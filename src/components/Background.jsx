@@ -5,6 +5,7 @@ import { useEffect, useRef } from "react";
 // or clouds + sun (light), rising fireflies, an occasional shooting star, and sparkles on click.
 const PX = 6; // CSS pixels per canvas pixel
 const BANDS = 8;
+const SPECK = 0.5; // opacity of stars and fireflies
 const BAYER = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5].map((v) => (v + 0.5) / 16);
 const rgb = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
 
@@ -37,6 +38,12 @@ export default function Background() {
       canvas.height = H;
       img = ctx.createImageData(W, H);
       k = Math.min(1, Math.max(0.35, (W * H) / 30000)); // fewer stars and fireflies on small screens
+    };
+
+    // moon/sun: in the empty margin right of the 960px text column when there is one, so it doesn't sit on the hero card
+    const sunX = () => {
+      const margin = (innerWidth - 960) / 2;
+      return margin > 140 ? (innerWidth - margin / 2) / PX : W * 0.82;
     };
 
     const rect = (x, y, w, h, color) => {
@@ -73,13 +80,15 @@ export default function Background() {
       ctx.putImageData(img, 0, 0);
 
       if (dark) {
+        ctx.globalAlpha = SPECK; // dimmer than the text, so specks behind a paragraph don't read as stray letters
         for (let i = 0; i < 70 * k; i++) { // stars twinkle in steps
           if (Math.floor(t * 1.5 + rand(i + 200) * 9) % 4 === 0) continue;
           const x = rand(i + 1) * W, y = rand(i + 90) * H * 0.75 + oy * 0.5;
           rect(x, y, 1, 1, th.sprite[i % 3]);
           if (i % 9 === 0) { rect(x - 1, y, 3, 1, th.sprite[0]); rect(x, y - 1, 1, 3, th.sprite[0]); }
         }
-        const mx = W * 0.82, my = H * 0.18 + oy; // moon with craters
+        ctx.globalAlpha = 1;
+        const mx = sunX(), my = H * 0.18 + oy; // moon with craters
         for (let y = -8; y <= 8; y++) for (let x = -8; x <= 8; x++) if (x * x + y * y <= 64 && (x + 3) * (x + 3) + y * y > 40) rect(mx + x, my + y, 1, 1, "#eeebe6");
         rect(mx - 1, my - 3, 2, 2, "#c9c6c0"); rect(mx + 2, my + 2, 2, 2, "#c9c6c0");
         nextShoot -= dt;
@@ -90,7 +99,7 @@ export default function Background() {
           if (shoot.a > 1.2) shoot = null;
         }
       } else {
-        const sx = W * 0.82, sy = H * 0.18 + oy; // sun: disc with a pixel ring
+        const sx = sunX(), sy = H * 0.18 + oy; // sun: disc with a pixel ring
         for (let y = -7; y <= 7; y++) for (let x = -7; x <= 7; x++) { const r2 = x * x + y * y; if (r2 <= 36) rect(sx + x, sy + y, 1, 1, "#ffffff"); else if (r2 <= 49) rect(sx + x, sy + y, 1, 1, "#8cc4ff"); }
       }
       // clouds drift right and wrap
@@ -101,12 +110,14 @@ export default function Background() {
         ctx.globalAlpha = 1;
       }
       // fireflies rise and wobble, blinking
+      ctx.globalAlpha = SPECK;
       flies.forEach((f, i) => {
         if (i >= flies.length * k) return;
         f.y -= f.s * dt; if (f.y < -0.05) f.y = 1.05;
         if (Math.floor(t * 2 + f.p) % 3 === 0) return;
         rect(f.x * W + Math.sin(t + f.p) * 3, f.y * H, 1, 1, th.sprite[i % 3]);
       });
+      ctx.globalAlpha = 1;
       // click sparkles
       for (let i = bursts.length - 1; i >= 0; i--) {
         const p = bursts[i];

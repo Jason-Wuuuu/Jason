@@ -387,7 +387,7 @@ body::after {
   content: ""; position: fixed; inset: auto 0 0; height: 2rem; z-index: 8; pointer-events: none; /* just under the progress line when the dock is at the side */
   backdrop-filter: blur(4px); -webkit-mask-image: linear-gradient(transparent, #000 60%); mask-image: linear-gradient(transparent, #000 60%);
 }
-html:has(.dock[data-pos="bottom"]) body::after {
+html.scrolled:has(.dock[data-pos="bottom"]) body::after { /* not at the very top: there the "Quests" peek must stay sharp */
   content: ""; position: fixed; inset: auto 0 0; height: 6rem; z-index: 8; pointer-events: none;
   backdrop-filter: blur(5px); -webkit-mask-image: linear-gradient(transparent, #000 55%); mask-image: linear-gradient(transparent, #000 55%);
 }
