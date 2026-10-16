@@ -263,6 +263,26 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
 /* ── background canvas, theme wipe, letter hop ── */
 .bg { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; image-rendering: pixelated; }
 .pixel-avatar { cursor: pointer; }
+/* greeting bubble: beside the avatar on phones/tablets, under it on the player card */
+.avatar-wrap { position: relative; display: flow-root; width: fit-content; }
+.bubble {
+  position: absolute; left: calc(100% + 14px); top: 6px; z-index: 3; width: max-content; max-width: 11rem; pointer-events: none;
+  padding: .1rem .6rem; font-size: 1.1rem; line-height: 1.2; color: var(--ink); background: var(--bg);
+  border: 3px solid var(--ink); box-shadow: 3px 3px 0 var(--ink);
+}
+.bubble::before {
+  content: ""; position: absolute; left: -9px; top: .5rem; width: 10px; height: 10px; rotate: 45deg;
+  background: var(--bg); border-left: 3px solid var(--ink); border-bottom: 3px solid var(--ink);
+}
+@media (min-width: 901px) {
+  .bubble { left: 0; top: calc(100% + 14px); }
+  .bubble::before { left: 20px; top: -9px; border-bottom: 0; border-top: 3px solid var(--ink); }
+}
+@media (min-width: 1200px) { /* room on the left: the bubble sits beside the avatar and straddles the card's border */
+  .bubble { left: auto; right: calc(100% + 14px); top: .75rem; }
+  .bubble::before { left: auto; right: -9px; top: .5rem; border: 0; border-top: 3px solid var(--ink); border-right: 3px solid var(--ink); }
+}
+@media (prefers-reduced-motion: no-preference) { .bubble { animation: scan .4s steps(8); } } /* types in left to right */
 
 .hero h1 .ch { transition: translate .12s steps(2); }
 @media (hover: hover) { .hero h1 .ch:hover { translate: 0 -.12em; } } /* no sticky hover after a tap on touch screens */
@@ -318,11 +338,18 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
 }
 @media (max-width: 560px) {
   /* phones: the four links spread across the bottom, no progress line */
-  .dock { font-size: .7rem; bottom: calc(1.5rem + env(safe-area-inset-bottom)); }
-  .dock[data-pos] { left: .75rem; right: .75rem; transform: none; width: auto; max-width: none; justify-content: space-between; }
+  .dock { font-size: min(.8rem, 4.2vw); gap: .5rem; bottom: calc(1.5rem + env(safe-area-inset-bottom)); } /* scales with the phone width; the gap stays fixed */
+  .dock[data-pos] { left: .75rem; right: .75rem; transform: none; width: auto; max-width: none; }
+  .dock a { flex: 1 1 auto; justify-content: center; } /* buttons share the leftover width evenly */
   .track { display: none; }
   .theme-toggle { top: .75rem; right: .75rem; }
-  .dock a, .dock button { padding: .1rem .4rem; }
+  .dock a, .dock button { padding: .3rem .3rem; }
+  /* the buttons are the progress bar: each paints left to right (--f, set in Dock.jsx) while you scroll through its section */
+  .dock a, .dock a[aria-current="true"] {
+    background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 55%, transparent) calc(var(--f, 0) * 100%), transparent 0) var(--bg);
+    color: var(--ink);
+  }
+  .dock a[aria-current="true"] .lb::after { color: var(--accent); }
 }
 }
 

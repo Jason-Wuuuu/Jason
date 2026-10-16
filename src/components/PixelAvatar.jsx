@@ -1,15 +1,27 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AVATAR_STYLES, DEFAULT_STYLE, pixelate } from "../avatar";
 import { image } from "../App";
 import site from "../content";
 
-// The profile picture from the admin, pixelated. It "resolves" from chunky blocks on load; clicking replays that.
+// The profile picture from the admin, pixelated. It "resolves" from chunky blocks on load; clicking replays that and says hi in a speech bubble.
+const GREETINGS = ["Hi, I'm Jason!", "Hello!", "Hey there!", "Howdy!", "Hola!", "Bonjour!"];
 export default function PixelAvatar() {
   const { avatar, avatarStyle, avatarFrame } = site.profile;
   const style = AVATAR_STYLES[avatarStyle] || AVATAR_STYLES[DEFAULT_STYLE];
   const { n, crop, width } = style;
   const ref = useRef(null);
   const replay = useRef(() => {});
+  const [hi, setHi] = useState(null); // { n, text } of the bubble on screen
+  const count = useRef(0);
+  const hideTimer = useRef();
+  useEffect(() => () => clearTimeout(hideTimer.current), []);
+  const greet = () => {
+    replay.current();
+    const n = count.current++;
+    setHi({ n, text: GREETINGS[n % GREETINGS.length] });
+    clearTimeout(hideTimer.current);
+    hideTimer.current = setTimeout(() => setHi(null), 2600);
+  };
 
   useEffect(() => {
     if (!avatar) return;
@@ -46,16 +58,19 @@ export default function PixelAvatar() {
 
   if (!avatar) return null;
   return (
-    <canvas
-      ref={ref}
-      width={n}
-      height={n}
-      className="pixel-avatar"
-      data-frame={avatarFrame === "none" ? "none" : "round"}
-      style={{ "--w": `${width[0]}px`, "--wt": `${width[1]}px`, "--wm": `${width[2]}px` }}
-      role="img"
-      aria-label="Profile picture of Jason (click to re-render)"
-      onClick={() => replay.current()}
-    />
+    <div className="avatar-wrap">
+      <canvas
+        ref={ref}
+        width={n}
+        height={n}
+        className="pixel-avatar"
+        data-frame={avatarFrame === "none" ? "none" : "round"}
+        style={{ "--w": `${width[0]}px`, "--wt": `${width[1]}px`, "--wm": `${width[2]}px` }}
+        role="img"
+        aria-label="Profile picture of Jason (click to say hi)"
+        onClick={greet}
+      />
+      <div role="status">{hi && <span key={hi.n} className="bubble">{hi.text}</span>}</div>
+    </div>
   );
 }
