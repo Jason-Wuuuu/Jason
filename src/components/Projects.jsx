@@ -4,7 +4,6 @@ import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import { asset, image } from "../App";
 import site, { Md } from "../content";
-import PixelIcon from "./PixelIcon";
 
 const projects = site.projects;
 
@@ -110,7 +109,7 @@ export default function Projects() {
         : projects.filter((p) => p.category === cat);
   return (
     <section id="projects">
-      <h2 aria-label="Inventory, Projects"><PixelIcon name="chest" />Inventory<small>Projects</small></h2>
+      <h2 aria-label="Inventory, Projects">Inventory<small>Projects</small></h2>
       {grouped && (
         <div className="filters" role="group" aria-label="Filter projects">
           {categories.map((c) => (

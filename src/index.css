@@ -68,8 +68,6 @@ img, canvas { image-rendering: pixelated; }
 img, canvas { -webkit-user-drag: none; user-select: none; -webkit-touch-callout: none; } /* no ghost-dragging a photo or avatar; right-click still works */
 h2 { font-size: clamp(2.5rem, 6vw, 3.5rem); margin-bottom: 2rem; }
 h2::before { content: "> "; color: var(--accent); }
-.pxi { height: .7em; width: auto; margin-right: .3em; vertical-align: 0; } /* pixel-art icon, sized by the text beside it */
-.cls .pxi { height: .95em; vertical-align: -.1em; margin: 0 .4em 0 0; }
 h2 small { margin-left: .9rem; font-size: .4em; letter-spacing: .08em; text-transform: uppercase; color: var(--mute); } /* the plain name under the game name */
 @media (max-width: 560px) { h2 small { margin-left: .6rem; font-size: .32em; } }
 .skip { position: fixed; top: .75rem; left: .75rem; z-index: 20; padding: .15rem .9rem; color: var(--ink); background: var(--bg); border: 3px solid var(--ink); box-shadow: 3px 3px 0 var(--ink); translate: 0 -200%; }

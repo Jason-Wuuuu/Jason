@@ -3,7 +3,6 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import DescriptionIcon from "@mui/icons-material/Description";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import PixelAvatar from "./PixelAvatar";
-import PixelIcon from "./PixelIcon";
 import site, { withLinks } from "../content";
 
 const icons = {
@@ -36,7 +35,7 @@ export default function Hero() {
               </span>
             ))}
           </h1>
-          {cls && <p className="cls"><PixelIcon name="shield" />{cls}</p>}
+          {cls && <p className="cls">{cls}</p>}
           <p className="lead">{withLinks(tagline)}</p>
           <div className="social">
             {links.map(({ href, label, icon }) => {
