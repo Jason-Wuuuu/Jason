@@ -2,11 +2,19 @@
   "profile": {
     "name": "Jason Wu",
     "fullName": "Chia-Hsiang (Jason) Wu",
-    "tagline": "Full stack engineer in New York City. Next.js, TypeScript, FastAPI, and a soft spot for machine learning.",
+    "tagline": "Full stack engineer in New York City. \nNext.js, TypeScript, FastAPI, and a soft spot for machine learning.",
+    "class": "Full Stack Engineer",
+    "stats": [
+      "Python 8",
+      "JS/TS 9",
+      "Java 6",
+      "React/Next 9",
+      "ML 6"
+    ],
     "typingLine": "I build web apps and teach machines to read.",
     "typingRecord": 118,
-    "avatar": "",
-    "avatarStyle": "44-tight",
+    "avatar": "avatar-memoji.png",
+    "avatarStyle": "64-tight",
     "avatarFrame": "round",
     "links": [
       {
@@ -17,12 +25,14 @@
       {
         "label": "LinkedIn",
         "href": "https://www.linkedin.com/in/chia-hsiang-jason-wu",
-        "icon": "linkedin"
+        "icon": "linkedin",
+        "archived": true
       },
       {
         "label": "Resume",
         "href": "https://drive.google.com/file/d/1NHWFbXm8ztQXxG5Xjcbhuh9pe662B21A/view",
-        "icon": "resume"
+        "icon": "resume",
+        "archived": true
       }
     ]
   },
@@ -33,11 +43,13 @@
       "place": "New York City",
       "date": "Aug 2024 – now",
       "points": [
-        "Build web apps with Next.js, TypeScript and FastAPI; turn Figma designs into pixel-perfect UI.",
-        "Brought the product to iOS, Android and major browsers with React Native and Plasmo.",
-        "Built interactive charts and dashboards for financial data.",
-        "Cut load time by 38% with server-side rendering, efficient data fetching and memoization.",
-        "Cut testing time by 61% with Cypress and built CI/CD pipelines on GitHub Actions."
+        "Built a trading dashboard in Next.js and TypeScript where order books and alpha signals stream in live, and the UI keeps up.",
+        "Wired the ML backends to the screen with a real-time pipeline, so signals and Greeks reach dense charts intact.",
+        "Wrote the FastAPI endpoints that let the frontend and quant teams talk, and helped ship ML-driven smart order routers for institutional trading.",
+        "Worked with the quants to plug in their models; average trade slippage dropped 12%.",
+        "Kept portfolio and watchlist views in sync with Redux Toolkit, powering live Value at Risk and margin numbers.",
+        "Took the product to iOS, Android and the browser with React Native and Plasmo.",
+        "Made it 38% faster to load (SSR, smarter fetching, memoization) and 61% faster to test (Cypress, CI/CD on GitHub Actions)."
       ]
     },
     {
@@ -46,12 +58,14 @@
       "place": "Taipei, remote",
       "date": "May – Oct 2024",
       "points": [
-        "Built responsive UI components with Next.js, TypeScript and GraphQL.",
-        "Introduced Storybook for component development, testing and documentation.",
-        "Migrated the v1 codebase to v2 with modern Next.js, React-Aria and React-Resizable.",
-        "Shared Git practices and took part in Scrum."
+        "Built responsive UI in Next.js, TypeScript and GraphQL, queries and mutations included.",
+        "Brought in Storybook so components could be built, tested and documented in one place.",
+        "Rebuilt the v1 codebase as v2 with modern Next.js, React hooks, React-Aria and React-Resizable.",
+        "Ran Git workflow talks for the team and joined the Scrum rituals."
       ]
-    },
+    }
+  ],
+  "education": [
     {
       "role": "M.S. Computer Science",
       "company": "Stevens Institute of Technology",
@@ -62,13 +76,15 @@
       ]
     },
     {
-      "role": "Senior project: Memory Maker",
+      "role": "B.B.A. Information Management",
       "company": "Tamkang University",
-      "place": "Taiwan",
-      "date": "Mar – Aug 2019",
+      "place": "New Taipei City, Taiwan",
+      "date": "Sep 2016 – Jun 2020",
       "points": [
-        "Pitched and led backend development of an iOS app with ML photography guidance and virtual postcards, built with 5 teammates.",
-        "2nd place, International ICT Innovative Services Competition. 2nd place, TKU iOS APP Competition. Excellence Award, TKU Information Management Project Competition."
+        "Senior project:",
+        "- 2nd place - International ICT Innovative Services Competition",
+        "- 2nd place - TKU iOS APP Competition",
+        "- Excellence Award - TKU Information Management Project Competition."
       ]
     }
   ],
@@ -76,25 +92,32 @@
     {
       "title": "Pokémon Interactive Map",
       "year": "2026",
-      "course": "Side",
+      "course": "",
       "category": "Web Dev",
       "description": "An interactive map and data explorer for Pokémon Gen 1 and Gen 2. It has overworld navigation, bilingual Japanese and English dialogue, encounter and trainer tables, a full Pokédex, and a solver that finds dungeon routes in real time. Everything is extracted from the decompilation source, not guessed.",
       "tech_stack": "Next.js, React, TypeScript, Tailwind CSS",
       "githubUrl": "https://github.com/Jason-Wuuuu/pokemon_interactive",
       "demoUrl": "https://pokemon-interactive-map.vercel.app",
-      "screenshots": [],
+      "screenshots": [
+        "pokemon_interactive_map/pokemon_interactive_map_1.gif",
+        "pokemon_interactive_map/pokemon_interactive_map_1.png",
+        "pokemon_interactive_map/pokemon_interactive_map_2.png",
+        "pokemon_interactive_map/pokemon_interactive_map_3.png"
+      ],
       "featured": true
     },
     {
       "title": "MarketLens",
       "year": "2026",
-      "course": "Side",
+      "course": "",
       "category": "Web Dev",
       "description": "A Firstrade portfolio viewer. Upload your account-history CSVs and see holdings at any date, cost basis, realized P/L, dividends and yearly summaries, all in a pixel-art interface. Your data never leaves the browser.",
       "tech_stack": "Next.js, React, TypeScript, Recharts",
       "githubUrl": "https://github.com/Jason-Wuuuu/MarketLens",
       "demoUrl": "https://market-lens-dusky.vercel.app",
-      "screenshots": [],
+      "screenshots": [
+        "marketlens/marketlens_1.png"
+      ],
       "featured": true
     },
     {
@@ -110,7 +133,8 @@
         "firstrade-dashboard/dashboard.png",
         "firstrade-dashboard/single-stock.png"
       ],
-      "featured": false
+      "featured": false,
+      "archived": true
     },
     {
       "title": "Firstrade Portfolio Analysis (Deprecated)",
@@ -127,7 +151,8 @@
         "firstrade/output3.png",
         "firstrade/output4.png"
       ],
-      "featured": false
+      "featured": false,
+      "archived": true
     },
     {
       "title": "Bank Ledger System",
@@ -139,7 +164,8 @@
       "githubUrl": "https://github.com/Jason-Wuuuu/Bank-Ledger-System",
       "demoUrl": "",
       "screenshots": [],
-      "featured": true
+      "featured": false,
+      "archived": true
     },
     {
       "title": "Seq2Seq Translation Model",
@@ -155,7 +181,8 @@
         "seq2seq/translation_1.png",
         "seq2seq/translation_2.png"
       ],
-      "featured": false
+      "featured": false,
+      "archived": true
     },
     {
       "title": "Stock Price Forecast",
@@ -172,7 +199,8 @@
         "stock_price_lstm/AAPL.png",
         "stock_price_lstm/PLTR.png"
       ],
-      "featured": true
+      "featured": false,
+      "archived": true
     },
     {
       "title": "Visual Board",
@@ -187,7 +215,8 @@
         "visual_board/stock1.png",
         "visual_board/stock2.png"
       ],
-      "featured": true
+      "featured": false,
+      "archived": true
     },
     {
       "title": "IMDB Movie Review Analysis (Word2Vec)",
@@ -201,7 +230,8 @@
       "screenshots": [
         "word2vec/word_vec.png"
       ],
-      "featured": false
+      "featured": false,
+      "archived": true
     },
     {
       "title": "Author Classification (MLP)",
@@ -215,7 +245,8 @@
       "screenshots": [
         "mlp/score.png"
       ],
-      "featured": false
+      "featured": false,
+      "archived": true
     },
     {
       "title": "Stevens Marketplace",
@@ -230,7 +261,8 @@
         "stevens_marketplace/demo.gif",
         "stevens_marketplace/chat.gif"
       ],
-      "featured": false
+      "featured": false,
+      "archived": true
     },
     {
       "title": "Event Master",
@@ -248,7 +280,8 @@
         "event_master/eventdetail.png",
         "event_master/eventpoll.png"
       ],
-      "featured": false
+      "featured": false,
+      "archived": true
     },
     {
       "title": "Marvel Comic App",
@@ -265,7 +298,8 @@
         "marvel_app/detail.png",
         "marvel_app/collection.png"
       ],
-      "featured": false
+      "featured": false,
+      "archived": true
     },
     {
       "title": "Support Vector Machine",
@@ -279,7 +313,8 @@
       "screenshots": [
         "svm/hyperplane.png"
       ],
-      "featured": false
+      "featured": false,
+      "archived": true
     },
     {
       "title": "Breast Cancer Detection",
@@ -291,7 +326,8 @@
       "githubUrl": "",
       "demoUrl": "",
       "screenshots": [],
-      "featured": false
+      "featured": false,
+      "archived": true
     },
     {
       "title": "Diabetes Detection (PCA)",
@@ -305,7 +341,8 @@
       "screenshots": [
         "pca/principal_components.png"
       ],
-      "featured": false
+      "featured": false,
+      "archived": true
     },
     {
       "title": "Image Compression (SVD)",
@@ -319,7 +356,8 @@
       "screenshots": [
         "svd/image_compression.png"
       ],
-      "featured": false
+      "featured": false,
+      "archived": true
     },
     {
       "title": "Memory Maker",
@@ -333,11 +371,16 @@
       "screenshots": [
         "memory_maker/demo.gif"
       ],
-      "featured": false
+      "featured": false,
+      "archived": true
     }
   ],
   "about": {
-    "image": "me/me_2.png",
+    "images": [
+      "me/me_1.png",
+      "me/me_2.png",
+      "me/me_3.png"
+    ],
     "paragraphs": [
       "I'm from Taiwan and moved to New York for a CS master's at Stevens. I like web development, and I like digging into AI and machine learning. Building a project with unfamiliar tech is how I learn fastest.",
       "Away from the keyboard I'm usually snowboarding, taking photos or catching up on anime, and I'm a big fan of cats. I also type fast: [118 WPM](#typing) at 100% accuracy on a 15-second [MonkeyType](https://monkeytype.com/) test, which puts me in the top 26%."

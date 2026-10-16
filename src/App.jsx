@@ -4,7 +4,7 @@ import Experience from "./components/Experience";
 import Projects from "./components/Projects";
 import About from "./components/About";
 import Dock from "./components/Dock";
-import ProgressCat from "./components/ProgressCat";
+import ProgressBar from "./components/ProgressBar";
 import ThemeToggle from "./components/ThemeToggle";
 import Background from "./components/Background";
 import site from "./content";
@@ -45,11 +45,12 @@ export default function App() {
     <>
       <Background />
       <Dock />
-      <ProgressCat />
+      <ProgressBar />
       <ThemeToggle />
       <main id="top">
         <Hero />
         <Experience />
+        <Experience id="education" title="Education" items={site.education} />
         <Projects />
         <About />
       </main>

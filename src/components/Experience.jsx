@@ -1,11 +1,19 @@
-import site from "../content";
+import site, { withLinks } from "../content";
 
-export default function Experience() {
+// A point starting with "- " becomes a sub-bullet of the point above it.
+const nest = (points) =>
+  points.reduce((out, p) => {
+    if (/^- /.test(p) && out.length) out.at(-1)[1].push(p.slice(2));
+    else out.push([p, []]);
+    return out;
+  }, []);
+
+export default function Experience({ id = "experience", title = "Experience", items = site.experience }) {
   return (
-    <section id="experience">
-      <h2>Experience</h2>
+    <section id={id}>
+      <h2>{title}</h2>
       <ol className="timeline">
-        {site.experience.map((j, i) => (
+        {items.map((j, i) => (
           <li key={i}>
             <p className="when">
               {j.date}
@@ -16,8 +24,17 @@ export default function Experience() {
               <h3>{j.role}</h3>
               <p className="org">{j.company}</p>
               <ul>
-                {j.points.map((p, k) => (
-                  <li key={k}>{p}</li>
+                {nest(j.points).map(([p, sub], k) => (
+                  <li key={k}>
+                    {withLinks(p)}
+                    {sub.length > 0 && (
+                      <ul>
+                        {sub.map((q, n) => (
+                          <li key={n}>{withLinks(q)}</li>
+                        ))}
+                      </ul>
+                    )}
+                  </li>
                 ))}
               </ul>
             </div>

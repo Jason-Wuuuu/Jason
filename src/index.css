@@ -80,13 +80,13 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
 /* hero */
 .hero { padding-top: 2.5rem; }
 .hero h1 {
-  position: relative; font-size: clamp(4.5rem, min(15vw, 23vh), 9rem); letter-spacing: -.02em; line-height: .85; margin-bottom: 1.5rem;
+  font-size: clamp(4.5rem, min(15vw, 23vh), 9rem); letter-spacing: -.02em; line-height: .85; margin-bottom: 1.5rem;
 }
 .pixel-avatar {
-  position: absolute; right: 0; bottom: 0; width: var(--w, 220px); height: auto; /* set per pixel style in PixelAvatar */
+  display: block; margin: 4px 0 1.25rem 4px; width: var(--w, 220px); height: auto; /* set per pixel style in PixelAvatar; margin leaves room for the ring */
   filter: drop-shadow(5px 5px 0 var(--ink));
 }
-.lead { font-size: clamp(1.4rem, 3vw, 1.9rem); max-width: 34rem; }
+.lead { white-space: pre-line; font-size: clamp(1.4rem, 3vw, 1.9rem); max-width: 34rem; }
 .social { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; margin-top: 1.5rem; }
 .social a { display: inline-flex; align-items: center; gap: .35rem; }
 
@@ -107,7 +107,7 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
 .timeline { list-style: none; margin: 0; padding: 0; }
 .timeline > li { display: grid; grid-template-columns: 11rem 1fr; gap: 1rem 2rem; padding: 1.75rem 0; border-top: 3px dashed var(--ink); }
 .when { color: var(--mute); margin: 0; }
-.org { color: var(--mute); margin: .25rem 0 .75rem; }
+.org { color: var(--blue); font-size: 1.15em; margin: .25rem 0 .75rem; }
 .timeline ul { margin: 0; padding-left: 1.2rem; max-width: 42rem; list-style: square; }
 .timeline ul li { margin-bottom: .35rem; }
 
@@ -132,12 +132,36 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
 .proj .body { padding: 0 0 2rem 6rem; max-width: 46rem; }
 .meta { color: var(--mute); }
 .gallery { display: flex; gap: .75rem; overflow-x: auto; scroll-snap-type: x mandatory; margin: 1rem 0; }
-.gallery img { flex: 0 0 100%; aspect-ratio: 16 / 9; object-fit: contain; scroll-snap-align: center; background: var(--panel); border: 3px solid var(--ink); box-shadow: var(--shadow); }
+.gallery img { flex: 0 0 100%; aspect-ratio: 16 / 10; object-fit: contain; scroll-snap-align: start; background: var(--panel); border: 3px solid var(--ink); box-shadow: var(--shadow); }
 .gallery { padding: 0 6px 6px 0; }
+.gallery:has(img + img) { padding-right: 8%; } /* the first image sits flush left; the next one peeks in on the right */
+/* bars below replace the native scrollbar */
+.gallery { scrollbar-width: none; }
+.gallery::-webkit-scrollbar { display: none; }
+.bars { display: flex; justify-content: center; gap: .4rem; margin: -.4rem 0 1rem; }
+.bars button { width: 1.5rem; height: .75rem; padding: 0; background: none; border: 2px solid var(--ink); cursor: pointer; }
+.bars button.on { background: var(--ink); }
 
 /* about */
 .about { display: grid; grid-template-columns: 1fr minmax(0, 15rem); gap: 3rem; align-items: start; }
 .prose { font-size: 1.4rem; max-width: 36rem; }
+.photos { display: grid; }
+.photos img { grid-area: 1 / 1; width: 100%; }
+.photos[data-stack="true"] { padding: 0 2rem 2rem 0; }
+.photos[data-stack="true"] img {
+  cursor: pointer; transition: transform .25s steps(4); aspect-ratio: 4 / 5; object-fit: cover;
+  transform: translate(calc(var(--d) * 16px), calc(var(--d) * 14px)) rotate(calc(var(--d) * 5deg));
+}
+.photos[data-stack="true"] img:hover { translate: -3px -3px; }
+/* the photo you click is dealt off the top in a few choppy frames, then lands at the back of the pile */
+@keyframes deal {
+  0%, 50% { z-index: 99; }
+  0% { transform: none; }
+  50% { transform: translate(75%, -8%) rotate(9deg); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .photos[data-stack="true"] img.dealt { animation: deal .4s steps(4); transition: none; }
+}
 .about img { border: 4px solid var(--ink); box-shadow: var(--shadow); }
 
 @media (max-width: 700px) {
@@ -161,6 +185,7 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
 .burst i:nth-child(3n) { background: var(--sky); }
 .burst i:nth-child(3n + 1) { background: var(--box-text); }
 
+@keyframes float { 50% { transform: translateY(-10px); } }
 @keyframes hop { 50% { transform: translateY(-14px); } }
 @keyframes drop { from { transform: translateY(-1.1em); opacity: 0; } 50% { opacity: 1; } }
 @keyframes rise { from { transform: translateY(16px); opacity: 0; } }
@@ -173,6 +198,7 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
 @media (prefers-reduced-motion: no-preference) {
   /* the one orchestrated moment: name drops in letter by letter, then the rest follows */
   .hero h1 .ch { display: inline-block; animation: drop .5s steps(5) both; animation-delay: calc(var(--i) * 70ms); }
+  .pixel-avatar { animation: float 3.2s steps(8) infinite; } /* hover (hop) takes over while pointed at */
   .hero .lead { animation: rise .4s steps(4) .75s both; }
   .hero .social { animation: rise .4s steps(4) .95s both; }
 
@@ -200,7 +226,35 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
 .egg:hover { color: var(--accent); }
 #about .typetest { margin-top: 2rem; }
 .tt-result { margin-bottom: 0; }
+/* wide screens: the hero is a game "player card": avatar | name, class, tagline, links | skill bars. Phones keep the plain stack. */
+.bar, .cls, .stats { display: none; }
+@media (min-width: 901px) {
+  /* the card is centred in the first screen minus a strip at the bottom, so "Experience" still peeks */
+  .hero { min-height: calc(100svh - 175px); padding-block: 0; display: flex; align-items: center; }
+  .hero > .card { width: 100%; translate: 0 12px; } /* keeps the card where it was while the strip below shrinks */
+  #experience { padding-top: .8rem; }
+  .card {
+    position: relative;
+    display: grid; grid-template-columns: auto minmax(0, 1fr) 150px; gap: 0 32px; align-items: start; /* px: rem is fluid on this page */
+    padding: 52px 32px 32px; background: color-mix(in srgb, var(--bg) 30%, transparent); /* see-through: moon and stars show */ border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--ink);
+  }
+  .bar { display: block; position: absolute; inset: 0 0 auto; padding: .15rem 1rem; background: var(--ink); color: var(--bg); letter-spacing: .15em; }
+  .card .pixel-avatar { margin: 12px 0 0; }
+  .card h1 { font-size: clamp(64px, min(9vw, 15vh), 104px); margin-bottom: .75rem; }
+  .cls { display: block; margin: 0 0 1rem; color: var(--blue); }
+  .cls::before { content: "CLASS ▸ "; color: var(--mute); }
+  .card .lead { font-size: 1.15rem; }
+  .stats { display: grid; gap: .9rem; margin: 0; padding: 0; list-style: none; }
+  .stats li { font-size: .9rem; }
+  .pips, .pips::after { display: block; height: 10px; background: repeating-linear-gradient(90deg, var(--mute) 0 8px, transparent 8px 11px); }
+  .pips { position: relative; width: 108px; /* 10 pips x 11px */ margin-top: .3rem; opacity: .9; }
+  .pips::after { content: ""; position: absolute; inset: 0 auto 0 0; width: calc(var(--n) * 11px); background: repeating-linear-gradient(90deg, var(--accent) 0 8px, transparent 8px 11px); }
+}
+@media (min-width: 901px) and (prefers-reduced-motion: no-preference) {
+  .pips::after { animation: scan .6s steps(10) 1s both; }
+}
 @media (max-width: 560px) {
+  #experience .timeline { filter: blur(2px); } /* lighter on phones */
   .pixel-avatar { width: var(--wm, 88px); filter: drop-shadow(4px 4px 0 var(--ink)); }
 }
 @media (prefers-reduced-motion: reduce) { .egg::after { animation: none; } }
@@ -223,6 +277,14 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
   text-decoration: none; cursor: pointer;
 }
 .dock a:hover, .dock button:hover { color: var(--accent); }
+/* hover: the link hops up in pixel steps while its label rolls up to an accent copy */
+.dock a { transition: translate .25s steps(3), box-shadow .25s steps(3); }
+.dock a:hover { translate: 0 -5px; box-shadow: 3px 8px 0 var(--ink); }
+.dock .lb { position: relative; display: inline-block; overflow: hidden; }
+.dock .lb > span, .dock .lb::after { transition: translate .25s steps(3); }
+.dock .lb::after { content: attr(data-t); position: absolute; left: 0; top: 100%; color: var(--accent); }
+.dock a:hover .lb > span, .dock a:hover .lb::after { translate: 0 -100%; }
+.dock a[aria-current="true"] .lb::after { color: var(--on-accent); }
 .dock a[aria-current="true"] { background: var(--accent); color: var(--on-accent); }
 .dock a:active, .dock button:active { transform: translate(3px, 3px); box-shadow: none; }
 
@@ -239,11 +301,9 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
 @media (prefers-reduced-motion: no-preference) {
   .dock[data-pos="bottom"] { animation: dock-in-bottom .4s steps(6); }
 }
-/* wide screens: at the top the dock sits bottom-right (aligned to the content column) so the "Experience" peek
-   at bottom-left stays visible; once you scroll it moves into the empty margin beside the column */
-@media (min-width: 1280px) {
-  .dock[data-pos="bottom"] { left: auto; right: max(1.25rem, calc((100vw - 960px) / 2)); transform: none; }
-}
+/* at the top the dock sits at the far bottom-right (under the theme toggle) so the "Experience" peek
+   at bottom-left stays visible; on wide screens, once you scroll it moves into the empty margin beside the column */
+.dock[data-pos="bottom"] { left: auto; right: 1.25rem; transform: none; }
 @media (min-width: 1280px) {
   .dock[data-pos="side"] {
     left: auto; right: 1.25rem; bottom: 50%; transform: translateY(50%);
@@ -256,10 +316,11 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
   .dock[data-pos="side"] { animation: dock-in-side .4s steps(6); }
 }
 @media (max-width: 560px) {
-  .dock { font-size: .8rem; gap: .4rem; bottom: 2.2rem; }
+  .dock { font-size: .7rem; gap: .3rem; bottom: 2.2rem; } /* four links must fit a 360px phone */
   .track { left: .75rem; right: .75rem; }
   .theme-toggle { top: .75rem; right: .75rem; }
-  .dock a, .dock button { padding: .1rem .55rem; }
+  .dock[data-pos="bottom"] { left: 50%; right: auto; transform: translateX(-50%); }
+  .dock a, .dock button { padding: .1rem .4rem; }
 }
 
 
@@ -272,18 +333,9 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
 
 @media (min-width: 561px) and (max-width: 900px) { .pixel-avatar { width: var(--wt, 132px); } }
 
-/* scroll progress: a pixel cat on an inset lane (see ProgressCat.jsx) */
+/* scroll progress: an inset lane (see ProgressBar.jsx) */
 .track {
-  --p: 0; position: fixed; left: 1.25rem; right: 1.25rem; bottom: .75rem; height: 24px; z-index: 9; pointer-events: none;
+  --p: 0; position: fixed; left: 1.25rem; right: 1.25rem; bottom: .75rem; height: 3px; z-index: 9; pointer-events: none;
   border-bottom: 3px dashed color-mix(in srgb, var(--ink) 35%, transparent);
 }
 .track .fill { position: absolute; left: 0; bottom: -3px; height: 3px; width: calc(100% * var(--p)); background: var(--accent); }
-.track .cat {
-  position: absolute; bottom: 0; left: calc((100% - 36px) * var(--p)); width: 36px; height: 24px;
-  background-size: 72px 24px; background-repeat: no-repeat; image-rendering: pixelated;
-}
-.track[data-dir="up"] .cat { transform: scaleX(-1); }
-@keyframes walk { to { background-position: -72px 0; } }
-@media (prefers-reduced-motion: no-preference) {
-  .track[data-moving="true"] .cat { animation: walk .28s steps(2) infinite; }
-}

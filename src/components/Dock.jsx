@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 const LINKS = [
   ["experience", "Experience"],
+  ["education", "Education"],
   ["projects", "Projects"],
   ["about", "About"],
 ];
@@ -29,7 +30,9 @@ export default function Dock() {
     <nav className="dock" data-pos={side ? "side" : "bottom"} aria-label="Sections">
       {LINKS.map(([id, label]) => (
         <a key={id} href={`#${id}`} aria-current={active === id}>
-          {label}
+          <span className="lb" data-t={label}>
+            <span>{label}</span>
+          </span>
         </a>
       ))}
     </nav>

@@ -1,32 +1,82 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import GitHubIcon from "@mui/icons-material/GitHub";
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import { asset, image } from "../App";
-import site from "../content";
+import site, { Md } from "../content";
 
 const projects = site.projects;
 
-const categories = ["Featured", "All", ...new Set(projects.map((p) => p.category))];
+const cats = [...new Set(projects.map((p) => p.category))];
+const categories = ["Featured", "All", ...cats];
+const grouped = cats.length > 1; // with a single category (e.g. most projects archived) the filter tabs are pointless
 
-function Row({ p }) {
-  const demo = /^(https?:|www)/.test(p.demoUrl) ? p.demoUrl : asset(p.demoUrl || "");
+function Gallery({ p }) {
+  const [at, setAt] = useState(0);
+  const ref = useRef();
+  const n = p.screenshots.length;
+  const onScroll = ({ currentTarget: g }) =>
+    setAt(
+      Math.round(
+        (g.scrollLeft / (g.scrollWidth - g.clientWidth || 1)) * (n - 1),
+      ),
+    );
   return (
-    <details className="proj">
+    <>
+      <div
+        className="gallery"
+        ref={ref}
+        tabIndex={0}
+        aria-label={`${p.title} screenshots`}
+        onScroll={onScroll}
+      >
+        {p.screenshots.map((s) => (
+          <img
+            key={s}
+            src={image(s)}
+            alt={`${p.title} screenshot`}
+            loading="lazy"
+          />
+        ))}
+      </div>
+      {n > 1 && (
+        <div className="bars">
+          {p.screenshots.map((s, i) => (
+            <button
+              key={s}
+              className={i === at ? "on" : ""}
+              aria-label={`Show screenshot ${i + 1} of ${n}`}
+              aria-current={i === at}
+              onClick={() =>
+                ref.current.children[i].scrollIntoView({
+                  behavior: "smooth",
+                  inline: "start",
+                  block: "nearest",
+                })
+              }
+            />
+          ))}
+        </div>
+      )}
+    </>
+  );
+}
+
+function Row({ p, open }) {
+  const demo = /^(https?:|www)/.test(p.demoUrl)
+    ? p.demoUrl
+    : asset(p.demoUrl || "");
+  const video = /youtu\.?be|vimeo|\.mp4$/i.test(p.demoUrl); // a video is a "Demo"; anything else is the live site
+  return (
+    <details className="proj" open={open}>
       <summary>
         <span className="yr">{p.year}</span>
         <span className="ti">{p.title}</span>
         <span className="st">{p.tech_stack}</span>
       </summary>
       <div className="body">
-        <p>{p.description}</p>
-        <p className="meta">{p.course} project</p>
-        {p.screenshots.length > 0 && (
-          <div className="gallery" tabIndex={0} aria-label={`${p.title} screenshots`}>
-            {p.screenshots.map((s) => (
-              <img key={s} src={image(s)} alt={`${p.title} screenshot`} loading="lazy" />
-            ))}
-          </div>
-        )}
+        <Md text={p.description} />
+        {p.screenshots.length > 0 && <Gallery p={p} />}
         <div className="social">
           {p.githubUrl && (
             <a href={p.githubUrl} target="_blank" rel="noopener noreferrer">
@@ -35,7 +85,12 @@ function Row({ p }) {
           )}
           {p.demoUrl && (
             <a href={demo} target="_blank" rel="noopener noreferrer">
-              <PlayCircleOutlineIcon fontSize="small" /> Demo
+              {video ? (
+                <PlayCircleOutlineIcon fontSize="small" />
+              ) : (
+                <OpenInNewIcon fontSize="small" />
+              )}{" "}
+              {video ? "Demo" : "Live site"}
             </a>
           )}
         </div>
@@ -47,20 +102,30 @@ function Row({ p }) {
 export default function Projects() {
   const [cat, setCat] = useState("Featured");
   const shown =
-    cat === "All" ? projects : cat === "Featured" ? projects.filter((p) => p.featured) : projects.filter((p) => p.category === cat);
+    !grouped || cat === "All"
+      ? projects
+      : cat === "Featured"
+        ? projects.filter((p) => p.featured)
+        : projects.filter((p) => p.category === cat);
   return (
     <section id="projects">
       <h2>Projects</h2>
-      <div className="filters" role="group" aria-label="Filter projects">
-        {categories.map((c) => (
-          <button key={c} aria-pressed={c === cat} onClick={() => setCat(c)}>
-            {c}
-          </button>
-        ))}
-      </div>
+      {grouped && (
+        <div className="filters" role="group" aria-label="Filter projects">
+          {categories.map((c) => (
+            <button key={c} aria-pressed={c === cat} onClick={() => setCat(c)}>
+              {c}
+            </button>
+          ))}
+        </div>
+      )}
       <div>
         {shown.map((p, i) => (
-          <Row key={i} p={p} />
+          <Row
+            key={i}
+            p={p}
+            open={(!grouped || cat === "Featured") && i === 0}
+          />
         ))}
       </div>
     </section>
