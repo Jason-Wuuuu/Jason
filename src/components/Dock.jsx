@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 
 const LINKS = [
-  ["experience", "Experience"],
-  ["education", "Education"],
-  ["projects", "Projects"],
-  ["about", "About"],
+  ["experience", "Quests", "Experience"],
+  ["education", "Training", "Education"],
+  ["projects", "Inventory", "Projects"],
+  ["about", "Player Log", "About"],
 ];
 
 // Floating navigation. The link for the section you're in is highlighted; after scrolling it moves to the right edge.
@@ -36,8 +36,8 @@ export default function Dock() {
   }, []);
   return (
     <nav ref={nav} className="dock" data-pos={side ? "side" : "bottom"} aria-label="Sections">
-      {LINKS.map(([id, label]) => (
-        <a key={id} href={`#${id}`} aria-current={active === id}>
+      {LINKS.map(([id, label, plain]) => (
+        <a key={id} href={`#${id}`} title={plain} aria-current={active === id}>
           <span className="lb" data-t={label}>
             <span>{label}</span>
           </span>
