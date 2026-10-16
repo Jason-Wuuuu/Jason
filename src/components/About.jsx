@@ -77,8 +77,8 @@ export default function About() {
           </div>
         )}
       </div>
-      <Hobbies items={hobbies} />
       {egg && <TypeTest autoFocus />}
+      <Hobbies items={hobbies} />
     </section>
   );
 }
