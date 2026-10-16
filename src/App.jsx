@@ -8,7 +8,7 @@ import ThemeToggle from "./components/ThemeToggle";
 import Background from "./components/Background";
 import site from "./content";
 
-// Loaded only at #/admin, so visitors never download it.
+// Loaded only at #/admin-LFG, so visitors never download it.
 const Admin = lazy(() => import("./admin/Admin"));
 
 export const asset = (path) =>
@@ -24,7 +24,7 @@ export default function App() {
     return () => removeEventListener("hashchange", onHash);
   }, []);
 
-  // At the very top, the Experience peek under the hero is blurred; the first scroll brings it into focus (see #experience in index.css).
+  // At the very top, the Experience peek under the hero is blurred; the first scroll brings it into focus (see #experience .timeline in index.css).
   useEffect(() => {
     const update = () => document.documentElement.classList.toggle("scrolled", scrollY > 30);
     update();
@@ -32,7 +32,7 @@ export default function App() {
     return () => removeEventListener("scroll", update);
   }, []);
 
-  if (hash.startsWith("#/admin")) {
+  if (hash === "#/admin-LFG") {
     return (
       <Suspense fallback={null}>
         <Admin />
