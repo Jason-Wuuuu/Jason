@@ -214,3 +214,32 @@ footer { padding-block: 4rem; color: var(--mute); }
   .pixel-avatar { width: 84px; }
 }
 @media (prefers-reduced-motion: reduce) { .egg::after { animation: none; } }
+
+/* ── background canvas, scroll runner, theme wipe, letter hop ── */
+.bg { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; image-rendering: pixelated; }
+.pixel-avatar { cursor: pointer; }
+
+.hero h1 .ch { transition: translate .12s steps(2); }
+.hero h1 .ch:hover { translate: 0 -.12em; }
+
+/* a tiny you runs along the nav border as the page scrolls (where scroll-driven animation is supported) */
+.runner { display: none; }
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .runner { display: block; position: absolute; left: 0; right: 0; bottom: 0; height: 0; pointer-events: none; }
+    .runner img {
+      position: absolute; bottom: 0; width: 22px; height: 22px; image-rendering: pixelated;
+      animation: run linear both, bob .35s steps(2) infinite;
+      animation-timeline: scroll(root), auto;
+    }
+  }
+}
+@keyframes run { from { left: 0; } to { left: calc(100% - 22px); } }
+@keyframes bob { 50% { margin-bottom: 3px; } }
+
+::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+::view-transition-new(root) { animation: reveal .8s steps(14) both; }
+@keyframes reveal {
+  from { clip-path: circle(0 at var(--tx, 50%) var(--ty, 0)); }
+  to { clip-path: circle(150vmax at var(--tx, 50%) var(--ty, 0)); }
+}

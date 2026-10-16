@@ -72,6 +72,30 @@
   ],
   "projects": [
     {
+      "title": "Pokémon Interactive Map",
+      "year": "2026",
+      "course": "Side",
+      "category": "Web Dev",
+      "description": "An interactive map and data explorer for Pokémon Gen 1 and Gen 2. It has overworld navigation, bilingual Japanese and English dialogue, encounter and trainer tables, a full Pokédex, and a solver that finds dungeon routes in real time. Everything is extracted from the decompilation source, not guessed.",
+      "tech_stack": "Next.js, React, TypeScript, Tailwind CSS",
+      "githubUrl": "https://github.com/Jason-Wuuuu/pokemon_interactive",
+      "demoUrl": "",
+      "screenshots": [],
+      "featured": true
+    },
+    {
+      "title": "MarketLens",
+      "year": "2026",
+      "course": "Side",
+      "category": "Web Dev",
+      "description": "A Firstrade portfolio viewer. Upload your account-history CSVs and see holdings at any date, cost basis, realized P/L, dividends and yearly summaries, all in a pixel-art interface. Your data never leaves the browser.",
+      "tech_stack": "Next.js, React, TypeScript, Recharts",
+      "githubUrl": "https://github.com/Jason-Wuuuu/MarketLens",
+      "demoUrl": "",
+      "screenshots": [],
+      "featured": true
+    },
+    {
       "title": "Firstrade Portfolio Dashboard",
       "year": "2025",
       "course": "Side",
@@ -83,7 +107,8 @@
       "screenshots": [
         "firstrade-dashboard/dashboard.png",
         "firstrade-dashboard/single-stock.png"
-      ]
+      ],
+      "featured": false
     },
     {
       "title": "Firstrade Portfolio Analysis (Deprecated)",
@@ -99,7 +124,8 @@
         "firstrade/output2.png",
         "firstrade/output3.png",
         "firstrade/output4.png"
-      ]
+      ],
+      "featured": false
     },
     {
       "title": "Bank Ledger System",
@@ -110,7 +136,8 @@
       "tech_stack": "Java, Spring Boot",
       "githubUrl": "https://github.com/Jason-Wuuuu/Bank-Ledger-System",
       "demoUrl": "",
-      "screenshots": []
+      "screenshots": [],
+      "featured": true
     },
     {
       "title": "Seq2Seq Translation Model",
@@ -125,7 +152,8 @@
         "seq2seq/model.png",
         "seq2seq/translation_1.png",
         "seq2seq/translation_2.png"
-      ]
+      ],
+      "featured": false
     },
     {
       "title": "Stock Price Forecast",
@@ -141,7 +169,8 @@
         "stock_price_lstm/NVDA.png",
         "stock_price_lstm/AAPL.png",
         "stock_price_lstm/PLTR.png"
-      ]
+      ],
+      "featured": true
     },
     {
       "title": "Visual Board",
@@ -155,7 +184,8 @@
       "screenshots": [
         "visual_board/stock1.png",
         "visual_board/stock2.png"
-      ]
+      ],
+      "featured": true
     },
     {
       "title": "IMDB Movie Review Analysis (Word2Vec)",
@@ -168,7 +198,8 @@
       "demoUrl": "",
       "screenshots": [
         "word2vec/word_vec.png"
-      ]
+      ],
+      "featured": false
     },
     {
       "title": "Author Classification (MLP)",
@@ -181,7 +212,8 @@
       "demoUrl": "",
       "screenshots": [
         "mlp/score.png"
-      ]
+      ],
+      "featured": false
     },
     {
       "title": "Stevens Marketplace",
@@ -195,7 +227,8 @@
       "screenshots": [
         "stevens_marketplace/demo.gif",
         "stevens_marketplace/chat.gif"
-      ]
+      ],
+      "featured": false
     },
     {
       "title": "Event Master",
@@ -212,7 +245,8 @@
         "event_master/eventlist.png",
         "event_master/eventdetail.png",
         "event_master/eventpoll.png"
-      ]
+      ],
+      "featured": false
     },
     {
       "title": "Marvel Comic App",
@@ -228,7 +262,8 @@
         "marvel_app/list.png",
         "marvel_app/detail.png",
         "marvel_app/collection.png"
-      ]
+      ],
+      "featured": false
     },
     {
       "title": "Support Vector Machine",
@@ -241,7 +276,8 @@
       "demoUrl": "",
       "screenshots": [
         "svm/hyperplane.png"
-      ]
+      ],
+      "featured": false
     },
     {
       "title": "Breast Cancer Detection",
@@ -252,7 +288,8 @@
       "tech_stack": "Python, NumPy, pandas",
       "githubUrl": "",
       "demoUrl": "",
-      "screenshots": []
+      "screenshots": [],
+      "featured": false
     },
     {
       "title": "Diabetes Detection (PCA)",
@@ -265,7 +302,8 @@
       "demoUrl": "",
       "screenshots": [
         "pca/principal_components.png"
-      ]
+      ],
+      "featured": false
     },
     {
       "title": "Image Compression (SVD)",
@@ -278,7 +316,8 @@
       "demoUrl": "",
       "screenshots": [
         "svd/image_compression.png"
-      ]
+      ],
+      "featured": false
     },
     {
       "title": "Memory Maker",
@@ -291,7 +330,8 @@
       "demoUrl": "",
       "screenshots": [
         "memory_maker/demo.gif"
-      ]
+      ],
+      "featured": false
     }
   ],
   "about": {

@@ -1,4 +1,4 @@
-// What the admin can edit. `type`: text | number | area | select | lines | image | images | list.
+// What the admin can edit. `type`: text | number | bool | area | select | lines | image | images | list.
 // `lines` is one array entry per line (or per blank-line-separated block with sep "\n\n").
 export const sections = [
   {
@@ -52,6 +52,7 @@ export const sections = [
       { key: "githubUrl", label: "GitHub URL", type: "text" },
       { key: "demoUrl", label: "Demo URL (or a file in /public)", type: "text" },
       { key: "screenshots", label: "Screenshots", type: "images" },
+      { key: "featured", label: "Featured (shown on the default tab)", type: "bool" },
     ],
   },
   {
@@ -66,7 +67,7 @@ export const sections = [
 
 export const blank = (fields) =>
   Object.fromEntries(
-    fields.map((f) => [f.key, f.type === "lines" || f.type === "images" || f.type === "list" ? [] : f.type === "number" ? 0 : ""]),
+    fields.map((f) => [f.key, f.type === "lines" || f.type === "images" || f.type === "list" ? [] : f.type === "number" ? 0 : f.type === "bool" ? false : ""]),
   );
 
 // Drop empty strings from string arrays (editing "lines" keeps them while you type).

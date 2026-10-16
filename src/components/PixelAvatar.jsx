@@ -7,6 +7,7 @@ const STEPS = [3, 5, 8, 12, 20, 30, N]; // the avatar "resolves" through these r
 
 export default function PixelAvatar() {
   const ref = useRef(null);
+  const replay = useRef(() => {});
   useEffect(() => {
     let timer;
     const img = new Image();
@@ -21,15 +22,20 @@ export default function PixelAvatar() {
         ctx.drawImage(tmp, 0, 0, n, n, 0, 0, N, N);
       };
       if (matchMedia("(prefers-reduced-motion: reduce)").matches) return draw(N);
-      let i = 0;
-      const tick = () => {
-        draw(STEPS[i++]);
-        if (i < STEPS.length) timer = setTimeout(tick, 110);
+      const play = (delay) => {
+        clearTimeout(timer);
+        let i = 0;
+        const tick = () => {
+          draw(STEPS[i++]);
+          if (i < STEPS.length) timer = setTimeout(tick, 110);
+        };
+        timer = setTimeout(tick, delay);
       };
-      timer = setTimeout(tick, 500); // after the name has dropped in
+      replay.current = () => play(0); // clicking the avatar re-renders it
+      play(500); // first time: after the name has dropped in
     };
     img.src = image(site.profile.avatar);
     return () => clearTimeout(timer);
   }, []);
-  return <canvas ref={ref} width={N} height={N} className="pixel-avatar" role="img" aria-label="Pixelated memoji of Jason" />;
+  return <canvas ref={ref} width={N} height={N} className="pixel-avatar" role="img" aria-label="Pixelated memoji of Jason (click to re-render)" onClick={() => replay.current()} />;
 }

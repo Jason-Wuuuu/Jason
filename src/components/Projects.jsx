@@ -6,7 +6,7 @@ import site from "../content";
 
 const projects = site.projects;
 
-const categories = ["All", ...new Set(projects.map((p) => p.category))];
+const categories = ["Featured", "All", ...new Set(projects.map((p) => p.category))];
 
 function Row({ p }) {
   const demo = /^(https?:|www)/.test(p.demoUrl) ? p.demoUrl : asset(p.demoUrl || "");
@@ -45,8 +45,9 @@ function Row({ p }) {
 }
 
 export default function Projects() {
-  const [cat, setCat] = useState("All");
-  const shown = cat === "All" ? projects : projects.filter((p) => p.category === cat);
+  const [cat, setCat] = useState("Featured");
+  const shown =
+    cat === "All" ? projects : cat === "Featured" ? projects.filter((p) => p.featured) : projects.filter((p) => p.category === cat);
   return (
     <section id="projects">
       <h2>Projects</h2>

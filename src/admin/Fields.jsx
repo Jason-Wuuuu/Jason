@@ -37,6 +37,8 @@ export function Field({ f, value, onChange, ctx }) {
   switch (f.type) {
     case "area":
       return <label>{label}<textarea rows={4} value={value ?? ""} onChange={(e) => onChange(e.target.value)} /></label>;
+    case "bool":
+      return <label className="check"><input type="checkbox" checked={!!value} onChange={(e) => onChange(e.target.checked)} /> {f.label}</label>;
     case "number":
       return <label>{label}<input type="number" value={value ?? 0} onChange={(e) => onChange(Number(e.target.value))} /></label>;
     case "select":
