@@ -1,7 +1,6 @@
 // What the admin can edit. `type`: text | number | bool | area | select | lines | daterange | image | images | list.
 // `lines` is one array entry per line (or per blank-line-separated block with sep "\n\n").
 import { AVATAR_STYLES } from "../avatar.js";
-import { ICON_NAMES } from "../pixelicons.js";
 
 export const sections = [
   {
@@ -80,17 +79,6 @@ export const sections = [
     fields: [
       { key: "paragraphs", label: "Paragraphs (blank line between; - bullets, **bold**, *italic*, [text](url))", type: "lines", sep: "\n\n" },
       { key: "images", label: "Photos", type: "images", folder: "me" },
-      {
-        key: "hobbies",
-        label: "Hobbies (shown as the Bag and Side Quests)",
-        type: "list",
-        titleKey: "name",
-        fields: [
-          { key: "name", label: "Name", type: "text" },
-          { key: "icon", label: "Icon", type: "select", options: ICON_NAMES },
-          { key: "line", label: "One line about it", type: "text" },
-        ],
-      },
     ],
   },
 ];

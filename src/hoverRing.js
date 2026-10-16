@@ -65,6 +65,7 @@ if (matchMedia("(hover: hover) and (pointer: fine)").matches) {
     cur.hidden = false;
     cur.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
     cur.classList.toggle("txt", !!e.target.closest?.(TEXT));
+    cur.classList.toggle("hot", !!e.target.closest?.(SEL)); // over something clickable: the arrow grows a step
   });
   document.addEventListener("mouseout", (e) => { if (!e.relatedTarget) cur.hidden = true; });
 }

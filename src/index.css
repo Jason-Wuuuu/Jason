@@ -153,10 +153,10 @@ footer { padding-block: 2.5rem 4.5rem; color: var(--mute); } /* bottom room just
 /* a stepped dark fade over each peeking neighbour (the wrapper, not the scroller, so it stays put while the images slide under it) */
 .gal { position: relative; }
 .gal::before, .gal::after { content: ""; position: absolute; top: 0; bottom: 6px; width: 2.25rem; z-index: 1; pointer-events: none; display: none; }
-.gal[data-prev="true"]::before { display: block; left: 0; background: linear-gradient(to right, rgba(0,0,0,.75) 0 25%, rgba(0,0,0,.5) 25% 50%, rgba(0,0,0,.25) 50% 75%, transparent 75%); }
-.gal[data-next="true"]::after { display: block; right: 0; background: linear-gradient(to left, rgba(0,0,0,.75) 0 25%, rgba(0,0,0,.5) 25% 50%, rgba(0,0,0,.25) 50% 75%, transparent 75%); }
-.gal[data-prev="true"]:has(.prev:hover)::before { background: linear-gradient(to right, rgba(0,0,0,.4) 0 25%, rgba(0,0,0,.2) 25% 50%, transparent 50%); } /* pointing at a peek lightens its fade: it is clickable */
-.gal[data-next="true"]:has(.next:hover)::after { background: linear-gradient(to left, rgba(0,0,0,.4) 0 25%, rgba(0,0,0,.2) 25% 50%, transparent 50%); }
+.gal[data-prev="true"]::before { display: block; left: 0; --fade: linear-gradient(to right, rgba(0,0,0,.75) 0 25%, rgba(0,0,0,.5) 25% 50%, rgba(0,0,0,.25) 50% 75%, transparent 75%); background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='14' viewBox='0 0 4 7' shape-rendering='crispEdges' fill='white'%3E%3Crect x='3' y='0' width='1' height='1'/%3E%3Crect x='2' y='1' width='1' height='1'/%3E%3Crect x='1' y='2' width='1' height='1'/%3E%3Crect x='0' y='3' width='1' height='1'/%3E%3Crect x='1' y='4' width='1' height='1'/%3E%3Crect x='2' y='5' width='1' height='1'/%3E%3Crect x='3' y='6' width='1' height='1'/%3E%3C/svg%3E") center / auto no-repeat, var(--fade); } /* a pixel "<" in the middle of the fade */
+.gal[data-next="true"]::after { display: block; right: 0; --fade: linear-gradient(to left, rgba(0,0,0,.75) 0 25%, rgba(0,0,0,.5) 25% 50%, rgba(0,0,0,.25) 50% 75%, transparent 75%); background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='14' viewBox='0 0 4 7' shape-rendering='crispEdges' fill='white'%3E%3Crect x='0' y='0' width='1' height='1'/%3E%3Crect x='1' y='1' width='1' height='1'/%3E%3Crect x='2' y='2' width='1' height='1'/%3E%3Crect x='3' y='3' width='1' height='1'/%3E%3Crect x='2' y='4' width='1' height='1'/%3E%3Crect x='1' y='5' width='1' height='1'/%3E%3Crect x='0' y='6' width='1' height='1'/%3E%3C/svg%3E") center / auto no-repeat, var(--fade); }
+.gal[data-prev="true"]:has(.prev:hover)::before { --fade: linear-gradient(to right, rgba(0,0,0,.4) 0 25%, rgba(0,0,0,.2) 25% 50%, transparent 50%); } /* pointing at a peek lightens its fade: it is clickable */
+.gal[data-next="true"]:has(.next:hover)::after { --fade: linear-gradient(to left, rgba(0,0,0,.4) 0 25%, rgba(0,0,0,.2) 25% 50%, transparent 50%); }
 /* bars below replace the native scrollbar */
 .gallery { scrollbar-width: none; }
 .gallery::-webkit-scrollbar { display: none; }
@@ -178,32 +178,6 @@ footer { padding-block: 2.5rem 4.5rem; color: var(--mute); } /* bottom room just
 .photos[data-stack="true"] img:hover { translate: -3px -3px; }
 .photos canvas.mosaic { position: absolute; display: none; pointer-events: none; z-index: 100; } /* the transform effect (see About.jsx) lies over the front photo */
 .about img { border: 4px solid var(--ink); box-shadow: var(--shadow); }
-/* hobbies: Side Quests, a compact log */
-.hobbies, .quests { margin-top: 3rem; }
-.hb { font-size: 1.2rem; letter-spacing: .12em; text-transform: uppercase; color: var(--mute); margin-bottom: .5rem; }
-.hb::before { content: "▸ "; color: var(--accent); }
-.pxi { display: block; width: 100%; height: auto; }
-/* the board: notices pinned on a see-through panel, in the app's own colours */
-.board {
-  list-style: none; margin: 0; padding: 1.5rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem 1.25rem; align-items: start;
-  background-color: color-mix(in srgb, var(--bg) 30%, transparent); background-image: radial-gradient(color-mix(in srgb, var(--ink) 22%, transparent) 1.5px, transparent 1.5px); background-size: 9px 9px;
-  border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--ink);
-}
-.notice { position: relative; padding: 1.4rem 1rem 1rem; color: var(--ink); background: var(--bg); border: 3px solid var(--ink); box-shadow: 3px 3px 0 var(--ink); transition: translate .15s steps(2), box-shadow .15s steps(2); }
-.notice:nth-child(3n + 2) { translate: 0 10px; } /* whole-pixel offsets so the notices don't sit in a rigid row */
-.notice:nth-child(3n) { translate: 0 -4px; }
-@media (hover: hover) { .notice:hover { translate: 0 -4px; box-shadow: 3px 7px 0 var(--ink); } }
-.pin { position: absolute; top: -9px; left: 50%; width: 12px; height: 12px; margin-left: -6px; background: var(--accent); box-shadow: inset -3px -3px 0 rgba(0, 0, 0, .28), inset 2px 2px 0 rgba(255, 255, 255, .35); }
-.quests h4 { margin: 0 0 .45rem; padding-bottom: .25rem; font-family: var(--display); font-weight: 400; font-size: 1.35rem; line-height: 1.05; border-bottom: 2px solid var(--ink); }
-.quests p { margin: 0; font-size: 1.05rem; line-height: 1.25; color: var(--mute); }
-@media (max-width: 700px) { .board { grid-template-columns: repeat(2, 1fr); padding: 1.1rem; gap: 1.5rem 1rem; } .notice:nth-child(3n + 2), .notice:nth-child(3n) { translate: none; } .notice:nth-child(2n) { translate: 0 8px; } }
-@media (max-width: 560px) { /* one column on phones */
-  .board { grid-template-columns: minmax(0, 1fr); padding: 1.1rem; gap: 1.5rem; }
-  .notice:nth-child(n) { translate: none; }
-  .notice:nth-child(even) { translate: 8px 0; }
-}
-
-
 @media (max-width: 700px) {
   .timeline > li { grid-template-columns: 1fr; gap: .5rem; }
   .proj summary { grid-template-columns: 1fr; gap: .25rem; }
@@ -451,6 +425,10 @@ html.scrolled:has(.dock[data-pos="bottom"]) body::after { /* not at the very top
 .pxcur { position: fixed; left: 0; top: 0; z-index: 40; pointer-events: none; opacity: .8; }
 .pxcur[hidden] { display: none; }
 .pxcur i { display: block; width: 25px; height: 35px; margin: -2.5px 0 0 -2.5px; background: url(/cursor.svg) 0 0 / 100% 100%; image-rendering: pixelated; } /* margin puts the arrow's tip on the pointer */
+.pxcur i { transform-origin: 2.5px 2.5px; transition: transform .12s steps(2); } /* scales about the tip */
+.pxcur.hot i { transform: scale(1.2); }
+.pxcur.hot { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .pxcur i { transition: none; } }
 .pxcur.txt i { width: 17.5px; height: 35px; margin: -17.5px 0 0 -8.75px; background-image: url(/cursor-text.svg); } /* I-beam: centred on the pointer */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .pxcur i { background-image: url(/cursor-dark.svg); }
