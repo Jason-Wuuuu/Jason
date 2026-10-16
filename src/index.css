@@ -65,6 +65,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 h1, h2, h3 { font-family: var(--display); font-weight: 400; margin: 0; line-height: 1; }
 * { border-radius: 0 !important; }
 img, canvas { image-rendering: pixelated; }
+img, canvas { -webkit-user-drag: none; user-select: none; -webkit-touch-callout: none; } /* no ghost-dragging a photo or avatar; right-click still works */
 h2 { font-size: clamp(2.5rem, 6vw, 3.5rem); margin-bottom: 2rem; }
 h2::before { content: "> "; color: var(--accent); }
 h2 small { margin-left: .9rem; font-size: .4em; letter-spacing: .08em; text-transform: uppercase; color: var(--mute); } /* the plain name under the game name */
