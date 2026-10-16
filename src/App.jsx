@@ -9,17 +9,14 @@ export const asset = (path) =>
 export default function App() {
   return (
     <>
-      <nav className="nav">
-        <a href="#top" className="brand">
-          <img src={asset("images/Memoji_1.png")} alt="" width="28" height="28" />
-          Jason
-        </a>
-        <div>
+      <header className="nav">
+        <a href="#top">Jason Wu</a>
+        <nav>
           <a href="#experience">Experience</a>
           <a href="#projects">Projects</a>
           <a href="#about">About</a>
-        </div>
-      </nav>
+        </nav>
+      </header>
       <main id="top">
         <Hero />
         <Experience />
