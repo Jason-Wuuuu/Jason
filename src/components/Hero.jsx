@@ -55,7 +55,7 @@ export default function Hero() {
               return (
                 <li key={t}>
                   {m ? m[1] : t}
-                  {m && <span className="pips" style={{ "--n": Math.min(+m[2], 10) }} />}
+                  {m && <span className="pips" style={{ "--n": Math.min(+m[2], 10), "--h": Math.ceil(Math.min(+m[2], 10) / 2) }} />}
                 </li>
               );
             })}

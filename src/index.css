@@ -272,20 +272,19 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
   .hero { padding-top: .75rem; }
   .card { position: relative; padding: 44px 16px 20px; background: color-mix(in srgb, var(--bg) 30%, transparent); background-clip: padding-box; border: 3px solid color-mix(in srgb, var(--ink) 60%, transparent); box-shadow: 4px 4px 0 color-mix(in srgb, var(--ink) 45%, transparent); }
   .card > .bar { display: block; position: absolute; inset: 0 0 auto; padding: .05rem .75rem; font-size: .9rem; background: color-mix(in srgb, var(--ink) 60%, transparent); color: var(--bg); letter-spacing: .15em; }
-  .card { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 16px; align-items: center; }
-  .card .who { display: contents; } /* so the name can sit beside the avatar while the rest spans the card */
-  .card .who > *:not(h1), .card .stats { grid-column: 1 / -1; }
-  .card .pixel-avatar { margin: 4px; }
-  .card h1 { font-size: clamp(52px, 18vw, 96px); margin-bottom: 0; }
-  .lead { font-size: 1.15rem; } /* the extra class line must not push the GitHub link under the dock */
-  .hero h1 { margin-bottom: 1rem; }
-  .cls { display: block; margin: 0 0 .9rem; color: var(--blue); }
+  .card { text-align: center; } /* centred stack: avatar, name, class, tagline, links, stats */
+  .card .avatar-wrap { margin-inline: auto; } /* the wrapper is fit-content wide, so it needs the auto margins */
+  .card .pixel-avatar { margin: 4px 4px .75rem; }
+  .card h1 { font-size: clamp(56px, 20vw, 88px); margin-bottom: .75rem; }
+  .lead { font-size: 1.15rem; margin-inline: auto; }
+  .cls { display: block; margin: 0 0 1rem; color: var(--blue); }
   .cls::before { content: "CLASS ▸ "; color: var(--mute); }
-  .stats { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem 1.5rem; margin: 1.75rem 0 0; padding: 0; list-style: none; max-width: 20rem; }
-  .stats li { font-size: .9rem; }
-  .pips, .pips::after { display: block; height: 8px; background: repeating-linear-gradient(90deg, var(--mute) 0 6px, transparent 6px 8px); }
-  .pips { position: relative; width: 80px; /* 10 pips x 8px */ margin-top: .3rem; opacity: .9; }
-  .pips::after { content: ""; position: absolute; inset: 0 auto 0 0; width: calc(var(--n) * 8px); background: repeating-linear-gradient(90deg, var(--accent) 0 6px, transparent 6px 8px); }
+  .card .social { justify-content: center; margin-top: 1.25rem; }
+  .stats { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem 0; margin: 1.5rem 0 0; padding: 0; list-style: none; } /* three per row; a short last row stays centred */
+  .stats li { flex: 0 0 33.333%; font-size: .9rem; }
+  .pips, .pips::after { display: block; height: 10px; background: repeating-linear-gradient(90deg, var(--mute) 0 10px, transparent 10px 14px); }
+  .pips { position: relative; width: 66px; /* 5 boxes x 14px, minus the last gap */ margin: .35rem auto 0; opacity: .9; }
+  .pips::after { content: ""; position: absolute; inset: 0 auto 0 0; width: calc(var(--h) * 14px); background: repeating-linear-gradient(90deg, var(--accent) 0 10px, transparent 10px 14px); } /* --h: the 0-10 level halved and rounded up, in boxes */
 }
 @media (max-width: 560px) {
   #experience .timeline { filter: blur(2px); } /* lighter on phones */
