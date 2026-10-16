@@ -173,8 +173,6 @@ footer { padding-block: 2.5rem 4.5rem; color: var(--mute); } /* bottom room just
 .hb::before { content: "▸ "; color: var(--accent); }
 .pxi { display: block; width: 100%; height: auto; }
 .quests { max-width: 38rem; }
-.funfact { margin-top: 2.5rem; font-size: 1.4rem; } /* the last line of the page */
-.funfact p { margin: 0; }
 .quests .timeline > li { grid-template-columns: 2.4rem 1fr; gap: 1rem; align-items: center; padding: .7rem 0; border-top-width: 2px; }
 .quests .q-icon { width: 2.4rem; }
 .quests h3 { font-size: 1.3rem; margin-bottom: 0; }
