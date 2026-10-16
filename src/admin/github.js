@@ -18,6 +18,30 @@ export const fileToBase64 = (file) =>
     r.readAsDataURL(file);
   });
 
+// Big photos are shrunk before upload: long side capped at 1600px and re-encoded as JPEG (the file name's extension follows).
+// Left alone: GIFs/SVGs, anything under 400 KB (e.g. text screenshots), and PNGs with transparency (only resized, kept PNG).
+// A result that would be larger than the original is discarded. Returns { ext, base64 }.
+const MAX_SIDE = 1600;
+const KEEP_UNDER = 400 * 1024;
+export async function prepare(file) {
+  const ext0 = (file.name.match(/\.\w+$/) || [".png"])[0].toLowerCase();
+  const keep = async () => ({ ext: ext0, base64: await fileToBase64(file) });
+  if (!/^image\/(png|jpeg|webp)$/.test(file.type) || file.size < KEEP_UNDER) return keep();
+  const bmp = await createImageBitmap(file); // applies the photo's EXIF rotation
+  const k = Math.min(1, MAX_SIDE / Math.max(bmp.width, bmp.height));
+  const c = document.createElement("canvas");
+  c.width = Math.round(bmp.width * k);
+  c.height = Math.round(bmp.height * k);
+  const g = c.getContext("2d");
+  g.drawImage(bmp, 0, 0, c.width, c.height);
+  const px = file.type === "image/jpeg" ? null : g.getImageData(0, 0, c.width, c.height).data;
+  let alpha = false;
+  for (let i = 3; px && i < px.length; i += 4) if (px[i] < 255) { alpha = true; break; }
+  const blob = await new Promise((done) => c.toBlob(done, alpha ? "image/png" : "image/jpeg", 0.85));
+  if (!blob || blob.size >= file.size) return keep();
+  return { ext: alpha ? ".png" : ".jpg", base64: await fileToBase64(blob) };
+}
+
 // Dev-server stand-in (see localAdmin in vite.config.js): same interface, files on disk.
 const local = () => {
   const req = async (path, method = "GET", body) => {

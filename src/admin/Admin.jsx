@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import "./admin.css";
-import { client, fileToBase64 } from "./github";
+import { client, prepare } from "./github";
 import { sections, clean, changes } from "./schema";
 import { Form, ItemList } from "./Fields";
 
@@ -166,9 +166,9 @@ export default function Admin() {
     run,
     rawUrl: gh.rawUrl,
     async upload(file, folder) {
-      const ext = extOf(file.name);
-      const path = folder ? nextPath(folder, ext) : `uploads/${Date.now()}-${file.name.replace(/[^\w.-]+/g, "_")}`;
-      const img = await run(`Uploaded ${path}`, async () => gh.uploadImage(path, await fileToBase64(file)));
+      const { ext, base64 } = await prepare(file);
+      const path = folder ? nextPath(folder, ext) : `uploads/${Date.now()}-${file.name.replace(/\.\w+$/, "").replace(/[^\w.-]+/g, "_")}${ext}`;
+      const img = await run(`Uploaded ${path}`, async () => gh.uploadImage(path, base64));
       setImages((list) => [...list, img]);
       return path;
     },
