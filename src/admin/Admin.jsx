@@ -75,7 +75,7 @@ function Images({ images, ctx, site, onDeleted }) {
       {Object.keys(groups).sort().map((dir) => (
         <details className="item img-group" key={dir} open>
           <summary>{dir || "(top level)"} <span className="muted">{groups[dir].length}</span></summary>
-          <div className="gallery-admin">
+          <div className={groups[dir].length > 5 ? "gallery-admin many" : "gallery-admin"}>
             {groups[dir].map((img) => (
               <figure key={img.path}>
                 <img src={ctx.rawUrl(img.path)} alt="" loading="lazy" />

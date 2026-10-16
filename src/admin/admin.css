@@ -47,6 +47,7 @@
 .gallery-admin figure { margin: 0; display: flex; flex-direction: column; align-items: flex-start; }
 .gallery-admin img { width: 100%; aspect-ratio: 4 / 3; object-fit: contain; background: var(--panel); border: 3px solid var(--ink); }
 .gallery-admin figcaption { word-break: break-all; font-size: 1rem; color: var(--mute); margin: .3rem 0; flex: 1; } /* flex: 1 pushes every Delete button to the same line whatever the name length */
+.gallery-admin.many { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 180px; overflow-x: auto; padding-bottom: .6rem; } /* more than 5: one scrolling row instead of a taller grid */
 .img-group { margin-top: 1rem; }
 .img-group .gallery-admin { margin-top: 0; }
 .muted { color: var(--mute); }
