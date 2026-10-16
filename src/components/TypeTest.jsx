@@ -54,7 +54,14 @@ export default function TypeTest({ autoFocus }) {
           ref={input}
           value={typed}
           onChange={onChange}
-          disabled={done}
+          readOnly={done}
+          onKeyDown={(e) => {
+            // Tab only restarts mid-run or after finishing, so an empty field doesn't trap focus
+            if (e.key === "Tab" && (typed || done)) {
+              e.preventDefault();
+              reset();
+            }
+          }}
           autoFocus={autoFocus}
           autoComplete="off"
           autoCapitalize="off"
@@ -79,6 +86,9 @@ export default function TypeTest({ autoFocus }) {
             Try again
           </button>
         )}
+      </p>
+      <p className="tt-keys" aria-hidden="true">
+        <kbd>Tab</kbd> to retry
       </p>
     </div>
   );

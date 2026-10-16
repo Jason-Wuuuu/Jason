@@ -21,8 +21,16 @@ function Gallery({ p }) {
         (g.scrollLeft / (g.scrollWidth - g.clientWidth || 1)) * (n - 1),
       ),
     );
+  const go = (i) =>
+    ref.current.children[i]?.scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
+  // The peeking neighbour goes to itself; the current photo goes back from its left half, forward from its right.
+  const onPick = (e, i) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    go(i !== at ? i : e.clientX < r.left + r.width / 2 ? i - 1 : i + 1);
+  };
   return (
     <>
+      <div className="gal" data-prev={at > 0} data-next={at < n - 1}>
       <div
         className="gallery"
         ref={ref}
@@ -30,14 +38,17 @@ function Gallery({ p }) {
         aria-label={`${p.title} screenshots`}
         onScroll={onScroll}
       >
-        {p.screenshots.map((s) => (
+        {p.screenshots.map((s, i) => (
           <img
             key={s}
+            onClick={n > 1 ? (e) => onPick(e, i) : undefined}
+            className={i < at ? "prev" : i > at ? "next" : undefined}
             src={image(s)}
             alt={`${p.title} screenshot`}
             loading="lazy"
           />
         ))}
+      </div>
       </div>
       {n > 1 && (
         <div className="bars">
@@ -47,13 +58,7 @@ function Gallery({ p }) {
               className={i === at ? "on" : ""}
               aria-label={`Show screenshot ${i + 1} of ${n}`}
               aria-current={i === at}
-              onClick={() =>
-                ref.current.children[i].scrollIntoView({
-                  behavior: "smooth",
-                  inline: "start",
-                  block: "nearest",
-                })
-              }
+              onClick={() => go(i)}
             />
           ))}
         </div>

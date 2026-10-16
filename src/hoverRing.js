@@ -5,21 +5,44 @@ const STEP = matchMedia("(prefers-reduced-motion: reduce)").matches ? GAP : 2; /
 const ring = Object.assign(document.createElement("div"), { className: "ring" });
 document.body.append(ring);
 
-let target = null, shown = null, pad = 0, last = 0, raf = 0;
+let target = null, shown = null, pad = 0, last = 0, raf = 0, kids = [];
+
+// Siblings of the hovered thing get nudged away from it by three quarters of the bracket gap (transform only, so nothing reflows).
+const nudge = (k = 0) => kids.forEach(({ c, ux, uy }) => (c.style.translate = k ? `${ux * k}px ${uy * k}px` : ""));
+
+// A photo in the About pile is bracketed together with the whole pile: brackets round just one under-photo would be drawn across the photos on top of it.
+function rect(el) {
+  const pile = el.closest('.photos[data-stack="true"]');
+  if (!pile) return el.getBoundingClientRect();
+  const rs = [...pile.querySelectorAll("img")].map((i) => i.getBoundingClientRect());
+  const left = Math.min(...rs.map((b) => b.left)), top = Math.min(...rs.map((b) => b.top));
+  return { left, top, right: Math.max(...rs.map((b) => b.right)), bottom: Math.max(...rs.map((b) => b.bottom)) };
+}
 
 function frame(t) {
   if (t - last > 45) { last = t; pad = target ? Math.min(GAP, pad + STEP) : Math.max(0, pad - STEP); }
-  if (!target && !pad || !shown?.isConnected) { ring.style.display = "none"; shown = null; raf = 0; return; }
-  const r = shown.getBoundingClientRect();
+  if (!target && !pad || !shown?.isConnected) { nudge(); kids = []; ring.style.display = "none"; shown = null; raf = 0; return; }
+  nudge(pad * 0.75);
+  const r = rect(shown);
   const [sx = 0, sy = 0] = (getComputedStyle(shown).boxShadow.match(/-?[\d.]+px/g) || []).map(parseFloat); // the hard pixel shadow counts as part of the target
-  const left = r.left - pad - Math.max(0, -sx), top = r.top - pad - Math.max(0, -sy);
-  const right = r.right + pad + Math.max(0, sx), bottom = r.bottom + pad + Math.max(0, sy);
+  const ox = shown.tagName === "SUMMARY" ? pad - GAP : pad; // an accordion row steps out to flush with its (padded) edges, and stays 4px under the dashed rule so the top brackets don't sit on it
+  const oy = shown.tagName === "SUMMARY" ? ox - 4 : pad;
+  const left = r.left - ox - Math.max(0, -sx), top = r.top - oy - Math.max(0, -sy);
+  const right = r.right + ox + Math.max(0, sx), bottom = r.bottom + oy + Math.max(0, sy);
   Object.assign(ring.style, { display: "block", left: Math.round(left) + "px", top: Math.round(top) + "px", width: Math.round(right - left) + "px", height: Math.round(bottom - top) + "px" });
   raf = requestAnimationFrame(frame);
 }
 
 function set(el) {
   target = el;
+  if (el && el !== shown) {
+    nudge(); // let go of the previous target's neighbours
+    const a = el.getBoundingClientRect();
+    kids = [...(el.parentElement?.children || [])].filter((c) => c !== el && c !== ring).map((c) => {
+      const b = c.getBoundingClientRect(), dx = b.left + b.width / 2 - a.left - a.width / 2, dy = b.top + b.height / 2 - a.top - a.height / 2, n = Math.hypot(dx, dy) || 1;
+      return { c, ux: dx / n, uy: dy / n };
+    });
+  }
   if (el) shown = el;
   if (shown && !raf) raf = requestAnimationFrame(frame);
 }
