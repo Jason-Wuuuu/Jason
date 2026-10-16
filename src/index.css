@@ -72,6 +72,7 @@ p { margin: 0 0 1rem; }
 main, footer { padding-inline: max(1.25rem, calc((100vw - 960px) / 2)); }
 section { padding-block: 4rem 1rem; }
 footer { padding-block: 4rem 8rem; color: var(--mute); }
+#experience { padding-top: 2rem; } /* tight under the hero, so its heading peeks on the first screen */
 
 /* hero */
 .hero { padding-top: 2.5rem; }
@@ -225,7 +226,11 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
 @media (prefers-reduced-motion: no-preference) {
   .dock[data-pos="bottom"] { animation: dock-in-bottom .4s steps(6); }
 }
-/* wide screens have empty margins beside the 960px column: once you scroll, the dock lives there */
+/* wide screens: at the top the dock sits bottom-right (aligned to the content column) so the "Experience" peek
+   at bottom-left stays visible; once you scroll it moves into the empty margin beside the column */
+@media (min-width: 1280px) {
+  .dock[data-pos="bottom"] { left: auto; right: max(1.25rem, calc((100vw - 960px) / 2)); transform: none; }
+}
 @media (min-width: 1280px) {
   .dock[data-pos="side"] {
     left: auto; right: 1.25rem; bottom: 50%; transform: translateY(50%);
