@@ -73,6 +73,7 @@ p { margin: 0 0 1rem; }
 main, footer { padding-inline: max(1.25rem, calc((100vw - 960px) / 2)); }
 section { padding-block: 4rem 1rem; }
 footer { padding-block: 4rem 8rem; color: var(--mute); }
+@media (min-width: 1280px) { footer { padding-block: 1.5rem 1.5rem; } } /* the dock moves to the side here, so no bottom room needed and the page ends sooner */
 #experience { padding-top: 2rem; } /* tight under the hero so its heading peeks on the first screen */
 #experience .timeline { filter: blur(6px); transition: filter .5s steps(5); } /* the heading stays sharp; what follows is blurred until you scroll */
 .scrolled #experience .timeline { filter: none; }
@@ -236,9 +237,9 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
   .card {
     position: relative;
     display: grid; grid-template-columns: auto minmax(0, 1fr) 150px; gap: 0 32px; align-items: start; /* px: rem is fluid on this page */
-    padding: 52px 32px 32px; background: color-mix(in srgb, var(--bg) 30%, transparent); /* see-through: moon and stars show */ border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--ink);
+    padding: 52px 32px 32px; background: color-mix(in srgb, var(--bg) 30%, transparent); /* see-through: moon and stars show */ background-clip: padding-box; border: 3px solid color-mix(in srgb, var(--ink) 60%, transparent); box-shadow: 6px 6px 0 color-mix(in srgb, var(--ink) 45%, transparent);
   }
-  .bar { display: block; position: absolute; inset: 0 0 auto; padding: .15rem 1rem; background: var(--ink); color: var(--bg); letter-spacing: .15em; }
+  .bar { display: block; position: absolute; inset: 0 0 auto; padding: .15rem 1rem; background: color-mix(in srgb, var(--ink) 60%, transparent); color: var(--bg); letter-spacing: .15em; }
   .card .pixel-avatar { margin: 12px 0 0; }
   .card h1 { font-size: clamp(64px, min(9vw, 15vh), 104px); margin-bottom: .75rem; }
   .cls { display: block; margin: 0 0 1rem; color: var(--blue); }
