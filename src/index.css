@@ -434,3 +434,26 @@ html.scrolled:has(.dock[data-pos="bottom"]) body::after { /* not at the very top
   content: ""; position: fixed; inset: auto 0 0; height: 6rem; z-index: 8; pointer-events: none;
   backdrop-filter: blur(5px); -webkit-mask-image: linear-gradient(transparent, #000 55%); mask-image: linear-gradient(transparent, #000 55%);
 }
+
+/* pixel arrow cursor: a DOM element (hoverRing.js) that hides the native one; black in light mode, white in dark */
+.pxcur-on, .pxcur-on * { cursor: none !important; }
+.pxcur { position: fixed; left: 0; top: 0; z-index: 40; pointer-events: none; opacity: .8; }
+.pxcur[hidden] { display: none; }
+.pxcur i { display: block; width: 25px; height: 35px; margin: -2.5px 0 0 -2.5px; background: url(/cursor.svg) 0 0 / 100% 100%; image-rendering: pixelated; } /* margin puts the arrow's tip on the pointer */
+.pxcur.txt i { width: 17.5px; height: 35px; margin: -17.5px 0 0 -8.75px; background-image: url(/cursor-text.svg); } /* I-beam: centred on the pointer */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .pxcur i { background-image: url(/cursor-dark.svg); }
+  :root:not([data-theme="light"]) .pxcur.txt i { background-image: url(/cursor-text-dark.svg); }
+}
+:root[data-theme="dark"] .pxcur i { background-image: url(/cursor-dark.svg); }
+:root[data-theme="dark"] .pxcur.txt i { background-image: url(/cursor-text-dark.svg); }
+.ring {
+  position: fixed; z-index: 30; display: none; pointer-events: none; color: var(--ink);
+  --g: linear-gradient(currentColor, currentColor); --t: 4px; --l: 14px;
+  background:
+    var(--g) 0 0 / var(--l) var(--t), var(--g) 0 0 / var(--t) var(--l),
+    var(--g) 100% 0 / var(--l) var(--t), var(--g) 100% 0 / var(--t) var(--l),
+    var(--g) 0 100% / var(--l) var(--t), var(--g) 0 100% / var(--t) var(--l),
+    var(--g) 100% 100% / var(--l) var(--t), var(--g) 100% 100% / var(--t) var(--l);
+  background-repeat: no-repeat;
+}
