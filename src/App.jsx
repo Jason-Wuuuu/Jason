@@ -1,24 +1,32 @@
-import { Fragment } from "react";
-import { Route, Routes } from "react-router-dom";
+import Hero from "./components/Hero";
+import Experience from "./components/Experience";
+import Projects from "./components/Projects";
+import About from "./components/About";
 
-import Header from "./components/Header";
-import Home from "./components/Home.jsx";
-import Projects from "./components/Projects.jsx";
-import ScrollTop from "./components/ScrollTop";
+export const asset = (path) =>
+  import.meta.env.BASE_URL + path.replace(/^\.?\//, "");
 
-function App() {
+export default function App() {
   return (
-    <Fragment>
-      <Header />
-
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/projects" element={<Projects />} />
-      </Routes>
-
-      <ScrollTop />
-    </Fragment>
+    <>
+      <nav className="nav">
+        <a href="#top" className="brand">
+          <img src={asset("images/Memoji_1.png")} alt="" width="28" height="28" />
+          Jason
+        </a>
+        <div>
+          <a href="#experience">Experience</a>
+          <a href="#projects">Projects</a>
+          <a href="#about">About</a>
+        </div>
+      </nav>
+      <main id="top">
+        <Hero />
+        <Experience />
+        <Projects />
+        <About />
+      </main>
+      <footer>© {new Date().getFullYear()} Chia-Hsiang (Jason) Wu</footer>
+    </>
   );
 }
-
-export default App;
