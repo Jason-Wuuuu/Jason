@@ -83,7 +83,7 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
   position: relative; font-size: clamp(4.5rem, min(15vw, 23vh), 9rem); letter-spacing: -.02em; line-height: .85; margin-bottom: 1.5rem;
 }
 .pixel-avatar {
-  position: absolute; right: 0; bottom: 0; width: 224px; height: auto; /* 7× the 32px sprite: whole pixels */
+  position: absolute; right: 0; bottom: 0; width: var(--w, 220px); height: auto; /* set per pixel style in PixelAvatar */
   filter: drop-shadow(5px 5px 0 var(--ink));
 }
 .lead { font-size: clamp(1.4rem, 3vw, 1.9rem); max-width: 34rem; }
@@ -151,6 +151,8 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
 
 /* ── motion: stepped frames to match the pixel look; all of it off under reduced-motion ── */
 .pixel-avatar:hover { animation: hop .4s steps(4); }
+/* round frame: a smooth circle with a ring (the one rounded thing on the page, by request) */
+.pixel-avatar[data-frame="round"] { border-radius: 50% !important; box-shadow: 0 0 0 4px var(--ink); filter: none; } /* no hard shadow: a ring's shadow is just a second ring */
 .proj summary .ti { transition: transform .12s steps(2); }
 .proj summary:hover .ti { transform: translateX(8px); }
 .tt-result { position: relative; }
@@ -199,7 +201,7 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
 #about .typetest { margin-top: 2rem; }
 .tt-result { margin-bottom: 0; }
 @media (max-width: 560px) {
-  .pixel-avatar { width: 96px; filter: drop-shadow(4px 4px 0 var(--ink)); }
+  .pixel-avatar { width: var(--wm, 88px); filter: drop-shadow(4px 4px 0 var(--ink)); }
 }
 @media (prefers-reduced-motion: reduce) { .egg::after { animation: none; } }
 
@@ -268,7 +270,7 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
   to { clip-path: circle(150vmax at var(--tx, 50%) var(--ty, 0)); }
 }
 
-@media (min-width: 561px) and (max-width: 900px) { .pixel-avatar { width: 128px; } }
+@media (min-width: 561px) and (max-width: 900px) { .pixel-avatar { width: var(--wt, 132px); } }
 
 /* scroll progress: a pixel cat on an inset lane (see ProgressCat.jsx) */
 .track {

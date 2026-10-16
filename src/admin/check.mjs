@@ -1,4 +1,4 @@
-// Run: node src/admin/check.mjs — checks the pure helpers behind Save, the avatar sprites' shape, and admin error messages.
+// Run: node src/admin/check.mjs — checks the pure helpers behind Save, the avatar style table, and admin error messages.
 import assert from "node:assert";
 import { clean, blank } from "./schema.js";
 
@@ -10,14 +10,12 @@ assert.deepStrictEqual(blank([{ key: "t", type: "text" }, { key: "p", type: "lin
 const b64 = (s) => Buffer.from(s, "utf8").toString("base64");
 assert.strictEqual(new TextDecoder().decode(Uint8Array.from(atob(b64("Aug 2024 – now 🏂")), (c) => c.charCodeAt(0))), "Aug 2024 – now 🏂");
 
-// every avatar sprite is 32×32 and uses only colours it defines
-const { SPRITES, SIZE } = await import("../avatar.js");
-for (const [name, { colors, rows }] of Object.entries(SPRITES)) {
-  assert.strictEqual(rows.length, SIZE, `${name}: rows`);
-  for (const r of rows) {
-    assert.strictEqual(r.length, SIZE, `${name}: row width`);
-    for (const ch of r) assert(ch in colors, `${name}: unknown colour ${ch}`);
-  }
+// avatar styles: crops stay inside the image, and every style has desktop / tablet / phone widths
+const { AVATAR_STYLES, DEFAULT_STYLE } = await import("../avatar.js");
+assert(DEFAULT_STYLE in AVATAR_STYLES);
+for (const [name, { n, crop: [x, y, size], width }] of Object.entries(AVATAR_STYLES)) {
+  assert(n > 0 && size > 0 && x >= 0 && y >= 0 && x + size <= 1 && y + size <= 1, `${name}: crop`);
+  assert.strictEqual(width.length, 3, `${name}: widths`);
 }
 
 // a missing content file on the branch gives an actionable message (the "404 after login" case)

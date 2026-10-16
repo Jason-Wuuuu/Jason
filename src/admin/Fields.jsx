@@ -45,7 +45,10 @@ export function Field({ f, value, onChange, ctx }) {
       return (
         <label>{label}
           <select value={value ?? ""} onChange={(e) => onChange(e.target.value)}>
-            {f.options.map((o) => <option key={o}>{o}</option>)}
+            {f.options.map((o) => {
+              const [v, l] = Array.isArray(o) ? o : [o, o];
+              return <option key={v} value={v}>{l}</option>;
+            })}
           </select>
         </label>
       );

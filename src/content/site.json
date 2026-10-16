@@ -5,6 +5,9 @@
     "tagline": "Full stack engineer in New York City. Next.js, TypeScript, FastAPI, and a soft spot for machine learning.",
     "typingLine": "I build web apps and teach machines to read.",
     "typingRecord": 118,
+    "avatar": "avatar-memoji.png",
+    "avatarStyle": "44-tight",
+    "avatarFrame": "round",
     "links": [
       {
         "label": "GitHub",

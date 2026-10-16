@@ -1,5 +1,7 @@
 // What the admin can edit. `type`: text | number | bool | area | select | lines | image | images | list.
 // `lines` is one array entry per line (or per blank-line-separated block with sep "\n\n").
+import { AVATAR_STYLES } from "../avatar.js";
+
 export const sections = [
   {
     key: "profile",
@@ -10,6 +12,9 @@ export const sections = [
       { key: "tagline", label: "Tagline", type: "area" },
       { key: "typingLine", label: "Typing-test line", type: "text" },
       { key: "typingRecord", label: "Your typing record (WPM)", type: "number" },
+      { key: "avatar", label: "Profile picture (upload any image; a transparent cut-out PNG keeps its shape, a photo is cropped round)", type: "image" },
+      { key: "avatarStyle", label: "Pixel style", type: "select", options: Object.entries(AVATAR_STYLES).map(([v, s]) => [v, s.label]) },
+      { key: "avatarFrame", label: "Frame", type: "select", options: [["round", "Round border (cropped to a circle, transparent inside)"], ["none", "No frame (cut-out silhouette)"]] },
       {
         key: "links",
         label: "Links",

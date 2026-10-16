@@ -1,45 +1,60 @@
 import { useEffect, useRef } from "react";
-import { avatarCanvas, SIZE } from "../avatar";
+import { AVATAR_STYLES, DEFAULT_STYLE, pixelate } from "../avatar";
+import { image } from "../App";
+import site from "../content";
 
-const STEPS = [3, 4, 6, 8, 12, 18, SIZE]; // the avatar "resolves" through these resolutions on load
-
+// The profile picture from the admin, pixelated. It "resolves" from chunky blocks on load; clicking replays that.
 export default function PixelAvatar() {
+  const { avatar, avatarStyle, avatarFrame } = site.profile;
+  const style = AVATAR_STYLES[avatarStyle] || AVATAR_STYLES[DEFAULT_STYLE];
+  const { n, crop, width } = style;
   const ref = useRef(null);
   const replay = useRef(() => {});
+
   useEffect(() => {
-    let timer;
+    if (!avatar) return;
+    let timer, gone = false;
     const ctx = ref.current.getContext("2d");
-    const sprite = avatarCanvas();
-    const tmp = document.createElement("canvas");
-    const draw = (n) => {
-      tmp.width = tmp.height = n;
-      tmp.getContext("2d").drawImage(sprite, 0, 0, n, n);
-      ctx.clearRect(0, 0, SIZE, SIZE);
-      ctx.imageSmoothingEnabled = false;
-      ctx.drawImage(tmp, 0, 0, n, n, 0, 0, SIZE, SIZE);
-    };
-    const play = (delay) => {
-      clearTimeout(timer);
-      let i = 0;
-      const tick = () => {
-        draw(STEPS[i++]);
-        if (i < STEPS.length) timer = setTimeout(tick, 110);
+    const img = new Image();
+    img.onload = () => {
+      if (gone) return;
+      const steps = [3, 5, 8, 12, 18, 26, 36].filter((k) => k < n).concat(n);
+      const draw = (k) => {
+        ctx.clearRect(0, 0, n, n);
+        ctx.imageSmoothingEnabled = false;
+        ctx.drawImage(pixelate(img, k, crop), 0, 0, k, k, 0, 0, n, n);
       };
-      timer = setTimeout(tick, delay);
+      const play = (delay) => {
+        clearTimeout(timer);
+        let i = 0;
+        const tick = () => {
+          draw(steps[i++]);
+          if (i < steps.length) timer = setTimeout(tick, 110);
+        };
+        timer = setTimeout(tick, delay);
+      };
+      replay.current = () => play(0);
+      if (matchMedia("(prefers-reduced-motion: reduce)").matches) draw(n);
+      else play(500); // first time: after the name has dropped in
     };
-    replay.current = () => play(0); // clicking the avatar re-renders it
-    if (matchMedia("(prefers-reduced-motion: reduce)").matches) draw(SIZE);
-    else play(500); // first time: after the name has dropped in
-    return () => clearTimeout(timer);
-  }, []);
+    img.src = image(avatar);
+    return () => {
+      gone = true;
+      clearTimeout(timer);
+    };
+  }, [avatar, n, crop]);
+
+  if (!avatar) return null;
   return (
     <canvas
       ref={ref}
-      width={SIZE}
-      height={SIZE}
+      width={n}
+      height={n}
       className="pixel-avatar"
+      data-frame={avatarFrame === "none" ? "none" : "round"}
+      style={{ "--w": `${width[0]}px`, "--wt": `${width[1]}px`, "--wm": `${width[2]}px` }}
       role="img"
-      aria-label="Pixel-art avatar of Jason in a cap and glasses (click to re-render)"
+      aria-label="Profile picture of Jason (click to re-render)"
       onClick={() => replay.current()}
     />
   );
