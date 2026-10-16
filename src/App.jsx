@@ -3,7 +3,7 @@ import Hero from "./components/Hero";
 import Experience from "./components/Experience";
 import Projects from "./components/Projects";
 import About from "./components/About";
-import ThemeToggle from "./components/ThemeToggle";
+import Dock from "./components/Dock";
 import Background from "./components/Background";
 import { avatarURL } from "./avatar";
 import site from "./content";
@@ -35,18 +35,10 @@ export default function App() {
   return (
     <>
       <Background />
-      <header className="nav">
-        <a href="#top">{site.profile.name}</a>
-        <nav>
-          <a href="#experience">Experience</a>
-          <a href="#projects">Projects</a>
-          <a href="#about">About</a>
-          <ThemeToggle />
-        </nav>
-        <span className="runner" aria-hidden="true">
-          <img src={avatarURL()} alt="" />
-        </span>
-      </header>
+      <Dock />
+      <span className="runner" aria-hidden="true">
+        <img src={avatarURL()} alt="" />
+      </span>
       <main id="top">
         <Hero />
         <Experience />
