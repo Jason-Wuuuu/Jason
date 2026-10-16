@@ -57,7 +57,7 @@
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 1.5rem; scrollbar-width: none; }
 html::-webkit-scrollbar { display: none; } /* the cat at the bottom shows progress instead */
-body { margin: 0; background: var(--bg); color: var(--ink); }
+body { margin: 0; background: var(--bg); color: var(--ink); overflow-x: clip; } /* the rotated photo stack pokes a few px past narrow screens */
 a { color: var(--blue); text-underline-offset: 3px; }
 img { max-width: 100%; }
 button { font: inherit; color: inherit; cursor: pointer; }
@@ -131,6 +131,8 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
 .ti { font-family: var(--display); font-size: 1.9rem; line-height: 1; }
 .st { color: var(--mute); }
 .proj[open] .ti { color: var(--blue); }
+.ti::after { content: " ▸"; color: var(--accent); font-size: .7em; } /* says the row opens */
+.proj[open] .ti::after { content: " ▾"; }
 .proj .body { padding: 0 0 2rem 6rem; max-width: 46rem; }
 .meta { color: var(--mute); }
 .gallery { display: flex; gap: .75rem; overflow-x: auto; scroll-snap-type: x mandatory; margin: 1rem 0; }
@@ -230,7 +232,7 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
 .tt-result { margin-bottom: 0; }
 /* wide screens: the hero is a game "player card": avatar | name, class, tagline, links | skill bars. Phones keep the plain stack. */
 .card > .bar, .cls, .stats { display: none; }
-@media (min-width: 901px) {
+@media (min-width: 701px) {
   /* the card is centred in the first screen minus a strip at the bottom, so "Experience" still peeks */
   .hero { min-height: calc(100svh - 175px); padding-block: 0; display: flex; align-items: center; }
   .hero > .card { width: 100%; translate: 0 12px; } /* keeps the card where it was while the strip below shrinks */
@@ -252,8 +254,13 @@ footer { padding-block: 4rem 8rem; color: var(--mute); }
   .pips { position: relative; width: 108px; /* 10 pips x 11px */ margin-top: .3rem; opacity: .9; }
   .pips::after { content: ""; position: absolute; inset: 0 auto 0 0; width: calc(var(--n) * 11px); background: repeating-linear-gradient(90deg, var(--accent) 0 8px, transparent 8px 11px); }
 }
-@media (min-width: 901px) and (prefers-reduced-motion: no-preference) {
+@media (min-width: 701px) and (prefers-reduced-motion: no-preference) {
   .pips::after { animation: scan .6s steps(10) 1s both; }
+}
+/* tablets: no room for a third column, so the skill bars drop to a row under the text */
+@media (min-width: 701px) and (max-width: 900px) {
+  .card { grid-template-columns: auto minmax(0, 1fr); }
+  .stats { grid-column: 1 / -1; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); margin-top: 1.75rem; }
 }
 @media (max-width: 560px) {
   #experience .timeline { filter: blur(2px); } /* lighter on phones */
