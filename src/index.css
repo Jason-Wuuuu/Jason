@@ -172,11 +172,25 @@ footer { padding-block: 2.5rem 4.5rem; color: var(--mute); } /* bottom room just
 .hb { font-size: 1.2rem; letter-spacing: .12em; text-transform: uppercase; color: var(--mute); margin-bottom: .5rem; }
 .hb::before { content: "▸ "; color: var(--accent); }
 .pxi { display: block; width: 100%; height: auto; }
-.quests { max-width: 38rem; }
-.quests .timeline > li { grid-template-columns: 2.4rem 1fr; gap: 1rem; align-items: center; padding: .7rem 0; border-top-width: 2px; }
-.quests .q-icon { width: 2.4rem; }
-.quests h3 { font-size: 1.3rem; margin-bottom: 0; }
-.quests p { margin: 0; font-size: 1.05rem; color: var(--mute); }
+/* the board: notices pinned on a see-through panel, in the app's own colours */
+.board {
+  list-style: none; margin: 0; padding: 1.5rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem 1.25rem; align-items: start;
+  background-color: color-mix(in srgb, var(--bg) 30%, transparent); background-image: radial-gradient(color-mix(in srgb, var(--ink) 22%, transparent) 1.5px, transparent 1.5px); background-size: 9px 9px;
+  border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--ink);
+}
+.notice { position: relative; padding: 1.4rem 1rem 1rem; color: var(--ink); background: var(--bg); border: 3px solid var(--ink); box-shadow: 3px 3px 0 var(--ink); transition: translate .15s steps(2), box-shadow .15s steps(2); }
+.notice:nth-child(3n + 2) { translate: 0 10px; } /* whole-pixel offsets so the notices don't sit in a rigid row */
+.notice:nth-child(3n) { translate: 0 -4px; }
+@media (hover: hover) { .notice:hover { translate: 0 -4px; box-shadow: 3px 7px 0 var(--ink); } }
+.pin { position: absolute; top: -9px; left: 50%; width: 12px; height: 12px; margin-left: -6px; background: var(--accent); box-shadow: inset -3px -3px 0 rgba(0, 0, 0, .28), inset 2px 2px 0 rgba(255, 255, 255, .35); }
+.quests h4 { margin: 0 0 .45rem; padding-bottom: .25rem; font-family: var(--display); font-weight: 400; font-size: 1.35rem; line-height: 1.05; border-bottom: 2px solid var(--ink); }
+.quests p { margin: 0; font-size: 1.05rem; line-height: 1.25; color: var(--mute); }
+@media (max-width: 700px) { .board { grid-template-columns: repeat(2, 1fr); padding: 1.1rem; gap: 1.5rem 1rem; } .notice:nth-child(3n + 2), .notice:nth-child(3n) { translate: none; } .notice:nth-child(2n) { translate: 0 8px; } }
+@media (max-width: 560px) { /* one column on phones */
+  .board { grid-template-columns: minmax(0, 1fr); padding: 1.1rem; gap: 1.5rem; }
+  .notice:nth-child(n) { translate: none; }
+  .notice:nth-child(even) { translate: 8px 0; }
+}
 
 
 @media (max-width: 700px) {
