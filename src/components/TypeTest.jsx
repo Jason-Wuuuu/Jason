@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
+import site from "../content";
 
-const TARGET = "I build web apps and teach machines to read.";
+const { typingLine: TARGET, typingRecord: RECORD } = site.profile;
 
 export default function TypeTest() {
   const [typed, setTyped] = useState("");
@@ -29,7 +30,7 @@ export default function TypeTest() {
   return (
     <div className="typetest">
       <label htmlFor="tt" className="tt-hint">
-        Type this line. Jason's record is 118 WPM.
+        Type this line. Jason's record is {RECORD} WPM.
       </label>
       <div className="tt-line" onClick={() => input.current.focus()}>
         {[...TARGET].map((ch, i) => (
@@ -56,7 +57,7 @@ export default function TypeTest() {
       </div>
       <p className="tt-result" aria-live="polite">
         {done
-          ? `${wpm} WPM. ${wpm >= 118 ? "You beat him." : "Not bad."}`
+          ? `${wpm} WPM. ${wpm >= RECORD ? "You beat him." : "Not bad."}`
           : " "}
         {done && (
           <button className="link" onClick={reset}>

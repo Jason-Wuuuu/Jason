@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
-import { asset } from "../App";
+import { image } from "../App";
+import site from "../content";
 
 const N = 44; // drawn at 44×44, shown larger with image-rendering: pixelated
 
@@ -12,7 +13,7 @@ export default function PixelAvatar() {
       ctx.imageSmoothingEnabled = true;
       ctx.drawImage(img, 0, 0, N, N);
     };
-    img.src = asset("images/Memoji_1.png");
+    img.src = image(site.profile.avatar);
   }, []);
   return <canvas ref={ref} width={N} height={N} className="pixel-avatar" role="img" aria-label="Pixelated memoji of Jason" />;
 }

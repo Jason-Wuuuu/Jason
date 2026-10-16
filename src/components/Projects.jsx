@@ -1,13 +1,15 @@
 import { useState } from "react";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
-import { projects } from "../projectsData";
-import { asset } from "../App";
+import { asset, image } from "../App";
+import site from "../content";
+
+const projects = site.projects;
 
 const categories = ["All", ...new Set(projects.map((p) => p.category))];
 
 function Row({ p }) {
-  const demo = /^(https?:|www)/.test(p.demoUrl) ? p.demoUrl : asset(p.demoUrl);
+  const demo = /^(https?:|www)/.test(p.demoUrl) ? p.demoUrl : asset(p.demoUrl || "");
   return (
     <details className="proj">
       <summary>
@@ -21,7 +23,7 @@ function Row({ p }) {
         {p.screenshots.length > 0 && (
           <div className="gallery" tabIndex={0} aria-label={`${p.title} screenshots`}>
             {p.screenshots.map((s) => (
-              <img key={s} src={asset(`images/${s}`)} alt={`${p.title} screenshot`} loading="lazy" />
+              <img key={s} src={image(s)} alt={`${p.title} screenshot`} loading="lazy" />
             ))}
           </div>
         )}
@@ -56,8 +58,8 @@ export default function Projects() {
         ))}
       </div>
       <div>
-        {shown.map((p) => (
-          <Row key={p.title} p={p} />
+        {shown.map((p, i) => (
+          <Row key={i} p={p} />
         ))}
       </div>
     </section>
