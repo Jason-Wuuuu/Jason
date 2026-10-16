@@ -2,6 +2,7 @@ import { useState } from "react";
 import { image } from "../App";
 import site, { Md } from "../content";
 import TypeTest from "./TypeTest";
+import PixelIcon from "./PixelIcon";
 
 export default function About() {
   const { paragraphs, images = [] } = site.about;
@@ -11,7 +12,7 @@ export default function About() {
   const next = () => (setGone(top), setTop((top + 1) % images.length));
   return (
     <section id="about">
-      <h2 aria-label="Player Log, About">Player Log<small>About</small></h2>
+      <h2 aria-label="Player Log, About"><PixelIcon name="heart" />Player Log<small>About</small></h2>
       <div className="about">
         <div className="prose">
           {paragraphs.map((p, i) => (

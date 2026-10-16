@@ -52,7 +52,7 @@ export default function App() {
         <Hero />
         <Experience />
         <Projects />
-        <Experience id="education" title="Training" sub="Education" items={site.education} />
+        <Experience id="education" title="Training" sub="Education" icon="cap" items={site.education} />
         <About />
       </main>
       <footer>
