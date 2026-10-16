@@ -5,6 +5,7 @@ import Projects from "./components/Projects";
 import About from "./components/About";
 import ThemeToggle from "./components/ThemeToggle";
 import Background from "./components/Background";
+import { avatarURL } from "./avatar";
 import site from "./content";
 
 // Loaded only at #/admin, so visitors never download it.
@@ -43,7 +44,7 @@ export default function App() {
           <ThemeToggle />
         </nav>
         <span className="runner" aria-hidden="true">
-          <img src={image(site.profile.avatar)} alt="" />
+          <img src={avatarURL()} alt="" />
         </span>
       </header>
       <main id="top">

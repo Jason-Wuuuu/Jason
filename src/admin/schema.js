@@ -10,7 +10,6 @@ export const sections = [
       { key: "tagline", label: "Tagline", type: "area" },
       { key: "typingLine", label: "Typing-test line", type: "text" },
       { key: "typingRecord", label: "Your typing record (WPM)", type: "number" },
-      { key: "avatar", label: "Avatar (shown pixelated)", type: "image" },
       {
         key: "links",
         label: "Links",

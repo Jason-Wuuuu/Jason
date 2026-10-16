@@ -5,7 +5,6 @@
     "tagline": "Full stack engineer in New York City. Next.js, TypeScript, FastAPI, and a soft spot for machine learning.",
     "typingLine": "I build web apps and teach machines to read.",
     "typingRecord": 118,
-    "avatar": "Memoji_1.png",
     "links": [
       {
         "label": "GitHub",
@@ -79,7 +78,7 @@
       "description": "An interactive map and data explorer for Pokémon Gen 1 and Gen 2. It has overworld navigation, bilingual Japanese and English dialogue, encounter and trainer tables, a full Pokédex, and a solver that finds dungeon routes in real time. Everything is extracted from the decompilation source, not guessed.",
       "tech_stack": "Next.js, React, TypeScript, Tailwind CSS",
       "githubUrl": "https://github.com/Jason-Wuuuu/pokemon_interactive",
-      "demoUrl": "",
+      "demoUrl": "https://pokemon-interactive-map.vercel.app",
       "screenshots": [],
       "featured": true
     },
@@ -91,7 +90,7 @@
       "description": "A Firstrade portfolio viewer. Upload your account-history CSVs and see holdings at any date, cost basis, realized P/L, dividends and yearly summaries, all in a pixel-art interface. Your data never leaves the browser.",
       "tech_stack": "Next.js, React, TypeScript, Recharts",
       "githubUrl": "https://github.com/Jason-Wuuuu/MarketLens",
-      "demoUrl": "",
+      "demoUrl": "https://market-lens-dusky.vercel.app",
       "screenshots": [],
       "featured": true
     },

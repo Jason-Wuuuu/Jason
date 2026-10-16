@@ -87,8 +87,8 @@ footer { padding-block: 4rem; color: var(--mute); }
   position: relative; font-size: clamp(4.5rem, min(16vw, 26vh), 9rem); letter-spacing: -.02em; line-height: .85; margin-bottom: 2rem;
 }
 .pixel-avatar {
-  position: absolute; right: 0; bottom: 0; width: clamp(110px, 22vw, 220px); height: auto;
-  background: var(--panel); border: 4px solid var(--ink); box-shadow: var(--shadow);
+  position: absolute; right: 0; bottom: 0; width: 216px; height: auto; /* 9× the 24px sprite: whole pixels */
+  filter: drop-shadow(5px 5px 0 var(--ink));
 }
 .lead { font-size: clamp(1.4rem, 3vw, 1.9rem); max-width: 34rem; }
 .social { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; margin-top: 1.5rem; }
@@ -211,7 +211,7 @@ footer { padding-block: 4rem; color: var(--mute); }
   .nav { justify-content: flex-end; font-size: 1.1rem; }
   .nav nav { gap: .9rem; }
   .theme-toggle { margin-left: 0; }
-  .pixel-avatar { width: 84px; }
+  .pixel-avatar { width: 96px; filter: drop-shadow(4px 4px 0 var(--ink)); }
 }
 @media (prefers-reduced-motion: reduce) { .egg::after { animation: none; } }
 
@@ -228,13 +228,13 @@ footer { padding-block: 4rem; color: var(--mute); }
   @media (prefers-reduced-motion: no-preference) {
     .runner { display: block; position: absolute; left: 0; right: 0; bottom: 0; height: 0; pointer-events: none; }
     .runner img {
-      position: absolute; bottom: 0; width: 22px; height: 22px; image-rendering: pixelated;
+      position: absolute; bottom: 0; width: 24px; height: 24px; image-rendering: pixelated;
       animation: run linear both, bob .35s steps(2) infinite;
       animation-timeline: scroll(root), auto;
     }
   }
 }
-@keyframes run { from { left: 0; } to { left: calc(100% - 22px); } }
+@keyframes run { from { left: 0; } to { left: calc(100% - 24px); } }
 @keyframes bob { 50% { margin-bottom: 3px; } }
 
 ::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
@@ -243,3 +243,5 @@ footer { padding-block: 4rem; color: var(--mute); }
   from { clip-path: circle(0 at var(--tx, 50%) var(--ty, 0)); }
   to { clip-path: circle(150vmax at var(--tx, 50%) var(--ty, 0)); }
 }
+
+@media (min-width: 561px) and (max-width: 900px) { .pixel-avatar { width: 144px; } }
