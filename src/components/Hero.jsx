@@ -2,7 +2,6 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import DescriptionIcon from "@mui/icons-material/Description";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
-import TypeTest from "./TypeTest";
 import PixelAvatar from "./PixelAvatar";
 import site from "../content";
 
@@ -34,7 +33,6 @@ export default function Hero() {
         <PixelAvatar />
       </h1>
       <p className="lead">{tagline}</p>
-      <TypeTest />
       <div className="social">
         {links.map(({ href, label, icon }) => {
           const Icon = icons[icon] || OpenInNewIcon;

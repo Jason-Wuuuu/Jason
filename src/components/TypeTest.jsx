@@ -8,7 +8,7 @@ const BURST = Array.from({ length: 16 }, (_, i) => ({
   d: 70 + ((i * 53) % 70),
 }));
 
-export default function TypeTest() {
+export default function TypeTest({ autoFocus }) {
   const [typed, setTyped] = useState("");
   const [wpm, setWpm] = useState(null);
   const start = useRef(0);
@@ -55,6 +55,7 @@ export default function TypeTest() {
           value={typed}
           onChange={onChange}
           disabled={done}
+          autoFocus={autoFocus}
           autoComplete="off"
           autoCapitalize="off"
           spellCheck="false"
@@ -69,7 +70,9 @@ export default function TypeTest() {
           </span>
         )}
         {done
-          ? `${wpm} WPM. ${wpm >= RECORD ? "You beat him." : "Not bad."}`
+          ? wpm > 300
+            ? "That wasn't typing. Try again by hand."
+            : `${wpm} WPM. ${wpm >= RECORD ? "You beat him." : "Not bad."}`
           : " "}
         {done && (
           <button className="link" onClick={reset}>
