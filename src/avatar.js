@@ -2,9 +2,9 @@
 // crop = [x, y, size] as fractions of the image's shorter side; width = display px on desktop / tablet / phone
 // (chosen so each pixel is a whole number of screen pixels where possible).
 export const AVATAR_STYLES = {
-  "44-full": { label: "C: 44px, full frame (chunky)", n: 44, crop: [0, 0, 1], width: [220, 132, 88] },
-  "44-tight": { label: "C2: 44px, tight crop (recommended)", n: 44, crop: [0.107, 0.06, 0.786], width: [220, 132, 88] },
-  "64-tight": { label: "C3: 64px, tight crop (finer)", n: 64, crop: [0.107, 0.06, 0.786], width: [192, 128, 96] },
+  "44-full": { label: "Chunky: 44px, whole picture", n: 44, crop: [0, 0, 1], width: [220, 132, 88] },
+  "44-tight": { label: "Balanced: 44px, tighter crop (recommended)", n: 44, crop: [0.107, 0.06, 0.786], width: [220, 132, 88] },
+  "64-tight": { label: "Fine: 64px, tighter crop", n: 64, crop: [0.107, 0.06, 0.786], width: [192, 128, 96] },
 };
 export const DEFAULT_STYLE = "44-tight";
 
