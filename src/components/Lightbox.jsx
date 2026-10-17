@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { image } from "../App";
+import Shot from "./Shot";
 
 // A project screenshot at full size. Click or tap anywhere to close; arrows, the prev/next buttons (at the sides, or under the shot on phones) or a swipe move between shots.
 // A fixed div rather than a <dialog>: the top layer would sit above the pixel cursor, which is a page element.
@@ -18,7 +19,7 @@ export default function Lightbox({ shots, title, at, onAt, onClose }) {
   const fit = (img) => { img.dataset.up = img.naturalWidth < img.clientWidth; };
   useEffect(() => { if (pic.current.complete) fit(pic.current); }, [at]);
   // The gallery behind is lazy, so a shot scrolled off-screen isn't fetched yet: warm both neighbours so prev is as quick as next.
-  useEffect(() => { [at - 1, at + 1].forEach((i) => shots[i] && (new Image().src = image(shots[i]))); }, [at, shots]);
+  useEffect(() => { [at - 1, at + 1].forEach((i) => shots[i] && !shots[i].endsWith(".mp4") && (new Image().src = image(shots[i]))); }, [at, shots]);
   const step = (d) => at + d >= 0 && at + d < n && onAt(at + d);
   const keys = { Escape: onClose, ArrowLeft: () => step(-1), ArrowRight: () => step(1) };
   return createPortal(
@@ -34,7 +35,7 @@ export default function Lightbox({ shots, title, at, onAt, onClose }) {
       onTouchStart={(e) => (x0.current = e.touches[0].clientX)}
       onTouchEnd={(e) => { const d = e.changedTouches[0].clientX - x0.current; if (Math.abs(d) > 50) step(d < 0 ? 1 : -1); }}
     >
-      <img ref={pic} src={image(shots[at])} alt={`${title} screenshot`} onLoad={(e) => fit(e.currentTarget)} />
+      <Shot ref={pic} src={shots[at]} alt={`${title} screenshot`} onLoad={(e) => fit(e.currentTarget)} />
       <button className="zoom-x" onClick={onClose} aria-label="Close">×</button>
       <div className="zoom-nav">
         <button className="zoom-n zoom-p" disabled={at === 0} onClick={() => step(-1)} aria-label="Previous screenshot" />

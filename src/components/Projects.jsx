@@ -2,9 +2,10 @@ import { useRef, useState } from "react";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
-import { asset, image } from "../App";
+import { asset } from "../App";
 import site, { Md } from "../content";
 import Lightbox from "./Lightbox";
+import Shot from "./Shot";
 
 const projects = site.projects;
 
@@ -45,11 +46,11 @@ function Gallery({ p }) {
         onKeyDown={(e) => e.key === "Enter" && !touch && setBig(at)}
       >
         {p.screenshots.map((s, i) => (
-          <img
+          <Shot
             key={s}
             onClick={() => onPick(i)}
             className={i < at ? "prev" : i > at ? "next" : undefined}
-            src={image(s)}
+            src={s}
             alt={`${p.title} screenshot`}
             loading="lazy"
           />
