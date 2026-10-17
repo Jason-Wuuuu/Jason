@@ -159,6 +159,7 @@ function dvd(card, btn, want) {
     place(card, Math.round(x / SNAP) * SNAP, Math.round(y / SNAP) * SNAP);
     if (hitX || hitY) {
       if (++hits % 5 === 0) card.querySelector(".pixel-avatar")?.click(); // every fifth bounce the profile picture gets "clicked": it flips and says hi
+      card.dataset.hue = hits % 4; // the bar changes colour with every hit, like the DVD logo
       card.classList.add("lifted"); clearTimeout(pulse); pulse = setTimeout(() => card.classList.remove("lifted"), 150);
       const q = card.getBoundingClientRect(); // the shockwave starts on the edge that hit (vx/vy have just flipped), at the card's middle along it
       if (hitX) edge(vx < 0 ? innerWidth - PAD : PAD - 4, hr.top + PAD, 4, hr.height - 2 * PAD, "180deg"); // vx has just flipped: moving left now means it hit the right wall
@@ -179,7 +180,7 @@ function dvd(card, btn, want) {
   const evs = ["pointerdown", "keydown", "scroll", "resize"];
   stopDvd = () => {
     cancelAnimationFrame(raf); clearTimeout(pulse); field.remove(); untrail();
-    card.classList.remove("dvd", "lifted"); btn?.setAttribute("aria-pressed", "false");
+    card.classList.remove("dvd", "lifted"); delete card.dataset.hue; btn?.setAttribute("aria-pressed", "false");
     evs.forEach((e) => removeEventListener(e, off));
     stopDvd = null;
   };
