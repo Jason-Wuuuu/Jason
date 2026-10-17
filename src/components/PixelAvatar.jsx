@@ -3,7 +3,7 @@ import { AVATAR_STYLES, DEFAULT_STYLE, pixelate } from "../avatar";
 import { image } from "../App";
 import site from "../content";
 
-// The profile picture from the admin, pixelated. It "resolves" from chunky blocks on load; clicking replays that and says hi in a speech bubble.
+// The profile picture from the admin, pixelated. It "resolves" from chunky blocks on load; clicking flips it like a coin around its vertical axis, replays that, and says hi in a speech bubble.
 const GREETINGS = ["Hi, I'm Jason!", "Hello!", "Hey there!", "Howdy!", "Hola!", "Bonjour!"];
 export default function PixelAvatar() {
   const { avatar, avatarStyle, avatarFrame } = site.profile;
@@ -17,6 +17,11 @@ export default function PixelAvatar() {
   useEffect(() => () => clearTimeout(hideTimer.current), []);
   const greet = () => {
     replay.current();
+    if (!matchMedia("(prefers-reduced-motion: reduce)").matches)
+      ref.current.animate(
+        { transform: ["perspective(600px) rotateY(0)", "perspective(600px) rotateY(360deg)"] },
+        { duration: 700, easing: "ease-in-out", composite: "add" }, // adds onto the float/hop transform instead of replacing it
+      );
     const n = count.current++;
     setHi({ n, text: GREETINGS[n % GREETINGS.length] });
     clearTimeout(hideTimer.current);

@@ -33,6 +33,27 @@ export default function App() {
     return () => removeEventListener("scroll", update);
   }, []);
 
+  // Slight fisheye / scroll-barrel: rows shrink and tip back toward the top and bottom of the screen (CSS: `main { perspective }`, uses the individual scale/rotate properties).
+  useEffect(() => {
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let raf = 0;
+    const apply = () => {
+      raf = 0;
+      const h = innerHeight;
+      for (const el of document.querySelectorAll("main section:not(.hero) :is(h2, .timeline > li, .proj, .about > *)")) {
+        const r = el.getBoundingClientRect();
+        const d = Math.max(-1, Math.min(1, (r.top + r.height / 2 - h / 2) / (h / 2))); // -1 top edge .. 1 bottom edge
+        el.style.scale = 1 - 0.12 * d * d;
+        el.style.rotate = `x ${(-d * 10).toFixed(2)}deg`;
+      }
+    };
+    const queue = () => raf || (raf = requestAnimationFrame(apply));
+    apply();
+    addEventListener("scroll", queue, { passive: true });
+    addEventListener("resize", queue);
+    return () => { removeEventListener("scroll", queue); removeEventListener("resize", queue); cancelAnimationFrame(raf); };
+  }, [hash]);
+
   if (hash === "#/admin-LFG") {
     return (
       <Suspense fallback={null}>

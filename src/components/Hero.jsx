@@ -19,14 +19,14 @@ export default function Hero() {
   const close = () => setState(matchMedia("(prefers-reduced-motion: reduce)").matches ? "closed" : "closing");
   if (state === "closed")
     return (
-      <section className="hero">
+      <section id="player" className="hero">
         <p className="respawn">
           PLAYER 1 has left the game. <button onClick={() => setState("open")}>Respawn</button>
         </p>
       </section>
     );
   return (
-    <section className="hero">
+    <section id="player" className="hero">
       <div className="card" ref={card} data-state={state} onAnimationEnd={(e) => e.animationName === "poof" && setState("closed")}>
         <span className="bar">
           PLAYER 1
