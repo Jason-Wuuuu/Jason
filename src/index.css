@@ -325,8 +325,8 @@ html:has(.zoom) { overflow: hidden; }
 .win { position: fixed; left: 50%; top: 22vh; z-index: 25; width: min(40rem, calc(100vw - 2rem)); translate: -50% 0; transform: translate(var(--dx, 0px), var(--dy, 0px)); }
 .win.win.lifted { box-shadow: 12px 12px 0 var(--accent); } /* picked up: every window's shadow deepens in the accent (doubled class to beat .win.settings below) */
 .win > .bar { position: absolute; inset: 0 0 auto; display: flex; justify-content: space-between; align-items: center; padding: .15rem .75rem; background: var(--ink); color: var(--bg); letter-spacing: .15em; touch-action: none; user-select: none; }
-.wm { display: flex; gap: .4rem; letter-spacing: 0; }
-.wm button { width: 1.15rem; height: 1.15rem; padding: 0; display: grid; place-items: center; line-height: 1; font-size: 1rem; background: var(--live); border: 2px solid var(--live); color: var(--on-accent); box-shadow: 0 0 0 2px #1c1c1e; } /* the window bar's × and ▶ are red with a black ring, whatever colour the bar is */
+.wm { display: flex; gap: .5rem; letter-spacing: 0; }
+.wm button { width: 1.15rem; height: 1.15rem; padding: 0; display: grid; place-items: center; line-height: 1; font-size: 1rem; background: var(--live); border: 2px solid #1c1c1e; color: var(--on-accent); } /* the window bar's × and ▶ are red in a black frame (inside the button, so the bar keeps its height), whatever colour the bar is */
 /* an easter egg (hoverRing.js): the card bounces around like a DVD screensaver; desktop only, like dragging it */
 .bounce::before { content: "▶"; font-size: .6rem; }
 .card.dvd .bounce::before { content: "■"; }
@@ -348,7 +348,7 @@ html:has(.zoom) { overflow: hidden; }
 .conf { position: absolute; z-index: 41; width: 10px; height: 10px; background: var(--c); pointer-events: none; animation: conf 1.3s steps(13) both; } /* confetti from a corner hit (hoverRing.js) */
 @keyframes conf { from { translate: 0 0; } to { translate: var(--dx) calc(var(--dy) + 110px); opacity: 0; } }
 @media (prefers-reduced-motion: reduce), (hover: none) { .card .bounce { display: none; } }
-.wm button:hover { background: var(--on-accent); color: var(--live); border-color: var(--live); } /* hover inverts it */
+.wm button:hover { background: var(--on-accent); color: var(--live); } /* hover inverts it */
 /* Settings and Contact windows (Windows.jsx) */
 .win.settings, .win.contact, .win.shotwin { width: min(26rem, calc(100vw - 12rem)); padding: 3rem 1.5rem 1.5rem; background: color-mix(in srgb, var(--bg) 80%, transparent); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); }
 /* a project screenshot in a window (Lightbox.jsx): opens centred, the shot sized to fit the screen */
