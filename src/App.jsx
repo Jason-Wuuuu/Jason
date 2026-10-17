@@ -34,7 +34,7 @@ export default function App() {
     return () => removeEventListener("scroll", update);
   }, []);
 
-  // Slight fisheye / scroll-barrel: rows shrink and tip back toward the top and bottom of the screen (CSS: `main { perspective }`, uses the individual scale/rotate properties).
+  // Slight fisheye / scroll-barrel: rows shrink toward the top and bottom of the screen. No 3D tilt: with `perspective`, Chrome hit-tests a tilted row away from where it is drawn, so hover and clicks missed it.
   useEffect(() => {
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     let raf = 0;
@@ -45,7 +45,6 @@ export default function App() {
         const r = el.getBoundingClientRect();
         const d = Math.max(-1, Math.min(1, (r.top + r.height / 2 - h / 2) / (h / 2))); // -1 top edge .. 1 bottom edge
         el.style.scale = 1 - 0.12 * d * d;
-        el.style.rotate = `x ${(-d * 10).toFixed(2)}deg`;
       }
     };
     const queue = () => raf || (raf = requestAnimationFrame(apply));

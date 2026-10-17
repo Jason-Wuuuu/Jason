@@ -80,7 +80,6 @@ p { margin: 0 0 1rem; }
 
 main, footer { padding-inline: max(1.25rem, calc((100vw - 960px) / 2)); }
 section { padding-block: 4rem 1rem; }
-main { perspective: 1400px; } /* for the scroll-barrel tilt (App.jsx) */
 footer { padding-block: 2.5rem 4.5rem; color: var(--mute); } /* bottom room just clears the phone dock; the old 8rem left a screen of nothing */
 #about { min-height: calc(100svh - 190px); display: flex; flex-direction: column; justify-content: center; } /* on tall screens the last section fills the screen above the footer (190px) and its content sits in the middle, instead of the page running out early */
 @media (min-width: 1280px) { footer { padding-block: 3rem 4rem; } } /* the dock moves to the side here: no dock clearance, but a little air so the page does not end flush with the last block */
