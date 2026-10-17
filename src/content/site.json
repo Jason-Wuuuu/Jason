@@ -98,10 +98,10 @@
       "githubUrl": "",
       "demoUrl": "https://pokemon-interactive-map.vercel.app",
       "screenshots": [
-        "pokemon_interactive_map/pokemon_interactive_map_4.gif",
         "pokemon_interactive_map/pokemon_interactive_map_1.png",
         "pokemon_interactive_map/pokemon_interactive_map_2.png",
-        "pokemon_interactive_map/pokemon_interactive_map_3.png"
+        "pokemon_interactive_map/pokemon_interactive_map_3.png",
+        "pokemon_interactive_map/pokemon_interactive_map_4.gif"
       ],
       "featured": true
     },
