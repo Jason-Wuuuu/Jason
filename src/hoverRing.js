@@ -77,26 +77,64 @@ function thud(x, y) {
   });
 }
 // Easter egg: the card's ▶ button sends it bouncing around the hero like an old DVD screensaver (each bounce pulses the accent shadow). Any click, Esc, scroll or resize stops it; so does closing the card.
+const CORNER_AT = 8; // the card is aimed to reach a corner on this wall hit (and, the path being periodic, again later)
+const gcd = (a, b) => (b ? gcd(b, a % b) : a);
+// A card bouncing in a W×H box moves in a straight line through a grid of mirrored copies of the box, so it reaches a corner exactly when that line passes through a grid corner: after crossing `a` vertical and `b` horizontal walls, which is hit number a + b - 1 when a and b share no factor. Pick the pair giving the most diagonal line (not a near-vertical crawl), and aim at it.
+function aim(x, y, lo, hi, speed) {
+  const W = hi[0] - lo[0], H = hi[1] - lo[1];
+  const sx = x - lo[0] < hi[0] - x ? 1 : -1, sy = y - lo[1] < hi[1] - y ? 1 : -1; // head towards the farther wall
+  const fx = sx > 0 ? hi[0] - x : x - lo[0], fy = sy > 0 ? hi[1] - y : y - lo[1]; // distance to the first wall each way
+  let best;
+  for (let a = 1; a <= CORNER_AT; a++) {
+    const b = CORNER_AT + 1 - a, dx = fx + (a - 1) * W, dy = fy + (b - 1) * H, skew = Math.abs(Math.log(dy / dx));
+    if (gcd(a, b) === 1 && dx > 0 && dy > 0 && (!best || skew < best.skew)) best = { dx, dy, skew };
+  }
+  if (!best || W < 8 || H < 8) return [sx * 200, sy * 160]; // no room to plan with
+  const L = Math.hypot(best.dx, best.dy);
+  return [sx * speed * best.dx / L, sy * speed * best.dy / L];
+}
+// A corner hit: a burst of pixel confetti and a "CORNER!" tag, on top of the usual shockwave.
+function celebrate(x, y, sx, sy) { // sx, sy: which way the card now travels, so the confetti flies into the screen
+  const tag = Object.assign(document.createElement("b"), { className: "corner", textContent: "CORNER!", onanimationend: () => tag.remove() });
+  Object.assign(tag.style, { left: Math.min(innerWidth - 60, Math.max(60, x)) + "px", top: Math.min(innerHeight - 16, Math.max(16, y)) + "px" }); // kept on screen
+  document.body.append(tag);
+  for (let i = 0; i < 18; i++) {
+    const c = Object.assign(document.createElement("i"), { className: "conf", onanimationend: () => c.remove() });
+    c.style.cssText = `left:${x}px;top:${y}px;--dx:${Math.round(sx * (30 + Math.random() * 240))}px;--dy:${Math.round(sy * (10 + Math.random() * 160))}px;--c:var(${i % 2 ? "--accent" : "--ink"});animation-delay:${Math.round(Math.random() * 120)}ms`;
+    document.body.append(c);
+  }
+}
 let stopDvd = null;
 function dvd(card, btn) {
   if (stopDvd) return stopDvd();
-  const hero = card.parentElement, wall = (v, lo, hi) => v < lo || v > hi;
-  let x = +card.dataset.x || 0, y = +card.dataset.y || 0, vx = 200, vy = 160, last = 0, raf = 0, pulse = 0; // px per second
+  const hero = card.parentElement, out = (v, lo, hi) => v < lo || v > hi, near = (v, lo, hi) => Math.min(v - lo, hi - v) < 20;
+  const box = () => {
+    const r = card.getBoundingClientRect(), h = hero.getBoundingClientRect();
+    const bx = r.left - (+card.dataset.x || 0), by = r.top - (+card.dataset.y || 0); // where the card rests at 0,0
+    return { r, lo: [-bx, h.top - by], hi: [innerWidth - r.width - bx, h.bottom - r.height - by] }; // same bounds as dragging: across the screen, within the hero's height
+  };
+  let { lo, hi } = box();
+  let x = Math.min(hi[0], Math.max(lo[0], +card.dataset.x || 0)), y = Math.min(hi[1], Math.max(lo[1], +card.dataset.y || 0)), last = 0, raf = 0, pulse = 0, cheered = 0, hits = 0;
+  let [vx, vy] = aim(x, y, lo, hi, 260); // px per second
   const frame = (t) => {
     if (!card.isConnected) return stopDvd();
     const dt = Math.min(0.05, (t - (last || t)) / 1000); last = t;
-    const r = card.getBoundingClientRect(), h = hero.getBoundingClientRect();
-    const bx = r.left - (+card.dataset.x || 0), by = r.top - (+card.dataset.y || 0); // where the card rests at 0,0
-    const lo = [-bx, h.top - by], hi = [innerWidth - r.width - bx, h.bottom - r.height - by]; // same bounds as dragging: across the screen, within the hero's height
+    ({ lo, hi } = box());
     x += vx * dt; y += vy * dt;
-    const hitX = wall(x, lo[0], hi[0]), hitY = wall(y, lo[1], hi[1]);
-    if (hitX) { x = Math.min(hi[0], Math.max(lo[0], x)); vx = -vx; }
-    if (hitY) { y = Math.min(hi[1], Math.max(lo[1], y)); vy = -vy; }
+    const hitX = out(x, lo[0], hi[0]), hitY = out(y, lo[1], hi[1]);
+    const corner = (hitX && near(y, lo[1], hi[1])) || (hitY && near(x, lo[0], hi[0]));
+    if (hitX) { x = x < lo[0] ? 2 * lo[0] - x : 2 * hi[0] - x; vx = -vx; } // mirror the overshoot rather than clamp, so the aimed path stays exact
+    if (hitY) { y = y < lo[1] ? 2 * lo[1] - y : 2 * hi[1] - y; vy = -vy; }
     place(card, Math.round(x / SNAP) * SNAP, Math.round(y / SNAP) * SNAP);
     if (hitX || hitY) {
+      if (++hits % 5 === 0) card.querySelector(".pixel-avatar")?.click(); // every fifth bounce the profile picture gets "clicked": it flips and says hi
       card.classList.add("lifted"); clearTimeout(pulse); pulse = setTimeout(() => card.classList.remove("lifted"), 150);
       const q = card.getBoundingClientRect(); // the shockwave starts on the edge that hit (vx/vy have just flipped), at the card's middle along it
       thud(hitX ? (vx < 0 ? q.right : q.left) : q.left + q.width / 2, hitY ? (vy < 0 ? q.bottom : q.top) : q.top + q.height / 2);
+      if (corner && t - cheered > 800) { // one cheer per corner: the second wall of a corner hit also counts as "near"
+        cheered = t;
+        celebrate(vx > 0 ? q.left : q.right, vy > 0 ? q.top : q.bottom, Math.sign(vx), Math.sign(vy));
+      }
     }
     raf = requestAnimationFrame(frame);
   };

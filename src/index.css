@@ -302,6 +302,10 @@ html:has(.zoom) { overflow: hidden; }
 .card.dvd .bounce::before { content: "■"; }
 .thud { position: fixed; z-index: 40; translate: -50% -50%; border: 3px solid var(--accent); pointer-events: none; animation: thud .4s steps(5) both; } /* where the bouncing card hits a wall (hoverRing.js) */
 @keyframes thud { from { width: 8px; height: 8px; } to { width: 88px; height: 88px; opacity: 0; } }
+.corner { position: fixed; z-index: 41; translate: -50% -50%; padding: 2px 8px; background: var(--ink); color: var(--bg); letter-spacing: .15em; font-size: .9rem; pointer-events: none; animation: corner 1.1s steps(11) both; } /* a corner hit (hoverRing.js) */
+@keyframes corner { 0%, 100% { opacity: 0; } 10%, 85% { opacity: 1; } 10% { scale: 1.6; } 20% { scale: 1; } }
+.conf { position: fixed; z-index: 41; width: 8px; height: 8px; background: var(--c); pointer-events: none; animation: conf .9s steps(9) both; }
+@keyframes conf { from { translate: 0 0; } to { translate: var(--dx) calc(var(--dy) + 90px); opacity: 0; } }
 @media (prefers-reduced-motion: reduce), (hover: none) { .card .bounce { display: none; } }
 .wm button:hover { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
 /* Settings and Contact windows (Windows.jsx) */
