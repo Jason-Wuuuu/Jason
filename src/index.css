@@ -55,7 +55,7 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 1.5rem; scroll-padding-bottom: 7rem; /* keyboard focus stops clear of the dock and the blur strip */ scrollbar-width: none; }
+html { overscroll-behavior-y: none; /* no rubber-band or pull-to-refresh at the page ends */ scroll-behavior: smooth; scroll-padding-top: 1.5rem; scroll-padding-bottom: 7rem; /* keyboard focus stops clear of the dock and the blur strip */ scrollbar-width: none; }
 html::-webkit-scrollbar { display: none; } /* the cat at the bottom shows progress instead */
 body { margin: 0; background: var(--bg); color: var(--ink); overflow-x: clip; } /* the rotated photo stack pokes a few px past narrow screens */
 a { color: var(--blue); text-underline-offset: 3px; }
