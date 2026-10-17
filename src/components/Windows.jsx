@@ -71,15 +71,11 @@ function Contact({ onClose }) {
   const copy = () => navigator.clipboard?.writeText(email).then(() => { setCopied(true); setTimeout(() => setCopied(false), 1500); });
   return (
     <Win cls="contact" title="Contact" onClose={onClose}>
-      <div className="ct">
-        <div>
-          <p>Say hi, or ask me anything.</p>
-          <a className="addr" href={`mailto:${email}`}>{email}</a>
-        </div>
-        <div className="opt">
-          <button onClick={copy}>{copied ? "Copied!" : "Copy"}</button>
-          <a className="btn" href={`mailto:${email}`}>Open Mail</a>
-        </div>
+      <p>Say hi, or ask me anything.</p>
+      <a className="addr" href={`mailto:${email}`}>{email}</a>
+      <div className="opt">
+        <button onClick={copy}>{copied ? "Copied!" : "Copy"}</button>
+        <a className="btn" href={`mailto:${email}`}>Open Mail</a>
       </div>
     </Win>
   );

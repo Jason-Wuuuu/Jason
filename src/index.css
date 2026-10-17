@@ -288,7 +288,7 @@ html:has(.zoom) { overflow: hidden; }
 .win.settings, .win.contact { width: min(26rem, calc(100vw - 12rem)); padding: 3rem 1.5rem 1.5rem; background: color-mix(in srgb, var(--bg) 80%, transparent); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); }
 /* first opened on the right, stacked, clear of the dock column and of the avatar and name; the buttons that open them are up there too */
 .win.settings, .win.contact { left: auto; right: 11rem; translate: none; }
-.win.settings { top: 72px; } .win.contact { top: 500px; }
+.win.settings { top: 72px; } .win.contact { top: 492px; }
 .win.settings > .bar, .win.contact > .bar { background: color-mix(in srgb, var(--ink) 60%, var(--bg)); } /* dimmer than the typing test's, so the white cursor and the corner don't blend into it */
 .win p { margin: 0 0 .9rem; }
 .win.settings > .bar + *, .win.contact > .bar + * { margin-top: 0; } /* the first row sits right under the bar */
@@ -300,9 +300,6 @@ html:has(.zoom) { overflow: hidden; }
 .opt button[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); }
 .opt button[style*="--sw"] { width: 2rem; height: 1.6rem; padding: 0; background: var(--sw); }
 .opt button[style*="--sw"][aria-pressed="true"] { outline: 3px solid var(--ink); outline-offset: 2px; }
-.ct { display: flex; align-items: center; justify-content: space-between; gap: 1.25rem; } /* Contact: text on the left, the two buttons stacked on the right */
-.ct p { margin: 0 0 .5rem; }
-.ct .opt { flex-direction: column; align-items: stretch; flex-shrink: 0; margin: 0; text-align: center; }
 .addr { color: var(--accent); overflow-wrap: anywhere; }
 /* accent choice (data-accent on <html>, set from Settings) */
 :root[data-accent] { --accent: var(--al); }
