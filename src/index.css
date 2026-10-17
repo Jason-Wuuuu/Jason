@@ -313,6 +313,8 @@ html:has(.zoom) { overflow: hidden; }
 @keyframes field-in { from { opacity: 0; } }
 .wall { position: fixed; z-index: 40; pointer-events: none; background: repeating-linear-gradient(var(--d), var(--ink) 0 8px, transparent 8px 12px); animation: wall 1.1s steps(8) both; } /* the wall the bouncing card just hit (hoverRing.js) */
 @keyframes wall { 0%, 25% { opacity: 1; } 100% { opacity: 0; } } /* stays lit for a moment, then fades out */
+@media (prefers-reduced-motion: no-preference) { .quake :is(#root > :not(.win, .dock), .dock > *) { animation: quake .5s steps(1); animation-composition: add; } } /* a corner hit shakes the whole page, piece by piece (a transform on html or body would turn every fixed element's containing block into the page); the windows are left out (they position with `translate`), the dock's buttons shake in its place (its own pop-in animation would replay), and `add` keeps their own `translate` */
+@keyframes quake { 0%, 100% { translate: 0 0; } 12% { translate: -9px 5px; } 25% { translate: 8px -5px; } 37% { translate: -6px -4px; } 50% { translate: 6px 4px; } 62% { translate: -4px 2px; } 75% { translate: 3px -2px; } }
 .conf { position: absolute; z-index: 41; width: 10px; height: 10px; background: var(--c); pointer-events: none; animation: conf 1.3s steps(13) both; } /* confetti from a corner hit (hoverRing.js) */
 @keyframes conf { from { translate: 0 0; } to { translate: var(--dx) calc(var(--dy) + 110px); opacity: 0; } }
 @media (prefers-reduced-motion: reduce), (hover: none) { .card .bounce { display: none; } }

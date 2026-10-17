@@ -102,11 +102,14 @@ function edge(left, top, width, height, dir) {
   el.style.setProperty("--d", dir); // dashes run along the line
   document.body.append(el);
 }
-// A corner hit: the profile picture shouts it from its speech bubble and pixel confetti bursts out of the picture, on top of the usual shockwave.
+// A corner hit: the whole page shakes, the profile picture shouts it from its speech bubble and pixel confetti bursts out of the picture, on top of the usual shockwave.
 function celebrate() {
   const pic = document.querySelector(".card .pixel-avatar");
   if (!pic) return;
   pic.dispatchEvent(new CustomEvent("say", { detail: "CORNER!" }));
+  const root = document.documentElement; // the whole page shakes for half a second
+  root.classList.remove("quake"); void root.offsetWidth; root.classList.add("quake");
+  setTimeout(() => root.classList.remove("quake"), 500);
   for (let i = 0; i < 36; i++) {
     const a = Math.random() * 2 * Math.PI, d = 70 + Math.random() * 190; // flies out in every direction
     const c = Object.assign(document.createElement("i"), { className: "conf", onanimationend: () => c.remove() });
