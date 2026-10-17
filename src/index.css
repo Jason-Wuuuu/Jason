@@ -285,8 +285,10 @@ html:has(.zoom) { overflow: hidden; }
 .wm button { width: 1.15rem; height: 1.15rem; padding: 0; display: grid; place-items: center; line-height: 1; font-size: 1rem; background: none; border: 2px solid currentColor; color: inherit; }
 .wm button:hover { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
 /* Settings and Contact windows (Windows.jsx) */
-.win.settings, .win.contact { width: min(26rem, calc(100vw - 2rem)); padding: 3rem 1.5rem 1.5rem; background: color-mix(in srgb, var(--bg) 80%, transparent); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); }
-.win.settings { top: 10vh; } .win.contact { top: 44vh; }
+.win.settings, .win.contact { width: min(26rem, calc(100vw - 12rem)); padding: 3rem 1.5rem 1.5rem; background: color-mix(in srgb, var(--bg) 80%, transparent); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); }
+/* first opened on the right, stacked, clear of the dock column and of the avatar and name; the buttons that open them are up there too */
+.win.settings, .win.contact { left: auto; right: 11rem; translate: none; }
+.win.settings { top: 72px; } .win.contact { top: 500px; }
 .win.settings > .bar, .win.contact > .bar { background: color-mix(in srgb, var(--ink) 60%, var(--bg)); } /* dimmer than the typing test's, so the white cursor and the corner don't blend into it */
 .win p { margin: 0 0 .9rem; }
 .win.settings > .bar + *, .win.contact > .bar + * { margin-top: 0; } /* the first row sits right under the bar */
