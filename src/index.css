@@ -158,6 +158,32 @@ footer { padding-block: 2.5rem 4.5rem; color: var(--mute); } /* bottom room just
 .gal[data-next="true"]::after { display: block; right: 0; --fade: linear-gradient(to left, rgba(0,0,0,.75) 0 25%, rgba(0,0,0,.5) 25% 50%, rgba(0,0,0,.25) 50% 75%, transparent 75%); background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='14' viewBox='0 0 4 7' shape-rendering='crispEdges' fill='white'%3E%3Crect x='0' y='0' width='1' height='1'/%3E%3Crect x='1' y='1' width='1' height='1'/%3E%3Crect x='2' y='2' width='1' height='1'/%3E%3Crect x='3' y='3' width='1' height='1'/%3E%3Crect x='2' y='4' width='1' height='1'/%3E%3Crect x='1' y='5' width='1' height='1'/%3E%3Crect x='0' y='6' width='1' height='1'/%3E%3C/svg%3E") center / auto no-repeat, var(--fade); }
 .gal[data-prev="true"]:has(.prev:hover)::before { --fade: linear-gradient(to right, rgba(0,0,0,.4) 0 25%, rgba(0,0,0,.2) 25% 50%, transparent 50%); } /* pointing at a peek lightens its fade: it is clickable */
 .gal[data-next="true"]:has(.next:hover)::after { --fade: linear-gradient(to left, rgba(0,0,0,.4) 0 25%, rgba(0,0,0,.2) 25% 50%, transparent 50%); }
+/* the full-size viewer (Lightbox.jsx) */
+.zoom { position: fixed; inset: 0; z-index: 35; display: grid; place-items: center; padding-bottom: 40px; /* a little air above the button row */ background: rgba(0, 0, 0, .94); outline: none; }
+.zoom img { width: min(94vw, 1400px, calc((100dvh - 190px) * 1.6)); aspect-ratio: 16 / 10; object-fit: contain; image-rendering: auto; background: var(--panel); border: 4px solid #fff; box-shadow: 6px 6px 0 var(--accent); }
+.zoom img[data-up="true"] { image-rendering: pixelated; }
+.zoom-x { position: absolute; top: 1rem; right: 1rem; width: 2.5rem; height: 2.5rem; padding: 0; font-size: 1.8rem; line-height: 1; color: #fff; background: none; border: 3px solid #fff; }
+.zoom-x:hover { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+/* prev / count / next: a row pinned near the bottom of the screen, in thumb reach on phones */
+.zoom-nav { display: flex; align-items: center; justify-content: center; gap: 1.75rem; position: absolute; left: 1rem; right: 1rem; bottom: calc(1.5rem + env(safe-area-inset-bottom)); }
+.zoom-n { position: relative; width: 76px; height: 48px; padding: 0; background: none; border: 3px solid #fff; }
+.zoom-n::before { content: ""; position: absolute; inset: 0; margin: auto; width: 12px; height: 21px; background: #fff; }
+.zoom-n:disabled { visibility: hidden; }
+.zoom-p::before { -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='42' viewBox='0 0 4 7' shape-rendering='crispEdges'%3E%3Crect x='3' y='0' width='1' height='1'/%3E%3Crect x='2' y='1' width='1' height='1'/%3E%3Crect x='1' y='2' width='1' height='1'/%3E%3Crect x='0' y='3' width='1' height='1'/%3E%3Crect x='1' y='4' width='1' height='1'/%3E%3Crect x='2' y='5' width='1' height='1'/%3E%3Crect x='3' y='6' width='1' height='1'/%3E%3C/svg%3E") center / 100% 100%; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='42' viewBox='0 0 4 7' shape-rendering='crispEdges'%3E%3Crect x='3' y='0' width='1' height='1'/%3E%3Crect x='2' y='1' width='1' height='1'/%3E%3Crect x='1' y='2' width='1' height='1'/%3E%3Crect x='0' y='3' width='1' height='1'/%3E%3Crect x='1' y='4' width='1' height='1'/%3E%3Crect x='2' y='5' width='1' height='1'/%3E%3Crect x='3' y='6' width='1' height='1'/%3E%3C/svg%3E") center / 100% 100%; }
+.zoom-f::before { -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='42' viewBox='0 0 4 7' shape-rendering='crispEdges'%3E%3Crect x='0' y='0' width='1' height='1'/%3E%3Crect x='1' y='1' width='1' height='1'/%3E%3Crect x='2' y='2' width='1' height='1'/%3E%3Crect x='3' y='3' width='1' height='1'/%3E%3Crect x='2' y='4' width='1' height='1'/%3E%3Crect x='1' y='5' width='1' height='1'/%3E%3Crect x='0' y='6' width='1' height='1'/%3E%3C/svg%3E") center / 100% 100%; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='42' viewBox='0 0 4 7' shape-rendering='crispEdges'%3E%3Crect x='0' y='0' width='1' height='1'/%3E%3Crect x='1' y='1' width='1' height='1'/%3E%3Crect x='2' y='2' width='1' height='1'/%3E%3Crect x='3' y='3' width='1' height='1'/%3E%3Crect x='2' y='4' width='1' height='1'/%3E%3Crect x='1' y='5' width='1' height='1'/%3E%3Crect x='0' y='6' width='1' height='1'/%3E%3C/svg%3E") center / 100% 100%; }
+.zoom-n:hover { border-color: var(--accent); }
+.zoom-n:hover::before { background: var(--accent); }
+.zoom-c { color: #fff; letter-spacing: .15em; }
+@media (max-width: 700px) { /* phones: the shot nearly as wide as the screen, the row spread edge to edge */
+  .zoom img { width: min(calc(100vw - 1rem), calc((100dvh - 190px) * 1.6)); }
+  .zoom-nav { justify-content: space-between; }
+  .gallery:has(img + img) { padding-right: 1.25rem; scroll-padding-left: 1.25rem; } /* a thinner peek, so the preview is bigger and still inside the page padding */
+  .gallery:has(img + img) img { flex-basis: calc(100% - 1.25rem); }
+  .gal::before, .gal::after { width: 1.1rem; }
+}
+html:has(.zoom) { overflow: hidden; }
+@media (prefers-reduced-motion: no-preference) { .zoom { animation: zoom-in .2s steps(3); } }
+@keyframes zoom-in { from { opacity: 0; } }
 /* bars below replace the native scrollbar */
 .gallery { scrollbar-width: none; }
 .gallery::-webkit-scrollbar { display: none; }
@@ -248,7 +274,6 @@ footer { padding-block: 2.5rem 4.5rem; color: var(--mute); } /* bottom room just
 .win { position: fixed; left: 50%; top: 22vh; z-index: 25; width: min(40rem, calc(100vw - 2rem)); translate: -50% 0; transform: translate(var(--dx, 0px), var(--dy, 0px)); }
 .win.lifted { box-shadow: 12px 12px 0 var(--sky); }
 .win > .bar { position: absolute; inset: 0 0 auto; display: flex; justify-content: space-between; align-items: center; padding: .15rem .75rem; background: var(--ink); color: var(--bg); letter-spacing: .15em; touch-action: none; user-select: none; }
-@media (hover: hover) { .card > .bar:hover, .win > .bar:hover { background: var(--accent); color: var(--on-accent); } } /* a title bar lights up: grab here */
 .wm { display: flex; gap: .4rem; letter-spacing: 0; }
 .wm button { width: 1.15rem; height: 1.15rem; padding: 0; display: grid; place-items: center; line-height: 1; font-size: 1rem; background: none; border: 2px solid currentColor; color: inherit; }
 .wm button:hover { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
@@ -337,6 +362,10 @@ footer { padding-block: 2.5rem 4.5rem; color: var(--mute); } /* bottom room just
 @media (min-width: 901px), (max-width: 700px) { /* under the avatar; beside it would cover the name on the phone card */
   .bubble { left: 0; top: calc(100% + 14px); }
   .bubble::before { left: 20px; top: -9px; border-bottom: 0; border-top: 3px solid var(--ink); }
+}
+@media (max-width: 700px) { /* phones: above the avatar, the name and links below it stay clear */
+  .bubble { top: auto; bottom: calc(100% + 12px); }
+  .bubble::before { top: auto; bottom: -9px; border: 0; border-bottom: 3px solid var(--ink); border-right: 3px solid var(--ink); } /* the tilted square's bottom-right corner points down */
 }
 @media (min-width: 1200px) { /* room on the left: the bubble sits beside the avatar and straddles the card's border */
   .bubble { left: auto; right: calc(100% + 14px); top: .75rem; }

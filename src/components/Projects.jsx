@@ -4,6 +4,7 @@ import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import { asset, image } from "../App";
 import site, { Md } from "../content";
+import Lightbox from "./Lightbox";
 
 const projects = site.projects;
 
@@ -13,6 +14,7 @@ const grouped = cats.length > 1; // with a single category (e.g. most projects a
 
 function Gallery({ p }) {
   const [at, setAt] = useState(0);
+  const [big, setBig] = useState(null); // index of the screenshot open in the lightbox
   const ref = useRef();
   const n = p.screenshots.length;
   const onScroll = ({ currentTarget: g }) =>
@@ -23,10 +25,11 @@ function Gallery({ p }) {
     );
   const go = (i) =>
     ref.current.children[i]?.scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
-  // The peeking neighbour goes to itself; the current photo goes back from its left half, forward from its right.
-  const onPick = (e, i) => {
-    const r = e.currentTarget.getBoundingClientRect();
-    go(i !== at ? i : e.clientX < r.left + r.width / 2 ? i - 1 : i + 1);
+  // The peeking neighbour slides into view; the current photo opens at full size.
+  const onPick = (i) => (i === at || n === 1 ? setBig(i) : go(i));
+  const view = (i) => {
+    setBig(i);
+    ref.current.children[i]?.scrollIntoView({ behavior: "instant", inline: "start", block: "nearest" }); // keep the gallery behind in step
   };
   return (
     <>
@@ -37,11 +40,12 @@ function Gallery({ p }) {
         tabIndex={0}
         aria-label={`${p.title} screenshots`}
         onScroll={onScroll}
+        onKeyDown={(e) => e.key === "Enter" && setBig(at)}
       >
         {p.screenshots.map((s, i) => (
           <img
             key={s}
-            onClick={n > 1 ? (e) => onPick(e, i) : undefined}
+            onClick={() => onPick(i)}
             className={i < at ? "prev" : i > at ? "next" : undefined}
             src={image(s)}
             alt={`${p.title} screenshot`}
@@ -50,6 +54,7 @@ function Gallery({ p }) {
         ))}
       </div>
       </div>
+      {big !== null && <Lightbox shots={p.screenshots} title={p.title} at={big} onAt={view} onClose={() => setBig(null)} />}
       {n > 1 && (
         <div className="bars">
           {p.screenshots.map((s, i) => (

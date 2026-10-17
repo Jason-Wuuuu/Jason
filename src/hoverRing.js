@@ -38,7 +38,7 @@ function set(el) {
   if (el && el !== shown) {
     nudge(); // let go of the previous target's neighbours
     const a = el.getBoundingClientRect();
-    kids = [...(el.parentElement?.children || [])].filter((c) => c !== el && c !== ring).map((c) => {
+    kids = [...(el.parentElement?.children || [])].filter((c) => c !== el && c !== ring && !c.matches(".bubble")).map((c) => {
       const b = c.getBoundingClientRect(), dx = b.left + b.width / 2 - a.left - a.width / 2, dy = b.top + b.height / 2 - a.top - a.height / 2, n = Math.hypot(dx, dy) || 1;
       return { c, ux: dx / n, uy: dy / n };
     });
@@ -50,7 +50,7 @@ function set(el) {
 document.addEventListener("pointerover", (e) => {
   if (e.pointerType === "touch") return;
   const el = e.target.closest?.(SEL);
-  set(el && !el.disabled ? el : null);
+  set(el && !el.disabled && !el.closest(".zoom") ? el : null); // the full-size viewer's buttons get no brackets, and must not push the screenshot around
 });
 document.addEventListener("mouseout", (e) => { if (!e.relatedTarget) set(null); });
 
@@ -66,7 +66,7 @@ if (matchMedia("(hover: hover) and (pointer: fine)").matches) {
     cur.hidden = false;
     cur.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
     cur.classList.toggle("txt", !!e.target.closest?.(TEXT));
-    const el = e.target.closest?.(SEL + ", .grip, .bar"); // the progress arrow and the title bars count for the cursor, but gets no brackets
+    const el = e.target.closest?.(SEL + ", .grip, .bar, .gallery img"); // the progress arrow and the title bars count for the cursor, but gets no brackets
     cur.classList.toggle("hot", !!el); // over something clickable: the arrow grows a step
     if (el && el !== over) cur.firstChild.style.setProperty("--r", ++flips * 180 + "deg"); // and flips another half turn, so sliding between neighbours flips each time
     over = el;
