@@ -190,8 +190,8 @@ footer { padding-block: 2.5rem 4.5rem; color: var(--mute); } /* bottom room just
   .zoom-n { pointer-events: auto; }
   .zoom-c { display: none; }
 }
-@media (hover: hover) { html:has(.zoom) { overflow: hidden; } } /* not on touch screens: locking the root scroll there makes iOS Safari resize its viewport and drop the dock blur */
-.zoom { touch-action: none; } /* so a drag on the viewer cannot scroll the page behind it */
+html:has(.zoom) { overflow: hidden; }
+@media (hover: none) { .zoom { bottom: 2px; } } /* experiment: a fixed black layer flush with the bottom edge may make iOS Safari re-tint its toolbar and not restore it */
 @media (prefers-reduced-motion: no-preference) { .zoom { animation: zoom-in .2s steps(3); } }
 @keyframes zoom-in { from { opacity: 0; } }
 /* bars below replace the native scrollbar */
