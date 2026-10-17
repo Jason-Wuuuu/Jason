@@ -489,6 +489,7 @@ html:has(.zoom) { overflow: hidden; }
   .dock { transition: transform .45s ease-out; }
   .dock[data-pos="bottom"] { left: 50%; right: auto; transform: translateX(calc(50vw - 1.25rem - 100%)); }
 }
+@media (max-width: 1279px) and (prefers-reduced-motion: no-preference) { .dock, .dock[data-pos] { animation: dock-in-bottom .4s steps(6); } } /* only when the page loads: keyed on data-pos it would pop in fresh each time you scroll back to the top, instead of just gliding back to the corner */
 @media (max-width: 1279px) { .dock a[href="#player"] { display: none; } .dock { bottom: calc(1.5rem + env(safe-area-inset-bottom)); } } /* tablets and landscape phones: same low spot as phones */
 @media (max-width: 560px) {
   /* phones: the four links spread across the bottom, no progress line */

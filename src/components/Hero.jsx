@@ -16,10 +16,11 @@ export default function Hero() {
   const { name, tagline, links, class: cls, stats = [] } = site.profile;
   const [state, setState] = useState("open"); // open | closing | closed
   const card = useRef(null);
-  const close = () => setState(matchMedia("(prefers-reduced-motion: reduce)").matches ? "closed" : "closing");
+  const held = useRef(0); // the hero's height while the card is up, so the page below doesn't jump when it leaves
+  const close = () => { held.current = card.current.parentElement.offsetHeight; setState(matchMedia("(prefers-reduced-motion: reduce)").matches ? "closed" : "closing"); };
   if (state === "closed")
     return (
-      <section id="player" className="hero">
+      <section id="player" className="hero" style={{ minHeight: held.current }}>
         <p className="respawn">
           PLAYER 1 has left the game. <button onClick={() => setState("open")}>Respawn</button>
         </p>
