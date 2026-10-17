@@ -38,7 +38,7 @@ function set(el) {
   if (el && el !== shown) {
     nudge(); // let go of the previous target's neighbours
     const a = el.getBoundingClientRect();
-    kids = [...(el.parentElement?.children || [])].filter((c) => c !== el && c !== ring && !c.matches(".bubble")).map((c) => {
+    kids = [...(el.parentElement?.children || [])].filter((c) => c !== el && c !== ring && !c.matches('.bubble, [role="status"]')).map((c) => {
       const b = c.getBoundingClientRect(), dx = b.left + b.width / 2 - a.left - a.width / 2, dy = b.top + b.height / 2 - a.top - a.height / 2, n = Math.hypot(dx, dy) || 1;
       return { c, ux: dx / n, uy: dy / n };
     });
@@ -91,6 +91,19 @@ function shakeOff(card) {
   card.classList.add("shaken");
   setTimeout(() => { card.classList.replace("shaken", "back"); setTimeout(() => card.classList.remove("back"), 500); }, 1800);
 }
+// Shadow clones: while the card is carried, a few empty frames trail behind it at different speeds and catch up once it's dropped.
+function trail(card, r, x0, y0) {
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return () => {};
+  const gs = [.35, .22, .12].map((k) => { const el = document.createElement("div"); el.className = "ghost"; Object.assign(el.style, { left: r.left + "px", top: r.top + "px", width: r.width + "px", height: r.height + "px" }); card.before(el); return { el, k, x: x0, y: y0 }; });
+  let live = true;
+  const tick = () => {
+    const tx = +card.dataset.x || 0, ty = +card.dataset.y || 0;
+    gs.forEach((g) => { g.x += (tx - g.x) * g.k; g.y += (ty - g.y) * g.k; g.el.style.transform = `translate(${Math.round((g.x - x0) / SNAP) * SNAP}px, ${Math.round((g.y - y0) / SNAP) * SNAP}px)`; });
+    if (live || gs.some((g) => Math.abs(tx - g.x) + Math.abs(ty - g.y) > 1)) requestAnimationFrame(tick); else gs.forEach((g) => g.el.remove());
+  };
+  requestAnimationFrame(tick);
+  return () => { live = false; };
+}
 document.addEventListener("pointerdown", (e) => {
   const bar = e.target.closest?.(BAR);
   if (!bar || e.target.closest("button") || e.button || !matchMedia("(min-width: 701px) and (hover: hover)").matches) return; // phones scroll instead
@@ -113,7 +126,8 @@ document.addEventListener("pointerdown", (e) => {
     const y = Math.min(b.bottom - r.bottom + y0, Math.max(b.top - r.top + y0, y0 + m.clientY - e.clientY));
     place(card, Math.round(x / SNAP) * SNAP, Math.round(y / SNAP) * SNAP);
   };
-  const drop = () => { card.classList.remove("lifted"); bar.removeEventListener("pointermove", move); bar.removeEventListener("pointerup", drop); bar.removeEventListener("pointercancel", drop); };
+  const stop = card.matches(".card") ? trail(card, r, x0, y0) : () => {};
+  const drop = () => { stop(); card.classList.remove("lifted"); bar.removeEventListener("pointermove", move); bar.removeEventListener("pointerup", drop); bar.removeEventListener("pointercancel", drop); };
   card.classList.add("lifted");
   bar.setPointerCapture(e.pointerId);
   bar.addEventListener("pointermove", move);

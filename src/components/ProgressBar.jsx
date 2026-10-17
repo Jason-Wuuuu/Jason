@@ -4,7 +4,12 @@ import { useEffect, useRef } from "react";
 export default function ProgressBar() {
   const ref = useRef(null);
   useEffect(() => {
+    const secs = [...document.querySelectorAll("main > section")];
+    const at = () => secs.filter((s) => s.getBoundingClientRect().top < innerHeight / 2).length; // sections whose top has passed mid-screen
+    let seen = at();
     const update = () => {
+      const now = at();
+      if (now !== seen) { seen = now; const g = ref.current.lastChild; g.classList.remove("pop"); void g.offsetWidth; g.classList.add("pop"); } // reached a new section: the arrow hops and spins (restarted if already going)
       const max = document.documentElement.scrollHeight - innerHeight;
       ref.current.style.setProperty("--p", max > 0 ? Math.min(1, Math.max(0, scrollY / max)) : 0);
     };
@@ -26,7 +31,7 @@ export default function ProgressBar() {
   return (
     <div ref={ref} className="track" aria-hidden="true">
       <span className="fill" />
-      <span className="grip" onPointerDown={drag} onPointerMove={drag} />
+      <span className="grip" onAnimationEnd={(e) => e.currentTarget.classList.remove("pop")} onPointerDown={drag} onPointerMove={drag} />
     </div>
   );
 }
