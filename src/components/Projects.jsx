@@ -80,6 +80,36 @@ function Gallery({ p }) {
   );
 }
 
+// "Name: note" starts a skill; "- text" lines hang under the skill above, like the experience bullets.
+const parseSkills = (lines) =>
+  lines.reduce((out, l) => {
+    if (l.startsWith("- ")) out.at(-1)?.subs.push(l.slice(2));
+    else {
+      const [name, ...note] = l.split(": ");
+      out.push({ name, note: note.join(": "), subs: [] });
+    }
+    return out;
+  }, []);
+
+function SkillTree({ lines }) {
+  return (
+    <div className="tree">
+      <span className="root">What I learned</span>
+      <div className="cols">
+        {parseSkills(lines).map((s) => (
+          <div className="col" key={s.name}>
+            <p className="n">{s.name}</p>
+            {s.note && <p className="leaf">{s.note}</p>}
+            {s.subs.map((t) => (
+              <p className="leaf k" key={t}>{t}</p>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function Row({ p, open }) {
   const demo = /^(https?:|www)/.test(p.demoUrl)
     ? p.demoUrl
@@ -114,6 +144,7 @@ function Row({ p, open }) {
           {stack && <p className="stack">{stack}</p>}
           {actions}
         </div>
+        {p.skills?.length > 0 && <SkillTree lines={p.skills} />}
         {p.screenshots.length > 0 && <Gallery p={p} />}
         <div className="links after">{actions}</div>
       </div>

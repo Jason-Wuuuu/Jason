@@ -98,6 +98,13 @@
       "tech_stack": "Next.js, TypeScript, Tailwind CSS",
       "githubUrl": "",
       "demoUrl": "https://pokemon-interactive-map.vercel.app",
+      "skills": [
+        "Map navigation: Overworld maps for Gen 1 and Gen 2 you can move around and explore.",
+        "Guide solving: A solver that finds dungeon routes in real time.",
+        "Data extraction: Everything comes from the decompilation source, not guesses.",
+        "Bilingual dialogue: Japanese and English text side by side.",
+        "- Encounter and trainer tables"
+      ],
       "screenshots": [
         "pokemon_interactive_map/pokemon_interactive_map_4.mp4",
         "pokemon_interactive_map/pokemon_interactive_map_1.png",
