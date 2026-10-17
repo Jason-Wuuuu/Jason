@@ -287,14 +287,15 @@ html:has(.zoom) { overflow: hidden; }
 /* Settings and Contact windows (Windows.jsx) */
 .win.settings, .win.contact, .win.shotwin { width: min(26rem, calc(100vw - 12rem)); padding: 3rem 1.5rem 1.5rem; background: color-mix(in srgb, var(--bg) 80%, transparent); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); }
 /* a project screenshot in a window (Lightbox.jsx): opens centred, the shot sized to fit the screen */
-.win.shotwin { --sw: min(62vw, 1440px, calc((100dvh - 190px) * 1.6)); box-sizing: content-box; width: var(--sw); padding: 44px .6rem .6rem; top: 50%; translate: -50% -50%; } /* one fixed size for every shot (an auto width followed each image and jumped between shots) */
+.win.shotwin { --sw: min(50vw, 960px, calc((100dvh - 230px) * 1.6)); box-sizing: content-box; width: var(--sw); padding: 44px .6rem .6rem; top: 50%; translate: -50% -50%; } /* one fixed size for every shot (an auto width followed each image and jumped between shots) */
 .shotwin > :is(img, video) { display: block; box-sizing: border-box; width: 100%; max-width: none; aspect-ratio: 1440 / 900; /* the size of most shots */ object-fit: contain; background: var(--panel); border: 3px solid var(--ink); }
 .shotwin img[data-up="true"] { image-rendering: pixelated; }
 .shotwin .zoom-nav { position: static; margin-top: .6rem; gap: 1.25rem; }
 .shotwin .zoom-n { width: 60px; height: 38px; border-color: var(--ink); }
 .shotwin .zoom-n::before { background: var(--ink); }
 .shotwin .zoom-c { color: var(--ink); }
-@media (hover: hover) { .shotwin .zoom-n:hover { border-color: var(--accent); } .shotwin .zoom-n:hover::before { background: var(--accent); } }
+.shotwin .zoom-n:disabled { visibility: visible; opacity: .3; } /* at the first or last shot: dimmed, not gone, so the row keeps its shape */
+@media (hover: hover) { .shotwin .zoom-n:not(:disabled):hover { border-color: var(--accent); } .shotwin .zoom-n:not(:disabled):hover::before { background: var(--accent); } }
 /* first opened at the bottom right, stacked, clear of the dock column and of the avatar */
 .win.settings, .win.contact { left: auto; right: 11rem; translate: none; }
 .win.contact { top: auto; bottom: 2rem; } .win.settings { top: auto; bottom: calc(2rem + 272px); } /* bottom right, stacked: Settings sits above Contact (about 260px tall) */
