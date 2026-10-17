@@ -67,7 +67,7 @@ if (matchMedia("(hover: hover) and (pointer: fine)").matches) {
 // The player card and the typing test window drag by their title bars, in whole 4px steps, and stays where it is dropped (double-click the bar to put it back).
 const SNAP = 4, BAR = ".card > .bar, .win > .bar";
 const place = (card, x, y) => { card.dataset.x = x; card.dataset.y = y; card.style.setProperty("--dx", x + "px"); card.style.setProperty("--dy", y + "px"); };
-// A pixel shockwave where a card or window hits a wall (bounced into it, or dragged against it): two square rings step outwards from the contact point and fade.
+// A pixel shockwave where the bouncing card hits a wall: two square rings step outwards from the contact point and fade.
 function thud(x, y) {
   if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   [0, 90].forEach((d) => {
@@ -148,7 +148,7 @@ document.addEventListener("pointerdown", (e) => {
   const card = bar.parentElement, r = card.getBoundingClientRect(), x0 = +card.dataset.x || 0, y0 = +card.dataset.y || 0;
   const h = card.parentElement.matches(".hero") ? card.parentElement.getBoundingClientRect() : { top: 0, bottom: innerHeight };
   const b = { left: 0, right: innerWidth, top: h.top, bottom: h.bottom }; // free across the screen; the card stays within the hero's height (never over other sections), the window within the screen
-  let wall = "00", dir = 0, ext = e.clientX, turns = []; // the card's own shake detector: direction changes of 40px or more
+  let dir = 0, ext = e.clientX, turns = []; // the card's own shake detector: direction changes of 40px or more
   const move = (m) => {
     if (card.matches(".card")) {
       if ((m.clientX - ext) * dir > 0) ext = m.clientX;
@@ -159,16 +159,9 @@ document.addEventListener("pointerdown", (e) => {
         if (turns.length >= 5) { turns = []; shakeOff(card); }
       }
     }
-    const rx = x0 + m.clientX - e.clientX, ry = y0 + m.clientY - e.clientY; // where the pointer wants it
-    const x = Math.min(b.right - r.right + x0, Math.max(b.left - r.left + x0, rx));
-    const y = Math.min(b.bottom - r.bottom + y0, Math.max(b.top - r.top + y0, ry));
+    const x = Math.min(b.right - r.right + x0, Math.max(b.left - r.left + x0, x0 + m.clientX - e.clientX));
+    const y = Math.min(b.bottom - r.bottom + y0, Math.max(b.top - r.top + y0, y0 + m.clientY - e.clientY));
     place(card, Math.round(x / SNAP) * SNAP, Math.round(y / SNAP) * SNAP);
-    const hx = Math.sign(rx - x), hy = Math.sign(ry - y), side = `${hx}${hy}`; // pushing against a wall; the shockwave fires on arriving at it, not on every move after
-    if (side !== wall && side !== "00") {
-      const q = card.getBoundingClientRect();
-      thud(hx ? (hx > 0 ? q.right : q.left) : m.clientX, hy ? (hy > 0 ? q.bottom : q.top) : m.clientY);
-    }
-    wall = side;
   };
   const stop = trail(card, r, x0, y0);
   const drop = () => { stop(); card.classList.remove("lifted"); bar.removeEventListener("pointermove", move); bar.removeEventListener("pointerup", drop); bar.removeEventListener("pointercancel", drop); };

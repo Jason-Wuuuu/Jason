@@ -300,7 +300,7 @@ html:has(.zoom) { overflow: hidden; }
 /* an easter egg (hoverRing.js): the card bounces around like a DVD screensaver; desktop only, like dragging it */
 .bounce::before { content: "▶"; font-size: .6rem; }
 .card.dvd .bounce::before { content: "■"; }
-.thud { position: fixed; z-index: 40; translate: -50% -50%; border: 3px solid var(--accent); pointer-events: none; animation: thud .4s steps(5) both; } /* where a card or window hits a wall (hoverRing.js) */
+.thud { position: fixed; z-index: 40; translate: -50% -50%; border: 3px solid var(--accent); pointer-events: none; animation: thud .4s steps(5) both; } /* where the bouncing card hits a wall (hoverRing.js) */
 @keyframes thud { from { width: 8px; height: 8px; } to { width: 88px; height: 88px; opacity: 0; } }
 @media (prefers-reduced-motion: reduce), (hover: none) { .card .bounce { display: none; } }
 .wm button:hover { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
