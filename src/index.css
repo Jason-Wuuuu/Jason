@@ -103,7 +103,7 @@ footer { padding-block: 2.5rem 4.5rem; color: var(--mute); } /* bottom room just
 .tree { --s: 1rem; --nh: 2.4rem; --mid: calc(var(--nh) / 2 - 1px); display: flex; align-items: flex-start; margin: 1.4rem 0 1.6rem; } /* --s: every stem's length (skill to note, note to bar, bar to card); --nh: height of the root and skill boxes, so every link meets their middle */
 .tree { position: relative; }
 .tree p { margin: 0; }
-.tree .lines { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; fill: none; stroke: var(--ink); stroke-width: 2; stroke-dasharray: 1; shape-rendering: crispEdges; } /* the lines between rows (treeLines.js): first in the tree, so the positioned boxes paint over their ends */
+.tree .lines { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; fill: none; stroke: var(--ink); stroke-width: 2; shape-rendering: crispEdges; } /* the lines between rows (treeLines.js): first in the tree, so the positioned boxes paint over their ends */
 .tree .root { position: relative; }
 @media (min-width: 701px) { .tree .kids::before, .tree .row::before, .tree .row::after { display: none; } } /* wide screens use the SVG; phones keep the CSS rail */
 @media (max-width: 700px) { .tree .lines { display: none; } }
@@ -126,22 +126,6 @@ footer { padding-block: 2.5rem 4.5rem; color: var(--mute); } /* bottom room just
 .tree .leaf.k::before { content: ""; position: absolute; z-index: 1; left: calc(50% - 1px); top: calc(-1 * var(--s) - 4px); height: calc(var(--s) + 2px); border-left: 2px solid var(--ink); }
 .tree .leaf.k:not(:last-child)::after { content: ""; position: absolute; z-index: 1; left: calc(50% - 1px); top: calc(-1 * var(--s) - 4px); width: calc(100% + 1rem + 6px); border-top: 2px solid var(--ink); } /* + the cards' two borders and the next stem's own width, so the bar reaches the far edge of the next stem */
 .tree .leaf b { display: block; font-weight: 400; color: var(--accent); }
-@media (prefers-reduced-motion: no-preference) { /* the tree draws itself in once (Projects.jsx sets data-draw): the root, then the tap, then each skill's rail, tap and box in turn, --st apart (the one number to change for speed); `backwards` holds the hidden first frame during the delay and lets go once done, so no end state is left on the lines */
-  .tree { --st: .25s; }
-  .tree[data-draw] .root { animation: appear .12s steps(3) backwards; }
-  .tree[data-draw] .kids::before { transform-origin: left; animation: draw-x .12s steps(4) .1s backwards; }
-  .tree[data-draw] .row::after { transform-origin: top; animation: draw-y .2s steps(6) calc(.2s + var(--i) * var(--st)) backwards; }
-  .tree[data-draw] .row::before { transform-origin: left; animation: draw-x .12s steps(4) calc(.3s + var(--i) * var(--st)) backwards; }
-  .tree[data-draw] .lr { animation: draw-l .12s steps(4) .1s backwards; }
-  .tree[data-draw] .lv { animation: draw-l calc((var(--n) - 1) * var(--st) + .2s) steps(12) .2s backwards; }
-  .tree[data-draw] .lt { animation: draw-l .12s steps(4) calc(.3s + var(--i) * var(--st)) backwards; }
-  .tree[data-draw] :is(.n, .kid) { animation: appear .15s steps(3) calc(.4s + var(--i) * var(--st)) backwards; }
-  .tree[data-draw="wait"], .tree[data-draw="wait"] *, .tree[data-draw="wait"] *::before, .tree[data-draw="wait"] *::after { animation-play-state: paused !important; } /* held at the first frame until it is in view; !important because the animation shorthands above would reset it */
-}
-@keyframes draw-l { from { stroke-dashoffset: 1; } }
-@keyframes draw-x { from { scale: 0 1; } }
-@keyframes draw-y { from { scale: 1 0; } }
-@keyframes appear { from { opacity: 0; } }
 .proj .links.after { display: none; } /* the same buttons again, below the screenshots: phones show these instead (see the 700px block) */
 .proj .links { display: flex; flex-wrap: wrap; align-items: flex-end; gap: .6rem 1.5rem; margin-top: 1.1rem; } /* project links sit under the description, ahead of the screenshots: the live site first, as a button */
 .social a { display: inline-flex; align-items: center; gap: .35rem; }
