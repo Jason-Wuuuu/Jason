@@ -357,6 +357,7 @@ html:has(.zoom) { overflow: hidden; }
   .pips { position: relative; width: 108px; /* 10 pips x 11px */ margin-top: .3rem; opacity: .9; }
   .pips::after { content: ""; position: absolute; inset: 0 auto 0 0; width: calc(var(--n) * 11px); background: repeating-linear-gradient(90deg, var(--accent) 0 8px, transparent 8px 11px); }
 }
+@media (min-width: 701px) and (max-width: 1240px) { .hero { padding-top: 4rem; } } /* the card spans nearly the whole width here, so the top-right buttons (Settings, Contact, theme) sit in a strip above it, not over its corner */
 @media (prefers-reduced-motion: no-preference) {
   .pips::after { animation: scan .6s steps(10) 1s both; } /* all bars fill left to right together, one pip per step */
 }
