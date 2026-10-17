@@ -66,8 +66,8 @@ if (matchMedia("(hover: hover) and (pointer: fine)").matches) {
 
 // The player card and the typing test window drag by their title bars, in whole 4px steps, and stays where it is dropped (double-click the bar to put it back).
 const SNAP = 4, BAR = ".card > .bar, .win > .bar";
-const place = (card, x, y) => { card.classList.toggle("moved", !!(x || y)); /* the ▶ button shows once it has been moved */ card.dataset.x = x; card.dataset.y = y; card.style.setProperty("--dx", x + "px"); card.style.setProperty("--dy", y + "px"); };
-// Easter egg: once the card has been moved its ▶ button sends it bouncing around the hero like an old DVD screensaver (each bounce pulses the accent shadow). Any click, Esc, scroll or resize stops it; so does closing the card.
+const place = (card, x, y) => { card.dataset.x = x; card.dataset.y = y; card.style.setProperty("--dx", x + "px"); card.style.setProperty("--dy", y + "px"); };
+// Easter egg: the card's ▶ button sends it bouncing around the hero like an old DVD screensaver (each bounce pulses the accent shadow). Any click, Esc, scroll or resize stops it; so does closing the card.
 let stopDvd = null;
 function dvd(card, btn) {
   if (stopDvd) return stopDvd();
