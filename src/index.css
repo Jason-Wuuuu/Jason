@@ -454,7 +454,7 @@ html:has(.zoom) { overflow: hidden; }
 @media (hover: hover) { .theme-toggle:hover { color: var(--accent); } }
 .theme-toggle { right: calc(1.25rem + var(--n, 0) * 52px); } /* Settings and Contact buttons sit to its left (Windows.jsx) */
 .theme-toggle:active { transform: translate(3px, 3px); box-shadow: none; }
-@media (max-width: 700px) { .opener { display: none; } } /* no Settings or Contact windows on phones (Windows.jsx) */
+.opener { display: none; } @media (min-width: 701px) and (hover: hover) { .opener { display: inline-flex; } } /* Settings and Contact (Windows.jsx): only with a wide screen and a real pointer, the same test as dragging and the screenshot window, so phones and iPads never get them */
 @media (max-width: 700px) { .theme-toggle { top: calc(1.25rem - 14px); right: calc(.5rem + var(--n, 0) * 52px); } } /* phones: stays put, and at the top of the page overlaps the player card's top-right corner */
 @keyframes dock-in-bottom { from { translate: 0 40px; opacity: 0; } }
 @keyframes dock-in-side { from { scale: 0; opacity: 0; } } /* pops out of its own centre; a translate here would also override the --i offset on .dock */
