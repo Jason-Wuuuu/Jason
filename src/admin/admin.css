@@ -45,7 +45,7 @@
 .row-edit .btn { margin-bottom: 0; }
 .gallery-admin { display: grid; grid-auto-flow: column; grid-auto-columns: max(140px, calc((100% - 4rem) / 5)); gap: 1rem; margin-top: 1rem; overflow-x: auto; padding-bottom: .6rem; } /* one row: five thumbnails fill the width, more than five scroll */
 .gallery-admin figure { margin: 0; display: flex; flex-direction: column; align-items: flex-start; }
-.gallery-admin img { width: 100%; aspect-ratio: 4 / 3; object-fit: contain; background: var(--panel); border: 3px solid var(--ink); }
+.gallery-admin :is(img, video) { width: 100%; aspect-ratio: 4 / 3; object-fit: contain; background: var(--panel); border: 3px solid var(--ink); }
 .gallery-admin figcaption { word-break: break-all; font-size: 1rem; color: var(--mute); margin: .3rem 0; flex: 1; } /* flex: 1 pushes every Delete button to the same line whatever the name length */
 .img-group { margin-top: 1rem; }
 .img-group .gallery-admin { margin-top: 0; }

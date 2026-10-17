@@ -13,7 +13,7 @@ const localAdmin = () => ({
     const imgs = path.join(root, "public/images");
     const walk = (d) =>
       fs.readdirSync(d, { withFileTypes: true }).flatMap((e) =>
-        e.isDirectory() ? walk(path.join(d, e.name)) : /\.(png|jpe?g|gif|webp|svg)$/i.test(e.name) ? [path.join(d, e.name)] : [],
+        e.isDirectory() ? walk(path.join(d, e.name)) : /\.(png|jpe?g|gif|webp|svg|mp4)$/i.test(e.name) ? [path.join(d, e.name)] : [],
       );
     server.middlewares.use("/__local", (req, res) => {
       const body = [];
