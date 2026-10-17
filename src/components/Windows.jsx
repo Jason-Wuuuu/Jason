@@ -58,7 +58,7 @@ function Settings({ onClose }) {
           ))}
         </div>
       ))}
-      <div className="opt">
+      <div className="opt end">
         <button onClick={() => { Object.keys(OPTIONS).forEach((k) => set(k, dflt(k))); redraw((n) => n + 1); }}>Reset</button>
       </div>
     </Win>
