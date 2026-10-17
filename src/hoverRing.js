@@ -123,6 +123,9 @@ function dvd(card, btn) {
     return { r, h, lo: [PAD - bx, h.top + PAD - by], hi: [innerWidth - PAD - r.width - bx, h.bottom - PAD - r.height - by] }; // as dragging: across the screen, within the hero's height, less the padding
   };
   let { lo, hi, h: hr } = box();
+  const field = Object.assign(document.createElement("i"), { className: "field" }); // corner brackets marking the card's whole range (4px outside it, where the wall lines are drawn), for as long as it bounces
+  Object.assign(field.style, { left: PAD - 4 + "px", top: hr.top + PAD - 4 + "px", width: innerWidth - 2 * PAD + 8 + "px", height: hr.height - 2 * PAD + 8 + "px" });
+  document.body.append(field);
   let x = Math.min(hi[0], Math.max(lo[0], +card.dataset.x || 0)), y = Math.min(hi[1], Math.max(lo[1], +card.dataset.y || 0)), last = 0, raf = 0, pulse = 0, cheered = 0, hits = 0;
   let [vx, vy] = aim(x, y, lo, hi, 260); // px per second
   const frame = (t) => {
@@ -152,7 +155,7 @@ function dvd(card, btn) {
   const off = (e) => (e.type !== "keydown" || e.key === "Escape") && !e.target.closest?.(".bounce") && stopDvd(); // the button itself toggles, on click
   const evs = ["pointerdown", "keydown", "scroll", "resize"];
   stopDvd = () => {
-    cancelAnimationFrame(raf); clearTimeout(pulse);
+    cancelAnimationFrame(raf); clearTimeout(pulse); field.remove();
     card.classList.remove("dvd", "lifted"); btn.setAttribute("aria-pressed", "false");
     evs.forEach((e) => removeEventListener(e, off));
     stopDvd = null;
