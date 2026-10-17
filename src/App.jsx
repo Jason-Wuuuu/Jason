@@ -8,6 +8,7 @@ import ProgressBar from "./components/ProgressBar";
 import ThemeToggle from "./components/ThemeToggle";
 import Windows from "./components/Windows";
 import Background from "./components/Background";
+import drawTree from "./treeLines";
 import site from "./content";
 
 // Loaded only at #/admin-LFG, so visitors never download it.
@@ -55,12 +56,14 @@ export default function App() {
         block([proj.querySelector(":scope > summary"), ...proj.querySelectorAll(":scope > .body > p:not(.cap), :scope > .body > .links:not(.after)")]);
         block([...proj.querySelectorAll(":scope > .body > :is(.gal, .bars, .cap, .links.after)")]);
       }
-      for (const el of document.querySelectorAll("main section:not(.hero) :is(h2, .timeline > li, .proj .body > :not(p, .links, .gal, .bars), .about > *)")) {
+      for (const el of document.querySelectorAll("main section:not(.hero) :is(h2, .timeline > li, .proj .body > :not(p, .links, .gal, .bars, .tree), .proj .tree .row, .about > *)")) {
+        if (innerWidth <= 700 && el.matches(".tree .row")) { el.style.scale = ""; continue; } // phones keep the CSS rail, which is per row and would come apart
         if (el.offsetHeight > h * 0.9) { el.style.scale = ""; continue; } // a row about as tall as the screen has its centre off-screen, so it would stay shrunk and its top edge slide down by 6% of its height. Judged by layout height: the scaled box is shorter, which made the verdict depend on scroll history
         const r = el.getBoundingClientRect();
         const d = Math.max(-1, Math.min(1, (r.top + r.height / 2 - h / 2) / (h / 2)));
         el.style.scale = 1 - 0.12 * d * d;
       }
+      document.querySelectorAll("main .tree").forEach(drawTree); // the tree's lines follow its (now scaled) boxes
     };
     const queue = () => raf || (raf = requestAnimationFrame(apply));
     apply();

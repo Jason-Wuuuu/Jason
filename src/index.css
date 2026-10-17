@@ -101,7 +101,12 @@ footer { padding-block: 2.5rem 4.5rem; color: var(--mute); } /* bottom room just
 .proj .social { align-items: center; margin: 0 0 0 auto; } /* the links sit at the right of the stack's row: the live site first, as a button */
 /* skill tree under a project: the root on the left, skills down a rail; each skill's note hangs below it, and its sub-skills below that side by side (stacked on a rail on phones) */
 .tree { --s: 1rem; --nh: 2.4rem; --mid: calc(var(--nh) / 2 - 1px); display: flex; align-items: flex-start; margin: 1.4rem 0 1.6rem; } /* --s: every stem's length (skill to note, note to bar, bar to card); --nh: height of the root and skill boxes, so every link meets their middle */
+.tree { position: relative; }
 .tree p { margin: 0; }
+.tree .lines { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; fill: none; stroke: var(--ink); stroke-width: 2; stroke-dasharray: 1; shape-rendering: crispEdges; } /* the lines between rows (treeLines.js): first in the tree, so the positioned boxes paint over their ends */
+.tree .root { position: relative; }
+@media (min-width: 701px) { .tree .kids::before, .tree .row::before, .tree .row::after { display: none; } } /* wide screens use the SVG; phones keep the CSS rail */
+@media (max-width: 700px) { .tree .lines { display: none; } }
 .tree .root { display: inline-flex; align-items: center; height: var(--nh); box-sizing: border-box; padding: 0 .9rem; border: 2px solid var(--ink); background: var(--accent); color: var(--on-accent); box-shadow: var(--shadow); white-space: nowrap; }
 .tree .kids { position: relative; margin-left: 2.2rem; display: flex; flex-direction: column; gap: 1.6rem; flex: 1; min-width: 0; }
 .tree .kids::before { content: ""; position: absolute; left: -2.2rem; top: var(--mid); width: 2.2rem; border-top: 2px solid var(--ink); }
@@ -126,9 +131,13 @@ footer { padding-block: 2.5rem 4.5rem; color: var(--mute); } /* bottom room just
   .tree[data-draw] .kids::before { transform-origin: left; animation: draw-x .2s steps(4) .2s backwards; }
   .tree[data-draw] .row::after { transform-origin: top; animation: draw-y .3s steps(6) calc(.4s + var(--i) * .45s) backwards; }
   .tree[data-draw] .row::before { transform-origin: left; animation: draw-x .2s steps(4) calc(.6s + var(--i) * .45s) backwards; }
+  .tree[data-draw] .lr { animation: draw-l .2s steps(4) .2s backwards; }
+  .tree[data-draw] .lv { animation: draw-l calc((var(--n) - 1) * .45s + .3s) steps(12) .4s backwards; }
+  .tree[data-draw] .lt { animation: draw-l .2s steps(4) calc(.6s + var(--i) * .45s) backwards; }
   .tree[data-draw] :is(.n, .kid) { animation: appear .25s steps(3) calc(.8s + var(--i) * .45s) backwards; }
   .tree[data-draw="wait"], .tree[data-draw="wait"] *, .tree[data-draw="wait"] *::before, .tree[data-draw="wait"] *::after { animation-play-state: paused !important; } /* held at the first frame until it is in view; !important because the animation shorthands above would reset it */
 }
+@keyframes draw-l { from { stroke-dashoffset: 1; } }
 @keyframes draw-x { from { scale: 0 1; } }
 @keyframes draw-y { from { scale: 1 0; } }
 @keyframes appear { from { opacity: 0; } }

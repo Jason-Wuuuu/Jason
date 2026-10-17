@@ -6,6 +6,7 @@ import { asset } from "../App";
 import site, { Md } from "../content";
 import Lightbox from "./Lightbox";
 import Shot from "./Shot";
+import drawTree from "../treeLines";
 
 const projects = site.projects;
 
@@ -125,11 +126,24 @@ function SkillTree({ lines }) {
     io.observe(ref.current);
     return () => io.disconnect();
   }, []);
+  useLayoutEffect(() => { // the lines follow the boxes: drawn once the boxes are placed, and again whenever the tree's size changes (App.jsx redraws them on scroll)
+    const redraw = () => drawTree(ref.current);
+    redraw();
+    const ro = new ResizeObserver(redraw);
+    ro.observe(ref.current);
+    return () => ro.disconnect();
+  });
+  const skills = parseSkills(lines);
   return (
-    <div className="tree" ref={ref} data-draw={draw}>
+    <div className="tree" ref={ref} data-draw={draw} style={{ "--n": skills.length }}>
+      <svg className="lines" aria-hidden="true">
+        <path className="lr" pathLength="1" />
+        <path className="lv" pathLength="1" />
+        {skills.map((s, i) => <path key={s.name} className="lt" pathLength="1" style={{ "--i": i }} />)}
+      </svg>
       <span className="root">What I learned</span>
       <div className="kids">
-        {parseSkills(lines).map((s, i) => (
+        {skills.map((s, i) => (
           <SkillRow key={s.name} s={s} i={i} />
         ))}
       </div>
