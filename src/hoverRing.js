@@ -150,6 +150,10 @@ function dvd(card, btn, want) {
   card.style.setProperty("--k1", `var(--k-${names[(i + 1) % 5]})`);
   card.style.setProperty("--k2", `var(--k-${names[(i + 3) % 5]})`);
   const untrail = trail(card, card.getBoundingClientRect(), +card.dataset.x || 0, +card.dataset.y || 0, [.12, .07, .04]); // the shadow clones that trail a dragged card follow the bouncing one too, further back since it moves slowly
+  const bar = card.querySelector(".bar"), ghosts = [...document.querySelectorAll(".ghost")]; // the three clones just made, nearest the card first: they wear the bar's colours, each one hit behind the last
+  let cols = Array(3).fill(getComputedStyle(bar).backgroundColor);
+  const paint = () => ghosts.forEach((g, n) => (g.style.borderColor = `color-mix(in srgb, ${cols[n]} 70%, transparent)`));
+  paint();
   const frame = (t) => {
     if (!card.isConnected) return stopDvd();
     const dt = Math.min(0.05, (t - (last || t)) / 1000); last = t;
@@ -163,6 +167,7 @@ function dvd(card, btn, want) {
     if (hitX || hitY) {
       if (++hits % 5 === 0) card.querySelector(".pixel-avatar")?.click(); // every fifth bounce the profile picture gets "clicked": it flips and says hi
       card.dataset.hue = hits % 4; // the bar changes colour with every hit, like the DVD logo
+      cols = [getComputedStyle(bar).backgroundColor, ...cols].slice(0, 3); paint(); // the trail keeps the colours of the last hits
       card.classList.add("lifted"); clearTimeout(pulse); pulse = setTimeout(() => card.classList.remove("lifted"), 150);
       const q = card.getBoundingClientRect(); // the shockwave starts on the edge that hit (vx/vy have just flipped), at the card's middle along it
       if (hitX) edge(vx < 0 ? innerWidth - PAD : PAD - 4, hr.top + PAD, 4, hr.height - 2 * PAD, "180deg"); // vx has just flipped: moving left now means it hit the right wall
