@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-const SPEEDS = { slow: 50, normal: 90, fast: 160 }; // px per second of the auto-scroll; Settings sets data-speed on <html>
+const SPEEDS = { slow: 80, normal: 150, fast: 260 }; // px per second of the auto-scroll; Settings sets data-speed on <html>
 // Scroll progress: a dashed lane at the bottom of the screen with an accent fill.
 export default function ProgressBar() {
   const ref = useRef(null);
