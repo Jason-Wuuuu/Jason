@@ -548,7 +548,7 @@ html.scrolled:has(.dock[data-pos="bottom"]) body::after { /* not at the very top
 .pxcur.down i { --s: .6; transition-duration: .1s; } /* held down: pushed in quick and deep, still flipped if over something clickable */
 .pxcur.down { opacity: 1; } /* and a flash to full opacity */
 @media (prefers-reduced-motion: reduce) { .pxcur i { transition: none; } }
-.pxcur.txt i { width: 17.5px; height: 35px; margin: -17.5px 0 0 -8.75px; background-image: url(/cursor-text.svg); } /* I-beam: centred on the pointer */
+.pxcur.txt i { transform: scale(var(--s, 1)); width: 17.5px; height: 35px; margin: -17.5px 0 0 -8.75px; background-image: url(/cursor-text.svg); } /* I-beam: centred on the pointer, and never flipped (a half turn about the arrow's diagonal would leave it tilted) */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .pxcur i { background-image: url(/cursor-dark.svg); }
   :root:not([data-theme="light"]) .pxcur.txt i { background-image: url(/cursor-text-dark.svg); }
