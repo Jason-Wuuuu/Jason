@@ -215,7 +215,8 @@ function shakeOff(card) {
 // Shadow clones: while the card is carried, a few empty frames trail behind it at different speeds and catch up once it's dropped.
 function trail(card, r, x0, y0, ks = [.35, .22, .12]) { // ks: how fast each clone closes the gap per frame (slower = a longer trail)
   if (matchMedia("(prefers-reduced-motion: reduce)").matches) return () => {};
-  const gs = ks.map((k) => { const el = document.createElement("div"); el.className = "ghost"; Object.assign(el.style, { left: r.left + "px", top: r.top + "px", width: r.width + "px", height: r.height + "px" }); card.before(el); return { el, k, x: x0, y: y0 }; });
+  const o = card.closest("main")?.getBoundingClientRect() ?? { left: 0, top: 0 }; // `main` has a perspective, which makes it (not the window) the origin of a fixed clone inside it: scrolled down, clones would sit that much too high
+  const gs = ks.map((k) => { const el = document.createElement("div"); el.className = "ghost"; Object.assign(el.style, { left: r.left - o.left + "px", top: r.top - o.top + "px", width: r.width + "px", height: r.height + "px" }); card.before(el); return { el, k, x: x0, y: y0 }; });
   let live = true;
   const tick = () => {
     const tx = +card.dataset.x || 0, ty = +card.dataset.y || 0;
