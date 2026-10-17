@@ -88,29 +88,25 @@ function Row({ p, open }) {
     <details className="proj" open={open}>
       <summary>
         <span className="yr">{p.year}</span>
-        <span className="ti">{p.title}</span>
+        <span className="ti">{p.title}{p.demoUrl && <span className="live">{video ? "demo" : "live"}</span>}</span>
         <span className="st">{p.tech_stack}</span>
       </summary>
       <div className="body">
         <Md text={p.description} />
-        {p.screenshots.length > 0 && <Gallery p={p} />}
         <div className="social">
+          {p.demoUrl && (
+            <a className="cta" href={demo} target="_blank" rel="noopener noreferrer">
+              {video ? <PlayCircleOutlineIcon fontSize="small" /> : <OpenInNewIcon fontSize="small" />}{" "}
+              {video ? "Watch demo" : "Try it live"}
+            </a>
+          )}
           {p.githubUrl && (
             <a href={p.githubUrl} target="_blank" rel="noopener noreferrer">
               <GitHubIcon fontSize="small" /> Source
             </a>
           )}
-          {p.demoUrl && (
-            <a href={demo} target="_blank" rel="noopener noreferrer">
-              {video ? (
-                <PlayCircleOutlineIcon fontSize="small" />
-              ) : (
-                <OpenInNewIcon fontSize="small" />
-              )}{" "}
-              {video ? "Demo" : "Live site"}
-            </a>
-          )}
         </div>
+        {p.screenshots.length > 0 && <Gallery p={p} />}
       </div>
     </details>
   );
