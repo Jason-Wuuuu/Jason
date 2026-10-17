@@ -306,8 +306,8 @@ html:has(.zoom) { overflow: hidden; }
 .field { position: fixed; z-index: 40; pointer-events: none; color: var(--ink); --g: linear-gradient(currentColor, currentColor); --t: 4px; --l: 20px; animation: field-in .2s steps(2) both; /* the bouncing card's range, as corner brackets like the hover ones (hoverRing.js) */
   background: var(--g) 0 0 / var(--l) var(--t), var(--g) 0 0 / var(--t) var(--l), var(--g) 100% 0 / var(--l) var(--t), var(--g) 100% 0 / var(--t) var(--l), var(--g) 0 100% / var(--l) var(--t), var(--g) 0 100% / var(--t) var(--l), var(--g) 100% 100% / var(--l) var(--t), var(--g) 100% 100% / var(--t) var(--l); background-repeat: no-repeat; }
 @keyframes field-in { from { opacity: 0; } }
-.wall { position: fixed; z-index: 40; pointer-events: none; background: repeating-linear-gradient(var(--d), var(--ink) 0 8px, transparent 8px 12px); animation: wall .35s steps(4) both; } /* the wall the bouncing card just hit (hoverRing.js) */
-@keyframes wall { to { opacity: 0; } }
+.wall { position: fixed; z-index: 40; pointer-events: none; background: repeating-linear-gradient(var(--d), var(--ink) 0 8px, transparent 8px 12px); animation: wall 1.1s steps(8) both; } /* the wall the bouncing card just hit (hoverRing.js) */
+@keyframes wall { 0%, 25% { opacity: 1; } 100% { opacity: 0; } } /* stays lit for a moment, then fades out */
 .conf { position: absolute; z-index: 41; width: 10px; height: 10px; background: var(--c); pointer-events: none; animation: conf 1.3s steps(13) both; } /* confetti from a corner hit (hoverRing.js) */
 @keyframes conf { from { translate: 0 0; } to { translate: var(--dx) calc(var(--dy) + 110px); opacity: 0; } }
 @media (prefers-reduced-motion: reduce), (hover: none) { .card .bounce { display: none; } }
