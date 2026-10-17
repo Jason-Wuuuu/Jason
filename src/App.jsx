@@ -41,19 +41,24 @@ export default function App() {
     const apply = () => {
       raf = 0;
       const h = innerHeight;
-      for (const proj of document.querySelectorAll("main .proj")) { // a project's title row, description and links scale as one block, about one shared centre, so their edges stay lined up
-        const parts = [proj.querySelector(":scope > summary"), ...proj.querySelectorAll(":scope > .body > p:not(.cap), :scope > .body > .links:not(.after)")].filter((el) => el.offsetParent);
-        if (!parts.length) continue;
+      // A block is several pieces that scale together about one shared centre, so their edges stay lined up: a project's title row, description and links; its screenshots, dots and caption.
+      const block = (parts) => {
+        parts = parts.filter((el) => el.offsetParent);
+        if (!parts.length) return;
         parts.forEach((el) => (el.style.scale = ""));
         const rs = parts.map((el) => el.getBoundingClientRect());
-        const top = Math.min(...rs.map((r) => r.top)), bottom = Math.max(...rs.map((r) => r.bottom)), cx = (Math.min(...rs.map((r) => r.left)) + Math.max(...rs.map((r) => r.right))) / 2, cy = (top + bottom) / 2;
-        const d = Math.max(-1, Math.min(1, (cy - h / 2) / (h / 2)));
+        const cx = (Math.min(...rs.map((r) => r.left)) + Math.max(...rs.map((r) => r.right))) / 2, cy = (Math.min(...rs.map((r) => r.top)) + Math.max(...rs.map((r) => r.bottom))) / 2;
+        const d = Math.max(-1, Math.min(1, (cy - h / 2) / (h / 2))); // -1 top edge .. 1 bottom edge
         parts.forEach((el, i) => { el.style.transformOrigin = `${cx - rs[i].left}px ${cy - rs[i].top}px`; el.style.scale = 1 - 0.12 * d * d; });
+      };
+      for (const proj of document.querySelectorAll("main .proj")) {
+        block([proj.querySelector(":scope > summary"), ...proj.querySelectorAll(":scope > .body > p:not(.cap), :scope > .body > .links:not(.after)")]);
+        block([...proj.querySelectorAll(":scope > .body > :is(.gal, .bars, .cap)")]);
       }
-      for (const el of document.querySelectorAll("main section:not(.hero) :is(h2, .timeline > li, .proj .body > :not(p, .links), .proj .body > .cap, .about > *)")) {
+      for (const el of document.querySelectorAll("main section:not(.hero) :is(h2, .timeline > li, .proj .body > :not(p, .links, .gal, .bars), .about > *)")) {
+        if (el.offsetHeight > h * 0.9) { el.style.scale = ""; continue; } // a row about as tall as the screen has its centre off-screen, so it would stay shrunk and its top edge slide down by 6% of its height. Judged by layout height: the scaled box is shorter, which made the verdict depend on scroll history
         const r = el.getBoundingClientRect();
-        if (r.height > h * 0.8) { el.style.scale = ""; continue; } // a row taller than the screen has its centre off-screen, so it would stay shrunk and its top edge slide down by 6% of its height
-        const d = Math.max(-1, Math.min(1, (r.top + r.height / 2 - h / 2) / (h / 2))); // -1 top edge .. 1 bottom edge
+        const d = Math.max(-1, Math.min(1, (r.top + r.height / 2 - h / 2) / (h / 2)));
         el.style.scale = 1 - 0.12 * d * d;
       }
     };
