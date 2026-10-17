@@ -149,8 +149,6 @@ footer { padding-block: 2.5rem 4.5rem; color: var(--mute); } /* bottom room just
   padding: 1.1rem .75rem; margin-inline: -.75rem; cursor: pointer; list-style: none; /* side padding gives the hover brackets room; the negative margin keeps the text aligned */
 }
 .proj summary::-webkit-details-marker { display: none; }
-.yr::before { content: "+ "; color: var(--accent); }
-.proj[open] .yr::before { content: "- "; }
 .proj summary:hover .ti { color: var(--blue); }
 .yr { color: var(--mute); }
 .ti { font-family: var(--display); font-size: 1.9rem; line-height: 1; text-wrap: balance; }
