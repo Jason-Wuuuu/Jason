@@ -19,7 +19,7 @@ const set = (k, v) => {
   try { reset ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch {}
 };
 
-function Win({ cls, title, onClose, children }) {
+export function Win({ cls, title, onClose, children }) {
   const [closing, setClosing] = useState(false); // shrinks away like the player card, then unmounts
   const close = () => (matchMedia("(prefers-reduced-motion: reduce)").matches ? onClose() : setClosing(true));
   useEffect(() => {
