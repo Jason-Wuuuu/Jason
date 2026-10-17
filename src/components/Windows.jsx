@@ -40,6 +40,11 @@ export function Win({ cls, title, onClose, children }) {
 
 function Settings({ onClose }) {
   const [, redraw] = useState(0);
+  useEffect(() => { // the sun/moon toggle changes the theme too
+    const o = new MutationObserver(() => redraw((n) => n + 1));
+    o.observe(root, { attributes: true, attributeFilter: ["data-theme"] });
+    return () => o.disconnect();
+  }, []);
   return (
     <Win cls="settings" title="Settings" onClose={onClose}>
       {Object.keys(OPTIONS).filter((k) => k !== "cursor" || matchMedia("(hover: hover) and (pointer: fine)").matches).map((k) => ( // no custom cursor on touch screens

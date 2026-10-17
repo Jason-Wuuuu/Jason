@@ -303,6 +303,7 @@ html:has(.zoom) { overflow: hidden; }
 /* first opened at the bottom right, stacked, clear of the dock column and of the avatar */
 .win.settings, .win.contact { left: auto; right: 11rem; translate: none; }
 .win.contact { top: auto; bottom: 2rem; } .win.settings { top: auto; bottom: calc(2rem + 272px); } /* bottom right, stacked: Settings sits above Contact (about 260px tall) */
+@media (max-width: 900px) { .win.settings, .win.contact { right: 1rem; width: min(26rem, calc(100vw - 2rem)); } .win.contact { bottom: 6rem; } .win.settings { bottom: calc(6rem + 272px); } } /* tablets: the dock runs along the bottom (no column to clear), so the stack sits just above it */
 .win.settings > .bar, .win.contact > .bar, .win.shotwin > .bar { background: color-mix(in srgb, var(--ink) 60%, var(--bg)); } /* dimmer than the typing test's, so the white cursor and the corner don't blend into it */
 .win p { margin: 0 0 .9rem; }
 .win.settings > .bar + *, .win.contact > .bar + * { margin-top: 0; } /* the first row sits right under the bar */
