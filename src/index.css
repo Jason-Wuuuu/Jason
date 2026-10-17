@@ -303,8 +303,9 @@ html:has(.zoom) { overflow: hidden; }
 /* first opened at the bottom right, stacked, clear of the dock column and of the avatar */
 .win.settings, .win.contact { left: auto; right: 11rem; translate: none; }
 .win.contact { top: auto; bottom: 2rem; } .win.settings { top: auto; bottom: calc(2rem + 272px); } /* bottom right, stacked: Settings sits above Contact (about 260px tall) */
+@media (min-width: 901px) { .win.settings, .win.contact { top: auto; bottom: 2rem; width: min(26rem, 42vw); } .win.settings { left: 5vw; right: auto; } .win.contact { right: 7vw; } } /* wide screens: spread along the bottom, Settings left and Contact right, free to overlap the card and the dock */
 @media (max-width: 900px) { .win.settings, .win.contact { right: 1rem; width: min(26rem, calc(100vw - 2rem)); } .win.contact { bottom: 6rem; } .win.settings { bottom: calc(6rem + 272px); } } /* tablets: the dock runs along the bottom (no column to clear), so the stack sits just above it */
-@media (min-width: 701px) and (hover: none) { .win.settings, .win.contact { top: 4.5rem; bottom: auto; right: 1.25rem; width: min(26rem, calc(100vw - 2.5rem)); } } /* touch (iPads): a dropdown under the buttons instead of a window; no dragging, one open at a time (Windows.jsx) */
+@media (min-width: 701px) and (hover: none) { .win.settings, .win.contact { top: 4.5rem; left: auto; bottom: auto; right: 1.25rem; width: min(26rem, calc(100vw - 2.5rem)); } } /* touch (iPads): a dropdown under the buttons instead of a window; no dragging, one open at a time (Windows.jsx) */
 .win.settings > .bar, .win.contact > .bar, .win.shotwin > .bar { background: color-mix(in srgb, var(--ink) 60%, var(--bg)); } /* dimmer than the typing test's, so the white cursor and the corner don't blend into it */
 .win p { margin: 0 0 .9rem; }
 .win.settings > .bar + *, .win.contact > .bar + * { margin-top: 0; } /* the first row sits right under the bar */
