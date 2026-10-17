@@ -297,6 +297,9 @@ html:has(.zoom) { overflow: hidden; }
 .opt button[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); }
 .opt button[style*="--sw"] { width: 2rem; height: 1.6rem; padding: 0; background: var(--sw); }
 .opt button[style*="--sw"][aria-pressed="true"] { outline: 3px solid var(--ink); outline-offset: 2px; }
+.ct { display: flex; align-items: center; justify-content: space-between; gap: 1.25rem; } /* Contact: text on the left, the two buttons stacked on the right */
+.ct p { margin: 0 0 .5rem; }
+.ct .opt { flex-direction: column; align-items: stretch; flex-shrink: 0; margin: 0; text-align: center; }
 .addr { color: var(--accent); overflow-wrap: anywhere; }
 /* accent choice (data-accent on <html>, set from Settings) */
 :root[data-accent] { --accent: var(--al); }
