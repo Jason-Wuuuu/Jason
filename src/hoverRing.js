@@ -5,10 +5,7 @@ const STEP = matchMedia("(prefers-reduced-motion: reduce)").matches ? GAP : 2; /
 const ring = Object.assign(document.createElement("div"), { className: "ring" });
 document.body.append(ring);
 
-let target = null, shown = null, pad = 0, last = 0, raf = 0, kids = [];
-
-// Siblings of the hovered thing get nudged away from it by three quarters of the bracket gap (transform only, so nothing reflows).
-const nudge = (k = 0) => kids.forEach(({ c, ux, uy }) => (c.style.translate = k ? `${ux * k}px ${uy * k}px` : ""));
+let target = null, shown = null, pad = 0, last = 0, raf = 0;
 
 // A photo in the About pile is bracketed together with the whole pile: brackets round just one under-photo would be drawn across the photos on top of it.
 function rect(el) {
@@ -21,8 +18,7 @@ function rect(el) {
 
 function frame(t) {
   if (t - last > 45) { last = t; pad = target ? Math.min(GAP, pad + STEP) : Math.max(0, pad - STEP); }
-  if (!target && !pad || !shown?.isConnected) { nudge(); kids = []; ring.style.display = "none"; shown = null; raf = 0; return; }
-  nudge(pad * 0.75);
+  if (!target && !pad || !shown?.isConnected) { ring.style.display = "none"; shown = null; raf = 0; return; }
   const r = rect(shown);
   const [sx = 0, sy = 0] = (getComputedStyle(shown).boxShadow.match(/-?[\d.]+px/g) || []).map(parseFloat); // the hard pixel shadow counts as part of the target
   const ox = shown.tagName === "SUMMARY" ? pad - GAP : pad; // an accordion row steps out to flush with its (padded) edges, and stays 4px under the dashed rule so the top brackets don't sit on it
@@ -35,15 +31,6 @@ function frame(t) {
 
 function set(el) {
   target = el;
-  if (el && el !== shown) {
-    nudge(); // let go of the previous target's neighbours
-    const a = el.getBoundingClientRect();
-    kids = el.matches(".play") ? [] : // the play button's siblings are the whole page: nothing to nudge
-      [...(el.parentElement?.children || [])].filter((c) => c !== el && c !== ring && !c.matches('.bubble, [role="status"]')).map((c) => {
-      const b = c.getBoundingClientRect(), dx = b.left + b.width / 2 - a.left - a.width / 2, dy = b.top + b.height / 2 - a.top - a.height / 2, n = Math.hypot(dx, dy) || 1;
-      return { c, ux: dx / n, uy: dy / n };
-    });
-  }
   if (el) shown = el;
   if (shown && !raf) raf = requestAnimationFrame(frame);
 }
