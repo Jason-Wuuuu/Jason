@@ -32,8 +32,8 @@ export default function Background() {
     let shoot = null, nextShoot = 4;
 
     const resize = () => {
-      W = Math.ceil(innerWidth / PX);
-      H = Math.ceil(innerHeight / PX);
+      W = Math.max(1, Math.ceil(innerWidth / PX)); // at least 1: a zero-size window would make createImageData throw and blank the page
+      H = Math.max(1, Math.ceil(innerHeight / PX));
       canvas.width = W;
       canvas.height = H;
       img = ctx.createImageData(W, H);
