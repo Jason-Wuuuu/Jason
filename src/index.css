@@ -286,10 +286,12 @@ html:has(.zoom) { overflow: hidden; }
 .wm button:hover { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
 /* Settings and Contact windows (Windows.jsx) */
 .win.settings, .win.contact { width: min(22rem, calc(100vw - 2rem)); padding: 2.6rem 1rem 1rem; background: var(--bg); border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); }
-.win.settings { top: 14vh; } .win.contact { top: 24vh; }
+.win.settings { top: 12vh; } .win.contact { top: 46vh; }
+.win.settings > .bar, .win.contact > .bar { background: color-mix(in srgb, var(--ink) 60%, var(--bg)); } /* dimmer than the typing test's, so the white cursor and the corner don't blend into it */
 .win p { margin: 0 0 .5rem; }
 .opt { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; margin-top: .6rem; }
 .opt > span { width: 4.5rem; color: var(--mute); }
+.opt > span, .opt button, .opt .btn { text-transform: capitalize; }
 .opt button, .opt .btn { padding: .05rem .6rem; font: inherit; color: var(--ink); background: var(--bg); border: 3px solid var(--ink); box-shadow: 3px 3px 0 var(--ink); cursor: pointer; text-decoration: none; }
 .opt button[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); }
 .opt button[style*="--sw"] { width: 2rem; height: 1.6rem; padding: 0; background: var(--sw); }
