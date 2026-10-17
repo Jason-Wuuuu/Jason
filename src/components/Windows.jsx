@@ -87,11 +87,11 @@ export default function Windows() {
   const { email } = site.profile;
   return (
     <>
-      <button className="theme-toggle" style={{ "--n": 1 }} onClick={() => toggle("settings")} aria-label="Settings" aria-expanded={!!open.settings}>
+      <button className="theme-toggle opener" style={{ "--n": 1 }} onClick={() => toggle("settings")} aria-label="Settings" aria-expanded={!!open.settings}>
         <SettingsIcon fontSize="small" />
       </button>
       {email && (
-        <button className="theme-toggle" style={{ "--n": 2 }} onClick={() => toggle("contact")} aria-label="Contact" aria-expanded={!!open.contact}>
+        <button className="theme-toggle opener" style={{ "--n": 2 }} onClick={() => toggle("contact")} aria-label="Contact" aria-expanded={!!open.contact}>
           <MailOutlineIcon fontSize="small" />
         </button>
       )}
