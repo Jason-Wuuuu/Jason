@@ -131,6 +131,7 @@ function dvd(card, btn, want) {
   document.body.append(field);
   let x = Math.min(hi[0], Math.max(lo[0], +card.dataset.x || 0)), y = Math.min(hi[1], Math.max(lo[1], +card.dataset.y || 0)), last = 0, raf = 0, pulse = 0, cheered = 0, hits = 0;
   let [vx, vy] = aim(x, y, lo, hi, 260, true, want); // px per second
+  const untrail = trail(card, card.getBoundingClientRect(), +card.dataset.x || 0, +card.dataset.y || 0, [.12, .07, .04]); // the shadow clones that trail a dragged card follow the bouncing one too, further back since it moves slowly
   const frame = (t) => {
     if (!card.isConnected) return stopDvd();
     const dt = Math.min(0.05, (t - (last || t)) / 1000); last = t;
@@ -161,7 +162,7 @@ function dvd(card, btn, want) {
   const off = (e) => (e.type !== "keydown" || e.key === "Escape") && !e.target.closest?.(".bounce") && stopDvd(); // the button itself toggles, on click
   const evs = ["pointerdown", "keydown", "scroll", "resize"];
   stopDvd = () => {
-    cancelAnimationFrame(raf); clearTimeout(pulse); field.remove();
+    cancelAnimationFrame(raf); clearTimeout(pulse); field.remove(); untrail();
     card.classList.remove("dvd", "lifted"); btn?.setAttribute("aria-pressed", "false");
     evs.forEach((e) => removeEventListener(e, off));
     stopDvd = null;
@@ -191,9 +192,9 @@ function shakeOff(card) {
   setTimeout(() => { card.classList.replace("shaken", "back"); setTimeout(() => card.classList.remove("back"), 500); }, 1800);
 }
 // Shadow clones: while the card is carried, a few empty frames trail behind it at different speeds and catch up once it's dropped.
-function trail(card, r, x0, y0) {
+function trail(card, r, x0, y0, ks = [.35, .22, .12]) { // ks: how fast each clone closes the gap per frame (slower = a longer trail)
   if (matchMedia("(prefers-reduced-motion: reduce)").matches) return () => {};
-  const gs = [.35, .22, .12].map((k) => { const el = document.createElement("div"); el.className = "ghost"; Object.assign(el.style, { left: r.left + "px", top: r.top + "px", width: r.width + "px", height: r.height + "px" }); card.before(el); return { el, k, x: x0, y: y0 }; });
+  const gs = ks.map((k) => { const el = document.createElement("div"); el.className = "ghost"; Object.assign(el.style, { left: r.left + "px", top: r.top + "px", width: r.width + "px", height: r.height + "px" }); card.before(el); return { el, k, x: x0, y: y0 }; });
   let live = true;
   const tick = () => {
     const tx = +card.dataset.x || 0, ty = +card.dataset.y || 0;

@@ -365,7 +365,7 @@ html:has(.zoom) { overflow: hidden; }
   .hero { min-height: calc(100svh - 175px); padding-block: 0; display: flex; align-items: center; }
   .hero > .card { width: 100%; translate: 0 12px; transform: translate(var(--dx, 0px), var(--dy, 0px)); } /* --dx/--dy: where the card has been dragged to (hoverRing.js) */
   .card > .bar { touch-action: none; user-select: none; }
-  .ghost { position: fixed; pointer-events: none; border: 3px solid color-mix(in srgb, var(--sky) 55%, transparent); } /* shadow clones trailing a dragged card (hoverRing.js) */
+  .ghost { position: fixed; z-index: 4; pointer-events: none; border: 3px solid color-mix(in srgb, var(--sky) 55%, transparent); } /* shadow clones trailing a dragged card (hoverRing.js) */
   .card.lifted { box-shadow: 12px 12px 0 var(--accent); } /* picked up: a deeper shadow, in the accent like the windows' */ /* keeps the card where it was while the strip below shrinks */
   #experience { padding-top: .8rem; }
   .card {
