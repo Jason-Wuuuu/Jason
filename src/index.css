@@ -155,8 +155,9 @@ footer { padding-block: 2.5rem 4.5rem; color: var(--mute); } /* bottom room just
 .yr { color: var(--mute); }
 .ti { font-family: var(--display); font-size: 1.9rem; line-height: 1; text-wrap: balance; }
 .proj[open] .ti { color: var(--blue); }
-.ti::after { content: "\00a0▸"; color: var(--accent); font-size: .7em; } /* says the row opens */
-.proj[open] .ti::after { content: "\00a0▾"; }
+.ti::after { content: "▸"; display: inline-block; margin-left: .35em; color: var(--accent); font-size: .7em; } /* says the row opens; it turns a quarter as the row opens */
+.proj[open] .ti::after { rotate: 90deg; }
+@media (prefers-reduced-motion: no-preference) { .ti::after { transition: rotate .2s steps(3); } }
 .proj .body { padding: 0 0 2rem 6rem; max-width: 46rem; }
 .meta { color: var(--mute); }
 .gallery { display: flex; gap: .75rem; overflow-x: auto; scroll-snap-type: x mandatory; margin: 1rem 0; }
