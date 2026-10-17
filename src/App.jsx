@@ -43,6 +43,7 @@ export default function App() {
       const h = innerHeight;
       for (const el of document.querySelectorAll("main section:not(.hero) :is(h2, .timeline > li, .proj, .about > *)")) {
         const r = el.getBoundingClientRect();
+        if (r.height > h * 0.8) { el.style.scale = ""; continue; } // a row taller than the screen has its centre off-screen, so it would stay shrunk and its top edge slide down by 6% of its height
         const d = Math.max(-1, Math.min(1, (r.top + r.height / 2 - h / 2) / (h / 2))); // -1 top edge .. 1 bottom edge
         el.style.scale = 1 - 0.12 * d * d;
       }
