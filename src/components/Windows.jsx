@@ -49,7 +49,7 @@ function Settings({ onClose }) {
               key={v}
               aria-pressed={get(k) === v}
               aria-label={k === "accent" ? v : undefined}
-              style={k === "accent" ? { "--sw": SWATCH[v] }  : undefined}
+              style={k === "accent" ? { "--sw": SWATCH[v] } : undefined}
               onClick={() => { set(k, v); redraw((n) => n + 1); }}
             >
               {k === "accent" ? "" : v}
@@ -57,6 +57,9 @@ function Settings({ onClose }) {
           ))}
         </div>
       ))}
+      <div className="opt">
+        <button onClick={() => { Object.keys(OPTIONS).forEach((k) => set(k, OPTIONS[k][0])); redraw((n) => n + 1); }}>Reset</button>
+      </div>
     </Win>
   );
 }
