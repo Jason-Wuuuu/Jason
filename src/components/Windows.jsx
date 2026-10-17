@@ -81,7 +81,7 @@ function Contact({ onClose, top }) {
     <Win cls="contact" title="Contact" onClose={onClose} top={top}>
       <p>Say hi, or ask me anything.</p>
       <a className="addr" href={`mailto:${email}`}>{email}</a>
-      <div className="opt">
+      <div className="opt end">
         <button onClick={copy}>{copied ? "Copied!" : "Copy"}</button>
         <a className="btn" href={`mailto:${email}`}>Open Mail</a>
       </div>
