@@ -47,7 +47,7 @@ export default function TypeTest({ autoFocus, onClose }) {
         </span>
       </span>
       <label htmlFor="tt" className="tt-hint">
-        Type this line. Jason's record is {RECORD} WPM.
+        Type this line. Jason&apos;s record is {RECORD} WPM.
       </label>
       <div className="tt-line" onClick={() => input.current.focus()}>
         {[...TARGET].map((ch, i) => (

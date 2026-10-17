@@ -98,6 +98,16 @@
       "tech_stack": "Next.js, TypeScript, Tailwind CSS",
       "githubUrl": "",
       "demoUrl": "https://pokemon-interactive-map.vercel.app",
+      "skills": [
+        "Pathfinding: Route guides for dungeons and routes: just pass through, collect every item, or fight every trainer.",
+        "- Solve: Flood-fill reachability plus a search over keys, switches, HMs and pushed boulders, with deadlock detection, run in a Web Worker.",
+        "- Audit: Every route is replayed by a separate validator, and all dungeons are audited in CI.",
+        "Map: Gen 1 and Gen 2 maps, from single rooms to the stitched overworld.",
+        "- Navigation: Pan, pinch-zoom and keyboard camera that locks on long routes. Doors and Back restore where you came from.",
+        "- Rendering: Canvas-painted maps with bitmaps cached per zoom level, and only the visible places mounted.",
+        "Data extraction: Parsers for the pret disassemblies turn game source into JSON for 6 editions. Gold tests pin the output.",
+        "Bilingual: Japanese and English text joined per edition, with furigana."
+      ],
       "screenshots": [
         "pokemon_interactive_map/pokemon_interactive_map_4.mp4",
         "pokemon_interactive_map/pokemon_interactive_map_1.png",
@@ -131,7 +141,21 @@
         "Holdings page",
         "Performance page"
       ],
-      "featured": true
+      "featured": true,
+      "skills": [
+        "Portfolio engine: Rebuilds holdings, cost basis and time- and money-weighted returns from raw Firstrade CSVs, and checks them against Firstrade's own reports.",
+        "- Event replay: The stored rows are the only state. Holdings at any date, the time-lapse and what-if sales are all replays of them.",
+        "- Accounting: FIFO lots, wash-sale losses carried to the replacement lot, splits, and options through expiry and assignment.",
+        "Risk & analytics: Volatility, beta to SPY and each holding's share of the portfolio's risk, plus a dividend forecast from past ex-dates.",
+        "- Clusters: Holdings that move together (0.6+ correlation) are grouped and flagged as concentration.",
+        "- Habits: Measures the disposition effect: selling winners early and holding losers.",
+        "Private by design: Transactions never leave the browser; only ticker symbols go out, for prices.",
+        "- Local-first: CSVs are parsed in the browser and stored in localStorage, with JSON export and import as the backup.",
+        "- Price routes: Yahoo Finance is proxied through small routes with retries, and polled every minute while the market is open.",
+        "Pixel visuals: Recharts for the analytics, and hand-built pixel scenes for the rest.",
+        "- City: Holdings become a skyline; workers build and bomb buildings as values change.",
+        "- Time-lapse: Plays the account through its activity days, with the city rebuilding as it goes."
+      ]
     },
     {
       "title": "Firstrade Portfolio Dashboard",

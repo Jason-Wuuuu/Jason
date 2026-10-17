@@ -70,6 +70,7 @@ export const sections = [
       { key: "description", label: "Description (blank line = new paragraph, \"- \" = bullet, **bold**, *italic*, [text](url))", type: "area" },
       { key: "githubUrl", label: "GitHub URL", type: "text" },
       { key: "demoUrl", label: "Demo URL (or a file in /public)", type: "text" },
+      { key: "skills", label: "What I learned (one per line as \"Skill: what it was\"; start a line with \"- \" to hang a sub-skill under the one above; 4 or fewer looks best)", type: "lines" },
       { key: "screenshots", label: "Screenshots", type: "images" },
       { key: "captions", label: "Screenshot captions (one line each, in the same order as the screenshots; a blank line = no caption)", type: "lines" },
       { key: "featured", label: "Featured (shown on the default tab)", type: "bool" },

@@ -1,5 +1,5 @@
 // Pixel corner brackets that step out around the hovered clickable thing, then step back in on leave.
-const SEL = 'a, button, summary, [role="button"], .egg, .pixel-avatar, .gallery > :not(.prev, .next)'; // the last: a project's current screenshot (it opens the viewer; its peeking neighbours slide instead)
+const SEL = 'a, button:not(.tree .n), summary, [role="button"], .egg, .pixel-avatar, .gallery > :not(.prev, .next)'; // the last: a project's current screenshot (it opens the viewer; its peeking neighbours slide instead)
 const GAP = 8; // px between the target (shadow included) and the brackets, once fully out
 const STEP = matchMedia("(prefers-reduced-motion: reduce)").matches ? GAP : 2; // px per tick, one tick every 45ms
 const ring = Object.assign(document.createElement("div"), { className: "ring" });
@@ -41,12 +41,12 @@ document.addEventListener("pointerover", (e) => {
   set(el && !el.disabled && !el.closest(".zoom") ? el : null); // the full-size viewer's buttons get no brackets, and must not push the screenshot around
 });
 document.addEventListener("mouseout", (e) => { if (!e.relatedTarget) set(null); });
-// A gallery sliding under a still pointer would drag its bracket along: the bracket goes while it moves, and once it settles the pointer is looked up again.
-let mx = 0, my = 0, settle = 0;
-addEventListener("pointermove", (e) => { mx = e.clientX; my = e.clientY; }, { passive: true });
-addEventListener("scroll", (e) => {
-  if (!e.target.matches?.(".gallery")) return;
+// Anything sliding under a still pointer (a gallery, or the page itself after a dock jump) would drag its bracket along: the bracket goes while it moves, and once it settles the pointer is looked up again.
+let mx = -1, my = -1, settle = 0;
+addEventListener("pointermove", (e) => { if (e.pointerType !== "touch") { mx = e.clientX; my = e.clientY; } }, { passive: true });
+addEventListener("scroll", () => {
   pad = 0; set(null); clearTimeout(settle);
+  if (mx < 0) return; // no mouse has moved yet, or it is touch: nothing to look up
   settle = setTimeout(() => {
     const el = document.elementFromPoint(mx, my)?.closest(SEL);
     set(el && !el.disabled && !el.closest(".zoom") ? el : null);

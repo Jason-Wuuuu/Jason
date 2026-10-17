@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
@@ -6,6 +6,7 @@ import { asset } from "../App";
 import site, { Md } from "../content";
 import Lightbox from "./Lightbox";
 import Shot from "./Shot";
+import drawTree from "../treeLines";
 
 const projects = site.projects;
 
@@ -80,6 +81,68 @@ function Gallery({ p }) {
   );
 }
 
+// "Name: note" starts a skill; "- text" lines hang under the skill above, like the experience bullets.
+const parseSkills = (lines) =>
+  lines.reduce((out, l) => {
+    if (l.startsWith("- ")) out.at(-1)?.subs.push(l.slice(2));
+    else {
+      const [name, ...note] = l.split(": ");
+      out.push({ name, note: note.join(": "), subs: [] });
+    }
+    return out;
+  }, []);
+
+function SkillRow({ s, i }) {
+  const [open, setOpen] = useState(i === 0); // phones open a skill by tap; wider screens always show everything (CSS)
+  return (
+    <div className="row" data-open={open}>
+      <button className="n" aria-expanded={open} onClick={() => setOpen(!open)}>{s.name}</button>
+      <div className="kid">
+        {s.note && <p className="leaf">{s.note}</p>}
+        {s.subs.length > 0 && (
+          <div className="subs">
+            {s.subs.map((t) => {
+              const [head, ...rest] = t.split(": "); // "Title: text" gives the sub-skill a title
+              return (
+                <p className="leaf k" key={t}>
+                  {rest.length ? <><b>{head}</b>{rest.join(": ")}</> : t}
+                </p>
+              );
+            })}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function SkillTree({ lines }) {
+  const ref = useRef(null);
+  useLayoutEffect(() => { // the lines follow the boxes: drawn once the boxes are placed, and again whenever the tree's size changes (App.jsx redraws them on scroll)
+    const redraw = () => drawTree(ref.current);
+    redraw();
+    const ro = new ResizeObserver(redraw);
+    ro.observe(ref.current);
+    return () => ro.disconnect();
+  });
+  const skills = parseSkills(lines);
+  return (
+    <div className="tree" ref={ref}>
+      <svg className="lines" aria-hidden="true">
+        <path className="lr" />
+        <path className="lv" />
+        {skills.map((s) => <path key={s.name} className="lt" />)}
+      </svg>
+      <span className="root">What I learned</span>
+      <div className="kids">
+        {skills.map((s, i) => (
+          <SkillRow key={s.name} s={s} i={i} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function Row({ p, open }) {
   const demo = /^(https?:|www)/.test(p.demoUrl)
     ? p.demoUrl
@@ -114,6 +177,7 @@ function Row({ p, open }) {
           {stack && <p className="stack">{stack}</p>}
           {actions}
         </div>
+        {p.skills?.length > 0 && <SkillTree lines={p.skills} />}
         {p.screenshots.length > 0 && <Gallery p={p} />}
         <div className="links after">{actions}</div>
       </div>
