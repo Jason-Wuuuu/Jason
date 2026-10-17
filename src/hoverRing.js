@@ -181,7 +181,9 @@ function fling(card, trace) {
   const a = trace[0], z = trace.at(-1);
   if (!a || a === z || card.matches(".shaken, .back") || performance.now() - z[0] > 60 || z[0] <= a[0] || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   const dt = (z[0] - a[0]) / 1000, v = [(z[1] - a[1]) / dt, (z[2] - a[2]) / dt];
-  if (Math.hypot(...v) > 900) dvd(card, card.querySelector(".bounce"), v);
+  if (Math.hypot(...v) <= 900) return;
+  document.querySelectorAll(".ghost").forEach((g) => g.remove()); // the drag's clones are still catching up: the bounce brings its own three
+  dvd(card, card.querySelector(".bounce"), v);
 }
 // A bounce knocks a couple of small pieces off the card (a letter, a skill row, a link): they tumble down like in the shake-off and climb back after a moment, so the card is never left broken.
 function knock(card) {
