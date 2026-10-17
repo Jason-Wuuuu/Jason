@@ -67,6 +67,15 @@ if (matchMedia("(hover: hover) and (pointer: fine)").matches) {
 // The player card and the typing test window drag by their title bars, in whole 4px steps, and stays where it is dropped (double-click the bar to put it back).
 const SNAP = 4, BAR = ".card > .bar, .win > .bar";
 const place = (card, x, y) => { card.dataset.x = x; card.dataset.y = y; card.style.setProperty("--dx", x + "px"); card.style.setProperty("--dy", y + "px"); };
+// A pixel shockwave where a card or window hits a wall (bounced into it, or dragged against it): two square rings step outwards from the contact point and fade.
+function thud(x, y) {
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  [0, 90].forEach((d) => {
+    const el = Object.assign(document.createElement("i"), { className: "thud", onanimationend: () => el.remove() });
+    Object.assign(el.style, { left: x + "px", top: y + "px", animationDelay: d + "ms" });
+    document.body.append(el);
+  });
+}
 // Easter egg: the card's ▶ button sends it bouncing around the hero like an old DVD screensaver (each bounce pulses the accent shadow). Any click, Esc, scroll or resize stops it; so does closing the card.
 let stopDvd = null;
 function dvd(card, btn) {
@@ -83,8 +92,12 @@ function dvd(card, btn) {
     const hitX = wall(x, lo[0], hi[0]), hitY = wall(y, lo[1], hi[1]);
     if (hitX) { x = Math.min(hi[0], Math.max(lo[0], x)); vx = -vx; }
     if (hitY) { y = Math.min(hi[1], Math.max(lo[1], y)); vy = -vy; }
-    if (hitX || hitY) { card.classList.add("lifted"); clearTimeout(pulse); pulse = setTimeout(() => card.classList.remove("lifted"), 150); }
     place(card, Math.round(x / SNAP) * SNAP, Math.round(y / SNAP) * SNAP);
+    if (hitX || hitY) {
+      card.classList.add("lifted"); clearTimeout(pulse); pulse = setTimeout(() => card.classList.remove("lifted"), 150);
+      const q = card.getBoundingClientRect(); // the shockwave starts on the edge that hit (vx/vy have just flipped), at the card's middle along it
+      thud(hitX ? (vx < 0 ? q.right : q.left) : q.left + q.width / 2, hitY ? (vy < 0 ? q.bottom : q.top) : q.top + q.height / 2);
+    }
     raf = requestAnimationFrame(frame);
   };
   const off = (e) => (e.type !== "keydown" || e.key === "Escape") && !e.target.closest?.(".bounce") && stopDvd(); // the button itself toggles, on click
@@ -135,7 +148,7 @@ document.addEventListener("pointerdown", (e) => {
   const card = bar.parentElement, r = card.getBoundingClientRect(), x0 = +card.dataset.x || 0, y0 = +card.dataset.y || 0;
   const h = card.parentElement.matches(".hero") ? card.parentElement.getBoundingClientRect() : { top: 0, bottom: innerHeight };
   const b = { left: 0, right: innerWidth, top: h.top, bottom: h.bottom }; // free across the screen; the card stays within the hero's height (never over other sections), the window within the screen
-  let dir = 0, ext = e.clientX, turns = []; // the card's own shake detector: direction changes of 40px or more
+  let wall = "00", dir = 0, ext = e.clientX, turns = []; // the card's own shake detector: direction changes of 40px or more
   const move = (m) => {
     if (card.matches(".card")) {
       if ((m.clientX - ext) * dir > 0) ext = m.clientX;
@@ -146,9 +159,16 @@ document.addEventListener("pointerdown", (e) => {
         if (turns.length >= 5) { turns = []; shakeOff(card); }
       }
     }
-    const x = Math.min(b.right - r.right + x0, Math.max(b.left - r.left + x0, x0 + m.clientX - e.clientX));
-    const y = Math.min(b.bottom - r.bottom + y0, Math.max(b.top - r.top + y0, y0 + m.clientY - e.clientY));
+    const rx = x0 + m.clientX - e.clientX, ry = y0 + m.clientY - e.clientY; // where the pointer wants it
+    const x = Math.min(b.right - r.right + x0, Math.max(b.left - r.left + x0, rx));
+    const y = Math.min(b.bottom - r.bottom + y0, Math.max(b.top - r.top + y0, ry));
     place(card, Math.round(x / SNAP) * SNAP, Math.round(y / SNAP) * SNAP);
+    const hx = Math.sign(rx - x), hy = Math.sign(ry - y), side = `${hx}${hy}`; // pushing against a wall; the shockwave fires on arriving at it, not on every move after
+    if (side !== wall && side !== "00") {
+      const q = card.getBoundingClientRect();
+      thud(hx ? (hx > 0 ? q.right : q.left) : m.clientX, hy ? (hy > 0 ? q.bottom : q.top) : m.clientY);
+    }
+    wall = side;
   };
   const stop = trail(card, r, x0, y0);
   const drop = () => { stop(); card.classList.remove("lifted"); bar.removeEventListener("pointermove", move); bar.removeEventListener("pointerup", drop); bar.removeEventListener("pointercancel", drop); };
