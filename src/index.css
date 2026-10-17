@@ -200,7 +200,7 @@ footer { padding-block: 2.5rem 4.5rem; color: var(--mute); } /* bottom room just
 .vgrip { position: absolute; top: 50%; width: 10px; height: 20px; translate: -50% -50%; background: var(--accent); border: 2px solid currentColor; }
 .vrate { flex: none; min-width: 3.4rem; height: 38px; padding: 0 .5rem; color: inherit; background: none; border: 3px solid currentColor; font: inherit; letter-spacing: .05em; }
 /* in the window the bar sits over the bottom of the video, so previous/next below don't move between a video and a screenshot; it hides while the video plays and the pointer is away */
-.shotwin > .vbar { position: absolute; left: calc(.6rem + 3px + 8px); right: calc(.6rem + 3px + 8px); bottom: calc(1.2rem + 38px + 3px + 8px); max-width: none; gap: .6rem; padding: 4px 8px; background: color-mix(in srgb, var(--bg) 85%, transparent); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); border: 3px solid var(--ink); transition: opacity .2s steps(3); }
+.shotwin > .vbar { position: absolute; left: calc(.6rem + 8px); right: calc(.6rem + 8px); bottom: calc(1.2rem + 38px + 8px); max-width: none; gap: .6rem; padding: 4px 8px; background: color-mix(in srgb, var(--bg) 85%, transparent); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); border: 3px solid var(--ink); transition: opacity .2s steps(3); }
 .shotwin > .vbar :is(.vplay, .vrate, .vlane) { height: 30px; }
 .shotwin > .vbar .vplay { width: 48px; }
 .shotwin:not(:hover, :focus-within) > .vbar[data-on="true"] { opacity: 0; pointer-events: none; }
@@ -344,7 +344,7 @@ html:has(.zoom) { overflow: hidden; }
 .win.settings, .win.contact, .win.shotwin { width: min(26rem, calc(100vw - 12rem)); padding: 3rem 1.5rem 1.5rem; background: color-mix(in srgb, var(--bg) 80%, transparent); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); }
 /* a project screenshot in a window (Lightbox.jsx): opens centred, the shot sized to fit the screen */
 .win.shotwin { --sw: min(70vw, 1440px, calc((100dvh - 170px) * 1.6)); box-sizing: content-box; width: var(--sw); padding: calc(1.65rem + .6rem) .6rem .6rem; /* the title bar (1.65rem) plus the same .6rem gap as the sides */ top: 50%; translate: -50% -50%; } /* one fixed size for every shot (an auto width followed each image and jumped between shots) */
-.shotwin > :is(img, video) { display: block; box-sizing: border-box; width: 100%; max-width: none; aspect-ratio: 1440 / 900; /* the size of most shots */ object-fit: contain; background: var(--panel); border: 3px solid var(--ink); }
+.shotwin > :is(img, video) { display: block; box-sizing: border-box; width: 100%; max-width: none; aspect-ratio: 1440 / 900; /* the size of most shots */ object-fit: contain; background: var(--panel); }
 .shotwin img[data-up="true"] { image-rendering: pixelated; }
 .shotwin .zoom-nav { position: static; margin-top: .6rem; gap: 1.25rem; }
 .shotwin .zoom-n { width: 60px; height: 38px; border-color: var(--ink); }
