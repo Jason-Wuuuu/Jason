@@ -321,6 +321,7 @@ html:has(.zoom) { overflow: hidden; }
 @keyframes conf { from { translate: 0 0; } to { translate: var(--dx) calc(var(--dy) + 110px); opacity: 0; } }
 @media (prefers-reduced-motion: reduce), (hover: none) { .card .bounce { display: none; } }
 .wm button:hover { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+.card .wm button:hover { background: var(--on-accent); color: var(--accent); border-color: var(--on-accent); } /* the player card's bar is accent itself: hover inverts it */
 /* Settings and Contact windows (Windows.jsx) */
 .win.settings, .win.contact, .win.shotwin { width: min(26rem, calc(100vw - 12rem)); padding: 3rem 1.5rem 1.5rem; background: color-mix(in srgb, var(--bg) 80%, transparent); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); }
 /* a project screenshot in a window (Lightbox.jsx): opens centred, the shot sized to fit the screen */
@@ -377,7 +378,7 @@ html:has(.zoom) { overflow: hidden; }
     display: grid; grid-template-columns: auto minmax(0, 1fr) 150px; gap: 0 32px; align-items: start; /* px: rem is fluid on this page */
     padding: 52px 32px 32px; background: color-mix(in srgb, var(--bg) 30%, transparent); /* see-through: moon and stars show */ background-clip: padding-box; border: 3px solid color-mix(in srgb, var(--ink) 60%, transparent); box-shadow: 6px 6px 0 color-mix(in srgb, var(--ink) 45%, transparent);
   }
-  .card > .bar { display: flex; justify-content: space-between; align-items: center; position: absolute; inset: 0 0 auto; padding: .15rem 1rem; background: color-mix(in srgb, var(--ink) 60%, transparent); color: var(--bg); letter-spacing: .15em; }
+  .card > .bar { display: flex; justify-content: space-between; align-items: center; position: absolute; inset: 0 0 auto; padding: .15rem 1rem; background: color-mix(in srgb, var(--accent) 90%, transparent); color: var(--on-accent); letter-spacing: .15em; }
   .card .pixel-avatar { margin: 12px 0 0; }
   .card h1 { font-size: clamp(64px, min(9vw, 15vh), 104px); margin-bottom: .75rem; }
   .cls { display: block; margin: 0 0 1rem; color: var(--blue); }
@@ -403,7 +404,7 @@ html:has(.zoom) { overflow: hidden; }
   .card .wm { display: none; } /* the card isn't a window on phones */
   .hero { padding-top: 1.25rem; } /* the theme toggle overlaps the card, so no strip to clear above it */
   .card { position: relative; padding: 44px 16px 20px; background: color-mix(in srgb, var(--bg) 30%, transparent); background-clip: padding-box; border: 3px solid color-mix(in srgb, var(--ink) 60%, transparent); box-shadow: 4px 4px 0 color-mix(in srgb, var(--ink) 45%, transparent); }
-  .card > .bar { display: block; position: absolute; inset: 0 0 auto; padding: .05rem .75rem; font-size: .9rem; background: color-mix(in srgb, var(--ink) 60%, transparent); color: var(--bg); letter-spacing: .15em; }
+  .card > .bar { display: block; position: absolute; inset: 0 0 auto; padding: .05rem .75rem; font-size: .9rem; background: color-mix(in srgb, var(--accent) 90%, transparent); color: var(--on-accent); letter-spacing: .15em; }
   .card { text-align: center; } /* centred stack: avatar, name, class, tagline, links, stats */
   .card { display: grid; grid-template-columns: 1fr auto auto 1fr; align-items: center; column-gap: clamp(12px, calc(100vw - 340px), 28px); } /* avatar and name share the top row, centred as a pair between two spacer columns */
   .card .who { display: contents; }
