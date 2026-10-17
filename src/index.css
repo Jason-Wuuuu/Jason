@@ -190,7 +190,8 @@ footer { padding-block: 2.5rem 4.5rem; color: var(--mute); } /* bottom room just
   .zoom-n { pointer-events: auto; }
   .zoom-c { display: none; }
 }
-html:has(.zoom) { overflow: hidden; }
+@media (hover: hover) { html:has(.zoom) { overflow: hidden; } } /* not on touch screens: locking the root scroll there makes iOS Safari resize its viewport and drop the dock blur */
+.zoom { touch-action: none; } /* so a drag on the viewer cannot scroll the page behind it */
 @media (prefers-reduced-motion: no-preference) { .zoom { animation: zoom-in .2s steps(3); } }
 @keyframes zoom-in { from { opacity: 0; } }
 /* bars below replace the native scrollbar */
@@ -492,7 +493,7 @@ html.scrolled:has(.dock[data-pos="bottom"]) body::after { /* not at the very top
   backdrop-filter: blur(5px); -webkit-mask-image: linear-gradient(transparent, #000 55%); mask-image: linear-gradient(transparent, #000 55%);
 }
 @media (max-width: 560px) { /* phones: up past the top of the four buttons, from the first screen (the card fills it, no peek to keep sharp) */
-  body::after, html.scrolled:has(.dock[data-pos="bottom"]) body::after { inset: auto 0 -3rem; height: 8rem; backdrop-filter: blur(5px); -webkit-mask-image: linear-gradient(transparent, #000 34%); mask-image: linear-gradient(transparent, #000 34%); } /* runs 3rem past the screen edge so iOS Safari, which can leave a gap there after the viewer locks scrolling, still has it covered; same look on screen as 5rem / 55% */
+  body::after, html.scrolled:has(.dock[data-pos="bottom"]) body::after { height: 5rem; backdrop-filter: blur(5px); -webkit-mask-image: linear-gradient(transparent, #000 55%); mask-image: linear-gradient(transparent, #000 55%); }
 }
 
 /* pixel arrow cursor: a DOM element (hoverRing.js) that hides the native one; black in light mode, white in dark */
