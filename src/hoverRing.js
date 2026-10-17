@@ -260,6 +260,11 @@ document.addEventListener("pointerdown", (e) => {
   bar.addEventListener("pointerup", drop);
   bar.addEventListener("pointercancel", drop);
 });
+// Scrolled right past the hero, the player card goes home unseen (a bounce has already stopped on the scroll).
+addEventListener("scroll", () => {
+  const card = document.querySelector(".hero > .card");
+  if (card && (+card.dataset.x || +card.dataset.y) && card.parentElement.getBoundingClientRect().bottom < 0) place(card, 0, 0);
+}, { passive: true });
 document.addEventListener("dblclick", (e) => {
   const bar = e.target.closest?.(BAR);
   if (bar) place(bar.parentElement, 0, 0);
