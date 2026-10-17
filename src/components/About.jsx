@@ -9,6 +9,7 @@ const TICK = 70; // ms per frame: choppy on purpose, like the rest of the site
 export default function About() {
   const { paragraphs, images = [] } = site.about;
   const [egg, setEgg] = useState(false);
+  const touch = matchMedia("(hover: none)").matches; // the typing test is desktop only
   const [top, setTop] = useState(0); // which photo is on top of the stack
   const photos = useRef([]);
   const mosaic = useRef(null); // canvas laid over the front photo while it transforms
@@ -51,7 +52,7 @@ export default function About() {
       <div className="about">
         <div className="prose">
           {paragraphs.map((p, i) => (
-            <Md key={i} text={p} onEgg={() => setEgg((v) => !v)} eggOpen={egg} />
+            <Md key={i} text={p} onEgg={touch ? undefined : () => setEgg((v) => !v)} eggOpen={egg} />
           ))}
         </div>
         {images.length > 0 && (

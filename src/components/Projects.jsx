@@ -12,6 +12,8 @@ const cats = [...new Set(projects.map((p) => p.category))];
 const categories = ["Featured", "All", ...cats];
 const grouped = cats.length > 1; // with a single category (e.g. most projects archived) the filter tabs are pointless
 
+const touch = matchMedia("(hover: none)").matches; // no full-screen viewer on touch screens (iOS Safari left the toolbar see-through after closing it)
+
 function Gallery({ p }) {
   const [at, setAt] = useState(0);
   const [big, setBig] = useState(null); // index of the screenshot open in the lightbox
@@ -26,7 +28,7 @@ function Gallery({ p }) {
   const go = (i) =>
     ref.current.children[i]?.scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
   // The peeking neighbour slides into view; the current photo opens at full size.
-  const onPick = (i) => (i === at || n === 1 ? setBig(i) : go(i));
+  const onPick = (i) => (i === at || n === 1 ? !touch && setBig(i) : go(i));
   const view = (i) => {
     setBig(i);
     ref.current.children[i]?.scrollIntoView({ behavior: "instant", inline: "start", block: "nearest" }); // keep the gallery behind in step
@@ -40,7 +42,7 @@ function Gallery({ p }) {
         tabIndex={0}
         aria-label={`${p.title} screenshots`}
         onScroll={onScroll}
-        onKeyDown={(e) => e.key === "Enter" && setBig(at)}
+        onKeyDown={(e) => e.key === "Enter" && !touch && setBig(at)}
       >
         {p.screenshots.map((s, i) => (
           <img

@@ -25,6 +25,7 @@ export const withLinks = (text, { onEgg, eggOpen } = {}) =>
     if (part.startsWith("**") && part.length > 4) return <strong key={i}>{part.slice(2, -2)}</strong>;
     if (part.startsWith("*") && part.length > 2) return <em key={i}>{part.slice(1, -1)}</em>;
     const m = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+    if (m && m[2] === "#typing" && !onEgg) return m[1]; // egg switched off: plain text, not a dead link
     if (m && m[2] === "#typing" && onEgg)
       return (
         <button key={i} type="button" className="egg" aria-expanded={!!eggOpen} onClick={onEgg}>
