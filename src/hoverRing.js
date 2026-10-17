@@ -80,15 +80,15 @@ function thud(x, y) {
 const PAD = 12; // the bouncing card turns round this far inside its range, leaving room to draw the wall it hit
 const HITS = [6, 12]; // each run aims for a corner on a random wall hit in this range
 const gcd = (a, b) => (b ? gcd(b, a % b) : a);
-// A card bouncing in a W×H box moves in a straight line through a grid of mirrored copies of the box, so it reaches a corner exactly when that line passes through a grid corner: after crossing `a` vertical and `b` horizontal walls, which is hit number a + b - 1 when a and b share no factor. Pick the pair giving the most diagonal line (not a near-vertical crawl), and aim at it. `free`: start in a random direction (otherwise towards the farther wall, e.g. when leaving a corner).
-function aim(x, y, lo, hi, speed, free) {
+// A card bouncing in a W×H box moves in a straight line through a grid of mirrored copies of the box, so it reaches a corner exactly when that line passes through a grid corner: after crossing `a` vertical and `b` horizontal walls, which is hit number a + b - 1 when a and b share no factor. Pick the pair giving the most diagonal line (not a near-vertical crawl), and aim at it. `free`: start in a random direction (otherwise towards the farther wall, e.g. when leaving a corner); `want`: a thrown card's velocity, whose direction wins.
+function aim(x, y, lo, hi, speed, free, want) {
   const W = hi[0] - lo[0], H = hi[1] - lo[1], n = HITS[0] + Math.floor(Math.random() * (HITS[1] - HITS[0] + 1));
   const pick = (v, l, h) => { const far = v - l < h - v ? 1 : -1, s = free && Math.random() < .5 ? -far : far; return (s > 0 ? h - v : v - l) < 40 ? far : s; }; // never a random direction straight into a wall
-  const sx = pick(x, lo[0], hi[0]), sy = pick(y, lo[1], hi[1]);
+  const sx = want ? (want[0] < 0 ? -1 : 1) : pick(x, lo[0], hi[0]), sy = want ? (want[1] < 0 ? -1 : 1) : pick(y, lo[1], hi[1]);
   const fx = sx > 0 ? hi[0] - x : x - lo[0], fy = sy > 0 ? hi[1] - y : y - lo[1]; // distance to the first wall each way
   let best;
   for (let a = 1; a <= n; a++) {
-    const b = n + 1 - a, dx = fx + (a - 1) * W, dy = fy + (b - 1) * H, skew = Math.abs(Math.log(dy / dx));
+    const b = n + 1 - a, dx = fx + (a - 1) * W, dy = fy + (b - 1) * H, skew = want ? Math.abs(Math.atan2(dy, dx) - Math.atan2(Math.abs(want[1]), Math.abs(want[0]))) : Math.abs(Math.log(dy / dx)); // the closest to the thrown direction, else the most diagonal
     if (gcd(a, b) === 1 && dx > 0 && dy > 0 && (!best || skew < best.skew)) best = { dx, dy, skew };
   }
   if (!best || W < 8 || H < 8) return [W < 8 ? 0 : sx * 200, H < 8 ? 0 : sy * 160]; // no room to plan with
@@ -115,7 +115,7 @@ function celebrate() {
   }
 }
 let stopDvd = null;
-function dvd(card, btn) {
+function dvd(card, btn, want) {
   if (stopDvd) return stopDvd();
   const out = (v, lo, hi) => v < lo || v > hi, near = (v, lo, hi) => Math.min(v - lo, hi - v) < 20;
   const box = () => {
@@ -130,7 +130,7 @@ function dvd(card, btn) {
   Object.assign(field.style, { left: PAD - 4 + "px", top: hr.top + PAD - 4 + "px", width: innerWidth - 2 * PAD + 8 + "px", height: hr.height - 2 * PAD + 8 + "px" });
   document.body.append(field);
   let x = Math.min(hi[0], Math.max(lo[0], +card.dataset.x || 0)), y = Math.min(hi[1], Math.max(lo[1], +card.dataset.y || 0)), last = 0, raf = 0, pulse = 0, cheered = 0, hits = 0;
-  let [vx, vy] = aim(x, y, lo, hi, 260, true); // px per second
+  let [vx, vy] = aim(x, y, lo, hi, 260, true, want); // px per second
   const frame = (t) => {
     if (!card.isConnected) return stopDvd();
     const dt = Math.min(0.05, (t - (last || t)) / 1000); last = t;
@@ -162,15 +162,22 @@ function dvd(card, btn) {
   const evs = ["pointerdown", "keydown", "scroll", "resize"];
   stopDvd = () => {
     cancelAnimationFrame(raf); clearTimeout(pulse); field.remove();
-    card.classList.remove("dvd", "lifted"); btn.setAttribute("aria-pressed", "false");
+    card.classList.remove("dvd", "lifted"); btn?.setAttribute("aria-pressed", "false");
     evs.forEach((e) => removeEventListener(e, off));
     stopDvd = null;
   };
-  card.classList.add("dvd"); btn.setAttribute("aria-pressed", "true");
+  card.classList.add("dvd"); btn?.setAttribute("aria-pressed", "true");
   evs.forEach((e) => addEventListener(e, off));
   raf = requestAnimationFrame(frame);
 }
 document.addEventListener("click", (e) => { const b = e.target.closest?.(".card .bounce"); if (b) dvd(b.closest(".card"), b); });
+// Let go of the player card mid-flick (over 900px/s, still moving as the button comes up) and it is thrown: it bounces off from there, roughly the way it was thrown.
+function fling(card, trace) {
+  const a = trace[0], z = trace.at(-1);
+  if (!a || a === z || card.matches(".shaken, .back") || performance.now() - z[0] > 60 || z[0] <= a[0] || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const dt = (z[0] - a[0]) / 1000, v = [(z[1] - a[1]) / dt, (z[2] - a[2]) / dt];
+  if (Math.hypot(...v) > 900) dvd(card, card.querySelector(".bounce"), v);
+}
 // Easter egg: shake the player card (five quick turns in one second) and everything on it falls off, then climbs back.
 const FALL = ".ch, .pixel-avatar, .cls, .lead, .social a, .stats li";
 function shakeOff(card) {
@@ -207,7 +214,9 @@ document.addEventListener("pointerdown", (e) => {
   const h = card.parentElement.matches(".hero") ? card.parentElement.getBoundingClientRect() : { top: 0, bottom: innerHeight };
   const b = { left: 0, right: innerWidth, top: h.top, bottom: h.bottom }; // free across the screen; the card stays within the hero's height (never over other sections), the window within the screen
   let dir = 0, ext = e.clientX, turns = []; // the card's own shake detector: direction changes of 40px or more
+  const trace = []; // the pointer's last 100ms, to tell a throw
   const move = (m) => {
+    const now = performance.now(); trace.push([now, m.clientX, m.clientY]); while (trace[0][0] < now - 100) trace.shift();
     if (card.matches(".card")) {
       if ((m.clientX - ext) * dir > 0) ext = m.clientX;
       else if (Math.abs(m.clientX - ext) > 40) {
@@ -222,7 +231,7 @@ document.addEventListener("pointerdown", (e) => {
     place(card, Math.round(x / SNAP) * SNAP, Math.round(y / SNAP) * SNAP);
   };
   const stop = trail(card, r, x0, y0);
-  const drop = () => { stop(); card.classList.remove("lifted"); bar.removeEventListener("pointermove", move); bar.removeEventListener("pointerup", drop); bar.removeEventListener("pointercancel", drop); };
+  const drop = (u) => { stop(); card.classList.remove("lifted"); bar.removeEventListener("pointermove", move); bar.removeEventListener("pointerup", drop); bar.removeEventListener("pointercancel", drop); if (u.type === "pointerup" && card.matches(".card")) fling(card, trace); };
   card.classList.add("lifted");
   bar.setPointerCapture(e.pointerId);
   bar.addEventListener("pointermove", move);
