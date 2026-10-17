@@ -210,6 +210,7 @@ html:has(.zoom) { overflow: hidden; }
   .proj summary { grid-template-columns: 1fr; gap: .25rem; }
   .proj .body { padding-left: 0; }
   .about { grid-template-columns: 1fr; }
+  .prose { font-size: 1.15rem; } /* 1.4rem is 1.4x the body text; on a phone it's about the size of the card's tagline instead */
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .tt-line span[data-cursor="true"] { animation: none; } }
 
@@ -252,12 +253,14 @@ html:has(.zoom) { overflow: hidden; }
   .proj[open] .body { animation: unfold .4s steps(8); }
   .burst i { animation: fly .7s steps(7) forwards; }
 
-  /* rows scan in from the left as they scroll into view (where supported; otherwise they're just there) */
-  @supports (animation-timeline: view()) {
-    .timeline > li, .proj {
-      animation: scan linear both;
-      animation-timeline: view();
-      animation-range: entry 0% entry 40%;
+  /* rows scan in from the left as they scroll into view (where supported; otherwise they're just there). Not on phones: the clip-path wipe repaints every scroll frame and looks choppy there */
+  @media (min-width: 701px) {
+    @supports (animation-timeline: view()) {
+      .timeline > li, .proj {
+        animation: scan linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 40%;
+      }
     }
   }
 }
@@ -319,7 +322,7 @@ html:has(.zoom) { overflow: hidden; }
 /* phones: a simpler player card, everything stacked */
 @media (max-width: 700px) {
   .card .wm { display: none; } /* the card isn't a window on phones */
-  .hero { padding-top: 3.25rem; } /* clears the fixed theme toggle, so it no longer sits on the PLAYER 1 bar */
+  .hero { padding-top: 1.25rem; } /* the theme toggle overlaps the card, so no strip to clear above it */
   .card { position: relative; padding: 44px 16px 20px; background: color-mix(in srgb, var(--bg) 30%, transparent); background-clip: padding-box; border: 3px solid color-mix(in srgb, var(--ink) 60%, transparent); box-shadow: 4px 4px 0 color-mix(in srgb, var(--ink) 45%, transparent); }
   .card > .bar { display: block; position: absolute; inset: 0 0 auto; padding: .05rem .75rem; font-size: .9rem; background: color-mix(in srgb, var(--ink) 60%, transparent); color: var(--bg); letter-spacing: .15em; }
   .card { text-align: center; } /* centred stack: avatar, name, class, tagline, links, stats */
@@ -407,6 +410,7 @@ html:has(.zoom) { overflow: hidden; }
 }
 .theme-toggle:hover { color: var(--accent); }
 .theme-toggle:active { transform: translate(3px, 3px); box-shadow: none; }
+@media (max-width: 700px) { .theme-toggle { top: calc(1.25rem - 14px); right: .5rem; } } /* phones: stays put, and at the top of the page overlaps the player card's top-right corner */
 @keyframes dock-in-bottom { from { translate: 0 40px; opacity: 0; } }
 @keyframes dock-in-side { from { translate: 90px 0; opacity: 0; } }
 @media (prefers-reduced-motion: no-preference) {
@@ -432,7 +436,6 @@ html:has(.zoom) { overflow: hidden; }
   .dock[data-pos] { left: .75rem; right: .75rem; transform: none; width: auto; max-width: none; }
   .dock a { flex: 1 1 auto; justify-content: center; } /* buttons share the leftover width evenly */
   .track { display: none; }
-  .theme-toggle { top: .75rem; right: .75rem; }
   .dock a, .dock button { padding: .3rem .3rem; }
   /* the buttons are the progress bar: each paints left to right (--f, set in Dock.jsx) while you scroll through its section */
   .dock a, .dock a[aria-current="true"] {
@@ -464,6 +467,7 @@ html:has(.zoom) { overflow: hidden; }
   content: ""; position: absolute; left: 4px; bottom: 8px; width: 24px; height: 12px; background: var(--accent);
   -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='12' viewBox='0 0 8 4' shape-rendering='crispEdges'%3E%3Crect x='0' y='0' width='1' height='1'/%3E%3Crect x='1' y='0' width='1' height='1'/%3E%3Crect x='6' y='0' width='1' height='1'/%3E%3Crect x='7' y='0' width='1' height='1'/%3E%3Crect x='1' y='1' width='1' height='1'/%3E%3Crect x='2' y='1' width='1' height='1'/%3E%3Crect x='5' y='1' width='1' height='1'/%3E%3Crect x='6' y='1' width='1' height='1'/%3E%3Crect x='2' y='2' width='1' height='1'/%3E%3Crect x='3' y='2' width='1' height='1'/%3E%3Crect x='4' y='2' width='1' height='1'/%3E%3Crect x='5' y='2' width='1' height='1'/%3E%3Crect x='3' y='3' width='1' height='1'/%3E%3Crect x='4' y='3' width='1' height='1'/%3E%3C/svg%3E") center / 100% 100%; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='12' viewBox='0 0 8 4' shape-rendering='crispEdges'%3E%3Crect x='0' y='0' width='1' height='1'/%3E%3Crect x='1' y='0' width='1' height='1'/%3E%3Crect x='6' y='0' width='1' height='1'/%3E%3Crect x='7' y='0' width='1' height='1'/%3E%3Crect x='1' y='1' width='1' height='1'/%3E%3Crect x='2' y='1' width='1' height='1'/%3E%3Crect x='5' y='1' width='1' height='1'/%3E%3Crect x='6' y='1' width='1' height='1'/%3E%3Crect x='2' y='2' width='1' height='1'/%3E%3Crect x='3' y='2' width='1' height='1'/%3E%3Crect x='4' y='2' width='1' height='1'/%3E%3Crect x='5' y='2' width='1' height='1'/%3E%3Crect x='3' y='3' width='1' height='1'/%3E%3Crect x='4' y='3' width='1' height='1'/%3E%3C/svg%3E") center / 100% 100%;
 }
+@media (hover: none) and (orientation: landscape) { .track { display: none; } } /* touch screens held sideways (iPad): no progress line */
 @keyframes bob { 50% { translate: 0 -4px; } }
 @keyframes pop { 50% { translate: 0 -20px; } to { rotate: 360deg; } }
 @media (prefers-reduced-motion: no-preference) { .grip::before { animation: bob 1s steps(2) infinite; } .grip.pop::before { animation: pop .5s steps(6); } } /* a new section: hop and spin once, then back to bobbing */
@@ -476,6 +480,9 @@ body::after {
 html.scrolled:has(.dock[data-pos="bottom"]) body::after { /* not at the very top: there the "Quests" peek must stay sharp */
   content: ""; position: fixed; inset: auto 0 0; height: 6rem; z-index: 8; pointer-events: none;
   backdrop-filter: blur(5px); -webkit-mask-image: linear-gradient(transparent, #000 55%); mask-image: linear-gradient(transparent, #000 55%);
+}
+@media (max-width: 560px) { /* phones: up past the top of the four buttons, from the first screen (the card fills it, no peek to keep sharp) */
+  body::after, html.scrolled:has(.dock[data-pos="bottom"]) body::after { height: 5rem; backdrop-filter: blur(5px); -webkit-mask-image: linear-gradient(transparent, #000 55%); mask-image: linear-gradient(transparent, #000 55%); }
 }
 
 /* pixel arrow cursor: a DOM element (hoverRing.js) that hides the native one; black in light mode, white in dark */
