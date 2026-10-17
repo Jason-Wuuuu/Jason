@@ -42,7 +42,7 @@ export default function Lightbox({ shots, title, at, onAt, onClose }) {
   if (win)
     return createPortal(
       <Win cls="shotwin" title={n > 1 ? `${title} · ${at + 1}/${n}` : title} onClose={onClose}>
-        <Shot ref={pic} src={shots[at]} alt={`${title} screenshot`} onLoad={(e) => fit(e.currentTarget)} />
+        <Shot key={shots[at]} ref={pic} src={shots[at]} alt={`${title} screenshot`} onLoad={(e) => fit(e.currentTarget)} />
         {n > 1 && nav}
       </Win>,
       document.body,
@@ -60,7 +60,7 @@ export default function Lightbox({ shots, title, at, onAt, onClose }) {
       onTouchStart={(e) => (x0.current = e.touches[0].clientX)}
       onTouchEnd={(e) => { const d = e.changedTouches[0].clientX - x0.current; if (Math.abs(d) > 50) step(d < 0 ? 1 : -1); }}
     >
-      <Shot ref={pic} controls src={shots[at]} alt={`${title} screenshot`} onLoad={(e) => fit(e.currentTarget)} />
+      <Shot key={shots[at]} ref={pic} controls src={shots[at]} alt={`${title} screenshot`} onLoad={(e) => fit(e.currentTarget)} />
       <button className="zoom-x" onClick={onClose} aria-label="Close">×</button>
       {nav}
     </div>,
