@@ -78,13 +78,12 @@ if (matchMedia("(hover: hover) and (pointer: fine)").matches) {
 // The player card and the typing test window drag by their title bars, in whole 4px steps, and stays where it is dropped (double-click the bar to put it back).
 const SNAP = 4, BAR = ".card > .bar, .win > .bar";
 const place = (card, x, y) => { card.dataset.x = x; card.dataset.y = y; card.style.setProperty("--dx", x + "px"); card.style.setProperty("--dy", y + "px"); };
-// A pixel shockwave where the bouncing card hits a wall: three square rings (accent, ink, accent) step outwards from the contact point and fade.
-function thud(x, y) {
+// A pixel shockwave where the bouncing card hits a wall: three square rings, in the bar's colour, step outwards from the contact point and fade.
+function thud(x, y, color) {
   if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  [0, 110, 220].forEach((d, i) => {
+  [0, 110, 220].forEach((d) => {
     const el = Object.assign(document.createElement("i"), { className: "thud", onanimationend: () => el.remove() });
-    Object.assign(el.style, { left: x + "px", top: y + "px", animationDelay: d + "ms" });
-    if (i === 1) el.style.borderColor = "var(--ink)";
+    Object.assign(el.style, { left: x + "px", top: y + "px", animationDelay: d + "ms", borderColor: color });
     document.body.append(el);
   });
 }
@@ -170,7 +169,7 @@ function dvd(card, btn, want) {
       const q = card.getBoundingClientRect(); // the shockwave starts on the edge that hit (vx/vy have just flipped), at the card's middle along it
       if (hitX) edge(vx < 0 ? innerWidth - PAD : PAD - 4, hr.top + PAD, 4, hr.height - 2 * PAD, "180deg"); // vx has just flipped: moving left now means it hit the right wall
       if (hitY) edge(PAD, vy < 0 ? hr.bottom - PAD : hr.top + PAD - 4, innerWidth - 2 * PAD, 4, "90deg");
-      thud(hitX ? (vx < 0 ? q.right : q.left) : q.left + q.width / 2, hitY ? (vy < 0 ? q.bottom : q.top) : q.top + q.height / 2);
+      thud(hitX ? (vx < 0 ? q.right : q.left) : q.left + q.width / 2, hitY ? (vy < 0 ? q.bottom : q.top) : q.top + q.height / 2, getComputedStyle(bar).backgroundColor); // in the bar's new colour
       if (!corner) knock(card); // a corner gets the full shake-off instead
       if (corner && t - cheered > 800) { // one cheer per corner: the second wall of a corner hit also counts as "near"
         cheered = t;
