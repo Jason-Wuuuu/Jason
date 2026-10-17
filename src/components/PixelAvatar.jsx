@@ -4,7 +4,7 @@ import { image } from "../App";
 import site from "../content";
 
 // The profile picture from the admin, pixelated. It "resolves" from chunky blocks on load; clicking flips it like a coin around its vertical axis, replays that, and says hi in a speech bubble (a "say" event does the same with other words).
-const GREETINGS = ["Hi, I'm Jason!", "Hello!", "Hey there!", "Howdy!", "Hola!", "Bonjour!"];
+const GREETINGS = ["Hi, I'm Jason!", "Hello!", "Hello, World!", "Hey there!", "Howdy!", "Hola!", "Bonjour!"];
 export default function PixelAvatar() {
   const { avatar, avatarStyle, avatarFrame } = site.profile;
   const style = AVATAR_STYLES[avatarStyle] || AVATAR_STYLES[DEFAULT_STYLE];

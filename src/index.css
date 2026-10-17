@@ -106,9 +106,9 @@ footer { padding-block: 2.5rem 4.5rem; color: var(--mute); } /* bottom room just
 .cta { padding: .3rem 1rem; color: var(--on-accent); background: var(--accent); border: 3px solid var(--ink); box-shadow: 4px 4px 0 var(--ink); letter-spacing: .1em; text-transform: uppercase; text-decoration: none; }
 .cta:hover { translate: -2px -2px; box-shadow: 6px 6px 0 var(--ink); }
 .cta:active { translate: 4px 4px; box-shadow: none; }
-.live { display: inline-flex; align-items: center; padding: 0 .45rem; font-size: .85rem; line-height: 1.35; letter-spacing: .1em; text-transform: uppercase; color: var(--on-accent); background: var(--accent); border: 2px solid var(--ink); } /* at the right end of the row header, so a project with something to open stands out when the row is closed */
+.live { align-self: center; display: inline-flex; align-items: center; padding: 0 .45rem; font-size: .85rem; line-height: 1.35; letter-spacing: .1em; text-transform: uppercase; color: var(--on-accent); background: var(--accent); border: 2px solid var(--ink); } /* at the right end of the row header, so a project with something to open stands out when the row is closed */
 .stack { flex: 1 1 14rem; margin: 0; color: var(--mute); text-wrap: balance; }
-.sub { grid-column: 2; color: var(--mute); text-wrap: balance; } /* a closed row shows its stack under the name; an open one has it in the body */
+.sub { grid-column: 1; color: var(--mute); text-wrap: balance; } /* a closed row shows its stack under the name; an open one has it in the body */
 .proj[open] .sub { display: none; }
 .live::before { content: ""; width: .4em; height: .4em; margin-right: .5em; background: var(--live); box-shadow: 0 0 0 2px var(--on-accent); } /* the "on air" dot: red, ringed so it reads on the accent */
 .live.demo::before { background: currentColor; } /* a recorded demo isn't live */
@@ -154,24 +154,23 @@ footer { padding-block: 2.5rem 4.5rem; color: var(--mute); } /* bottom room just
 .filters button[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); }
 .proj { border-top: 3px dashed var(--ink); }
 .proj summary {
-  display: grid; grid-template-columns: 5rem minmax(0, 1fr) auto; gap: .2rem 1rem; align-items: baseline;
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .2rem 1rem; align-items: baseline;
   padding: 1.1rem .75rem; margin-inline: -.75rem; cursor: pointer; list-style: none; /* side padding gives the hover brackets room; the negative margin keeps the text aligned */
 }
 .proj summary::-webkit-details-marker { display: none; }
 .proj summary:hover .ti { color: var(--blue); }
-.yr { color: var(--mute); }
 .ti { font-family: var(--display); font-size: 1.9rem; line-height: 1; text-wrap: balance; }
 .proj[open] .ti { color: var(--blue); }
 .ti::after { content: "▸"; display: inline-block; margin-left: .35em; color: var(--accent); font-size: .7em; } /* says the row opens: right when closed, down when open */
 .proj[open] .ti::after { rotate: 90deg; }
-.proj .body { padding: 0 0 2rem 6rem; max-width: 46rem; }
+.proj .body { padding: 0 0 2rem; }
+.proj .body > p { max-width: 46rem; } /* the description keeps a readable line length; the screenshots take the full width */
 .meta { color: var(--mute); }
 .gallery { display: flex; gap: .75rem; overflow-x: auto; scroll-snap-type: x mandatory; margin: 1rem 0; }
 .gallery > * { flex: 0 0 100%; aspect-ratio: 16 / 10; object-fit: contain; scroll-snap-align: start; background: var(--panel); border: 3px solid var(--ink); box-shadow: var(--shadow); }
 .gallery { padding: 0 6px 6px 0; }
-.gallery:has(> * + *) { padding-right: 3rem; scroll-padding-left: 3rem; } /* the first image sits flush left with the next peeking in on the right; from then on each image sits 3rem in, so the previous one peeks on the left too (clickable) */
-.gallery:has(> * + *) > * { flex-basis: calc(100% - 3rem); min-width: 0; }
-.gallery:has(> * + *) > :first-child { flex-basis: 100%; } /* no previous neighbour to make room for, so the first image takes that width and its peek matches the rest */
+.gallery:has(> * + *) { --peek: 3rem; container-type: inline-size; padding-right: var(--peek); scroll-padding-left: var(--peek); } /* the first image sits flush left with the next peeking in on the right; from then on each image sits 3rem in, so the previous one peeks on the left too (clickable) */
+.gallery:has(> * + *) > * { flex-basis: calc(100% - var(--peek)); min-width: 0; height: calc((100cqw - var(--peek)) / 1.6); } /* every box is 16:10 at the narrower width, so none is stretched into another shape, the first included (it peeks a little more on the right) */
 /* a stepped dark fade over each peeking neighbour (the wrapper, not the scroller, so it stays put while the images slide under it) */
 .gal { position: relative; }
 .gal::before, .gal::after { content: ""; position: absolute; top: 0; bottom: 6px; width: 2.25rem; z-index: 1; pointer-events: none; display: none; }
@@ -224,9 +223,7 @@ footer { padding-block: 2.5rem 4.5rem; color: var(--mute); } /* bottom room just
 @media (max-width: 700px) { /* phones: the shot nearly as wide as the screen, the row spread edge to edge */
   .zoom > :is(img, video) { width: min(calc(100vw - 1rem), calc((100dvh - 190px) * 1.6)); }
   .zoom-nav { justify-content: space-between; }
-  .gallery:has(> * + *) { padding-right: 1.25rem; scroll-padding-left: 1.25rem; } /* a thinner peek, so the preview is bigger and still inside the page padding */
-  .gallery:has(> * + *) > * { flex-basis: calc(100% - 1.25rem); }
-  .gallery:has(> * + *) > :first-child { flex-basis: 100%; }
+  .gallery:has(> * + *) { --peek: 1.25rem; } /* a thinner peek, so the preview is bigger and still inside the page padding */
   .gal::before, .gal::after { width: 1.1rem; }
 }
 html:has(.zoom) { overflow: hidden; }
@@ -363,6 +360,7 @@ html:has(.zoom) { overflow: hidden; }
 /* a project screenshot in a window (Lightbox.jsx): opens centred, the shot sized to fit the screen */
 .win.shotwin { --sw: min(70vw, 1440px, calc((100dvh - 170px) * 1.6)); box-sizing: content-box; width: var(--sw); padding: calc(1.65rem + .6rem) .6rem .6rem; /* the title bar (1.65rem) plus the same .6rem gap as the sides */ top: 50%; translate: -50% -50%; } /* one fixed size for every shot (an auto width followed each image and jumped between shots) */
 .shotwin > :is(img, video) { display: block; box-sizing: border-box; width: 100%; max-width: none; aspect-ratio: 1440 / 900; /* the size of most shots */ object-fit: contain; background: var(--panel); }
+.gallery > [data-fill="true"], .shotwin [data-fill="true"] { object-fit: cover; }
 .shotwin img[data-up="true"] { image-rendering: pixelated; }
 .shotwin .zoom-nav { position: static; margin-top: .6rem; padding-top: .6rem; border-top: 3px solid var(--ink); gap: 1.25rem; } /* a divider between the media and the buttons */
 .shotwin .zoom-n { width: 60px; height: 38px; border-color: var(--ink); }

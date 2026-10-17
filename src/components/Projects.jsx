@@ -83,7 +83,7 @@ function Row({ p, open }) {
   const demo = /^(https?:|www)/.test(p.demoUrl)
     ? p.demoUrl
     : asset(p.demoUrl || "");
-  const stack = p.tech_stack?.split(/,\s*/).join(" · ");
+  const stack = [p.year, ...(p.tech_stack?.split(/,\s*/) ?? [])].filter(Boolean).join(" · "); // the year leads the stack line
   const video = /youtu\.?be|vimeo|\.mp4$/i.test(p.demoUrl); // a video is a "Demo"; anything else is the live site
   const actions = ( // the live site first, as a button; shown above the screenshots on desktop and below them on phones
     <div className="social">
@@ -103,7 +103,6 @@ function Row({ p, open }) {
   return (
     <details className="proj" open={open}>
       <summary>
-        <span className="yr">{p.year}</span>
         <span className="ti">{p.title}</span>
         {p.demoUrl && <span className={video ? "live demo" : "live"}>{video ? "demo" : "live"}</span>}
         {stack && <span className="sub">{stack}</span>}

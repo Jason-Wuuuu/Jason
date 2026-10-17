@@ -3,7 +3,11 @@ import { image } from "../App";
 
 // A project screenshot: a looping silent video for .mp4 (a screen recording is ~15x smaller than the same GIF), an <img> otherwise.
 const fast = (e) => { e.currentTarget.defaultPlaybackRate = e.currentTarget.playbackRate = 1.5; }; // demos run at 1.5x everywhere
-const ready = (e) => { e.currentTarget.dataset.ok = ""; }; // until this is set, the pixel loading checkerboard shows (index.css)
+const ready = (e) => {
+  const i = e.currentTarget, r = (i.naturalWidth || i.videoWidth) / (i.naturalHeight || i.videoHeight);
+  i.dataset.ok = "";
+  i.dataset.fill = r > 1.4 && r < 1.8; // close to 16:10: fill the box (a sliver is cropped) instead of leaving bars; other shapes stay whole
+}; // until this is set, the pixel loading checkerboard shows (index.css)
 
 const Shot = forwardRef(({ src, alt, loading, onLoad, ...rest }, ref) =>
   src.endsWith(".mp4")

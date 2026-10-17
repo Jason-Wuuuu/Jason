@@ -95,7 +95,7 @@
       "course": "",
       "category": "Web Dev",
       "description": "An interactive map and data explorer for Pokémon Gen 1 and Gen 2. It has overworld navigation, bilingual Japanese and English dialogue, encounter and trainer tables, a full Pokédex, and a solver that finds dungeon routes in real time. Everything is extracted from the decompilation source, not guessed.",
-      "tech_stack": "Next.js, React, TypeScript, Tailwind CSS",
+      "tech_stack": "Next.js, TypeScript, Tailwind CSS",
       "githubUrl": "",
       "demoUrl": "https://pokemon-interactive-map.vercel.app",
       "screenshots": [
@@ -118,7 +118,7 @@
       "course": "",
       "category": "Web Dev",
       "description": "A Firstrade portfolio viewer. Upload your account-history CSVs and see holdings at any date, cost basis, realized P/L, dividends and yearly summaries, all in a pixel-art interface. Your data never leaves the browser.",
-      "tech_stack": "Next.js, React, TypeScript, Recharts",
+      "tech_stack": "Next.js, TypeScript, Recharts",
       "githubUrl": "",
       "demoUrl": "https://market-lens-dusky.vercel.app",
       "screenshots": [
