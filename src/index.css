@@ -362,10 +362,13 @@ html:has(.zoom) { overflow: hidden; }
 .shotwin .zoom-n:disabled { visibility: visible; opacity: .3; } /* at the first or last shot: dimmed, not gone, so the row keeps its shape */
 @media (hover: hover) { .shotwin .zoom-n:not(:disabled):hover { border-color: var(--accent); } .shotwin .zoom-n:not(:disabled):hover::before { background: var(--accent); } }
 /* first opened right under the top-right buttons; a second one opens below the first with a gap (Windows.jsx sets its top). Touch screens (iPads) get the same spot as a dropdown, one at a time */
-.win.settings, .win.contact { left: auto; right: 1.25rem; top: 72px; bottom: auto; translate: none; width: min(26rem, calc(100vw - 2.5rem)); }
+.win.settings, .win.contact { left: auto; right: 1.25rem; top: calc(3.4rem + 3px); bottom: auto; translate: none; width: min(26rem, calc(100vw - 2.5rem)); padding: 2.75rem 1.5rem 1.1rem; } /* every vertical gap is .6rem or 1.1rem: .6rem below the top buttons (clearing their shadow), 1.1rem from the title bar to the first row, between rows and to the bottom edge */
 .win.settings > .bar, .win.contact > .bar, .win.shotwin > .bar { background: color-mix(in srgb, var(--ink) 60%, var(--bg)); } /* dimmer than the typing test's, so the white cursor and the corner don't blend into it */
 .win p { margin: 0 0 .9rem; }
 .win.settings > .bar + *, .win.contact > .bar + * { margin-top: 0; } /* the first row sits right under the bar */
+.win.contact > :not(.bar) { margin: 0; } /* the paragraph's own margins would break the 1.1rem rhythm */
+.win.contact > .addr { display: block; }
+.win.contact > :is(.addr, .opt) { margin-top: 1.1rem; }
 .opt { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; margin-top: 1.1rem; }
 .opt > span { width: 4.5rem; color: var(--mute); }
 .opt.end { justify-content: flex-end; } /* Settings: Reset sits at the bottom right; Contact: Copy and Open Mail too */

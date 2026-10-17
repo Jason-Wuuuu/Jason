@@ -92,10 +92,10 @@ function Contact({ onClose, top }) {
 export default function Windows() {
   const [open, setOpen] = useState({}); // which windows are showing: { settings, contact }
   const dropdown = () => matchMedia("(hover: none)").matches; // touch: one at a time, and a tap elsewhere closes it
-  const [tops, setTops] = useState({}); // where a second window opens: under the first, wherever that has been dragged to
+  const [tops, setTops] = useState({}); // where a second window opens: under the first (clearing its 6px shadow and the same .6rem gap as under the top buttons), wherever that has been dragged to
   const toggle = (w) => {
     const other = document.querySelector(`.win.${w === "settings" ? "contact" : "settings"}`);
-    setTops((t) => ({ ...t, [w]: !dropdown() && other ? other.getBoundingClientRect().bottom + 16 : undefined }));
+    setTops((t) => ({ ...t, [w]: !dropdown() && other ? other.getBoundingClientRect().bottom + 6 + parseFloat(getComputedStyle(root).fontSize) * 0.6 : undefined }));
     setOpen((o) => (dropdown() ? { [w]: !o[w] } : { ...o, [w]: !o[w] }));
   };
   useEffect(() => {
