@@ -17,6 +17,8 @@ export default function Lightbox({ shots, title, at, onAt, onClose }) {
   // Every shot sits in the same 16:10 box (almost all are 1440x900), so the viewer never changes size; an enlarged small shot (a GIF) keeps its crisp pixels.
   const fit = (img) => { img.dataset.up = img.naturalWidth < img.clientWidth; };
   useEffect(() => { if (pic.current.complete) fit(pic.current); }, [at]);
+  // The gallery behind is lazy, so a shot scrolled off-screen isn't fetched yet: warm both neighbours so prev is as quick as next.
+  useEffect(() => { [at - 1, at + 1].forEach((i) => shots[i] && (new Image().src = image(shots[i]))); }, [at, shots]);
   const step = (d) => at + d >= 0 && at + d < n && onAt(at + d);
   const keys = { Escape: onClose, ArrowLeft: () => step(-1), ArrowRight: () => step(1) };
   return createPortal(
