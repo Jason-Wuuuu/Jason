@@ -102,8 +102,9 @@
         "Pathfinding: Dungeon route solver. Flood-fill reachability plus a search over keys, switches, HMs and pushed boulders, run in a Web Worker.",
         "- Boulder pushing with deadlock detection",
         "- Every route replayed by a separate validator and audited in CI",
-        "Map navigation: Pan, pinch-zoom and keyboard camera that locks on long routes. Doors and Back restore where you came from.",
-        "Large map rendering: Canvas-painted maps with bitmaps cached per zoom level, prioritised paint jobs, and only the visible places mounted.",
+        "Map navigation & rendering: Pan, pinch-zoom and keyboard camera that locks on long routes, with doors and Back restoring where you came from.",
+        "- Canvas-painted maps with bitmaps cached per zoom level",
+        "- Only the visible places are mounted",
         "Data extraction: Parsers for the pret disassemblies turn game source into JSON for 6 editions. Gold tests pin the output.",
         "Bilingual: Japanese and English text joined per edition, with furigana."
       ],
