@@ -20,7 +20,7 @@ const set = (k, v) => {
   try { reset ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch {}
 };
 
-export function Win({ cls, title, onClose, children }) {
+export function Win({ cls, title, onClose, top, children }) {
   const box = useRef(null);
   useEffect(() => front(box.current), []); // a newly opened window is on top of the others
   const [closing, setClosing] = useState(false); // shrinks away like the player card, then unmounts
@@ -31,7 +31,7 @@ export function Win({ cls, title, onClose, children }) {
     return () => removeEventListener("keydown", esc);
   });
   return (
-    <div ref={box} className={`win ${cls}`} role="dialog" aria-label={title} data-state={closing ? "closing" : "open"} onAnimationEnd={(e) => e.animationName === "poof" && onClose()}>
+    <div ref={box} className={`win ${cls}`} style={top ? { top } : undefined} role="dialog" aria-label={title} data-state={closing ? "closing" : "open"} onAnimationEnd={(e) => e.animationName === "poof" && onClose()}>
       <span className="bar">
         {title.toUpperCase()}
         <span className="wm"><button onClick={close} aria-label="Close">×</button></span>
@@ -41,7 +41,7 @@ export function Win({ cls, title, onClose, children }) {
   );
 }
 
-function Settings({ onClose }) {
+function Settings({ onClose, top }) {
   const [, redraw] = useState(0);
   useEffect(() => { // the sun/moon toggle changes the theme too
     const o = new MutationObserver(() => redraw((n) => n + 1));
@@ -49,7 +49,7 @@ function Settings({ onClose }) {
     return () => o.disconnect();
   }, []);
   return (
-    <Win cls="settings" title="Settings" onClose={onClose}>
+    <Win cls="settings" title="Settings" onClose={onClose} top={top}>
       {Object.keys(OPTIONS).filter((k) => k !== "cursor" || matchMedia("(hover: hover) and (pointer: fine)").matches).map((k) => ( // no custom cursor on touch screens
         <div key={k} className="opt" role="group" aria-label={k}>
           <span>{k === "speed" ? "Auto Scroll" : k}</span>
@@ -73,12 +73,12 @@ function Settings({ onClose }) {
   );
 }
 
-function Contact({ onClose }) {
+function Contact({ onClose, top }) {
   const { email } = site.profile;
   const [copied, setCopied] = useState(false);
   const copy = () => navigator.clipboard?.writeText(email).then(() => { setCopied(true); setTimeout(() => setCopied(false), 1500); });
   return (
-    <Win cls="contact" title="Contact" onClose={onClose}>
+    <Win cls="contact" title="Contact" onClose={onClose} top={top}>
       <p>Say hi, or ask me anything.</p>
       <a className="addr" href={`mailto:${email}`}>{email}</a>
       <div className="opt">
@@ -92,7 +92,12 @@ function Contact({ onClose }) {
 export default function Windows() {
   const [open, setOpen] = useState({}); // which windows are showing: { settings, contact }
   const dropdown = () => matchMedia("(hover: none)").matches; // touch: one at a time, and a tap elsewhere closes it
-  const toggle = (w) => setOpen((o) => (dropdown() ? { [w]: !o[w] } : { ...o, [w]: !o[w] }));
+  const [tops, setTops] = useState({}); // where a second window opens: under the first, wherever that has been dragged to
+  const toggle = (w) => {
+    const other = document.querySelector(`.win.${w === "settings" ? "contact" : "settings"}`);
+    setTops((t) => ({ ...t, [w]: !dropdown() && other ? other.getBoundingClientRect().bottom + 16 : undefined }));
+    setOpen((o) => (dropdown() ? { [w]: !o[w] } : { ...o, [w]: !o[w] }));
+  };
   useEffect(() => {
     if (!dropdown() || !(open.settings || open.contact)) return;
     const away = (e) => !e.target.closest(".win, .opener") && setOpen({});
@@ -111,8 +116,8 @@ export default function Windows() {
           <MailOutlineIcon fontSize="small" />
         </button>
       )}
-      {open.settings && <Settings onClose={close("settings")} />}
-      {open.contact && <Contact onClose={close("contact")} />}
+      {open.settings && <Settings onClose={close("settings")} top={tops.settings} />}
+      {open.contact && <Contact onClose={close("contact")} top={tops.contact} />}
     </>
   );
 }
