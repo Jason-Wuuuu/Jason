@@ -85,6 +85,21 @@ function Row({ p, open }) {
     : asset(p.demoUrl || "");
   const stack = p.tech_stack?.split(/,\s*/).join(" · ");
   const video = /youtu\.?be|vimeo|\.mp4$/i.test(p.demoUrl); // a video is a "Demo"; anything else is the live site
+  const actions = ( // the live site first, as a button; shown above the screenshots on desktop and below them on phones
+    <div className="social">
+      {p.demoUrl && (
+        <a className="cta" href={demo} target="_blank" rel="noopener noreferrer">
+          {video ? <PlayCircleOutlineIcon fontSize="small" /> : <OpenInNewIcon fontSize="small" />}{" "}
+          {video ? "Watch demo" : "Try it live"}
+        </a>
+      )}
+      {p.githubUrl && (
+        <a href={p.githubUrl} target="_blank" rel="noopener noreferrer">
+          <GitHubIcon fontSize="small" /> Source
+        </a>
+      )}
+    </div>
+  );
   return (
     <details className="proj" open={open}>
       <summary>
@@ -97,21 +112,10 @@ function Row({ p, open }) {
         <Md text={p.description} />
         <div className="links">
           {stack && <p className="stack">{stack}</p>}
-          <div className="social">
-            {p.demoUrl && (
-              <a className="cta" href={demo} target="_blank" rel="noopener noreferrer">
-                {video ? <PlayCircleOutlineIcon fontSize="small" /> : <OpenInNewIcon fontSize="small" />}{" "}
-                {video ? "Watch demo" : "Try it live"}
-              </a>
-            )}
-            {p.githubUrl && (
-              <a href={p.githubUrl} target="_blank" rel="noopener noreferrer">
-                <GitHubIcon fontSize="small" /> Source
-              </a>
-            )}
-          </div>
+          {actions}
         </div>
         {p.screenshots.length > 0 && <Gallery p={p} />}
+        <div className="links after">{actions}</div>
       </div>
     </details>
   );
