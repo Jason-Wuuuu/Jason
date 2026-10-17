@@ -5,14 +5,15 @@ const SPEEDS = { slow: 50, normal: 90, fast: 160 }; // px per second of the auto
 export default function ProgressBar() {
   const ref = useRef(null);
   const [playing, setPlaying] = useState(false);
-  // Play = a slow auto-scroll tour of the page; any wheel, touch, key or click stops it, as does the end of the page.
+  // Play = a slow auto-scroll tour of the page; any wheel, touch, key or click stops it, as does the end of the page (press play there to go again from the top).
   useEffect(() => {
     if (!playing) return;
-    let raf, last = performance.now(), y = scrollY;
+    const max = () => document.documentElement.scrollHeight - innerHeight;
+    let raf, last = performance.now(), y = scrollY >= max() - 1 ? 0 : scrollY; // pressed at the end of the page: the tour starts over from the top
     const step = (t) => {
       y += ((t - last) * (SPEEDS[document.documentElement.dataset.speed] || SPEEDS.normal)) / 1000; last = t;
       scrollTo({ top: y, behavior: "instant" });
-      if (y >= document.documentElement.scrollHeight - innerHeight - 1) setPlaying(false);
+      if (y >= max() - 1) setPlaying(false);
       else raf = requestAnimationFrame(step);
     };
     raf = requestAnimationFrame(step);
