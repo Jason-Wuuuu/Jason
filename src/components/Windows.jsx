@@ -86,10 +86,14 @@ function Contact({ onClose }) {
 }
 
 export default function Windows() {
-  const [open, setOpen] = useState({}); // which windows are showing: { settings, contact }
+  const { email } = site.profile;
+  // which windows are showing: { settings, contact }. On a big screen both start open, next to the player card.
+  const [open, setOpen] = useState(() => {
+    const big = matchMedia("(min-width: 1200px) and (min-height: 720px) and (hover: hover)").matches;
+    return { settings: big, contact: big && !!email };
+  });
   const toggle = (w) => setOpen((o) => ({ ...o, [w]: !o[w] }));
   const close = (w) => () => setOpen((o) => ({ ...o, [w]: false }));
-  const { email } = site.profile;
   return (
     <>
       <button className="theme-toggle opener" style={{ "--n": 1 }} onClick={() => toggle("settings")} aria-label="Settings" aria-expanded={!!open.settings}>
