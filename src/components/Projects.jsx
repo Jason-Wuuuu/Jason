@@ -83,6 +83,7 @@ function Row({ p, open }) {
   const demo = /^(https?:|www)/.test(p.demoUrl)
     ? p.demoUrl
     : asset(p.demoUrl || "");
+  const stack = p.tech_stack?.split(/,\s*/).join(" · ");
   const video = /youtu\.?be|vimeo|\.mp4$/i.test(p.demoUrl); // a video is a "Demo"; anything else is the live site
   return (
     <details className="proj" open={open}>
@@ -90,10 +91,11 @@ function Row({ p, open }) {
         <span className="yr">{p.year}</span>
         <span className="ti">{p.title}</span>
         {p.demoUrl && <span className="live">{video ? "demo" : "live"}</span>}
+        {stack && <span className="sub">{stack}</span>}
       </summary>
       <div className="body">
         <Md text={p.description} />
-        {p.tech_stack && <p className="stack">{p.tech_stack.split(/,\s*/).join(" · ")}</p>}
+        {stack && <p className="stack">{stack}</p>}
         <div className="social">
           {p.demoUrl && (
             <a className="cta" href={demo} target="_blank" rel="noopener noreferrer">

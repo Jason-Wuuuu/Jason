@@ -103,6 +103,8 @@ footer { padding-block: 2.5rem 4.5rem; color: var(--mute); } /* bottom room just
 .cta:active { translate: 4px 4px; box-shadow: none; }
 .live { padding: 0 .45rem; font-size: .85rem; line-height: 1.35; letter-spacing: .1em; text-transform: uppercase; color: var(--on-accent); background: var(--accent); border: 2px solid var(--ink); } /* at the right end of the row header, so a project with something to open stands out when the row is closed */
 .stack { margin: .5rem 0 0; color: var(--mute); text-wrap: balance; }
+.sub { grid-column: 2; color: var(--mute); text-wrap: balance; } /* a closed row shows its stack under the name; an open one has it in the body */
+.proj[open] .sub { display: none; }
 .live::before { content: "●"; margin-right: .3em; font-size: .7em; }
 @media (prefers-reduced-motion: no-preference) { .live::before { animation: blink 1s steps(2) infinite; } }
 
@@ -145,7 +147,7 @@ footer { padding-block: 2.5rem 4.5rem; color: var(--mute); } /* bottom room just
 .filters button[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); }
 .proj { border-top: 3px dashed var(--ink); }
 .proj summary {
-  display: grid; grid-template-columns: 5rem minmax(0, 1fr) auto; gap: 1rem; align-items: baseline;
+  display: grid; grid-template-columns: 5rem minmax(0, 1fr) auto; gap: .2rem 1rem; align-items: baseline;
   padding: 1.1rem .75rem; margin-inline: -.75rem; cursor: pointer; list-style: none; /* side padding gives the hover brackets room; the negative margin keeps the text aligned */
 }
 .proj summary::-webkit-details-marker { display: none; }
@@ -247,7 +249,7 @@ html:has(.zoom) { overflow: hidden; }
 .about img { border: 4px solid var(--ink); box-shadow: var(--shadow); }
 @media (max-width: 700px) {
   .timeline > li { grid-template-columns: 1fr; gap: .5rem; }
-  .proj summary { grid-template-columns: 1fr; gap: .25rem; } .proj .live { justify-self: start; }
+  .proj summary { grid-template-columns: 1fr; gap: .25rem; } .proj .live { justify-self: start; } .proj .sub { grid-column: 1; }
   .proj .body { padding-left: 0; }
   .about { grid-template-columns: 1fr; }
   .prose { font-size: 1.15rem; } /* 1.4rem is 1.4x the body text; on a phone it's about the size of the card's tagline instead */
