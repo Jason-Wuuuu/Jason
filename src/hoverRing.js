@@ -126,7 +126,7 @@ function dvd(card, btn) {
     return { r, h, lo, hi };
   };
   let { lo, hi, h: hr } = box();
-  const field = Object.assign(document.createElement("i"), { className: "field" }); // corner brackets marking the card's whole range (4px outside it, where the wall lines are drawn), for as long as it bounces
+  const field = Object.assign(document.createElement("div"), { className: "field", innerHTML: "<i class=tl></i><i class=tr></i><i class=bl></i><i class=br></i>" }); // corner brackets marking the card's whole range (4px outside it, where the wall lines are drawn), for as long as it bounces
   Object.assign(field.style, { left: PAD - 4 + "px", top: hr.top + PAD - 4 + "px", width: innerWidth - 2 * PAD + 8 + "px", height: hr.height - 2 * PAD + 8 + "px" });
   document.body.append(field);
   let x = Math.min(hi[0], Math.max(lo[0], +card.dataset.x || 0)), y = Math.min(hi[1], Math.max(lo[1], +card.dataset.y || 0)), last = 0, raf = 0, pulse = 0, cheered = 0, hits = 0;
@@ -151,6 +151,8 @@ function dvd(card, btn) {
       if (corner && t - cheered > 800) { // one cheer per corner: the second wall of a corner hit also counts as "near"
         cheered = t;
         celebrate();
+        const lit = field.querySelector("." + ((hitY ? vy < 0 : y - lo[1] > hi[1] - y) ? "b" : "t") + ((hitX ? vx < 0 : x - lo[0] > hi[0] - x) ? "r" : "l")); // the bracket of the corner it reached (vx/vy have just flipped): bigger, in the accent, for a while
+        lit.classList.add("hit"); setTimeout(() => lit.classList.remove("hit"), 3000);
         [vx, vy] = aim(x, y, lo, hi, 260); // and a new random corner is lined up
       }
     }
