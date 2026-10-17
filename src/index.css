@@ -326,7 +326,7 @@ html:has(.zoom) { overflow: hidden; }
 .win.win.lifted { box-shadow: 12px 12px 0 var(--accent); } /* picked up: every window's shadow deepens in the accent (doubled class to beat .win.settings below) */
 .win > .bar { position: absolute; inset: 0 0 auto; display: flex; justify-content: space-between; align-items: center; padding: .15rem .75rem; background: var(--ink); color: var(--bg); letter-spacing: .15em; touch-action: none; user-select: none; }
 .wm { display: flex; gap: .4rem; letter-spacing: 0; }
-.wm button { width: 1.15rem; height: 1.15rem; padding: 0; display: grid; place-items: center; line-height: 1; font-size: 1rem; background: var(--live); border: 2px solid var(--live); color: var(--on-accent); } /* the window bar's × and ▶ are red, whatever colour the bar is */
+.wm button { width: 1.15rem; height: 1.15rem; padding: 0; display: grid; place-items: center; line-height: 1; font-size: 1rem; background: var(--live); border: 2px solid var(--live); color: var(--on-accent); box-shadow: 0 0 0 2px #1c1c1e; } /* the window bar's × and ▶ are red with a black ring, whatever colour the bar is */
 /* an easter egg (hoverRing.js): the card bounces around like a DVD screensaver; desktop only, like dragging it */
 .bounce::before { content: "▶"; font-size: .6rem; }
 .card.dvd .bounce::before { content: "■"; }
