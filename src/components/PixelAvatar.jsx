@@ -23,7 +23,7 @@ export default function PixelAvatar() {
         { duration: 700, easing: "ease-in-out", composite: "add" }, // adds onto the float/hop transform instead of replacing it
       );
     const n = count.current++;
-    setHi({ n, text: say || GREETINGS[n % GREETINGS.length] });
+    setHi({ n, text: say || GREETINGS[n % GREETINGS.length], shout: !!say });
     clearTimeout(hideTimer.current);
     hideTimer.current = setTimeout(() => setHi(null), 2600);
   };
@@ -82,7 +82,7 @@ export default function PixelAvatar() {
         aria-label="Profile picture of Jason (click to say hi)"
         onClick={() => greet()}
       />
-      <div role="status">{hi && <span key={hi.n} className="bubble">{hi.text}</span>}</div>
+      <div role="status">{hi && <span key={hi.n} className={hi.shout ? "bubble shout" : "bubble"}>{hi.text}</span>}</div>
     </div>
   );
 }

@@ -427,6 +427,8 @@ html:has(.zoom) { overflow: hidden; }
   content: ""; position: absolute; left: -9px; top: .5rem; width: 10px; height: 10px; rotate: 45deg;
   background: var(--bg); border-left: 3px solid var(--ink); border-bottom: 3px solid var(--ink);
 }
+.bubble.shout { padding: .1rem .8rem; font-size: 1.6rem; color: var(--on-accent); background: var(--accent); } /* "CORNER!" (hoverRing.js): bigger, in the accent */
+.bubble.shout::before { background: var(--accent); }
 @media (min-width: 901px), (max-width: 700px) { /* under the avatar; beside it would cover the name on the phone card */
   .bubble { left: 0; top: calc(100% + 14px); }
   .bubble::before { left: 20px; top: -9px; border-bottom: 0; border-top: 3px solid var(--ink); }
