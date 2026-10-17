@@ -42,7 +42,7 @@ export default function Lightbox({ shots, title, at, onAt, onClose }) {
   if (win)
     return createPortal(
       <Win cls="shotwin" title={n > 1 ? `${title} · ${at + 1}/${n}` : title} onClose={onClose}>
-        <Shot ref={pic} controls src={shots[at]} alt={`${title} screenshot`} onLoad={(e) => fit(e.currentTarget)} />
+        <Shot ref={pic} src={shots[at]} alt={`${title} screenshot`} onLoad={(e) => fit(e.currentTarget)} />
         {n > 1 && nav}
       </Win>,
       document.body,
