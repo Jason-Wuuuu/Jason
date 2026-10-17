@@ -38,7 +38,8 @@ function set(el) {
   if (el && el !== shown) {
     nudge(); // let go of the previous target's neighbours
     const a = el.getBoundingClientRect();
-    kids = [...(el.parentElement?.children || [])].filter((c) => c !== el && c !== ring && !c.matches('.bubble, [role="status"]')).map((c) => {
+    kids = el.matches(".play") ? [] : // the play button's siblings are the whole page: nothing to nudge
+      [...(el.parentElement?.children || [])].filter((c) => c !== el && c !== ring && !c.matches('.bubble, [role="status"]')).map((c) => {
       const b = c.getBoundingClientRect(), dx = b.left + b.width / 2 - a.left - a.width / 2, dy = b.top + b.height / 2 - a.top - a.height / 2, n = Math.hypot(dx, dy) || 1;
       return { c, ux: dx / n, uy: dy / n };
     });

@@ -1,8 +1,26 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
+const SPEED = 90; // px per second of the auto-scroll
 // Scroll progress: a dashed lane at the bottom of the screen with an accent fill.
 export default function ProgressBar() {
   const ref = useRef(null);
+  const [playing, setPlaying] = useState(false);
+  // Play = a slow auto-scroll tour of the page; any wheel, touch, key or click stops it, as does the end of the page.
+  useEffect(() => {
+    if (!playing) return;
+    let raf, last = performance.now(), y = scrollY;
+    const step = (t) => {
+      y += ((t - last) * SPEED) / 1000; last = t;
+      scrollTo({ top: y, behavior: "instant" });
+      if (y >= document.documentElement.scrollHeight - innerHeight - 1) setPlaying(false);
+      else raf = requestAnimationFrame(step);
+    };
+    raf = requestAnimationFrame(step);
+    const stop = (e) => e.target.closest?.(".play") || setPlaying(false);
+    const evs = ["wheel", "touchstart", "keydown", "pointerdown"];
+    evs.forEach((n) => addEventListener(n, stop, { passive: true }));
+    return () => { cancelAnimationFrame(raf); evs.forEach((n) => removeEventListener(n, stop)); };
+  }, [playing]);
   useEffect(() => {
     const secs = [...document.querySelectorAll("main > section")];
     const at = () => secs.filter((s) => s.getBoundingClientRect().top < innerHeight / 2).length; // sections whose top has passed mid-screen
@@ -29,9 +47,12 @@ export default function ProgressBar() {
     scrollTo({ top: Math.min(1, Math.max(0, (e.clientX - r.left) / r.width)) * (document.documentElement.scrollHeight - innerHeight), behavior: "instant" });
   };
   return (
-    <div ref={ref} className="track" aria-hidden="true">
-      <span className="fill" />
-      <span className="grip" onAnimationEnd={(e) => e.currentTarget.classList.remove("pop")} onPointerDown={drag} onPointerMove={drag} />
-    </div>
+    <>
+      <button className="play" data-on={playing} aria-pressed={playing} aria-label="Auto-scroll the page" onClick={() => setPlaying((p) => !p)} />
+      <div ref={ref} className="track" aria-hidden="true">
+        <span className="fill" />
+        <span className="grip" onAnimationEnd={(e) => e.currentTarget.classList.remove("pop")} onPointerDown={drag} onPointerMove={drag} />
+      </div>
+    </>
   );
 }

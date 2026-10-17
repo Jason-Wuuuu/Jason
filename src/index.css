@@ -427,10 +427,14 @@ html:has(.zoom) { overflow: hidden; }
   .dock[data-pos] {
     left: auto; right: 1.25rem; bottom: 50%; transform: translateY(50%);
     flex-direction: column; align-items: stretch; gap: .6rem; font-size: .85rem;
-    translate: 0 calc((2 - var(--i, 2)) * 2.6rem); /* the current button rides the vertical centre; 2.6rem ≈ one button + gap */
+    translate: 0 calc((2 - var(--i, 2)) * (2.6rem + 8px)); /* the current button rides the vertical centre; 2.6rem + 8px ≈ one button + gap + the extra step */
   }
-  .dock[data-pos] a { justify-content: center; scale: calc(1.28 - .09 * var(--d, 1)); opacity: calc(1 - .14 * var(--d, 1)); } /* farther from the current one = fainter, so the column sits lighter over the page */
+  .dock[data-pos] a { position: relative; transform-origin: right center; /* scaling anchors at the right edge, so every button's right side lines up */ top: calc(var(--s, 0) * 8px); /* each button steps 8px further from the current one than the last: more room all the way along (--s: signed distance, Dock.jsx) */ justify-content: center; scale: calc(1.28 - .09 * var(--d, 1)); opacity: calc(1 - .14 * var(--d, 1)); } /* farther from the current one = fainter, so the column sits lighter over the page */
   .dock[data-pos] a:hover, .dock[data-pos] a:focus-visible { opacity: 1; } /* fisheye, only in the vertical column: the current section biggest, shrinking with distance (Dock.jsx) */
+  /* hover in the column: just a nudge toward the page and a deeper shadow; no label roll, no colour change */
+  .dock[data-pos] a:hover { translate: -5px 0; box-shadow: 8px 3px 0 var(--ink); }
+  .dock[data-pos] a:not([aria-current="true"]):hover { color: var(--ink); }
+  .dock[data-pos] a:hover .lb > span, .dock[data-pos] a:hover .lb::after { translate: none; }
   .dock[data-pos] .theme-toggle { justify-content: center; }
 }
 @media (min-width: 1280px) and (prefers-reduced-motion: no-preference) {
@@ -472,16 +476,30 @@ html:has(.zoom) { overflow: hidden; }
   border-bottom: 3px dashed color-mix(in srgb, var(--ink) 35%, transparent);
 }
 .track .fill { position: absolute; left: 0; bottom: -3px; height: 3px; width: calc(100% * var(--p)); background: var(--accent); }
-/* the arrow over the head of the fill is a 32px grab area (ProgressBar.jsx); a pixel "v" floats in it */
-.grip { position: absolute; left: calc(var(--p) * 100%); bottom: 0; width: 32px; height: 32px; translate: -50% 0; pointer-events: auto; touch-action: none; }
+/* the scrubber: a square dot on the head of the fill (ProgressBar.jsx); the 32px box around it is the grab area. It grows when pointed at or dragged. */
+.grip { position: absolute; left: calc(var(--p) * 100%); bottom: 0; width: 32px; height: 32px; translate: -50% 0; pointer-events: auto; touch-action: none; cursor: pointer; }
 .grip::before {
-  content: ""; position: absolute; left: 4px; bottom: 8px; width: 24px; height: 12px; background: var(--accent);
-  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='12' viewBox='0 0 8 4' shape-rendering='crispEdges'%3E%3Crect x='0' y='0' width='1' height='1'/%3E%3Crect x='1' y='0' width='1' height='1'/%3E%3Crect x='6' y='0' width='1' height='1'/%3E%3Crect x='7' y='0' width='1' height='1'/%3E%3Crect x='1' y='1' width='1' height='1'/%3E%3Crect x='2' y='1' width='1' height='1'/%3E%3Crect x='5' y='1' width='1' height='1'/%3E%3Crect x='6' y='1' width='1' height='1'/%3E%3Crect x='2' y='2' width='1' height='1'/%3E%3Crect x='3' y='2' width='1' height='1'/%3E%3Crect x='4' y='2' width='1' height='1'/%3E%3Crect x='5' y='2' width='1' height='1'/%3E%3Crect x='3' y='3' width='1' height='1'/%3E%3Crect x='4' y='3' width='1' height='1'/%3E%3C/svg%3E") center / 100% 100%; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='12' viewBox='0 0 8 4' shape-rendering='crispEdges'%3E%3Crect x='0' y='0' width='1' height='1'/%3E%3Crect x='1' y='0' width='1' height='1'/%3E%3Crect x='6' y='0' width='1' height='1'/%3E%3Crect x='7' y='0' width='1' height='1'/%3E%3Crect x='1' y='1' width='1' height='1'/%3E%3Crect x='2' y='1' width='1' height='1'/%3E%3Crect x='5' y='1' width='1' height='1'/%3E%3Crect x='6' y='1' width='1' height='1'/%3E%3Crect x='2' y='2' width='1' height='1'/%3E%3Crect x='3' y='2' width='1' height='1'/%3E%3Crect x='4' y='2' width='1' height='1'/%3E%3Crect x='5' y='2' width='1' height='1'/%3E%3Crect x='3' y='3' width='1' height='1'/%3E%3Crect x='4' y='3' width='1' height='1'/%3E%3C/svg%3E") center / 100% 100%;
+  content: ""; position: absolute; left: 50%; bottom: -1.5px; width: 12px; height: 12px; translate: -50% 50%; /* centred on the line */
+  background: var(--accent); box-shadow: 0 0 0 2px var(--bg); transition: scale .12s steps(2);
+}
+@media (hover: hover) { .grip:hover::before { scale: 1.35; } }
+.grip:active::before { scale: 1.35; }
+/* play: a circled pixel play/pause glyph beside the left end of the lane (ProgressBar.jsx); desktop only, since touch screens already scroll by finger */
+.play { display: none; }
+@media (hover: hover) and (min-width: 901px) and (prefers-reduced-motion: no-preference) {
+  .track { left: 3.75rem; bottom: calc(1.6rem + env(safe-area-inset-bottom)); } /* lane lifted a little so the circle clears the bottom edge */
+  .play {
+    display: block; position: fixed; left: 1.25rem; bottom: calc(1.6rem + 1.5px - 15px + env(safe-area-inset-bottom)); z-index: 9; width: 30px; height: 30px; padding: 0; cursor: pointer;
+    color: var(--ink); background: var(--bg); border: 3px solid currentColor; border-radius: 50% !important; /* the round exception, by request (the page resets every radius with !important) */
+  }
+  .play::before { content: ""; position: absolute; inset: 0; margin: auto; width: 16px; height: 16px; background: currentColor; -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 5 5' shape-rendering='crispEdges'%3E%3Crect x='1' y='0' width='1' height='5'/%3E%3Crect x='2' y='1' width='1' height='3'/%3E%3Crect x='3' y='2' width='1' height='1'/%3E%3C/svg%3E") center / 100% 100% no-repeat; translate: 1px 0; } /* 1px right: a play triangle looks centred when nudged toward its point */
+  .play:hover { color: var(--accent); }
+  .play[data-on="true"] { color: var(--accent); }
+  .play[data-on="true"]::before { -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 5 5' shape-rendering='crispEdges'%3E%3Crect x='1' y='0' width='1' height='5'/%3E%3Crect x='3' y='0' width='1' height='5'/%3E%3C/svg%3E"); translate: 0; }
 }
 @media (hover: none) and (orientation: landscape) { .track { display: none; } } /* touch screens held sideways (iPad): no progress line */
-@keyframes bob { 50% { translate: 0 -4px; } }
-@keyframes pop { 50% { translate: 0 -20px; } to { rotate: 360deg; } }
-@media (prefers-reduced-motion: no-preference) { .grip::before { animation: bob 1s steps(2) infinite; } .grip.pop::before { animation: pop .5s steps(6); } } /* a new section: hop and spin once, then back to bobbing */
+@keyframes pop { 50% { scale: 1.6; } }
+@media (prefers-reduced-motion: no-preference) { .grip.pop::before { animation: pop .4s steps(4); } } /* a new section: the dot swells once */
 
 /* a soft blur under the bottom dock so body text doesn't run between its buttons */
 body::after {

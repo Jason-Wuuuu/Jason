@@ -33,7 +33,7 @@ export default function Dock() {
       });
       c = Math.min(LINKS.length - 1, Math.max(0, c));
       nav.current.style.setProperty("--i", c);
-      LINKS.forEach((_, i) => nav.current.children[i].style.setProperty("--d", Math.abs(i - c)));
+      LINKS.forEach((_, i) => { nav.current.children[i].style.setProperty("--d", Math.abs(i - c)); nav.current.children[i].style.setProperty("--s", i - c); });
       setSide(scrollY > 120);
     };
     update();
