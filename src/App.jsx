@@ -34,14 +34,14 @@ export default function App() {
     return () => removeEventListener("scroll", update);
   }, []);
 
-  // Slight fisheye / scroll-barrel: rows shrink toward the top and bottom of the screen. No 3D tilt: with `perspective`, Chrome hit-tests a tilted row away from where it is drawn, so hover and clicks missed it.
+  // Slight fisheye / scroll-barrel: rows (a project's title, description, screenshots and skill tree each count as one: the whole project is too tall) shrink toward the top and bottom of the screen. No 3D tilt: with `perspective`, Chrome hit-tests a tilted row away from where it is drawn, so hover and clicks missed it.
   useEffect(() => {
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     let raf = 0;
     const apply = () => {
       raf = 0;
       const h = innerHeight;
-      for (const el of document.querySelectorAll("main section:not(.hero) :is(h2, .timeline > li, .proj, .about > *)")) {
+      for (const el of document.querySelectorAll("main section:not(.hero) :is(h2, .timeline > li, .proj > summary, .proj .body > *, .about > *)")) {
         const r = el.getBoundingClientRect();
         if (r.height > h * 0.8) { el.style.scale = ""; continue; } // a row taller than the screen has its centre off-screen, so it would stay shrunk and its top edge slide down by 6% of its height
         const d = Math.max(-1, Math.min(1, (r.top + r.height / 2 - h / 2) / (h / 2))); // -1 top edge .. 1 bottom edge
