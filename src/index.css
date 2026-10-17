@@ -326,7 +326,7 @@ html:has(.zoom) { overflow: hidden; }
 .win.win.lifted { box-shadow: 12px 12px 0 var(--accent); } /* picked up: every window's shadow deepens in the accent (doubled class to beat .win.settings below) */
 .win > .bar { position: absolute; inset: 0 0 auto; display: flex; justify-content: space-between; align-items: center; padding: .15rem .75rem; background: var(--ink); color: var(--bg); letter-spacing: .15em; touch-action: none; user-select: none; }
 .wm { display: flex; gap: .4rem; letter-spacing: 0; }
-.wm button { width: 1.15rem; height: 1.15rem; padding: 0; display: grid; place-items: center; line-height: 1; font-size: 1rem; background: var(--live); border: 2px solid var(--live); color: var(--on-accent); box-shadow: 0 0 0 2px var(--on-accent); } /* the window bar's × and ▶ are red, ringed so they read on any bar colour */
+.wm button { width: 1.15rem; height: 1.15rem; padding: 0; display: grid; place-items: center; line-height: 1; font-size: 1rem; background: var(--live); border: 2px solid var(--live); color: var(--on-accent); } /* the window bar's × and ▶ are red, whatever colour the bar is */
 /* an easter egg (hoverRing.js): the card bounces around like a DVD screensaver; desktop only, like dragging it */
 .bounce::before { content: "▶"; font-size: .6rem; }
 .card.dvd .bounce::before { content: "■"; }
@@ -363,7 +363,7 @@ html:has(.zoom) { overflow: hidden; }
 @media (hover: hover) { .shotwin .zoom-n:not(:disabled):hover { border-color: var(--accent); } .shotwin .zoom-n:not(:disabled):hover::before { background: var(--accent); } }
 /* first opened right under the top-right buttons; a second one opens below the first with a gap (Windows.jsx sets its top). Touch screens (iPads) get the same spot as a dropdown, one at a time */
 .win.settings, .win.contact { left: auto; right: 1.25rem; top: calc(3.4rem + 3px); bottom: auto; translate: none; width: min(26rem, calc(100vw - 2.5rem)); padding: 2.75rem 1.5rem 1.1rem; } /* every vertical gap is .6rem or 1.1rem: .6rem below the top buttons (clearing their shadow), 1.1rem from the title bar to the first row, between rows and to the bottom edge */
-.win.settings > .bar, .win.contact > .bar, .win.shotwin > .bar { background: color-mix(in srgb, var(--ink) 60%, var(--bg)); } /* dimmer than the typing test's, so the white cursor and the corner don't blend into it */
+.win.settings > .bar, .win.contact > .bar, .win.shotwin > .bar { background: color-mix(in srgb, var(--ink) 64%, var(--bg)); } /* dimmer than the typing test's, so the white cursor and the corner don't blend into it */
 .win p { margin: 0 0 .9rem; }
 .win.settings > .bar + *, .win.contact > .bar + * { margin-top: 0; } /* the first row sits right under the bar */
 .win.contact > :not(.bar) { margin: 0; } /* the paragraph's own margins would break the 1.1rem rhythm */
@@ -387,10 +387,10 @@ html:has(.zoom) { overflow: hidden; }
 :root[data-accent="red"] { --al: #c63838; --ad: #ff7b7b; }
 :root[data-accent="purple"] { --al: #7b4fd1; --ad: #b497ff; }
 /* every accent, for the bouncing card's bar to cycle through (hoverRing.js picks two that are not the current accent) */
-:root { --live: #dc1c26; } /* a true red for "live" and "close", not one of the accent choices; its dark pair is in the two dark blocks below */
+:root { --live: #c63838; } /* the red of "live" and "close" (the same as the red accent's colours); its dark pair is in the two dark blocks below */
 :root { --k-blue: #2d69d0; --k-green: #1c7c44; --k-orange: #ab5509; --k-red: #c63838; --k-purple: #7b4fd1; }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --live: #ff3b3b; --k-blue: #5aa2ff; --k-green: #4fd08a; --k-orange: #ffa24d; --k-red: #ff7b7b; --k-purple: #b497ff; } }
-:root[data-theme="dark"] { --live: #ff3b3b; --k-blue: #5aa2ff; --k-green: #4fd08a; --k-orange: #ffa24d; --k-red: #ff7b7b; --k-purple: #b497ff; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --live: #ff7b7b; --k-blue: #5aa2ff; --k-green: #4fd08a; --k-orange: #ffa24d; --k-red: #ff7b7b; --k-purple: #b497ff; } }
+:root[data-theme="dark"] { --live: #ff7b7b; --k-blue: #5aa2ff; --k-green: #4fd08a; --k-orange: #ffa24d; --k-red: #ff7b7b; --k-purple: #b497ff; }
 .respawn { width: 100%; margin: 0; display: flex; flex-direction: column; align-items: center; gap: 1.25rem; text-align: center; font-size: 1.4rem; color: var(--mute); }
 .respawn button { display: inline-flex; align-items: center; gap: .6rem; padding: .35rem 1.25rem; font: inherit; color: var(--on-accent); background: var(--accent); border: 3px solid var(--ink); box-shadow: 4px 4px 0 var(--ink); letter-spacing: .1em; text-transform: uppercase; cursor: pointer; } /* a game menu button, like "Press start" */
 .respawn button::before { content: "▶"; font-size: .8em; animation: blink 1s steps(2) infinite; } /* the blinking selector */
