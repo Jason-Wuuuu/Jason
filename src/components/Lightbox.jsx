@@ -6,11 +6,12 @@ import { Win } from "./Windows";
 
 // A project screenshot at full size. On desktop it is a draggable window like Settings and Contact (no backdrop, the page stays usable; Esc or × closes). On phones it is the full-screen viewer: click or tap anywhere (but a video, which has its own controls) to close; a swipe or the prev/next buttons move between shots.
 // Arrow keys move between shots in both. A fixed div rather than a <dialog>: the top layer would sit above the pixel cursor, which is a page element.
-export default function Lightbox({ shots, title, at, onAt, onClose }) {
+export default function Lightbox({ shots, captions, title, at, onAt, onClose }) {
   const box = useRef(null);
   const pic = useRef(null);
   const x0 = useRef(0);
   const n = shots.length;
+  const cap = captions?.[at];
   const [win] = useState(() => matchMedia("(min-width: 701px) and (hover: hover)").matches);
   useEffect(() => {
     if (win) return;
@@ -41,7 +42,7 @@ export default function Lightbox({ shots, title, at, onAt, onClose }) {
   );
   if (win)
     return createPortal(
-      <Win cls="shotwin" title={n > 1 ? `${title} · ${at + 1}/${n}` : title} onClose={onClose}>
+      <Win cls="shotwin" title={[title, cap, n > 1 && `${at + 1}/${n}`].filter(Boolean).join(" · ")} onClose={onClose}>
         <Shot key={shots[at]} ref={pic} src={shots[at]} alt={`${title} screenshot`} onLoad={(e) => fit(e.currentTarget)} />
         {n > 1 && nav}
       </Win>,
@@ -61,6 +62,7 @@ export default function Lightbox({ shots, title, at, onAt, onClose }) {
       onTouchEnd={(e) => { const d = e.changedTouches[0].clientX - x0.current; if (Math.abs(d) > 50) step(d < 0 ? 1 : -1); }}
     >
       <Shot key={shots[at]} ref={pic} controls src={shots[at]} alt={`${title} screenshot`} onLoad={(e) => fit(e.currentTarget)} />
+      {cap && <p className="zoom-cap">{cap}</p>}
       <button className="zoom-x" onClick={onClose} aria-label="Close">×</button>
       {nav}
     </div>,

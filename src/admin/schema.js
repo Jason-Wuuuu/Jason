@@ -71,6 +71,7 @@ export const sections = [
       { key: "githubUrl", label: "GitHub URL", type: "text" },
       { key: "demoUrl", label: "Demo URL (or a file in /public)", type: "text" },
       { key: "screenshots", label: "Screenshots", type: "images" },
+      { key: "captions", label: "Screenshot captions (one line each, in the same order as the screenshots; a blank line = no caption)", type: "lines" },
       { key: "featured", label: "Featured (shown on the default tab)", type: "bool" },
     ],
   },

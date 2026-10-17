@@ -57,7 +57,7 @@ function Gallery({ p }) {
         ))}
       </div>
       </div>
-      {big !== null && <Lightbox shots={p.screenshots} title={p.title} at={big} onAt={view} onClose={() => setBig(null)} />}
+      {big !== null && <Lightbox shots={p.screenshots} captions={p.captions} title={p.title} at={big} onAt={view} onClose={() => setBig(null)} />}
       {n > 1 && (
         <div className="bars">
           {p.screenshots.map((s, i) => (
@@ -71,6 +71,7 @@ function Gallery({ p }) {
           ))}
         </div>
       )}
+      {p.captions?.[at] && <p className="cap">{p.captions[at]}</p>}
     </>
   );
 }

@@ -104,6 +104,12 @@
         "pokemon_interactive_map/pokemon_interactive_map_2.png",
         "pokemon_interactive_map/pokemon_interactive_map_3.png"
       ],
+      "captions": [
+        "Walkthrough demo",
+        "RBGY",
+        "Gen2 Kanto",
+        "Gen2 Kanto+Johto"
+      ],
       "featured": true
     },
     {
@@ -119,6 +125,11 @@
         "marketlens/marketlens_1.png",
         "marketlens/marketlens_2.png",
         "marketlens/marketlens_3.png"
+      ],
+      "captions": [
+        "Overview page",
+        "Holdings page",
+        "Performance page"
       ],
       "featured": true
     },
