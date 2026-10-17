@@ -67,12 +67,13 @@ if (matchMedia("(hover: hover) and (pointer: fine)").matches) {
 // The player card and the typing test window drag by their title bars, in whole 4px steps, and stays where it is dropped (double-click the bar to put it back).
 const SNAP = 4, BAR = ".card > .bar, .win > .bar";
 const place = (card, x, y) => { card.dataset.x = x; card.dataset.y = y; card.style.setProperty("--dx", x + "px"); card.style.setProperty("--dy", y + "px"); };
-// A pixel shockwave where the bouncing card hits a wall: two square rings step outwards from the contact point and fade.
+// A pixel shockwave where the bouncing card hits a wall: three square rings (accent, ink, accent) step outwards from the contact point and fade.
 function thud(x, y) {
   if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  [0, 90].forEach((d) => {
+  [0, 110, 220].forEach((d, i) => {
     const el = Object.assign(document.createElement("i"), { className: "thud", onanimationend: () => el.remove() });
     Object.assign(el.style, { left: x + "px", top: y + "px", animationDelay: d + "ms" });
+    if (i === 1) el.style.borderColor = "var(--ink)";
     document.body.append(el);
   });
 }
