@@ -137,7 +137,7 @@ export default function Projects() {
           <Row
             key={i}
             p={p}
-            open={(!grouped || cat === "Featured") && i === 0}
+            open={shown.length <= 3 || ((!grouped || cat === "Featured") && i === 0)} // a short list is all open; a long one opens just the first
           />
         ))}
       </div>
