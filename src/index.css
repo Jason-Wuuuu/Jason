@@ -112,7 +112,7 @@ footer { padding-block: 2.5rem 4.5rem; color: var(--mute); } /* bottom room just
 .tree .row:first-child::after { top: 1.1rem; height: calc(100% - 1.1rem); }
 .tree .row:last-child::after { height: 2.2rem; }
 .tree .row:first-child:last-child::after { display: none; }
-.tree .n { border: 2px solid var(--accent); background: var(--panel); box-shadow: 3px 3px 0 var(--accent); padding: .35rem .7rem; white-space: nowrap; }
+.tree .n { border: 2px solid var(--accent); background: var(--panel); box-shadow: 3px 3px 0 var(--accent); padding: .35rem .7rem; white-space: nowrap; font: inherit; color: inherit; text-align: left; cursor: default; }
 .tree .kid { position: relative; margin-left: 2.2rem; display: flex; flex-direction: column; gap: .8rem; max-width: 30rem; min-width: 0; }
 .tree .kid::before { content: ""; position: absolute; left: -2.2rem; top: 1.1rem; width: 2.2rem; border-top: 2px solid var(--ink); }
 .tree .leaf { position: relative; border: 2px dashed var(--mute); padding: .35rem .7rem; color: var(--mute); line-height: 1.35; }
@@ -286,7 +286,10 @@ html:has(.zoom) { overflow: hidden; }
   .tree .kids { margin: 1.1rem 0 0 1rem; }
   .tree .kids::before { left: 0; top: -1.1rem; width: 0; height: 2.2rem; border-top: 0; border-left: 2px solid var(--ink); }
   .tree .row { flex-direction: column; margin-left: 1.4rem; }
-  .tree .n { align-self: flex-start; white-space: normal; }
+  .tree .n { align-self: flex-start; white-space: normal; cursor: pointer; }
+  .tree .n::after { content: "\25B8"; margin-left: .6rem; color: var(--accent); }
+  .tree .row[data-open="true"] .n::after { content: "\25BE"; }
+  .tree .row[data-open="false"] .kid { display: none; }
   .tree .kid { margin: .8rem 0 0 1.4rem; max-width: none; }
   .tree .kid::before { display: none; }
   .tree .leaf:not(.k)::before { content: ""; position: absolute; left: 1rem; top: -.8rem; height: .8rem; border-left: 2px solid var(--ink); }

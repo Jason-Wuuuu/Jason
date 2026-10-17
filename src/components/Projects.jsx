@@ -91,26 +91,33 @@ const parseSkills = (lines) =>
     return out;
   }, []);
 
+function SkillRow({ s, first }) {
+  const [open, setOpen] = useState(first); // phones open a skill by tap; wider screens always show everything (CSS)
+  return (
+    <div className="row" data-open={open}>
+      <button className="n" aria-expanded={open} onClick={() => setOpen(!open)}>{s.name}</button>
+      <div className="kid">
+        {s.note && <p className="leaf">{s.note}</p>}
+        {s.subs.map((t) => {
+          const [head, ...rest] = t.split(": "); // "Title: text" gives the sub-skill a title
+          return (
+            <p className="leaf k" key={t}>
+              {rest.length ? <><b>{head}</b>{rest.join(": ")}</> : t}
+            </p>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 function SkillTree({ lines }) {
   return (
     <div className="tree">
       <span className="root">What I learned</span>
       <div className="kids">
-        {parseSkills(lines).map((s) => (
-          <div className="row" key={s.name}>
-            <span className="n">{s.name}</span>
-            <div className="kid">
-              {s.note && <p className="leaf">{s.note}</p>}
-              {s.subs.map((t) => {
-                const [head, ...rest] = t.split(": "); // "Title: text" gives the sub-skill a title
-                return (
-                  <p className="leaf k" key={t}>
-                    {rest.length ? <><b>{head}</b>{rest.join(": ")}</> : t}
-                  </p>
-                );
-              })}
-            </div>
-          </div>
+        {parseSkills(lines).map((s, i) => (
+          <SkillRow key={s.name} s={s} first={i === 0} />
         ))}
       </div>
     </div>
