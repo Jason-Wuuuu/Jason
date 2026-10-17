@@ -90,7 +90,7 @@ function Row({ p, open }) {
       <summary>
         <span className="yr">{p.year}</span>
         <span className="ti">{p.title}</span>
-        {p.demoUrl && <span className="live">{video ? "demo" : "live"}</span>}
+        {p.demoUrl && <span className={video ? "live demo" : "live"}>{video ? "demo" : "live"}</span>}
         {stack && <span className="sub">{stack}</span>}
       </summary>
       <div className="body">

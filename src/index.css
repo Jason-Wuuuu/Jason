@@ -102,11 +102,13 @@ footer { padding-block: 2.5rem 4.5rem; color: var(--mute); } /* bottom room just
 .cta { padding: .3rem 1rem; color: var(--on-accent); background: var(--accent); border: 3px solid var(--ink); box-shadow: 4px 4px 0 var(--ink); letter-spacing: .1em; text-transform: uppercase; text-decoration: none; }
 .cta:hover { translate: -2px -2px; box-shadow: 6px 6px 0 var(--ink); }
 .cta:active { translate: 4px 4px; box-shadow: none; }
-.live { padding: 0 .45rem; font-size: .85rem; line-height: 1.35; letter-spacing: .1em; text-transform: uppercase; color: var(--on-accent); background: var(--accent); border: 2px solid var(--ink); } /* at the right end of the row header, so a project with something to open stands out when the row is closed */
+.live { display: inline-flex; align-items: center; padding: 0 .45rem; font-size: .85rem; line-height: 1.35; letter-spacing: .1em; text-transform: uppercase; color: var(--on-accent); background: var(--accent); border: 2px solid var(--ink); } /* at the right end of the row header, so a project with something to open stands out when the row is closed */
 .stack { flex: 1 1 14rem; margin: 0; color: var(--mute); text-wrap: balance; }
 .sub { grid-column: 2; color: var(--mute); text-wrap: balance; } /* a closed row shows its stack under the name; an open one has it in the body */
 .proj[open] .sub { display: none; }
-.live::before { content: "●"; margin-right: .3em; font-size: .7em; }
+.live::before { content: ""; width: .4em; height: .4em; margin-right: .5em; background: var(--k-red); box-shadow: 0 0 0 2px var(--on-accent); } /* the "on air" dot: red, ringed so it reads on the accent */
+.live.demo::before { background: currentColor; } /* a recorded demo isn't live */
+:root[data-accent="red"] .live:not(.demo)::before { background: var(--on-accent); box-shadow: none; } /* red on a red badge would vanish */
 @media (prefers-reduced-motion: no-preference) { .live::before { animation: blink 1s steps(2) infinite; } }
 
 /* typing test: the one loud moment */
@@ -137,7 +139,7 @@ footer { padding-block: 2.5rem 4.5rem; color: var(--mute); } /* bottom room just
 /* quest-log bullets: a pixel checkbox with a tick (the sub-points keep the plain square) */
 .timeline ul { list-style: none; padding-left: 1.75rem; }
 .timeline ul > li { position: relative; }
-.timeline ul > li::before { content: ""; position: absolute; left: -1.75rem; top: .45em; width: 1rem; height: 1rem; background: var(--accent); -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 7 7' shape-rendering='crispEdges'%3E%3Cpath d='M0 0h7v1H0zM0 6h7v1H0zM0 0h1v7H0zM6 0h1v7H6zM1 3h1v1H1zM2 4h1v1H2zM3 3h1v1H3zM4 2h1v1H4z'/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 7 7' shape-rendering='crispEdges'%3E%3Cpath d='M0 0h7v1H0zM0 6h7v1H0zM0 0h1v7H0zM6 0h1v7H6zM1 3h1v1H1zM2 4h1v1H2zM3 3h1v1H3zM4 2h1v1H4z'/%3E%3C/svg%3E") center / contain no-repeat; }
+.timeline ul > li::before { content: ""; position: absolute; left: -1.75rem; top: .18em; width: 1rem; height: 1rem; background: var(--accent); -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 7 7' shape-rendering='crispEdges'%3E%3Cpath d='M0 0h7v1H0zM0 6h7v1H0zM0 0h1v7H0zM6 0h1v7H6zM1 3h1v1H1zM2 4h1v1H2zM3 3h1v1H3zM4 2h1v1H4z'/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 7 7' shape-rendering='crispEdges'%3E%3Cpath d='M0 0h7v1H0zM0 6h7v1H0zM0 0h1v7H0zM6 0h1v7H6zM1 3h1v1H1zM2 4h1v1H2zM3 3h1v1H3zM4 2h1v1H4z'/%3E%3C/svg%3E") center / contain no-repeat; }
 .timeline ul ul { list-style: square; padding-left: 1.2rem; }
 .timeline ul ul > li::before { display: none; }
 
