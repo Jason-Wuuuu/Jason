@@ -189,6 +189,18 @@ footer { padding-block: 2.5rem 4.5rem; color: var(--mute); } /* bottom room just
   .zoom-n:hover::before { background: var(--accent); }
 }
 .zoom-c { color: #fff; letter-spacing: .15em; }
+/* the video controls in the viewer (Lightbox.jsx): play/pause, a dashed lane like the page's progress bar, the time */
+.vbar { display: flex; align-items: center; gap: .75rem; flex: 1; min-width: 0; max-width: 40rem; color: #fff; }
+.shotwin .vbar { color: var(--ink); }
+.vplay { flex: none; position: relative; width: 60px; height: 38px; padding: 0; color: inherit; background: none; border: 3px solid currentColor; }
+.vplay::before { content: ""; position: absolute; inset: 0; margin: auto; width: 12px; height: 16px; background: currentColor; clip-path: polygon(0 0, 100% 50%, 0 100%); }
+.vplay[data-on="true"]::before { clip-path: none; background: linear-gradient(90deg, currentColor 0 4px, transparent 4px 8px, currentColor 8px); }
+.vlane { position: relative; flex: 1; min-width: 4rem; height: 38px; cursor: pointer; touch-action: none; background: repeating-linear-gradient(90deg, currentColor 0 6px, transparent 6px 10px) 0 50% / 100% 3px no-repeat; }
+.vfill { position: absolute; left: 0; top: 50%; height: 3px; margin-top: -1.5px; background: var(--accent); }
+.vgrip { position: absolute; top: 50%; width: 10px; height: 20px; translate: -50% -50%; background: var(--accent); border: 2px solid currentColor; }
+.vtime { flex: none; letter-spacing: .1em; white-space: nowrap; }
+@media (hover: hover) { .vplay:hover, .vlane:hover .vgrip { color: var(--accent); border-color: var(--accent); } }
+@media (max-width: 700px) { .vtime { display: none; } .vplay { width: 44px; } }
 @media (max-width: 700px) { /* phones: the shot nearly as wide as the screen, the row spread edge to edge */
   .zoom > :is(img, video) { width: min(calc(100vw - 1rem), calc((100dvh - 190px) * 1.6)); }
   .zoom-nav { justify-content: space-between; }

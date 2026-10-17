@@ -4,6 +4,45 @@ import { image } from "../App";
 import Shot from "./Shot";
 import { Win } from "./Windows";
 
+const clock = (t) => `${Math.floor(t / 60)}:${String(Math.floor(t % 60)).padStart(2, "0")}`;
+// Play/pause, a scrub lane and the time for a video in the viewer, in the page's pixel style (the browser's own controls would look out of place). The gallery keeps its plain looping preview.
+function VideoBar({ video }) {
+  const [t, setT] = useState({ at: 0, len: 0, playing: true });
+  useEffect(() => {
+    const v = video.current;
+    const sync = () => setT({ at: v.currentTime, len: v.duration || 0, playing: !v.paused });
+    const evs = ["timeupdate", "loadedmetadata", "play", "pause", "seeked"];
+    evs.forEach((e) => v.addEventListener(e, sync));
+    sync();
+    return () => evs.forEach((e) => v.removeEventListener(e, sync));
+  }, [video]);
+  const seekTo = (s) => { video.current.currentTime = Math.min(t.len, Math.max(0, s)); };
+  const seek = (e) => { const r = e.currentTarget.getBoundingClientRect(); seekTo(((e.clientX - r.left) / r.width) * t.len); };
+  const p = t.len ? t.at / t.len : 0;
+  return (
+    <div className="vbar">
+      <button className="vplay" data-on={t.playing} aria-label={t.playing ? "Pause" : "Play"} onClick={() => (video.current.paused ? video.current.play() : video.current.pause())} />
+      <div
+        className="vlane"
+        role="slider"
+        tabIndex={0}
+        aria-label="Seek"
+        aria-valuemin={0}
+        aria-valuemax={Math.round(t.len)}
+        aria-valuenow={Math.round(t.at)}
+        aria-valuetext={`${clock(t.at)} of ${clock(t.len)}`}
+        onPointerDown={(e) => { e.currentTarget.setPointerCapture(e.pointerId); seek(e); }}
+        onPointerMove={(e) => e.currentTarget.hasPointerCapture(e.pointerId) && seek(e)}
+        onKeyDown={(e) => { if (e.key === "ArrowLeft" || e.key === "ArrowRight") { e.preventDefault(); e.stopPropagation(); seekTo(t.at + (e.key === "ArrowLeft" ? -2 : 2)); } }} // not the viewer's previous/next shot
+      >
+        <span className="vfill" style={{ width: `${p * 100}%` }} />
+        <span className="vgrip" style={{ left: `${p * 100}%` }} />
+      </div>
+      <span className="vtime">{clock(t.at)} / {clock(t.len)}</span>
+    </div>
+  );
+}
+
 // A project screenshot at full size. On desktop it is a draggable window like Settings and Contact (no backdrop, the page stays usable; Esc or × closes). On phones it is the full-screen viewer: click or tap anywhere (but a video, which has its own controls) to close; a swipe or the prev/next buttons move between shots.
 // Arrow keys move between shots in both. A fixed div rather than a <dialog>: the top layer would sit above the pixel cursor, which is a page element.
 export default function Lightbox({ shots, captions, title, at, onAt, onClose }) {
@@ -36,6 +75,7 @@ export default function Lightbox({ shots, captions, title, at, onAt, onClose }) 
   const nav = (
     <div className="zoom-nav">
       <button className="zoom-n zoom-p" disabled={at === 0} onClick={() => step(-1)} aria-label="Previous screenshot" />
+      {shots[at].endsWith(".mp4") && <VideoBar key={shots[at]} video={pic} />}
       {n > 1 && <span className="zoom-c" aria-hidden="true">{at + 1} / {n}</span>}
       <button className="zoom-n zoom-f" disabled={at === n - 1} onClick={() => step(1)} aria-label="Next screenshot" />
     </div>
@@ -57,11 +97,11 @@ export default function Lightbox({ shots, captions, title, at, onAt, onClose }) 
       aria-label={`${title}, screenshot ${at + 1} of ${n}`}
       tabIndex={-1}
       onKeyDown={(e) => keys[e.key] && (e.preventDefault(), keys[e.key]())}
-      onClick={(e) => !e.target.closest("button, video") && onClose()}
-      onTouchStart={(e) => (x0.current = e.touches[0].clientX)}
-      onTouchEnd={(e) => { const d = e.changedTouches[0].clientX - x0.current; if (Math.abs(d) > 50) step(d < 0 ? 1 : -1); }}
+      onClick={(e) => !e.target.closest("button, video, .vbar") && onClose()}
+      onTouchStart={(e) => (x0.current = e.target.closest(".vbar") ? null : e.touches[0].clientX)} // scrubbing is not a swipe
+      onTouchEnd={(e) => { if (x0.current == null) return; const d = e.changedTouches[0].clientX - x0.current; if (Math.abs(d) > 50) step(d < 0 ? 1 : -1); }}
     >
-      <Shot key={shots[at]} ref={pic} controls src={shots[at]} alt={`${title} screenshot`} onLoad={(e) => fit(e.currentTarget)} />
+      <Shot key={shots[at]} ref={pic} src={shots[at]} alt={`${title} screenshot`} onLoad={(e) => fit(e.currentTarget)} />
       {cap && <p className="zoom-cap">{cap}</p>}
       <button className="zoom-x" onClick={onClose} aria-label="Close">×</button>
       {nav}
