@@ -16,7 +16,7 @@ const get = (k) => root.dataset[k] || dflt(k);
 const set = (k, v) => {
   const reset = v === dflt(k);
   if (reset) delete root.dataset[k]; else root.dataset[k] = v;
-  try { reset ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch {}
+  try { reset ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch { /* storage can be blocked: the choice just is not remembered */ }
 };
 
 export function Win({ cls, title, onClose, top, children }) {

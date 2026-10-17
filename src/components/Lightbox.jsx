@@ -69,6 +69,7 @@ export default function Lightbox({ shots, captions, title, at, onAt, onClose }) 
     const opener = document.activeElement;
     box.current.focus();
     return () => opener?.focus?.();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- once, on open: `win` is fixed when the viewer mounts
   }, []);
   // Every shot sits in the same 16:10 box (almost all are 1440x900), so the viewer never changes size; an enlarged small shot (a GIF) keeps its crisp pixels.
   const fit = (img) => { img.dataset.up = img.naturalWidth < img.clientWidth; };

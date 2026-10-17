@@ -147,6 +147,7 @@ export default function Admin() {
       setSha(sha);
       setImages(imgs);
     }).catch(() => {});
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- loads once per client: `auth` (and its `local` flag) is what `gh` is made from
   }, [gh]);
 
   useEffect(() => {

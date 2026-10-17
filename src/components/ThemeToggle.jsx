@@ -19,7 +19,7 @@ export default function ThemeToggle() {
     const apply = () =>
       flushSync(() => {
         document.documentElement.dataset.theme = next;
-        try { localStorage.setItem("theme", next); } catch {}
+        try { localStorage.setItem("theme", next); } catch { /* storage can be blocked: the choice just is not remembered */ }
         setTheme(next);
       });
     // The new theme wipes in from the button in stepped rings (see ::view-transition-new in index.css).
