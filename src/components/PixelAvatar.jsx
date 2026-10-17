@@ -3,7 +3,7 @@ import { AVATAR_STYLES, DEFAULT_STYLE, pixelate } from "../avatar";
 import { image } from "../App";
 import site from "../content";
 
-// The profile picture from the admin, pixelated. It "resolves" from chunky blocks on load; clicking flips it like a coin around its vertical axis, replays that, and says hi in a speech bubble.
+// The profile picture from the admin, pixelated. It "resolves" from chunky blocks on load; clicking flips it like a coin around its vertical axis, replays that, and says hi in a speech bubble (a "say" event does the same with other words).
 const GREETINGS = ["Hi, I'm Jason!", "Hello!", "Hey there!", "Howdy!", "Hola!", "Bonjour!"];
 export default function PixelAvatar() {
   const { avatar, avatarStyle, avatarFrame } = site.profile;
@@ -15,7 +15,7 @@ export default function PixelAvatar() {
   const count = useRef(0);
   const hideTimer = useRef();
   useEffect(() => () => clearTimeout(hideTimer.current), []);
-  const greet = () => {
+  const greet = (say) => { // `say`: something other than the next greeting (the bouncing card's corner hit)
     replay.current();
     if (!matchMedia("(prefers-reduced-motion: reduce)").matches)
       ref.current.animate(
@@ -23,10 +23,17 @@ export default function PixelAvatar() {
         { duration: 700, easing: "ease-in-out", composite: "add" }, // adds onto the float/hop transform instead of replacing it
       );
     const n = count.current++;
-    setHi({ n, text: GREETINGS[n % GREETINGS.length] });
+    setHi({ n, text: say || GREETINGS[n % GREETINGS.length] });
     clearTimeout(hideTimer.current);
     hideTimer.current = setTimeout(() => setHi(null), 2600);
   };
+
+  useEffect(() => {
+    const el = ref.current; // hoverRing.js makes it speak with a "say" event
+    const say = (e) => greet(e.detail);
+    el?.addEventListener("say", say);
+    return () => el?.removeEventListener("say", say);
+  }, []);
 
   useEffect(() => {
     if (!avatar) return;
@@ -73,7 +80,7 @@ export default function PixelAvatar() {
         style={{ "--w": `${width[0]}px`, "--wt": `${width[1]}px`, "--wm": `${width[2]}px` }}
         role="img"
         aria-label="Profile picture of Jason (click to say hi)"
-        onClick={greet}
+        onClick={() => greet()}
       />
       <div role="status">{hi && <span key={hi.n} className="bubble">{hi.text}</span>}</div>
     </div>

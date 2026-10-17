@@ -93,11 +93,9 @@ function aim(x, y, lo, hi, speed) {
   const L = Math.hypot(best.dx, best.dy);
   return [sx * speed * best.dx / L, sy * speed * best.dy / L];
 }
-// A corner hit: a burst of pixel confetti and a "CORNER!" tag, on top of the usual shockwave.
+// A corner hit: the profile picture shouts it from its speech bubble, and pixel confetti bursts out of the corner on top of the usual shockwave.
 function celebrate(x, y, sx, sy) { // sx, sy: which way the card now travels, so the confetti flies into the screen
-  const tag = Object.assign(document.createElement("b"), { className: "corner", textContent: "CORNER!", onanimationend: () => tag.remove() });
-  Object.assign(tag.style, { left: Math.min(innerWidth - 60, Math.max(60, x)) + "px", top: Math.min(innerHeight - 16, Math.max(16, y)) + "px" }); // kept on screen
-  document.body.append(tag);
+  document.querySelector(".card .pixel-avatar")?.dispatchEvent(new CustomEvent("say", { detail: "CORNER!" }));
   for (let i = 0; i < 18; i++) {
     const c = Object.assign(document.createElement("i"), { className: "conf", onanimationend: () => c.remove() });
     c.style.cssText = `left:${x}px;top:${y}px;--dx:${Math.round(sx * (30 + Math.random() * 240))}px;--dy:${Math.round(sy * (10 + Math.random() * 160))}px;--c:var(${i % 2 ? "--accent" : "--ink"});animation-delay:${Math.round(Math.random() * 120)}ms`;
