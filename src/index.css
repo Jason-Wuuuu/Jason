@@ -284,6 +284,27 @@ html:has(.zoom) { overflow: hidden; }
 .wm { display: flex; gap: .4rem; letter-spacing: 0; }
 .wm button { width: 1.15rem; height: 1.15rem; padding: 0; display: grid; place-items: center; line-height: 1; font-size: 1rem; background: none; border: 2px solid currentColor; color: inherit; }
 .wm button:hover { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+/* Settings and Contact windows (Windows.jsx) */
+.win.settings, .win.contact { width: min(22rem, calc(100vw - 2rem)); padding: 2.6rem 1rem 1rem; background: var(--bg); border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); }
+.win.settings { top: 14vh; } .win.contact { top: 24vh; }
+.win p { margin: 0 0 .5rem; }
+.opt { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; margin-top: .6rem; }
+.opt > span { width: 4.5rem; color: var(--mute); }
+.opt button, .opt .btn { padding: .05rem .6rem; font: inherit; color: var(--ink); background: var(--bg); border: 3px solid var(--ink); box-shadow: 3px 3px 0 var(--ink); cursor: pointer; text-decoration: none; }
+.opt button[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); }
+.opt button[style*="--sw"] { width: 2rem; height: 1.6rem; padding: 0; background: var(--sw); }
+.opt button[style*="--sw"][aria-pressed="true"] { outline: 3px solid var(--ink); outline-offset: 2px; }
+.addr { color: var(--accent); overflow-wrap: anywhere; }
+/* accent and font choices (data-accent / data-font on <html>, set from Settings) */
+:root[data-accent] { --accent: var(--al); }
+@media (prefers-color-scheme: dark) { :root[data-accent]:not([data-theme="light"]) { --accent: var(--ad); } }
+:root[data-accent][data-theme="dark"] { --accent: var(--ad); }
+:root[data-accent="green"] { --al: #1f8a4c; --ad: #4fd08a; }
+:root[data-accent="orange"] { --al: #c4620a; --ad: #ffa24d; }
+:root[data-accent="red"] { --al: #d03b3b; --ad: #ff7b7b; }
+:root[data-accent="purple"] { --al: #7b4fd1; --ad: #b497ff; }
+:root[data-font="mono"] { --display: ui-monospace, Menlo, monospace; --body: ui-monospace, Menlo, monospace; }
+:root[data-font="sans"] { --display: system-ui, sans-serif; --body: system-ui, sans-serif; }
 .respawn { width: 100%; margin: 0; text-align: center; font-size: 1.4rem; color: var(--mute); }
 .respawn button { padding: 0; background: none; border: 0; color: var(--accent); text-decoration: underline; }
 .tt-result { margin-bottom: 0; }
@@ -413,8 +434,9 @@ html:has(.zoom) { overflow: hidden; }
   border: 3px solid var(--ink); box-shadow: 3px 3px 0 var(--ink); cursor: pointer;
 }
 @media (hover: hover) { .theme-toggle:hover { color: var(--accent); } }
+.theme-toggle { right: calc(1.25rem + var(--n, 0) * 52px); } /* Settings and Contact buttons sit to its left (Windows.jsx) */
 .theme-toggle:active { transform: translate(3px, 3px); box-shadow: none; }
-@media (max-width: 700px) { .theme-toggle { top: calc(1.25rem - 14px); right: .5rem; } } /* phones: stays put, and at the top of the page overlaps the player card's top-right corner */
+@media (max-width: 700px) { .theme-toggle { top: calc(1.25rem - 14px); right: calc(.5rem + var(--n, 0) * 52px); } } /* phones: stays put, and at the top of the page overlaps the player card's top-right corner */
 @keyframes dock-in-bottom { from { translate: 0 40px; opacity: 0; } }
 @keyframes dock-in-side { from { scale: 0; opacity: 0; } } /* pops out of its own centre; a translate here would also override the --i offset on .dock */
 @media (prefers-reduced-motion: no-preference) {

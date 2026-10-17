@@ -6,6 +6,7 @@ import About from "./components/About";
 import Dock from "./components/Dock";
 import ProgressBar from "./components/ProgressBar";
 import ThemeToggle from "./components/ThemeToggle";
+import Windows from "./components/Windows";
 import Background from "./components/Background";
 import site from "./content";
 
@@ -69,6 +70,7 @@ export default function App() {
       <Dock />
       <ProgressBar />
       <ThemeToggle />
+      <Windows />
       <main id="top">
         <Hero />
         <Experience />

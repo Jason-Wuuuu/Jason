@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { flushSync } from "react-dom";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
@@ -8,6 +8,12 @@ const current = () => document.documentElement.dataset.theme || (systemDark() ? 
 
 export default function ThemeToggle() {
   const [theme, setTheme] = useState(current);
+  // the Settings window can change the theme too
+  useEffect(() => {
+    const o = new MutationObserver(() => setTheme(current()));
+    o.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+    return () => o.disconnect();
+  }, []);
   const flip = (e) => {
     const next = theme === "dark" ? "light" : "dark";
     const apply = () =>

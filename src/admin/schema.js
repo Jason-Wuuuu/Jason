@@ -12,6 +12,7 @@ export const sections = [
       { key: "tagline", label: "Tagline (Enter = line break, **bold**, *italic*, [text](url))", type: "area" },
       { key: "class", label: "Class (shown under the name on the hero card)", type: "text" },
       { key: "stats", label: "Skill bars (one per line, \"Name 8\" = 8 out of 10)", type: "lines" },
+      { key: "email", label: "Email (shown in the Contact window; leave empty to hide it)", type: "text" },
       { key: "typingLine", label: "Typing-test line", type: "text" },
       { key: "typingRecord", label: "Your typing record (WPM)", type: "number" },
       { key: "avatar", label: "Profile picture (upload any image; a transparent cut-out PNG keeps its shape, a photo is cropped round)", type: "image" },

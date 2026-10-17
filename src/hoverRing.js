@@ -92,6 +92,8 @@ function trail(card, r, x0, y0) {
   requestAnimationFrame(tick);
   return () => { live = false; };
 }
+let top = 25; // windows come to the front when touched
+document.addEventListener("pointerdown", (e) => { const w = e.target.closest?.(".win"); if (w) w.style.zIndex = ++top; });
 document.addEventListener("pointerdown", (e) => {
   const bar = e.target.closest?.(BAR);
   if (!bar || e.target.closest("button") || e.button || !matchMedia("(min-width: 701px) and (hover: hover)").matches) return; // phones scroll instead
