@@ -93,6 +93,13 @@ function aim(x, y, lo, hi, speed) {
   const L = Math.hypot(best.dx, best.dy);
   return [sx * speed * best.dx / L, sy * speed * best.dy / L];
 }
+// The wall the bouncing card just hit lights up for a moment: a dashed line along that edge of its bounds (the hero's top and bottom edges aren't drawn anywhere).
+function edge(left, top, width, height, dir) {
+  const el = Object.assign(document.createElement("i"), { className: "wall", onanimationend: () => el.remove() });
+  Object.assign(el.style, { left: left + "px", top: top + "px", width: width + "px", height: height + "px" });
+  el.style.setProperty("--d", dir); // dashes run along the line
+  document.body.append(el);
+}
 // A corner hit: the profile picture shouts it from its speech bubble and pixel confetti bursts out of the picture, on top of the usual shockwave.
 function celebrate() {
   const pic = document.querySelector(".card .pixel-avatar");
@@ -112,15 +119,15 @@ function dvd(card, btn) {
   const box = () => {
     const r = card.getBoundingClientRect(), h = hero.getBoundingClientRect();
     const bx = r.left - (+card.dataset.x || 0), by = r.top - (+card.dataset.y || 0); // where the card rests at 0,0
-    return { r, lo: [-bx, h.top - by], hi: [innerWidth - r.width - bx, h.bottom - r.height - by] }; // same bounds as dragging: across the screen, within the hero's height
+    return { r, h, lo: [-bx, h.top - by], hi: [innerWidth - r.width - bx, h.bottom - r.height - by] }; // same bounds as dragging: across the screen, within the hero's height
   };
-  let { lo, hi } = box();
+  let { lo, hi, h: hr } = box();
   let x = Math.min(hi[0], Math.max(lo[0], +card.dataset.x || 0)), y = Math.min(hi[1], Math.max(lo[1], +card.dataset.y || 0)), last = 0, raf = 0, pulse = 0, cheered = 0, hits = 0;
   let [vx, vy] = aim(x, y, lo, hi, 260); // px per second
   const frame = (t) => {
     if (!card.isConnected) return stopDvd();
     const dt = Math.min(0.05, (t - (last || t)) / 1000); last = t;
-    ({ lo, hi } = box());
+    ({ lo, hi, h: hr } = box());
     x += vx * dt; y += vy * dt;
     const hitX = out(x, lo[0], hi[0]), hitY = out(y, lo[1], hi[1]);
     const corner = (hitX && near(y, lo[1], hi[1])) || (hitY && near(x, lo[0], hi[0]));
@@ -131,6 +138,8 @@ function dvd(card, btn) {
       if (++hits % 5 === 0) card.querySelector(".pixel-avatar")?.click(); // every fifth bounce the profile picture gets "clicked": it flips and says hi
       card.classList.add("lifted"); clearTimeout(pulse); pulse = setTimeout(() => card.classList.remove("lifted"), 150);
       const q = card.getBoundingClientRect(); // the shockwave starts on the edge that hit (vx/vy have just flipped), at the card's middle along it
+      if (hitX) edge(vx < 0 ? innerWidth - 4 : 0, hr.top, 4, hr.height, "180deg"); // vx has just flipped: moving left now means it hit the right wall
+      if (hitY) edge(0, vy < 0 ? hr.bottom : Math.max(0, hr.top - 4), innerWidth, 4, "90deg");
       thud(hitX ? (vx < 0 ? q.right : q.left) : q.left + q.width / 2, hitY ? (vy < 0 ? q.bottom : q.top) : q.top + q.height / 2);
       if (corner && t - cheered > 800) { // one cheer per corner: the second wall of a corner hit also counts as "near"
         cheered = t;

@@ -302,6 +302,8 @@ html:has(.zoom) { overflow: hidden; }
 .card.dvd .bounce::before { content: "■"; }
 .thud { position: fixed; z-index: 40; translate: -50% -50%; border: 3px solid var(--accent); pointer-events: none; animation: thud .4s steps(5) both; } /* where the bouncing card hits a wall (hoverRing.js) */
 @keyframes thud { from { width: 8px; height: 8px; } to { width: 88px; height: 88px; opacity: 0; } }
+.wall { position: fixed; z-index: 40; pointer-events: none; background: repeating-linear-gradient(var(--d), var(--ink) 0 8px, transparent 8px 12px); animation: wall .35s steps(4) both; } /* the wall the bouncing card just hit (hoverRing.js) */
+@keyframes wall { to { opacity: 0; } }
 .conf { position: absolute; z-index: 41; width: 10px; height: 10px; background: var(--c); pointer-events: none; animation: conf 1.3s steps(13) both; } /* confetti from a corner hit (hoverRing.js) */
 @keyframes conf { from { translate: 0 0; } to { translate: var(--dx) calc(var(--dy) + 110px); opacity: 0; } }
 @media (prefers-reduced-motion: reduce), (hover: none) { .card .bounce { display: none; } }
