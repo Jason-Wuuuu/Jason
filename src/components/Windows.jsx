@@ -7,15 +7,16 @@ const root = document.documentElement;
 const OPTIONS = {
   theme: ["system", "light", "dark"],
   accent: ["blue", "green", "orange", "red", "purple"],
-  speed: ["normal", "slow", "fast"], // auto-scroll (ProgressBar.jsx)
+  speed: ["slow", "normal", "fast"], // auto-scroll (ProgressBar.jsx)
   cursor: ["pixel", "system"],
 };
 const SWATCH = { blue: "#2f6fdb", green: "#1f8a4c", orange: "#c4620a", red: "#d03b3b", purple: "#7b4fd1" };
-const get = (k) => root.dataset[k] || OPTIONS[k][0];
+const dflt = (k) => (k === "speed" ? "normal" : OPTIONS[k][0]); // the first option is the default, except for speed (listed slow, normal, fast)
+const get = (k) => root.dataset[k] || dflt(k);
 const set = (k, v) => {
-  const dflt = v === OPTIONS[k][0];
-  if (dflt) delete root.dataset[k]; else root.dataset[k] = v;
-  try { dflt ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch {}
+  const reset = v === dflt(k);
+  if (reset) delete root.dataset[k]; else root.dataset[k] = v;
+  try { reset ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch {}
 };
 
 function Win({ cls, title, onClose, children }) {
@@ -43,7 +44,7 @@ function Settings({ onClose }) {
     <Win cls="settings" title="Settings" onClose={onClose}>
       {Object.keys(OPTIONS).filter((k) => k !== "cursor" || matchMedia("(hover: hover) and (pointer: fine)").matches).map((k) => ( // no custom cursor on touch screens
         <div key={k} className="opt" role="group" aria-label={k}>
-          <span>{k === "speed" ? "Scroll" : k}</span>
+          <span>{k === "speed" ? "Auto Scroll" : k}</span>
           {OPTIONS[k].map((v) => (
             <button
               key={v}
@@ -58,7 +59,7 @@ function Settings({ onClose }) {
         </div>
       ))}
       <div className="opt">
-        <button onClick={() => { Object.keys(OPTIONS).forEach((k) => set(k, OPTIONS[k][0])); redraw((n) => n + 1); }}>Reset</button>
+        <button onClick={() => { Object.keys(OPTIONS).forEach((k) => set(k, dflt(k))); redraw((n) => n + 1); }}>Reset</button>
       </div>
     </Win>
   );
