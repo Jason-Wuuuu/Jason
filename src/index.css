@@ -539,7 +539,7 @@ html.scrolled:has(.dock[data-pos="bottom"]) body::after { /* not at the very top
 
 /* pixel arrow cursor: a DOM element (hoverRing.js) that hides the native one; black in light mode, white in dark */
 .pxcur-on, .pxcur-on * { cursor: none !important; }
-.pxcur { position: fixed; left: 0; top: 0; z-index: 40; pointer-events: none; opacity: .8; }
+.pxcur { position: fixed; left: 0; top: 0; z-index: 2147483647; /* above every window, however many times they have been raised (hoverRing.js) */ pointer-events: none; opacity: .8; }
 .pxcur[hidden] { display: none; }
 .pxcur i { display: block; width: 25px; height: 35px; margin: -2.5px 0 0 -2.5px; background: url(/cursor.svg) 0 0 / 100% 100%; image-rendering: pixelated; } /* margin puts the arrow's tip on the pointer */
 .pxcur i { transform: scale(var(--s, 1)) rotate3d(.41, .91, 0, var(--r, 0deg)); transform-origin: 2.5px 2.5px; transition: transform .24s steps(4); } /* scales and flips about the tip */
@@ -555,7 +555,7 @@ html.scrolled:has(.dock[data-pos="bottom"]) body::after { /* not at the very top
 :root[data-theme="dark"] .pxcur i { background-image: url(/cursor-dark.svg); }
 :root[data-theme="dark"] .pxcur.txt i { background-image: url(/cursor-text-dark.svg); }
 .ring {
-  position: fixed; z-index: 30; display: none; pointer-events: none; color: var(--ink);
+  position: fixed; z-index: 2147483646; display: none; pointer-events: none; color: var(--ink);
   --g: linear-gradient(currentColor, currentColor); --t: 4px; --l: 14px;
   background:
     var(--g) 0 0 / var(--l) var(--t), var(--g) 0 0 / var(--t) var(--l),
