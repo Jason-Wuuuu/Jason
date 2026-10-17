@@ -100,23 +100,29 @@ footer { padding-block: 2.5rem 4.5rem; color: var(--mute); } /* bottom room just
 .lead { white-space: pre-line; font-size: clamp(1.4rem, 3vw, 1.9rem); max-width: 34rem; }
 .social { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; margin-top: 1.5rem; }
 .proj .social { align-items: center; margin: 0 0 0 auto; } /* the links sit at the right of the stack's row: the live site first, as a button */
-/* skill tree under a project: the root, a branch line, and one column per skill that grows downward */
-.tree { margin: 1.4rem 0 1.6rem; }
-.tree .root { display: inline-block; padding: .4rem .9rem; border: 2px solid var(--ink); background: var(--accent); color: var(--on-accent); box-shadow: var(--shadow); }
-.tree .cols { display: flex; gap: 0 1rem; margin-top: 1.2rem; position: relative; } /* each column's width follows the square root of its text, so long notes get room; shortcut: 6+ skills get cramped, there is no wrapping */
-.tree .cols::before { content: ""; position: absolute; top: -1.2rem; left: 2rem; height: 1.2rem; border-left: 2px solid var(--ink); }
-.tree .col { position: relative; padding-top: 1.2rem; flex: var(--w) 1 0; min-width: 0; }
-.tree .col::before { content: ""; position: absolute; top: 0; left: 2rem; height: 1.2rem; border-left: 2px solid var(--ink); }
-.tree .col:not(:last-child)::after { content: ""; position: absolute; top: 0; left: 2rem; width: calc(100% + 1rem); border-top: 2px solid var(--ink); }
+/* skill tree under a project: the root on the left, skills down a rail, and each skill's note and sub-skills to its right; sub-skills are siblings on their own rail */
+.tree { display: flex; align-items: flex-start; margin: 1.4rem 0 1.6rem; }
 .tree p { margin: 0; }
-.tree .n { border: 2px solid var(--accent); background: var(--panel); box-shadow: 3px 3px 0 var(--accent); padding: .35rem .7rem; }
-.tree .leaf { position: relative; margin-top: 1.1rem; border: 2px dashed var(--mute); padding: .4rem .7rem; color: var(--mute); line-height: 1.35; }
-.tree .leaf.k { border-style: solid; border-color: var(--ink); background: var(--panel); color: var(--ink); margin-left: 1.8rem; } /* sub-skills are siblings: one rail down the left, a tap into each box */
-.tree .leaf.k::before { left: -.9rem; top: 1.1rem; width: .9rem; height: 0; border-left: 0; border-top: 2px solid var(--ink); }
-.tree .leaf.k::after { content: ""; position: absolute; left: -.9rem; top: -1.1rem; height: 2.2rem; border-left: 2px solid var(--ink); } /* from the box above down to this tap */
-.tree .leaf.k:not(:last-child)::after { height: calc(100% + 2.2rem); }
+.tree .root { padding: .4rem .9rem; border: 2px solid var(--ink); background: var(--accent); color: var(--on-accent); box-shadow: var(--shadow); white-space: nowrap; }
+.tree .kids { position: relative; margin-left: 2.2rem; display: flex; flex-direction: column; gap: 1.1rem; min-width: 0; }
+.tree .kids::before { content: ""; position: absolute; left: -2.2rem; top: 1.1rem; width: 2.2rem; border-top: 2px solid var(--ink); }
+.tree .row { position: relative; margin-left: 1.6rem; display: flex; align-items: flex-start; }
+.tree .row::before { content: ""; position: absolute; left: -1.6rem; top: 1.1rem; width: 1.6rem; border-top: 2px solid var(--ink); }
+.tree .row::after { content: ""; position: absolute; left: -1.6rem; top: -1.1rem; height: calc(100% + 1.1rem); border-left: 2px solid var(--ink); }
+.tree .row:first-child::after { top: 1.1rem; height: calc(100% - 1.1rem); }
+.tree .row:last-child::after { height: 2.2rem; }
+.tree .row:first-child:last-child::after { display: none; }
+.tree .n { border: 2px solid var(--accent); background: var(--panel); box-shadow: 3px 3px 0 var(--accent); padding: .35rem .7rem; white-space: nowrap; }
+.tree .kid { position: relative; margin-left: 2.2rem; display: flex; flex-direction: column; gap: .8rem; max-width: 30rem; min-width: 0; }
+.tree .kid::before { content: ""; position: absolute; left: -2.2rem; top: 1.1rem; width: 2.2rem; border-top: 2px solid var(--ink); }
+.tree .leaf { position: relative; border: 2px dashed var(--mute); padding: .35rem .7rem; color: var(--mute); line-height: 1.35; }
+.tree .leaf.k { border-style: solid; border-color: var(--ink); background: var(--panel); color: var(--ink); margin-left: 1.4rem; }
+.tree .leaf.k::before { content: ""; position: absolute; left: -1.4rem; top: 1rem; width: 1.4rem; border-top: 2px solid var(--ink); }
+.tree .leaf.k::after { content: ""; position: absolute; left: -1.4rem; top: -.8rem; height: calc(100% + .8rem); border-left: 2px solid var(--ink); }
+.tree .leaf.k:first-child::after { top: 1rem; height: calc(100% - 1rem); }
+.tree .leaf.k:last-child::after { height: 1.8rem; }
+.tree .leaf.k:first-child:last-child::after { display: none; }
 .tree .leaf b { display: block; font-weight: 400; color: var(--accent); }
-.tree .leaf::before { content: ""; position: absolute; left: 2rem; top: -1.1rem; height: 1.1rem; border-left: 2px solid var(--ink); }
 .proj .links.after { display: none; } /* the same buttons again, below the screenshots: phones show these instead (see the 700px block) */
 .proj .links { display: flex; flex-wrap: wrap; align-items: flex-end; gap: .6rem 1.5rem; margin-top: 1.1rem; } /* project links sit under the description, ahead of the screenshots: the live site first, as a button */
 .social a { display: inline-flex; align-items: center; gap: .35rem; }
@@ -276,13 +282,14 @@ html:has(.zoom) { overflow: hidden; }
   .proj summary { grid-template-columns: 1fr; gap: .25rem; } .proj .live { justify-self: start; } .proj .sub { grid-column: 1; }
   .proj .live { display: none; } /* no LIVE badge on phones */
   .proj[open] .sub { display: block; } /* the stack stays under the name, open or closed */
-  .tree .cols { display: block; margin-top: 0; margin-left: 1rem; padding-left: 1.4rem; border-left: 2px solid var(--ink); }
-  .tree .cols::before, .tree .col::before, .tree .col::after { display: none; }
-  .tree .root { margin-bottom: 0; }
-  .tree .col { padding-top: 1rem; }
-  .tree .n { position: relative; }
-  .tree .n::before { content: ""; position: absolute; left: calc(-1.4rem - 2px); top: 50%; width: 1.4rem; border-top: 2px solid var(--ink); }
-  .tree .leaf::before { left: 1rem; }
+  .tree { flex-direction: column; }
+  .tree .kids { margin: 1.1rem 0 0 1rem; }
+  .tree .kids::before { left: 0; top: -1.1rem; width: 0; height: 2.2rem; border-top: 0; border-left: 2px solid var(--ink); }
+  .tree .row { flex-direction: column; margin-left: 1.4rem; }
+  .tree .n { align-self: flex-start; white-space: normal; }
+  .tree .kid { margin: .8rem 0 0 1.4rem; max-width: none; }
+  .tree .kid::before { display: none; }
+  .tree .leaf:not(.k)::before { content: ""; position: absolute; left: 1rem; top: -.8rem; height: .8rem; border-left: 2px solid var(--ink); }
   .proj .links { display: none; } /* the stack is in the header now; the buttons go below the screenshots */
   .proj .links.after { display: flex; justify-content: center; margin-top: .5rem; }
   .proj .links.after .social { margin: 0 auto; }
