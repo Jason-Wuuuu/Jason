@@ -88,7 +88,14 @@ function Contact({ onClose }) {
 
 export default function Windows() {
   const [open, setOpen] = useState({}); // which windows are showing: { settings, contact }
-  const toggle = (w) => setOpen((o) => ({ ...o, [w]: !o[w] }));
+  const dropdown = () => matchMedia("(hover: none)").matches; // touch: one at a time, and a tap elsewhere closes it
+  const toggle = (w) => setOpen((o) => (dropdown() ? { [w]: !o[w] } : { ...o, [w]: !o[w] }));
+  useEffect(() => {
+    if (!dropdown() || !(open.settings || open.contact)) return;
+    const away = (e) => !e.target.closest(".win, .opener") && setOpen({});
+    addEventListener("pointerdown", away);
+    return () => removeEventListener("pointerdown", away);
+  }, [open]);
   const close = (w) => () => setOpen((o) => ({ ...o, [w]: false }));
   const { email } = site.profile;
   return (
