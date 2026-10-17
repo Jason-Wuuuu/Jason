@@ -374,6 +374,10 @@ html:has(.zoom) { overflow: hidden; }
 :root[data-accent="orange"] { --al: #c4620a; --ad: #ffa24d; }
 :root[data-accent="red"] { --al: #d03b3b; --ad: #ff7b7b; }
 :root[data-accent="purple"] { --al: #7b4fd1; --ad: #b497ff; }
+/* every accent, for the bouncing card's bar to cycle through (hoverRing.js picks two that are not the current accent) */
+:root { --k-blue: #2f6fdb; --k-green: #1f8a4c; --k-orange: #c4620a; --k-red: #d03b3b; --k-purple: #7b4fd1; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --k-blue: #5aa2ff; --k-green: #4fd08a; --k-orange: #ffa24d; --k-red: #ff7b7b; --k-purple: #b497ff; } }
+:root[data-theme="dark"] { --k-blue: #5aa2ff; --k-green: #4fd08a; --k-orange: #ffa24d; --k-red: #ff7b7b; --k-purple: #b497ff; }
 .respawn { width: 100%; margin: 0; display: flex; flex-direction: column; align-items: center; gap: 1.25rem; text-align: center; font-size: 1.4rem; color: var(--mute); }
 .respawn button { display: inline-flex; align-items: center; gap: .6rem; padding: .35rem 1.25rem; font: inherit; color: var(--on-accent); background: var(--accent); border: 3px solid var(--ink); box-shadow: 4px 4px 0 var(--ink); letter-spacing: .1em; text-transform: uppercase; cursor: pointer; } /* a game menu button, like "Press start" */
 .respawn button::before { content: "▶"; font-size: .8em; animation: blink 1s steps(2) infinite; } /* the blinking selector */
@@ -392,7 +396,7 @@ html:has(.zoom) { overflow: hidden; }
   .card.lifted { box-shadow: 12px 12px 0 var(--accent); } /* picked up: a deeper shadow, in the accent like the windows' */ /* keeps the card where it was while the strip below shrinks */
   .card.lifted:not(.dvd) > .bar { background: var(--ink); color: var(--bg); } /* picked up: the accent bar flips to ink, so the accent shadow shows against it */
   .card.lifted:not(.dvd) .wm button:hover { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
-  .card[data-hue="1"] { --hue: #ffc861; --hue-t: #1c1c1e; } .card[data-hue="2"] { --hue: #ff8a7a; --hue-t: #1c1c1e; } .card[data-hue="3"] { --hue: var(--ink); --hue-t: var(--bg); }
+  .card[data-hue="1"] { --hue: var(--k1); --hue-t: var(--on-accent); } .card[data-hue="2"] { --hue: var(--k2); --hue-t: var(--on-accent); } .card[data-hue="3"] { --hue: var(--ink); --hue-t: var(--bg); } /* --k1, --k2: two other accents, set by hoverRing.js */
   .card.dvd > .bar { background: var(--hue, var(--accent)); color: var(--hue-t, var(--on-accent)); } /* bouncing: like the DVD logo, the bar changes colour on every hit (hoverRing.js sets data-hue) */
   .card.dvd .wm button:hover { background: var(--hue-t, var(--on-accent)); color: var(--hue, var(--accent)); border-color: var(--hue-t, var(--on-accent)); }
   #experience { padding-top: .8rem; }

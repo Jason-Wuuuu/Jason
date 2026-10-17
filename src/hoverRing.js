@@ -146,6 +146,9 @@ function dvd(card, btn, want) {
   document.body.append(field);
   let x = Math.min(hi[0], Math.max(lo[0], +card.dataset.x || 0)), y = Math.min(hi[1], Math.max(lo[1], +card.dataset.y || 0)), last = 0, raf = 0, pulse = 0, cheered = 0, hits = 0;
   let [vx, vy] = aim(x, y, lo, hi, 260, true, want); // px per second
+  const names = ["blue", "green", "orange", "red", "purple"], i = Math.max(0, names.indexOf(document.documentElement.dataset.accent)); // the bar's colours as it bounces: the accent, two other accents (never the same hue), then ink
+  card.style.setProperty("--k1", `var(--k-${names[(i + 1) % 5]})`);
+  card.style.setProperty("--k2", `var(--k-${names[(i + 3) % 5]})`);
   const untrail = trail(card, card.getBoundingClientRect(), +card.dataset.x || 0, +card.dataset.y || 0, [.12, .07, .04]); // the shadow clones that trail a dragged card follow the bouncing one too, further back since it moves slowly
   const frame = (t) => {
     if (!card.isConnected) return stopDvd();
@@ -180,7 +183,7 @@ function dvd(card, btn, want) {
   const evs = ["pointerdown", "keydown", "scroll", "resize"];
   stopDvd = () => {
     cancelAnimationFrame(raf); clearTimeout(pulse); field.remove(); untrail();
-    card.classList.remove("dvd", "lifted"); delete card.dataset.hue; btn?.setAttribute("aria-pressed", "false");
+    card.classList.remove("dvd", "lifted"); delete card.dataset.hue; card.style.removeProperty("--k1"); card.style.removeProperty("--k2"); btn?.setAttribute("aria-pressed", "false");
     evs.forEach((e) => removeEventListener(e, off));
     stopDvd = null;
   };
