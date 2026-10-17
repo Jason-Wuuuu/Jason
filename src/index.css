@@ -408,7 +408,7 @@ html:has(.zoom) { overflow: hidden; }
   .ghost { position: fixed; z-index: 4; pointer-events: none; border: 3px solid color-mix(in srgb, var(--sky) 55%, transparent); } /* shadow clones trailing a dragged card (hoverRing.js) */
   .card.lifted { box-shadow: 12px 12px 0 var(--accent); } /* picked up: a deeper shadow, in the accent like the windows' */ /* keeps the card where it was while the strip below shrinks */
   .card.lifted:not(.dvd) > .bar { background: var(--ink); color: var(--bg); } /* picked up: the accent bar flips to ink, so the accent shadow shows against it */
-  .card[data-hue="1"] { --hue: var(--k1); --hue-t: var(--on-accent); } .card[data-hue="2"] { --hue: var(--k2); --hue-t: var(--on-accent); } .card[data-hue="3"] { --hue: var(--ink); --hue-t: var(--bg); } /* --k1, --k2: two other accents, set by hoverRing.js */
+  .card[data-hue="1"] { --hue: var(--k1); } .card[data-hue="2"] { --hue: var(--k2); } .card[data-hue="3"] { --hue: var(--k3); } .card[data-hue="4"] { --hue: var(--k4); } .card:is([data-hue="1"], [data-hue="2"], [data-hue="3"], [data-hue="4"]) { --hue-t: var(--on-accent); } .card[data-hue="5"] { --hue: var(--ink); --hue-t: var(--bg); } /* --k1..--k4: the other four accents, set by hoverRing.js */
   .card.dvd > .bar { background: var(--hue, var(--accent)); color: var(--hue-t, var(--on-accent)); } /* bouncing: like the DVD logo, the bar changes colour on every hit (hoverRing.js sets data-hue) */
   #experience { padding-top: .8rem; }
   .card {

@@ -146,9 +146,8 @@ function dvd(card, btn, want) {
   document.body.append(field);
   let x = Math.min(hi[0], Math.max(lo[0], +card.dataset.x || 0)), y = Math.min(hi[1], Math.max(lo[1], +card.dataset.y || 0)), last = 0, raf = 0, pulse = 0, cheered = 0, hits = 0;
   let [vx, vy] = aim(x, y, lo, hi, 260, true, want); // px per second
-  const names = ["blue", "green", "orange", "red", "purple"], i = Math.max(0, names.indexOf(document.documentElement.dataset.accent)); // the bar's colours as it bounces: the accent, two other accents (never the same hue), then ink
-  card.style.setProperty("--k1", `var(--k-${names[(i + 1) % 5]})`);
-  card.style.setProperty("--k2", `var(--k-${names[(i + 3) % 5]})`);
+  const names = ["blue", "green", "orange", "red", "purple"], i = Math.max(0, names.indexOf(document.documentElement.dataset.accent)); // the bar's colours as it bounces: the accent, each of the other four accents in turn, then ink
+  for (let k = 1; k <= 4; k++) card.style.setProperty(`--k${k}`, `var(--k-${names[(i + k) % 5]})`);
   const untrail = trail(card, card.getBoundingClientRect(), +card.dataset.x || 0, +card.dataset.y || 0, [.12, .07, .04]); // the shadow clones that trail a dragged card follow the bouncing one too, further back since it moves slowly
   const bar = card.querySelector(".bar"), ghosts = [...document.querySelectorAll(".ghost")]; // the three clones just made: they wear the bar's current colour
   const paint = () => ghosts.forEach((g) => (g.style.borderColor = `color-mix(in srgb, ${getComputedStyle(bar).backgroundColor} 70%, transparent)`));
@@ -165,7 +164,7 @@ function dvd(card, btn, want) {
     place(card, Math.round(x / SNAP) * SNAP, Math.round(y / SNAP) * SNAP);
     if (hitX || hitY) {
       if (++hits % 5 === 0) card.querySelector(".pixel-avatar")?.click(); // every fifth bounce the profile picture gets "clicked": it flips and says hi
-      card.dataset.hue = hits % 4; // the bar changes colour with every hit, like the DVD logo
+      card.dataset.hue = hits % 6; // the bar changes colour with every hit, like the DVD logo
       paint(); // the trail follows the bar's new colour
       card.classList.add("lifted"); clearTimeout(pulse); pulse = setTimeout(() => card.classList.remove("lifted"), 150);
       const q = card.getBoundingClientRect(); // the shockwave starts on the edge that hit (vx/vy have just flipped), at the card's middle along it
@@ -187,7 +186,7 @@ function dvd(card, btn, want) {
   const evs = ["pointerdown", "keydown", "scroll", "resize"];
   stopDvd = () => {
     cancelAnimationFrame(raf); clearTimeout(pulse); field.remove(); untrail();
-    card.classList.remove("dvd", "lifted"); delete card.dataset.hue; card.style.removeProperty("--k1"); card.style.removeProperty("--k2"); btn?.setAttribute("aria-pressed", "false");
+    card.classList.remove("dvd", "lifted"); delete card.dataset.hue; [1, 2, 3, 4].forEach((k) => card.style.removeProperty(`--k${k}`)); btn?.setAttribute("aria-pressed", "false");
     evs.forEach((e) => removeEventListener(e, off));
     stopDvd = null;
   };
