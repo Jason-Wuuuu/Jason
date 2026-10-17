@@ -84,7 +84,7 @@ function Images({ images, ctx, site, onDeleted }) {
           <div className="gallery-admin">
             {groups[dir].map((img) => (
               <figure key={img.path}>
-                <img src={ctx.rawUrl(img.path)} alt="" loading="lazy" />
+                {img.path.endsWith(".mp4") ? <video src={ctx.rawUrl(img.path)} muted preload="metadata" /> : <img src={ctx.rawUrl(img.path)} alt="" loading="lazy" />}
                 <figcaption>{img.path.split("/").pop()}{inUse(img.path) ? "" : " (unused)"}</figcaption>
                 <button className="btn danger" onClick={() => remove(img)}>Delete</button>
               </figure>

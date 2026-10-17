@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 import { image } from "../App";
 import Shot from "./Shot";
 
-// A project screenshot at full size. Click or tap anywhere to close; arrows, the prev/next buttons (at the sides, or under the shot on phones) or a swipe move between shots.
+// A project screenshot at full size. Click or tap anywhere (but a video, which has its own controls) to close; arrows, the prev/next buttons (at the sides, or under the shot on phones) or a swipe move between shots.
 // A fixed div rather than a <dialog>: the top layer would sit above the pixel cursor, which is a page element.
 export default function Lightbox({ shots, title, at, onAt, onClose }) {
   const box = useRef(null);
@@ -31,11 +31,11 @@ export default function Lightbox({ shots, title, at, onAt, onClose }) {
       aria-label={`${title}, screenshot ${at + 1} of ${n}`}
       tabIndex={-1}
       onKeyDown={(e) => keys[e.key] && (e.preventDefault(), keys[e.key]())}
-      onClick={(e) => !e.target.closest("button") && onClose()}
+      onClick={(e) => !e.target.closest("button, video") && onClose()}
       onTouchStart={(e) => (x0.current = e.touches[0].clientX)}
       onTouchEnd={(e) => { const d = e.changedTouches[0].clientX - x0.current; if (Math.abs(d) > 50) step(d < 0 ? 1 : -1); }}
     >
-      <Shot ref={pic} src={shots[at]} alt={`${title} screenshot`} onLoad={(e) => fit(e.currentTarget)} />
+      <Shot ref={pic} controls src={shots[at]} alt={`${title} screenshot`} onLoad={(e) => fit(e.currentTarget)} />
       <button className="zoom-x" onClick={onClose} aria-label="Close">×</button>
       <div className="zoom-nav">
         <button className="zoom-n zoom-p" disabled={at === 0} onClick={() => step(-1)} aria-label="Previous screenshot" />

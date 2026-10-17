@@ -125,7 +125,7 @@ export function client({ repo, branch, token, local: isLocal }) {
     async listImages() {
       const t = await req(`/repos/${repo}/git/trees/${encodeURIComponent(branch)}?recursive=1`);
       return t.tree
-        .filter((n) => n.type === "blob" && n.path.startsWith(IMG_DIR) && /\.(png|jpe?g|gif|webp|svg)$/i.test(n.path))
+        .filter((n) => n.type === "blob" && n.path.startsWith(IMG_DIR) && /\.(png|jpe?g|gif|webp|svg|mp4)$/i.test(n.path))
         .map((n) => ({ path: n.path.slice(IMG_DIR.length), sha: n.sha }));
     },
     async uploadImage(path, base64) {
