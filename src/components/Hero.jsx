@@ -32,6 +32,7 @@ export default function Hero() {
         <span className="bar">
           PLAYER 1
           <span className="wm">
+            <button className="bounce" aria-label="Bounce around" />
             <button onClick={close} aria-label="Close">×</button>
           </span>
         </span>

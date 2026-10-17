@@ -66,7 +66,40 @@ if (matchMedia("(hover: hover) and (pointer: fine)").matches) {
 
 // The player card and the typing test window drag by their title bars, in whole 4px steps, and stays where it is dropped (double-click the bar to put it back).
 const SNAP = 4, BAR = ".card > .bar, .win > .bar";
-const place = (card, x, y) => { card.dataset.x = x; card.dataset.y = y; card.style.setProperty("--dx", x + "px"); card.style.setProperty("--dy", y + "px"); };
+const place = (card, x, y) => { card.classList.toggle("moved", !!(x || y)); /* the ▶ button shows once it has been moved */ card.dataset.x = x; card.dataset.y = y; card.style.setProperty("--dx", x + "px"); card.style.setProperty("--dy", y + "px"); };
+// Easter egg: once the card has been moved its ▶ button sends it bouncing around the hero like an old DVD screensaver (each bounce pulses the accent shadow). Any click, Esc, scroll or resize stops it; so does closing the card.
+let stopDvd = null;
+function dvd(card, btn) {
+  if (stopDvd) return stopDvd();
+  const hero = card.parentElement, wall = (v, lo, hi) => v < lo || v > hi;
+  let x = +card.dataset.x || 0, y = +card.dataset.y || 0, vx = 200, vy = 160, last = 0, raf = 0, pulse = 0; // px per second
+  const frame = (t) => {
+    if (!card.isConnected) return stopDvd();
+    const dt = Math.min(0.05, (t - (last || t)) / 1000); last = t;
+    const r = card.getBoundingClientRect(), h = hero.getBoundingClientRect();
+    const bx = r.left - (+card.dataset.x || 0), by = r.top - (+card.dataset.y || 0); // where the card rests at 0,0
+    const lo = [-bx, h.top - by], hi = [innerWidth - r.width - bx, h.bottom - r.height - by]; // same bounds as dragging: across the screen, within the hero's height
+    x += vx * dt; y += vy * dt;
+    const hitX = wall(x, lo[0], hi[0]), hitY = wall(y, lo[1], hi[1]);
+    if (hitX) { x = Math.min(hi[0], Math.max(lo[0], x)); vx = -vx; }
+    if (hitY) { y = Math.min(hi[1], Math.max(lo[1], y)); vy = -vy; }
+    if (hitX || hitY) { card.classList.add("lifted"); clearTimeout(pulse); pulse = setTimeout(() => card.classList.remove("lifted"), 150); }
+    place(card, Math.round(x / SNAP) * SNAP, Math.round(y / SNAP) * SNAP);
+    raf = requestAnimationFrame(frame);
+  };
+  const off = (e) => (e.type !== "keydown" || e.key === "Escape") && !e.target.closest?.(".bounce") && stopDvd(); // the button itself toggles, on click
+  const evs = ["pointerdown", "keydown", "scroll", "resize"];
+  stopDvd = () => {
+    cancelAnimationFrame(raf); clearTimeout(pulse);
+    card.classList.remove("dvd", "lifted"); btn.setAttribute("aria-pressed", "false");
+    evs.forEach((e) => removeEventListener(e, off));
+    stopDvd = null;
+  };
+  card.classList.add("dvd"); btn.setAttribute("aria-pressed", "true");
+  evs.forEach((e) => addEventListener(e, off));
+  raf = requestAnimationFrame(frame);
+}
+document.addEventListener("click", (e) => { const b = e.target.closest?.(".card .bounce"); if (b) dvd(b.closest(".card"), b); });
 // Easter egg: shake the player card (five quick turns in one second) and everything on it falls off, then climbs back.
 const FALL = ".ch, .pixel-avatar, .cls, .lead, .social a, .stats li";
 function shakeOff(card) {
