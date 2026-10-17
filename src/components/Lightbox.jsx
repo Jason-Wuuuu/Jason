@@ -4,23 +4,34 @@ import { image } from "../App";
 import Shot from "./Shot";
 import { Win } from "./Windows";
 
+const RATES = [0.5, 1, 1.5, 2];
+let rate = 1.5; // the speed picked in the viewer, kept for the session (the demos start at 1.5x)
 const clock = (t) => `${Math.floor(t / 60)}:${String(Math.floor(t % 60)).padStart(2, "0")}`;
 // Play/pause, a scrub lane and the time for a video in the viewer, in the page's pixel style (the browser's own controls would look out of place). The gallery keeps its plain looping preview.
 function VideoBar({ video }) {
   const [t, setT] = useState({ at: 0, len: 0, playing: true });
+  const [speed, setSpeed] = useState(rate);
   useEffect(() => {
     const v = video.current;
     const sync = () => setT({ at: v.currentTime, len: v.duration || 0, playing: !v.paused });
+    const apply = () => { v.defaultPlaybackRate = v.playbackRate = rate; }; // after Shot's own 1.5x, which runs on the same event first
     const evs = ["timeupdate", "loadedmetadata", "play", "pause", "seeked"];
     evs.forEach((e) => v.addEventListener(e, sync));
+    v.addEventListener("loadedmetadata", apply);
+    apply();
     sync();
-    return () => evs.forEach((e) => v.removeEventListener(e, sync));
+    return () => { evs.forEach((e) => v.removeEventListener(e, sync)); v.removeEventListener("loadedmetadata", apply); };
   }, [video]);
+  const faster = () => { // 0.5x, 1x, 1.5x, 2x, round again
+    rate = RATES[(RATES.indexOf(rate) + 1) % RATES.length];
+    video.current.defaultPlaybackRate = video.current.playbackRate = rate;
+    setSpeed(rate);
+  };
   const seekTo = (s) => { video.current.currentTime = Math.min(t.len, Math.max(0, s)); };
   const seek = (e) => { const r = e.currentTarget.getBoundingClientRect(); seekTo(((e.clientX - r.left) / r.width) * t.len); };
   const p = t.len ? t.at / t.len : 0;
   return (
-    <div className="vbar">
+    <div className="vbar" data-on={t.playing}>
       <button className="vplay" data-on={t.playing} aria-label={t.playing ? "Pause" : "Play"} onClick={() => (video.current.paused ? video.current.play() : video.current.pause())} />
       <div
         className="vlane"
@@ -39,6 +50,7 @@ function VideoBar({ video }) {
         <span className="vgrip" style={{ left: `${p * 100}%` }} />
       </div>
       <span className="vtime">{clock(t.at)} / {clock(t.len)}</span>
+      <button className="vrate" onClick={faster} aria-label={`Speed ${speed} times, change`}>{speed}×</button>
     </div>
   );
 }
@@ -72,10 +84,11 @@ export default function Lightbox({ shots, captions, title, at, onAt, onClose }) 
     addEventListener("keydown", arrows);
     return () => removeEventListener("keydown", arrows);
   });
+  const bar = shots[at].endsWith(".mp4") && <VideoBar key={`bar ${shots[at]}`} video={pic} />; // its own key: sharing the shot's would make React duplicate the video // over the video in the window (the buttons below stay put), in the nav row on phones
   const nav = (
     <div className="zoom-nav">
       <button className="zoom-n zoom-p" disabled={at === 0} onClick={() => step(-1)} aria-label="Previous screenshot" />
-      {shots[at].endsWith(".mp4") && <VideoBar key={shots[at]} video={pic} />}
+      {!win && bar}
       {n > 1 && <span className="zoom-c" aria-hidden="true">{at + 1} / {n}</span>}
       <button className="zoom-n zoom-f" disabled={at === n - 1} onClick={() => step(1)} aria-label="Next screenshot" />
     </div>
@@ -84,6 +97,7 @@ export default function Lightbox({ shots, captions, title, at, onAt, onClose }) 
     return createPortal(
       <Win cls="shotwin" title={[title, cap, n > 1 && `${at + 1}/${n}`].filter(Boolean).join(" · ")} onClose={onClose}>
         <Shot key={shots[at]} ref={pic} src={shots[at]} alt={`${title} screenshot`} onLoad={(e) => fit(e.currentTarget)} />
+        {bar}
         {n > 1 && nav}
       </Win>,
       document.body,

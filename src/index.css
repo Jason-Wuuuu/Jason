@@ -198,9 +198,15 @@ footer { padding-block: 2.5rem 4.5rem; color: var(--mute); } /* bottom room just
 .vlane { position: relative; flex: 1; min-width: 4rem; height: 38px; cursor: pointer; touch-action: none; background: repeating-linear-gradient(90deg, currentColor 0 6px, transparent 6px 10px) 0 50% / 100% 3px no-repeat; }
 .vfill { position: absolute; left: 0; top: 50%; height: 3px; margin-top: -1.5px; background: var(--accent); }
 .vgrip { position: absolute; top: 50%; width: 10px; height: 20px; translate: -50% -50%; background: var(--accent); border: 2px solid currentColor; }
+.vrate { flex: none; min-width: 3.4rem; height: 38px; padding: 0 .5rem; color: inherit; background: none; border: 3px solid currentColor; font: inherit; letter-spacing: .05em; }
+/* in the window the bar sits over the bottom of the video, so previous/next below don't move between a video and a screenshot; it hides while the video plays and the pointer is away */
+.shotwin > .vbar { position: absolute; left: calc(.6rem + 3px + 8px); right: calc(.6rem + 3px + 8px); bottom: calc(1.2rem + 38px + 3px + 8px); max-width: none; gap: .6rem; padding: 4px 8px; background: color-mix(in srgb, var(--bg) 85%, transparent); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); border: 3px solid var(--ink); transition: opacity .2s steps(3); }
+.shotwin > .vbar :is(.vplay, .vrate, .vlane) { height: 30px; }
+.shotwin > .vbar .vplay { width: 48px; }
+.shotwin:not(:hover, :focus-within) > .vbar[data-on="true"] { opacity: 0; pointer-events: none; }
 .vtime { flex: none; letter-spacing: .1em; white-space: nowrap; }
-@media (hover: hover) { .vplay:hover, .vlane:hover .vgrip { color: var(--accent); border-color: var(--accent); } }
-@media (max-width: 700px) { .vtime { display: none; } .vplay { width: 44px; } }
+@media (hover: hover) { .vplay:hover, .vrate:hover, .vlane:hover .vgrip { color: var(--accent); border-color: var(--accent); } }
+@media (max-width: 700px) { .vtime, .vrate { display: none; } .vplay { width: 44px; } }
 @media (max-width: 700px) { /* phones: the shot nearly as wide as the screen, the row spread edge to edge */
   .zoom > :is(img, video) { width: min(calc(100vw - 1rem), calc((100dvh - 190px) * 1.6)); }
   .zoom-nav { justify-content: space-between; }
@@ -343,7 +349,7 @@ html:has(.zoom) { overflow: hidden; }
 .shotwin .zoom-nav { position: static; margin-top: .6rem; gap: 1.25rem; }
 .shotwin .zoom-n { width: 60px; height: 38px; border-color: var(--ink); }
 .shotwin .zoom-n::before { background: var(--ink); }
-.shotwin .zoom-c { color: var(--ink); }
+.shotwin .zoom-c { color: var(--ink); min-width: 4.5rem; text-align: center; } /* a fixed width, so previous/next don't shift with the digits */
 .shotwin .zoom-n:disabled { visibility: visible; opacity: .3; } /* at the first or last shot: dimmed, not gone, so the row keeps its shape */
 @media (hover: hover) { .shotwin .zoom-n:not(:disabled):hover { border-color: var(--accent); } .shotwin .zoom-n:not(:disabled):hover::before { background: var(--accent); } }
 /* first opened right under the top-right buttons; a second one opens below the first with a gap (Windows.jsx sets its top). Touch screens (iPads) get the same spot as a dropdown, one at a time */
