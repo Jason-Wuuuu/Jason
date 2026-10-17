@@ -26,10 +26,13 @@ function Gallery({ p }) {
         (g.scrollLeft / (g.scrollWidth - g.clientWidth || 1)) * (n - 1),
       ),
     );
-  const go = (i) =>
+  const sliding = useRef(0); // until when (ms) a slide is under way
+  const go = (i) => {
+    sliding.current = Date.now() + 600;
     ref.current.children[i]?.scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
-  // The peeking neighbour slides into view; the current photo opens at full size.
-  const onPick = (i) => (i === at || n === 1 ? !touch && setBig(i) : go(i));
+  };
+  // The peeking neighbour slides into view; the current photo opens at full size. Mid-slide the target already counts as current, so a quick second click on the same spot must not open it.
+  const onPick = (i) => (i === at || n === 1 ? !touch && Date.now() > sliding.current && setBig(i) : go(i));
   const view = (i) => {
     setBig(i);
     ref.current.children[i]?.scrollIntoView({ behavior: "instant", inline: "start", block: "nearest" }); // keep the gallery behind in step
