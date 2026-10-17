@@ -93,13 +93,16 @@ function aim(x, y, lo, hi, speed) {
   const L = Math.hypot(best.dx, best.dy);
   return [sx * speed * best.dx / L, sy * speed * best.dy / L];
 }
-// A corner hit: the profile picture shouts it from its speech bubble, and pixel confetti bursts out of the corner on top of the usual shockwave.
-function celebrate(x, y, sx, sy) { // sx, sy: which way the card now travels, so the confetti flies into the screen
-  document.querySelector(".card .pixel-avatar")?.dispatchEvent(new CustomEvent("say", { detail: "CORNER!" }));
-  for (let i = 0; i < 18; i++) {
+// A corner hit: the profile picture shouts it from its speech bubble and pixel confetti bursts out of the picture, on top of the usual shockwave.
+function celebrate() {
+  const pic = document.querySelector(".card .pixel-avatar");
+  if (!pic) return;
+  pic.dispatchEvent(new CustomEvent("say", { detail: "CORNER!" }));
+  for (let i = 0; i < 36; i++) {
+    const a = Math.random() * 2 * Math.PI, d = 70 + Math.random() * 190; // flies out in every direction
     const c = Object.assign(document.createElement("i"), { className: "conf", onanimationend: () => c.remove() });
-    c.style.cssText = `left:${x}px;top:${y}px;--dx:${Math.round(sx * (30 + Math.random() * 240))}px;--dy:${Math.round(sy * (10 + Math.random() * 160))}px;--c:var(${i % 2 ? "--accent" : "--ink"});animation-delay:${Math.round(Math.random() * 120)}ms`;
-    document.body.append(c);
+    c.style.cssText = `left:50%;top:50%;--dx:${Math.round(Math.cos(a) * d)}px;--dy:${Math.round(Math.sin(a) * d)}px;--c:${['var(--accent)', 'var(--ink)', '#ffc861', '#ff8a7a'][i % 4]};animation-delay:${Math.round(Math.random() * 120)}ms`;
+    pic.parentElement.append(c); // inside the picture's wrapper, so it travels with the bouncing card
   }
 }
 let stopDvd = null;
@@ -131,7 +134,7 @@ function dvd(card, btn) {
       thud(hitX ? (vx < 0 ? q.right : q.left) : q.left + q.width / 2, hitY ? (vy < 0 ? q.bottom : q.top) : q.top + q.height / 2);
       if (corner && t - cheered > 800) { // one cheer per corner: the second wall of a corner hit also counts as "near"
         cheered = t;
-        celebrate(vx > 0 ? q.left : q.right, vy > 0 ? q.top : q.bottom, Math.sign(vx), Math.sign(vy));
+        celebrate();
       }
     }
     raf = requestAnimationFrame(frame);

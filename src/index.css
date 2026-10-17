@@ -302,8 +302,8 @@ html:has(.zoom) { overflow: hidden; }
 .card.dvd .bounce::before { content: "■"; }
 .thud { position: fixed; z-index: 40; translate: -50% -50%; border: 3px solid var(--accent); pointer-events: none; animation: thud .4s steps(5) both; } /* where the bouncing card hits a wall (hoverRing.js) */
 @keyframes thud { from { width: 8px; height: 8px; } to { width: 88px; height: 88px; opacity: 0; } }
-.conf { position: fixed; z-index: 41; width: 8px; height: 8px; background: var(--c); pointer-events: none; animation: conf .9s steps(9) both; } /* confetti from a corner hit (hoverRing.js) */
-@keyframes conf { from { translate: 0 0; } to { translate: var(--dx) calc(var(--dy) + 90px); opacity: 0; } }
+.conf { position: absolute; z-index: 41; width: 10px; height: 10px; background: var(--c); pointer-events: none; animation: conf 1.3s steps(13) both; } /* confetti from a corner hit (hoverRing.js) */
+@keyframes conf { from { translate: 0 0; } to { translate: var(--dx) calc(var(--dy) + 110px); opacity: 0; } }
 @media (prefers-reduced-motion: reduce), (hover: none) { .card .bounce { display: none; } }
 .wm button:hover { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
 /* Settings and Contact windows (Windows.jsx) */
@@ -440,6 +440,8 @@ html:has(.zoom) { overflow: hidden; }
 @media (min-width: 1280px) { /* room on the left (an iPad in landscape has less than the bubble needs): the bubble sits beside the avatar and straddles the card's border */
   .bubble { left: auto; right: calc(100% + 14px); top: .75rem; }
   .bubble::before { left: auto; right: -9px; top: .5rem; border: 0; border-top: 3px solid var(--ink); border-right: 3px solid var(--ink); }
+  .bubble.flip { left: 0; right: auto; top: calc(100% + 14px); } /* no room on the left (PixelAvatar.jsx): under the avatar, as on narrower screens */
+  .bubble.flip::before { left: 20px; right: auto; top: -9px; border: 0; border-left: 3px solid var(--ink); border-top: 3px solid var(--ink); }
 }
 @media (prefers-reduced-motion: no-preference) { .bubble { animation: scan .4s steps(8); } } /* types in left to right */
 

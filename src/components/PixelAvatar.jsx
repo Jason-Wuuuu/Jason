@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { AVATAR_STYLES, DEFAULT_STYLE, pixelate } from "../avatar";
 import { image } from "../App";
 import site from "../content";
@@ -15,6 +15,12 @@ export default function PixelAvatar() {
   const count = useRef(0);
   const hideTimer = useRef();
   useEffect(() => () => clearTimeout(hideTimer.current), []);
+  const wrap = useRef(null);
+  // Dragged against the left edge of the screen, the bubble beside the avatar would be cut off: it drops under the avatar instead.
+  useLayoutEffect(() => {
+    const b = wrap.current?.querySelector(".bubble");
+    if (b && b.getBoundingClientRect().left < 8) b.classList.add("flip");
+  }, [hi]);
   const greet = (say) => { // `say`: something other than the next greeting (the bouncing card's corner hit)
     replay.current();
     if (!matchMedia("(prefers-reduced-motion: reduce)").matches)
@@ -70,7 +76,7 @@ export default function PixelAvatar() {
 
   if (!avatar) return null;
   return (
-    <div className="avatar-wrap">
+    <div className="avatar-wrap" ref={wrap}>
       <canvas
         ref={ref}
         width={n}
