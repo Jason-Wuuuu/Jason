@@ -121,12 +121,12 @@ footer { padding-block: 2.5rem 4.5rem; color: var(--mute); } /* bottom room just
 .tree .leaf.k::before { content: ""; position: absolute; z-index: 1; left: calc(50% - 1px); top: calc(-1 * var(--s) - 4px); height: calc(var(--s) + 2px); border-left: 2px solid var(--ink); }
 .tree .leaf.k:not(:last-child)::after { content: ""; position: absolute; z-index: 1; left: calc(50% - 1px); top: calc(-1 * var(--s) - 4px); width: calc(100% + 1rem + 6px); border-top: 2px solid var(--ink); } /* + the cards' two borders and the next stem's own width, so the bar reaches the far edge of the next stem */
 .tree .leaf b { display: block; font-weight: 400; color: var(--accent); }
-@media (prefers-reduced-motion: no-preference) { /* the tree draws itself in once (Projects.jsx sets data-draw): the root, then the tap, then each skill's rail, tap and box in turn, 0.45s apart */
-  .tree[data-draw] .root { animation: appear .2s steps(3) both; }
-  .tree[data-draw] .kids::before { transform-origin: left; animation: draw-x .2s steps(4) .2s both; }
-  .tree[data-draw] .row::after { transform-origin: top; animation: draw-y .3s steps(6) calc(.4s + var(--i) * .45s) both; }
-  .tree[data-draw] .row::before { transform-origin: left; animation: draw-x .2s steps(4) calc(.6s + var(--i) * .45s) both; }
-  .tree[data-draw] :is(.n, .kid) { animation: appear .25s steps(3) calc(.8s + var(--i) * .45s) both; }
+@media (prefers-reduced-motion: no-preference) { /* the tree draws itself in once (Projects.jsx sets data-draw): the root, then the tap, then each skill's rail, tap and box in turn, 0.45s apart; `backwards` holds the hidden first frame during the delay and lets go once done, so no end state is left on the lines */
+  .tree[data-draw] .root { animation: appear .2s steps(3) backwards; }
+  .tree[data-draw] .kids::before { transform-origin: left; animation: draw-x .2s steps(4) .2s backwards; }
+  .tree[data-draw] .row::after { transform-origin: top; animation: draw-y .3s steps(6) calc(.4s + var(--i) * .45s) backwards; }
+  .tree[data-draw] .row::before { transform-origin: left; animation: draw-x .2s steps(4) calc(.6s + var(--i) * .45s) backwards; }
+  .tree[data-draw] :is(.n, .kid) { animation: appear .25s steps(3) calc(.8s + var(--i) * .45s) backwards; }
   .tree[data-draw="wait"], .tree[data-draw="wait"] *, .tree[data-draw="wait"] *::before, .tree[data-draw="wait"] *::after { animation-play-state: paused !important; } /* held at the first frame until it is in view; !important because the animation shorthands above would reset it */
 }
 @keyframes draw-x { from { scale: 0 1; } }
