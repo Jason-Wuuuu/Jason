@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
@@ -91,10 +91,10 @@ const parseSkills = (lines) =>
     return out;
   }, []);
 
-function SkillRow({ s, first }) {
-  const [open, setOpen] = useState(first); // phones open a skill by tap; wider screens always show everything (CSS)
+function SkillRow({ s, i }) {
+  const [open, setOpen] = useState(i === 0); // phones open a skill by tap; wider screens always show everything (CSS)
   return (
-    <div className="row" data-open={open}>
+    <div className="row" data-open={open} style={{ "--i": i }}>
       <button className="n" aria-expanded={open} onClick={() => setOpen(!open)}>{s.name}</button>
       <div className="kid">
         {s.note && <p className="leaf">{s.note}</p>}
@@ -116,12 +116,21 @@ function SkillRow({ s, first }) {
 }
 
 function SkillTree({ lines }) {
+  const ref = useRef(null);
+  const [draw, setDraw] = useState(); // the tree draws itself in once, the first time it scrolls into view: "wait" holds it hidden, "go" lets the CSS animations run
+  useLayoutEffect(() => {
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) return;
+    setDraw("wait");
+    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setDraw("go"); io.disconnect(); } }, { threshold: 0.1 });
+    io.observe(ref.current);
+    return () => io.disconnect();
+  }, []);
   return (
-    <div className="tree">
+    <div className="tree" ref={ref} data-draw={draw}>
       <span className="root">What I learned</span>
       <div className="kids">
         {parseSkills(lines).map((s, i) => (
-          <SkillRow key={s.name} s={s} first={i === 0} />
+          <SkillRow key={s.name} s={s} i={i} />
         ))}
       </div>
     </div>
