@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import SettingsIcon from "@mui/icons-material/Settings";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import site from "../content";
+import { front } from "../hoverRing";
 
 const root = document.documentElement;
 const OPTIONS = {
@@ -20,6 +21,8 @@ const set = (k, v) => {
 };
 
 export function Win({ cls, title, onClose, children }) {
+  const box = useRef(null);
+  useEffect(() => front(box.current), []); // a newly opened window is on top of the others
   const [closing, setClosing] = useState(false); // shrinks away like the player card, then unmounts
   const close = () => (matchMedia("(prefers-reduced-motion: reduce)").matches ? onClose() : setClosing(true));
   useEffect(() => {
@@ -28,7 +31,7 @@ export function Win({ cls, title, onClose, children }) {
     return () => removeEventListener("keydown", esc);
   });
   return (
-    <div className={`win ${cls}`} role="dialog" aria-label={title} data-state={closing ? "closing" : "open"} onAnimationEnd={(e) => e.animationName === "poof" && onClose()}>
+    <div ref={box} className={`win ${cls}`} role="dialog" aria-label={title} data-state={closing ? "closing" : "open"} onAnimationEnd={(e) => e.animationName === "poof" && onClose()}>
       <span className="bar">
         {title.toUpperCase()}
         <span className="wm"><button onClick={close} aria-label="Close">×</button></span>
