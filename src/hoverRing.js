@@ -116,7 +116,7 @@ document.addEventListener("pointerdown", (e) => {
     const y = Math.min(b.bottom - r.bottom + y0, Math.max(b.top - r.top + y0, y0 + m.clientY - e.clientY));
     place(card, Math.round(x / SNAP) * SNAP, Math.round(y / SNAP) * SNAP);
   };
-  const stop = card.matches(".card") ? trail(card, r, x0, y0) : () => {};
+  const stop = trail(card, r, x0, y0);
   const drop = () => { stop(); card.classList.remove("lifted"); bar.removeEventListener("pointermove", move); bar.removeEventListener("pointerup", drop); bar.removeEventListener("pointercancel", drop); };
   card.classList.add("lifted");
   bar.setPointerCapture(e.pointerId);

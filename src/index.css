@@ -246,7 +246,7 @@ html:has(.zoom) { overflow: hidden; }
   /* the one orchestrated moment: name drops in letter by letter, then the rest follows */
   .hero h1 .ch { display: inline-block; animation: drop .5s steps(5) backwards; /* backwards, not both: iOS can leave a letter stuck on the end frame */ animation-delay: calc(var(--i) * 70ms); }
   .pixel-avatar { animation: float 3.2s steps(8) infinite; } /* hover (hop) takes over while pointed at */
-  .card[data-state="closing"] { animation: poof .3s steps(4) forwards; } /* closing the player card: it shrinks away */
+  .card[data-state="closing"], .win[data-state="closing"] { animation: poof .3s steps(4) forwards; } /* closing the player card: it shrinks away */
   .card.shaken :is(.ch, .pixel-avatar, .cls, .lead, .social a, .stats li) { animation: shake-off .9s steps(9) var(--fd) forwards; } /* the shake easter egg (hoverRing.js) */
   .card.back :is(.pixel-avatar, .cls, .social a, .stats li) { animation: rise .4s steps(4) both; } /* .ch and .lead restore through their intro animations instead; a rise here would be replayed by those when .back ends */
   .hero .lead { animation: rise .4s steps(4) .75s both; }

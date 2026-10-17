@@ -18,16 +18,18 @@ const set = (k, v) => {
 };
 
 function Win({ cls, title, onClose, children }) {
+  const [closing, setClosing] = useState(false); // shrinks away like the player card, then unmounts
+  const close = () => (matchMedia("(prefers-reduced-motion: reduce)").matches ? onClose() : setClosing(true));
   useEffect(() => {
-    const esc = (e) => e.key === "Escape" && onClose();
+    const esc = (e) => e.key === "Escape" && close();
     addEventListener("keydown", esc);
     return () => removeEventListener("keydown", esc);
-  }, [onClose]);
+  });
   return (
-    <div className={`win ${cls}`} role="dialog" aria-label={title}>
+    <div className={`win ${cls}`} role="dialog" aria-label={title} data-state={closing ? "closing" : "open"} onAnimationEnd={(e) => e.animationName === "poof" && onClose()}>
       <span className="bar">
         {title.toUpperCase()}
-        <span className="wm"><button onClick={onClose} aria-label="Close">×</button></span>
+        <span className="wm"><button onClick={close} aria-label="Close">×</button></span>
       </span>
       {children}
     </div>
