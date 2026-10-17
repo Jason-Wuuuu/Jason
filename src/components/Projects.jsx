@@ -88,11 +88,12 @@ function Row({ p, open }) {
     <details className="proj" open={open}>
       <summary>
         <span className="yr">{p.year}</span>
-        <span className="ti">{p.title}{p.demoUrl && <span className="live">{video ? "demo" : "live"}</span>}</span>
-        <span className="st">{p.tech_stack}</span>
+        <span className="ti">{p.title}</span>
+        {p.demoUrl && <span className="live">{video ? "demo" : "live"}</span>}
       </summary>
       <div className="body">
         <Md text={p.description} />
+        {p.tech_stack && <p className="stack">{p.tech_stack.split(/,\s*/).join(" · ")}</p>}
         <div className="social">
           {p.demoUrl && (
             <a className="cta" href={demo} target="_blank" rel="noopener noreferrer">
