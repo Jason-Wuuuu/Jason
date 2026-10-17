@@ -76,25 +76,27 @@ function thud(x, y) {
     document.body.append(el);
   });
 }
-// Easter egg: the card's ▶ button sends it bouncing around the hero like an old DVD screensaver (each bounce pulses the accent shadow). Any click, Esc, scroll or resize stops it; so does closing the card.
-const PAD = 12; // the bouncing card turns round this far inside the hero's bounds, leaving room to draw the wall it hit
-const CORNER_AT = 8; // the card is aimed to reach a corner on this wall hit (and, the path being periodic, again later)
+// Easter egg: the card's ▶ button sends it bouncing around the window like an old DVD screensaver (each bounce pulses the accent shadow). Any click, Esc, scroll or resize stops it; so does closing the card.
+const PAD = 12; // the bouncing card turns round this far inside its range, leaving room to draw the wall it hit
+const FLOOR = 56; // the range ends this far above the bottom of the window: the progress bar lives there
+const HITS = [6, 12]; // each run aims for a corner on a random wall hit in this range
 const gcd = (a, b) => (b ? gcd(b, a % b) : a);
-// A card bouncing in a W×H box moves in a straight line through a grid of mirrored copies of the box, so it reaches a corner exactly when that line passes through a grid corner: after crossing `a` vertical and `b` horizontal walls, which is hit number a + b - 1 when a and b share no factor. Pick the pair giving the most diagonal line (not a near-vertical crawl), and aim at it.
-function aim(x, y, lo, hi, speed) {
-  const W = hi[0] - lo[0], H = hi[1] - lo[1];
-  const sx = x - lo[0] < hi[0] - x ? 1 : -1, sy = y - lo[1] < hi[1] - y ? 1 : -1; // head towards the farther wall
+// A card bouncing in a W×H box moves in a straight line through a grid of mirrored copies of the box, so it reaches a corner exactly when that line passes through a grid corner: after crossing `a` vertical and `b` horizontal walls, which is hit number a + b - 1 when a and b share no factor. Pick the pair giving the most diagonal line (not a near-vertical crawl), and aim at it. `free`: start in a random direction (otherwise towards the farther wall, e.g. when leaving a corner).
+function aim(x, y, lo, hi, speed, free) {
+  const W = hi[0] - lo[0], H = hi[1] - lo[1], n = HITS[0] + Math.floor(Math.random() * (HITS[1] - HITS[0] + 1));
+  const pick = (v, l, h) => { const far = v - l < h - v ? 1 : -1, s = free && Math.random() < .5 ? -far : far; return (s > 0 ? h - v : v - l) < 40 ? far : s; }; // never a random direction straight into a wall
+  const sx = pick(x, lo[0], hi[0]), sy = pick(y, lo[1], hi[1]);
   const fx = sx > 0 ? hi[0] - x : x - lo[0], fy = sy > 0 ? hi[1] - y : y - lo[1]; // distance to the first wall each way
   let best;
-  for (let a = 1; a <= CORNER_AT; a++) {
-    const b = CORNER_AT + 1 - a, dx = fx + (a - 1) * W, dy = fy + (b - 1) * H, skew = Math.abs(Math.log(dy / dx));
+  for (let a = 1; a <= n; a++) {
+    const b = n + 1 - a, dx = fx + (a - 1) * W, dy = fy + (b - 1) * H, skew = Math.abs(Math.log(dy / dx));
     if (gcd(a, b) === 1 && dx > 0 && dy > 0 && (!best || skew < best.skew)) best = { dx, dy, skew };
   }
-  if (!best || W < 8 || H < 8) return [sx * 200, sy * 160]; // no room to plan with
+  if (!best || W < 8 || H < 8) return [W < 8 ? 0 : sx * 200, H < 8 ? 0 : sy * 160]; // no room to plan with
   const L = Math.hypot(best.dx, best.dy);
   return [sx * speed * best.dx / L, sy * speed * best.dy / L];
 }
-// The wall the bouncing card just hit lights up for a moment: a dashed line just outside the card along that edge of its range (the hero's top and bottom edges aren't drawn anywhere).
+// The wall the bouncing card just hit lights up for a moment: a dashed line just outside the card along that edge of its range.
 function edge(left, top, width, height, dir) {
   const el = Object.assign(document.createElement("i"), { className: "wall", onanimationend: () => el.remove() });
   Object.assign(el.style, { left: left + "px", top: top + "px", width: width + "px", height: height + "px" });
@@ -116,18 +118,20 @@ function celebrate() {
 let stopDvd = null;
 function dvd(card, btn) {
   if (stopDvd) return stopDvd();
-  const hero = card.parentElement, out = (v, lo, hi) => v < lo || v > hi, near = (v, lo, hi) => Math.min(v - lo, hi - v) < 20;
+  const out = (v, lo, hi) => v < lo || v > hi, near = (v, lo, hi) => Math.min(v - lo, hi - v) < 20;
   const box = () => {
-    const r = card.getBoundingClientRect(), h = hero.getBoundingClientRect();
+    const r = card.getBoundingClientRect(), h = { top: 0, bottom: innerHeight - FLOOR, height: innerHeight - FLOOR };
     const bx = r.left - (+card.dataset.x || 0), by = r.top - (+card.dataset.y || 0); // where the card rests at 0,0
-    return { r, h, lo: [PAD - bx, h.top + PAD - by], hi: [innerWidth - PAD - r.width - bx, h.bottom - PAD - r.height - by] }; // as dragging: across the screen, within the hero's height, less the padding
+    const lo = [PAD - bx, h.top + PAD - by], hi = [innerWidth - PAD - r.width - bx, h.bottom - PAD - r.height - by]; // the whole window, less the padding (dragging stays inside the hero)
+    [0, 1].forEach((k) => { if (hi[k] < lo[k]) lo[k] = hi[k] = (lo[k] + hi[k]) / 2; }); // a window too small for the card: it just doesn't move that way
+    return { r, h, lo, hi };
   };
   let { lo, hi, h: hr } = box();
   const field = Object.assign(document.createElement("i"), { className: "field" }); // corner brackets marking the card's whole range (4px outside it, where the wall lines are drawn), for as long as it bounces
   Object.assign(field.style, { left: PAD - 4 + "px", top: hr.top + PAD - 4 + "px", width: innerWidth - 2 * PAD + 8 + "px", height: hr.height - 2 * PAD + 8 + "px" });
   document.body.append(field);
   let x = Math.min(hi[0], Math.max(lo[0], +card.dataset.x || 0)), y = Math.min(hi[1], Math.max(lo[1], +card.dataset.y || 0)), last = 0, raf = 0, pulse = 0, cheered = 0, hits = 0;
-  let [vx, vy] = aim(x, y, lo, hi, 260); // px per second
+  let [vx, vy] = aim(x, y, lo, hi, 260, true); // px per second
   const frame = (t) => {
     if (!card.isConnected) return stopDvd();
     const dt = Math.min(0.05, (t - (last || t)) / 1000); last = t;
@@ -148,6 +152,7 @@ function dvd(card, btn) {
       if (corner && t - cheered > 800) { // one cheer per corner: the second wall of a corner hit also counts as "near"
         cheered = t;
         celebrate();
+        [vx, vy] = aim(x, y, lo, hi, 260); // and a new random corner is lined up
       }
     }
     raf = requestAnimationFrame(frame);

@@ -302,6 +302,7 @@ html:has(.zoom) { overflow: hidden; }
 .card.dvd .bounce::before { content: "■"; }
 .thud { position: fixed; z-index: 40; translate: -50% -50%; border: 3px solid var(--accent); pointer-events: none; animation: thud .4s steps(5) both; } /* where the bouncing card hits a wall (hoverRing.js) */
 @keyframes thud { from { width: 8px; height: 8px; } to { width: 88px; height: 88px; opacity: 0; } }
+.card.dvd { z-index: 12; } /* bouncing over the rest of the page: above the sections' own layers */
 .field { position: fixed; z-index: 40; pointer-events: none; color: var(--ink); --g: linear-gradient(currentColor, currentColor); --t: 4px; --l: 20px; animation: field-in .2s steps(2) both; /* the bouncing card's range, as corner brackets like the hover ones (hoverRing.js) */
   background: var(--g) 0 0 / var(--l) var(--t), var(--g) 0 0 / var(--t) var(--l), var(--g) 100% 0 / var(--l) var(--t), var(--g) 100% 0 / var(--t) var(--l), var(--g) 0 100% / var(--l) var(--t), var(--g) 0 100% / var(--t) var(--l), var(--g) 100% 100% / var(--l) var(--t), var(--g) 100% 100% / var(--t) var(--l); background-repeat: no-repeat; }
 @keyframes field-in { from { opacity: 0; } }
