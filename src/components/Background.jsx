@@ -11,7 +11,7 @@ const rgb = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
 
 const THEMES = {
   dark: { top: rgb("#1c1c1e"), bottom: rgb("#1c3358"), glow: rgb("#5aa2ff"), sprite: ["#9cc9ff", "#eeebe6", "#5aa2ff"], cloud: "#27406b" },
-  light: { top: rgb("#f4f2ee"), bottom: rgb("#cde1fa"), glow: rgb("#8cc4ff"), sprite: ["#2f6fdb", "#8cc4ff", "#1b4f9c"], cloud: "#ffffff" },
+  light: { top: rgb("#97c4fa"), bottom: rgb("#eaf4ff"), glow: rgb("#ffffff"), sprite: ["#2f6fdb", "#8cc4ff", "#1b4f9c"], cloud: "#ffffff" }, // a daytime sky: clearer blue above, paling to the horizon
 };
 const CLOUD = [[2, 0, 7, 2], [0, 2, 13, 3], [3, 5, 8, 1]]; // [x, y, w, h] rects
 const rand = (seed) => { const x = Math.sin(seed * 127.1) * 43758.5453; return x - Math.floor(x); };
@@ -99,20 +99,31 @@ export default function Background() {
           if (shoot.a > 1.2) shoot = null;
         }
       } else {
-        const sx = sunX(), sy = H * 0.18 + oy; // sun: disc with a pixel ring
-        for (let y = -7; y <= 7; y++) for (let x = -7; x <= 7; x++) { const r2 = x * x + y * y; if (r2 <= 36) rect(sx + x, sy + y, 1, 1, "#ffffff"); else if (r2 <= 49) rect(sx + x, sy + y, 1, 1, "#8cc4ff"); }
+        const sx = sunX(), sy = H * 0.18 + oy; // sun: a warm disc with a pixel ring and rays
+        for (let y = -7; y <= 7; y++) for (let x = -7; x <= 7; x++) { const r2 = x * x + y * y; if (r2 <= 36) rect(sx + x, sy + y, 1, 1, "#ffd54a"); else if (r2 <= 49) rect(sx + x, sy + y, 1, 1, "#ffab3d"); }
+        for (const [rx, ry] of [[0, -11], [0, 10], [-11, 0], [10, 0], [-8, -8], [7, -8], [-8, 7], [7, 7]]) rect(sx + rx, sy + ry, 2, 2, "#ffab3d"); // rays
       }
       // clouds drift right and wrap
       for (let c = 0; c < 4; c++) {
         const cx = ((t * (1.5 + c * 0.7) + c * W * 0.31) % (W + 30)) - 15, cy = H * (0.12 + c * 0.17) + oy;
-        ctx.globalAlpha = dark ? 0.55 : 0.85;
+        ctx.globalAlpha = dark ? 0.55 : 0.95;
         for (const [x, y, w, h] of CLOUD) rect(cx + x, cy + y, w, h, th.cloud);
+        if (!dark) for (const [x, y, w, h] of [[0, 4, 13, 1], [3, 5, 8, 1]]) rect(cx + x, cy + y, w, h, "#b4cdee"); // a shaded underside, so white shows on the sky
         ctx.globalAlpha = 1;
       }
-      // fireflies rise and wobble, blinking
+      if (!dark) { // tiny birds cross the sky, flapping in steps
+        ctx.globalAlpha = 0.75;
+        for (let i = 0; i < 4; i++) {
+          const bx = ((t * (4 + i * 1.3) + i * W * 0.27) % (W + 20)) - 10, by = H * (0.2 + i * 0.13) + Math.sin(t * 0.8 + i * 2) * 3 + oy;
+          const up = Math.floor(t * 3 + i) % 2;
+          rect(bx, by, 1, 1, "#27406b"); rect(bx - 1, by - up, 1, 1, "#27406b"); rect(bx + 1, by - up, 1, 1, "#27406b"); rect(bx - 2, by - 1 + up, 1, 1, "#27406b"); rect(bx + 2, by - 1 + up, 1, 1, "#27406b");
+        }
+        ctx.globalAlpha = 1;
+      }
+      // fireflies rise and wobble, blinking (at night)
       ctx.globalAlpha = SPECK;
       flies.forEach((f, i) => {
-        if (i >= flies.length * k) return;
+        if (!dark || i >= flies.length * k) return;
         f.y -= f.s * dt; if (f.y < -0.05) f.y = 1.05;
         if (Math.floor(t * 2 + f.p) % 3 === 0) return;
         rect(f.x * W + Math.sin(t + f.p) * 3, f.y * H, 1, 1, th.sprite[i % 3]);
