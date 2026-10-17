@@ -97,7 +97,7 @@ function SkillTree({ lines }) {
       <span className="root">What I learned</span>
       <div className="cols">
         {parseSkills(lines).map((s) => (
-          <div className="col" key={s.name}>
+          <div className="col" key={s.name} style={{ "--w": Math.sqrt(s.name.length + s.note.length + s.subs.join("").length) }}>
             <p className="n">{s.name}</p>
             {s.note && <p className="leaf">{s.note}</p>}
             {s.subs.map((t) => (

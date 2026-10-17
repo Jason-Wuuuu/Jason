@@ -99,11 +99,13 @@
       "githubUrl": "",
       "demoUrl": "https://pokemon-interactive-map.vercel.app",
       "skills": [
-        "Map navigation: Overworld maps for Gen 1 and Gen 2 you can move around and explore.",
-        "Guide solving: A solver that finds dungeon routes in real time.",
-        "Data extraction: Everything comes from the decompilation source, not guesses.",
-        "Bilingual dialogue: Japanese and English text side by side.",
-        "- Encounter and trainer tables"
+        "Pathfinding: Dungeon route solver. Flood-fill reachability plus a search over keys, switches, HMs and pushed boulders, run in a Web Worker.",
+        "- Boulder pushing with deadlock detection",
+        "- Every route replayed by a separate validator and audited in CI",
+        "Map navigation: Pan, pinch-zoom and keyboard camera that locks on long routes. Doors and Back restore where you came from.",
+        "Large map rendering: Canvas-painted maps with bitmaps cached per zoom level, prioritised paint jobs, and only the visible places mounted.",
+        "Data extraction: Parsers for the pret disassemblies turn game source into JSON for 6 editions. Gold tests pin the output.",
+        "Bilingual: Japanese and English text joined per edition, with furigana."
       ],
       "screenshots": [
         "pokemon_interactive_map/pokemon_interactive_map_4.mp4",

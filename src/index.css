@@ -103,11 +103,11 @@ footer { padding-block: 2.5rem 4.5rem; color: var(--mute); } /* bottom room just
 /* skill tree under a project: the root, a branch line, and one column per skill that grows downward */
 .tree { margin: 1.4rem 0 1.6rem; }
 .tree .root { display: inline-block; padding: .4rem .9rem; border: 2px solid var(--ink); background: var(--accent); color: var(--on-accent); box-shadow: var(--shadow); }
-.tree .cols { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0 1rem; margin-top: 1.2rem; position: relative; } /* shortcut: a fifth skill wraps to a second row without a branch line, upgrade if a project needs more */
+.tree .cols { display: flex; gap: 0 1rem; margin-top: 1.2rem; position: relative; } /* each column's width follows the square root of its text, so long notes get room; shortcut: 6+ skills get cramped, there is no wrapping */
 .tree .cols::before { content: ""; position: absolute; top: -1.2rem; left: 2rem; height: 1.2rem; border-left: 2px solid var(--ink); }
-.tree .col { position: relative; padding-top: 1.2rem; }
+.tree .col { position: relative; padding-top: 1.2rem; flex: var(--w) 1 0; min-width: 0; }
 .tree .col::before { content: ""; position: absolute; top: 0; left: 2rem; height: 1.2rem; border-left: 2px solid var(--ink); }
-.tree .col:not(:nth-child(4n))::after { content: ""; position: absolute; top: 0; left: 2rem; width: calc(100% + 1rem); border-top: 2px solid var(--ink); }
+.tree .col:not(:last-child)::after { content: ""; position: absolute; top: 0; left: 2rem; width: calc(100% + 1rem); border-top: 2px solid var(--ink); }
 .tree p { margin: 0; }
 .tree .n { border: 2px solid var(--accent); background: var(--panel); box-shadow: 3px 3px 0 var(--accent); padding: .35rem .7rem; }
 .tree .leaf { position: relative; margin-top: 1.1rem; border: 2px dashed var(--mute); padding: .4rem .7rem; color: var(--mute); line-height: 1.35; }
