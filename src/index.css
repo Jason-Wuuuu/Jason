@@ -383,12 +383,12 @@ html:has(.zoom) { overflow: hidden; }
 @media (prefers-color-scheme: dark) { :root[data-accent]:not([data-theme="light"]) { --accent: var(--ad); } }
 :root[data-accent][data-theme="dark"] { --accent: var(--ad); }
 :root[data-accent="green"] { --al: #1c7c44; --ad: #4fd08a; }
-:root[data-accent="orange"] { --al: #ab5509; --ad: #ffa24d; }
+:root[data-accent="orange"] { --al: #b85c0a; --ad: #ffa24d; }
 :root[data-accent="red"] { --al: #c63838; --ad: #ff7b7b; }
 :root[data-accent="purple"] { --al: #7b4fd1; --ad: #b497ff; }
 /* every accent, for the bouncing card's bar to cycle through (hoverRing.js picks two that are not the current accent) */
 :root { --live: #c63838; } /* the red of "live" and "close" (the same as the red accent's colours); its dark pair is in the two dark blocks below */
-:root { --k-blue: #2d69d0; --k-green: #1c7c44; --k-orange: #ab5509; --k-red: #c63838; --k-purple: #7b4fd1; }
+:root { --k-blue: #2d69d0; --k-green: #1c7c44; --k-orange: #b85c0a; --k-red: #c63838; --k-purple: #7b4fd1; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --live: #ff7b7b; --k-blue: #5aa2ff; --k-green: #4fd08a; --k-orange: #ffa24d; --k-red: #ff7b7b; --k-purple: #b497ff; } }
 :root[data-theme="dark"] { --live: #ff7b7b; --k-blue: #5aa2ff; --k-green: #4fd08a; --k-orange: #ffa24d; --k-red: #ff7b7b; --k-purple: #b497ff; }
 .respawn { width: 100%; margin: 0; display: flex; flex-direction: column; align-items: center; gap: 1.25rem; text-align: center; font-size: 1.4rem; color: var(--mute); }
