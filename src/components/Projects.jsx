@@ -100,9 +100,14 @@ function SkillTree({ lines }) {
           <div className="col" key={s.name} style={{ "--w": Math.sqrt(s.name.length + s.note.length + s.subs.join("").length) }}>
             <p className="n">{s.name}</p>
             {s.note && <p className="leaf">{s.note}</p>}
-            {s.subs.map((t) => (
-              <p className="leaf k" key={t}>{t}</p>
-            ))}
+            {s.subs.map((t) => {
+              const [head, ...rest] = t.split(": "); // "Title: text" gives the sub-skill a title
+              return (
+                <p className="leaf k" key={t}>
+                  {rest.length ? <><b>{head}</b>{rest.join(": ")}</> : t}
+                </p>
+              );
+            })}
           </div>
         ))}
       </div>
