@@ -21,7 +21,7 @@
     />
     <script>
       try {
-        ["theme", "accent"].forEach(function (k) {
+        ["theme", "accent", "cursor"].forEach(function (k) {
           var v = localStorage.getItem(k);
           if (v) document.documentElement.dataset[k] = v;
         });

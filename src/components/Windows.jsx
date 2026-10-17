@@ -7,6 +7,7 @@ const root = document.documentElement;
 const OPTIONS = {
   theme: ["system", "light", "dark"],
   accent: ["blue", "green", "orange", "red", "purple"],
+  cursor: ["pixel", "system"],
 };
 const SWATCH = { blue: "#2f6fdb", green: "#1f8a4c", orange: "#c4620a", red: "#d03b3b", purple: "#7b4fd1" };
 const get = (k) => root.dataset[k] || OPTIONS[k][0];
@@ -39,7 +40,7 @@ function Settings({ onClose }) {
   const [, redraw] = useState(0);
   return (
     <Win cls="settings" title="Settings" onClose={onClose}>
-      {Object.keys(OPTIONS).map((k) => (
+      {Object.keys(OPTIONS).filter((k) => k !== "cursor" || matchMedia("(hover: hover) and (pointer: fine)").matches).map((k) => ( // no custom cursor on touch screens
         <div key={k} className="opt" role="group" aria-label={k}>
           <span>{k}</span>
           {OPTIONS[k].map((v) => (

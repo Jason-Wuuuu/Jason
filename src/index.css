@@ -538,7 +538,8 @@ html.scrolled:has(.dock[data-pos="bottom"]) body::after { /* not at the very top
 }
 
 /* pixel arrow cursor: a DOM element (hoverRing.js) that hides the native one; black in light mode, white in dark */
-.pxcur-on, .pxcur-on * { cursor: none !important; }
+.pxcur-on:not([data-cursor="system"]), .pxcur-on:not([data-cursor="system"]) * { cursor: none !important; }
+:root[data-cursor="system"] .pxcur { display: none; } /* Settings > Cursor > System */
 .pxcur { position: fixed; left: 0; top: 0; z-index: 2147483647; /* above every window, however many times they have been raised (hoverRing.js) */ pointer-events: none; opacity: .8; }
 .pxcur[hidden] { display: none; }
 .pxcur i { display: block; width: 25px; height: 35px; margin: -2.5px 0 0 -2.5px; background: url(/cursor.svg) 0 0 / 100% 100%; image-rendering: pixelated; } /* margin puts the arrow's tip on the pointer */
