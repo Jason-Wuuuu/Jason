@@ -122,8 +122,14 @@ footer { padding-block: 2.5rem 4.5rem; color: var(--mute); } /* bottom room just
 .when .dot { display: none; }
 @media (max-width: 700px) { .when .dot { display: inline; } .when br { display: none; } } /* one line on phones: date · place */
 .org { color: var(--blue); font-size: 1.15em; margin: .25rem 0 .75rem; }
-.timeline ul { margin: 0; padding-left: 1.2rem; max-width: 42rem; list-style: square; }
+.timeline ul { margin: 0; max-width: 42rem; }
 .timeline ul li { margin-bottom: .35rem; }
+/* quest-log bullets: a pixel checkbox with a tick (the sub-points keep the plain square) */
+.timeline ul { list-style: none; padding-left: 1.75rem; }
+.timeline ul > li { position: relative; }
+.timeline ul > li::before { content: ""; position: absolute; left: -1.75rem; top: .45em; width: 1rem; height: 1rem; background: var(--accent); -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 7 7' shape-rendering='crispEdges'%3E%3Cpath d='M0 0h7v1H0zM0 6h7v1H0zM0 0h1v7H0zM6 0h1v7H6zM1 3h1v1H1zM2 4h1v1H2zM3 3h1v1H3zM4 2h1v1H4z'/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 7 7' shape-rendering='crispEdges'%3E%3Cpath d='M0 0h7v1H0zM0 6h7v1H0zM0 0h1v7H0zM6 0h1v7H6zM1 3h1v1H1zM2 4h1v1H2zM3 3h1v1H3zM4 2h1v1H4z'/%3E%3C/svg%3E") center / contain no-repeat; }
+.timeline ul ul { list-style: square; padding-left: 1.2rem; }
+.timeline ul ul > li::before { display: none; }
 
 /* projects */
 .filters { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1.5rem; }
