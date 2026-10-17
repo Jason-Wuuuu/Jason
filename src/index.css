@@ -394,7 +394,7 @@ html:has(.zoom) { overflow: hidden; }
   background: var(--bg); border: 3px solid var(--ink); box-shadow: 3px 3px 0 var(--ink);
   text-decoration: none; cursor: pointer;
 }
-.dock a:hover, .dock button:hover { color: var(--accent); }
+@media (hover: hover) { .dock a:hover, .dock button:hover { color: var(--accent); } } /* not on touch: a tapped link would stay "hovered" (blue) until you tap elsewhere */
 /* hover: the link hops up in pixel steps while its label rolls up to an accent copy */
 .dock a { transition: translate .25s steps(3), box-shadow .25s steps(3);  }
 @media (hover: hover) { .dock a:hover { translate: 0 -5px; box-shadow: 3px 8px 0 var(--ink); } }
@@ -412,7 +412,7 @@ html:has(.zoom) { overflow: hidden; }
   padding: .15rem .45rem; font: inherit; color: var(--ink); background: var(--bg);
   border: 3px solid var(--ink); box-shadow: 3px 3px 0 var(--ink); cursor: pointer;
 }
-.theme-toggle:hover { color: var(--accent); }
+@media (hover: hover) { .theme-toggle:hover { color: var(--accent); } }
 .theme-toggle:active { transform: translate(3px, 3px); box-shadow: none; }
 @media (max-width: 700px) { .theme-toggle { top: calc(1.25rem - 14px); right: .5rem; } } /* phones: stays put, and at the top of the page overlaps the player card's top-right corner */
 @keyframes dock-in-bottom { from { translate: 0 40px; opacity: 0; } }
@@ -429,11 +429,16 @@ html:has(.zoom) { overflow: hidden; }
     flex-direction: column; align-items: stretch; gap: .6rem; font-size: .85rem;
     translate: 0 calc((2 - var(--i, 2)) * 2.6rem); /* the current button rides the vertical centre; 2.6rem ≈ one button + gap */
   }
-  .dock[data-pos] a { justify-content: center; scale: calc(1.28 - .09 * var(--d, 1)); } /* fisheye, only in the vertical column: the current section biggest, shrinking with distance (Dock.jsx) */
+  .dock[data-pos] a { justify-content: center; scale: calc(1.28 - .09 * var(--d, 1)); opacity: calc(1 - .14 * var(--d, 1)); } /* farther from the current one = fainter, so the column sits lighter over the page */
+  .dock[data-pos] a:hover, .dock[data-pos] a:focus-visible { opacity: 1; } /* fisheye, only in the vertical column: the current section biggest, shrinking with distance (Dock.jsx) */
   .dock[data-pos] .theme-toggle { justify-content: center; }
 }
 @media (min-width: 1280px) and (prefers-reduced-motion: no-preference) {
   .dock[data-pos] { animation: dock-in-side .4s steps(6); }
+}
+@media (min-width: 561px) and (max-width: 1279px) { /* mid screens: both positions anchor at left: 50% and differ only in transform, so the hop from the right corner to the centre can glide */
+  .dock { transition: transform .45s ease-out; }
+  .dock[data-pos="bottom"] { left: 50%; right: auto; transform: translateX(calc(50vw - 1.25rem - 100%)); }
 }
 @media (max-width: 1279px) { .dock a[href="#player"] { display: none; } .dock { bottom: calc(1.5rem + env(safe-area-inset-bottom)); } } /* tablets and landscape phones: same low spot as phones */
 @media (max-width: 560px) {
