@@ -173,10 +173,11 @@ footer { padding-block: 2.5rem 4.5rem; color: var(--mute); } /* bottom room just
 .filters button { padding: .15rem .9rem; border: 3px solid var(--ink); background: var(--bg); box-shadow: 3px 3px 0 var(--ink); }
 .filters button:active { transform: translate(3px, 3px); box-shadow: none; }
 .filters button[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); }
-.proj { border-top: 3px dashed var(--ink); }
+.proj { border-top: 3px solid transparent; } /* keeps the 3px; the dashed rule itself is summary::before, so it scales with the title block (App.jsx) */
+.proj summary::before { content: ""; position: absolute; left: .75rem; right: .75rem; top: -3px; border-top: 3px dashed var(--ink); }
 .proj summary {
   display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .2rem 1rem; align-items: baseline;
-  padding: 1.1rem .75rem; margin-inline: -.75rem; cursor: pointer; list-style: none; /* side padding gives the hover brackets room; the negative margin keeps the text aligned */
+  position: relative; padding: 1.1rem .75rem; margin-inline: -.75rem; cursor: pointer; list-style: none; /* side padding gives the hover brackets room; the negative margin keeps the text aligned */
 }
 .proj summary::-webkit-details-marker { display: none; }
 .proj summary:hover .ti { color: var(--blue); }
