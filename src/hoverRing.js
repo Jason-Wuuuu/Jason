@@ -78,7 +78,6 @@ function thud(x, y) {
 }
 // Easter egg: the card's ▶ button sends it bouncing around the window like an old DVD screensaver (each bounce pulses the accent shadow). Any click, Esc, scroll or resize stops it; so does closing the card.
 const PAD = 12; // the bouncing card turns round this far inside its range, leaving room to draw the wall it hit
-const FLOOR = 56; // the range ends this far above the bottom of the window: the progress bar lives there
 const HITS = [6, 12]; // each run aims for a corner on a random wall hit in this range
 const gcd = (a, b) => (b ? gcd(b, a % b) : a);
 // A card bouncing in a W×H box moves in a straight line through a grid of mirrored copies of the box, so it reaches a corner exactly when that line passes through a grid corner: after crossing `a` vertical and `b` horizontal walls, which is hit number a + b - 1 when a and b share no factor. Pick the pair giving the most diagonal line (not a near-vertical crawl), and aim at it. `free`: start in a random direction (otherwise towards the farther wall, e.g. when leaving a corner).
@@ -120,9 +119,9 @@ function dvd(card, btn) {
   if (stopDvd) return stopDvd();
   const out = (v, lo, hi) => v < lo || v > hi, near = (v, lo, hi) => Math.min(v - lo, hi - v) < 20;
   const box = () => {
-    const r = card.getBoundingClientRect(), h = { top: 0, bottom: innerHeight - FLOOR, height: innerHeight - FLOOR };
+    const r = card.getBoundingClientRect(), h = { top: 0, bottom: innerHeight, height: innerHeight };
     const bx = r.left - (+card.dataset.x || 0), by = r.top - (+card.dataset.y || 0); // where the card rests at 0,0
-    const lo = [PAD - bx, h.top + PAD - by], hi = [innerWidth - PAD - r.width - bx, h.bottom - PAD - r.height - by]; // the whole window, less the padding (dragging stays inside the hero)
+    const lo = [PAD - bx, h.top + PAD - by], hi = [innerWidth - PAD - r.width - bx, h.bottom - PAD - r.height - by]; // the whole window, less the padding; it passes under the dock and the other controls (dragging stays inside the hero)
     [0, 1].forEach((k) => { if (hi[k] < lo[k]) lo[k] = hi[k] = (lo[k] + hi[k]) / 2; }); // a window too small for the card: it just doesn't move that way
     return { r, h, lo, hi };
   };
