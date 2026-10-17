@@ -278,7 +278,7 @@ html:has(.zoom) { overflow: hidden; }
 .egg::after { content: ""; display: inline-block; width: .4em; height: .85em; margin-left: .2em; vertical-align: -.1em; background: var(--accent); animation: blink 1s steps(2) infinite; }
 .egg:hover { color: var(--accent); }
 /* a floating window: opened from the "118 WPM" egg, dragged by its bar (hoverRing.js) */
-.win { position: fixed; left: 50%; top: 22vh; z-index: 25; width: min(40rem, calc(100vw - 2rem)); translate: -50% 0; transform: translate(var(--dx, 0px), calc(var(--dy, 0px) + var(--py, 0px))); } /* --py: a small lag while the page scrolls (hoverRing.js) */
+.win { position: fixed; left: 50%; top: 22vh; z-index: 25; width: min(40rem, calc(100vw - 2rem)); translate: -50% 0; transform: translate(var(--dx, 0px), var(--dy, 0px)); }
 .win.lifted { box-shadow: 12px 12px 0 var(--sky); }
 .win > .bar { position: absolute; inset: 0 0 auto; display: flex; justify-content: space-between; align-items: center; padding: .15rem .75rem; background: var(--ink); color: var(--bg); letter-spacing: .15em; touch-action: none; user-select: none; }
 .wm { display: flex; gap: .4rem; letter-spacing: 0; }

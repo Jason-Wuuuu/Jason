@@ -128,15 +128,3 @@ document.addEventListener("dblclick", (e) => {
   const bar = e.target.closest?.(BAR);
   if (bar) place(bar.parentElement, 0, 0);
 });
-
-// Windows trail the page a little while it scrolls: nudged against the scroll, in 4px steps, then they settle back (never more than 16px, and never away from where they were put).
-if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
-  let off = 0, last = scrollY, timer = 0;
-  const show = () => document.documentElement.style.setProperty("--py", Math.round(off / SNAP) * SNAP + "px");
-  const settle = () => { off = Math.abs(off) < 2 ? 0 : off * 0.6; show(); timer = off ? setTimeout(settle, 45) : 0; };
-  addEventListener("scroll", () => {
-    off = Math.max(-16, Math.min(16, off - (scrollY - last) * 0.35)); last = scrollY;
-    show();
-    clearTimeout(timer); timer = setTimeout(settle, 45);
-  }, { passive: true });
-}
