@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-const SPEED = 90; // px per second of the auto-scroll
+const SPEEDS = { slow: 50, normal: 90, fast: 160 }; // px per second of the auto-scroll; Settings sets data-speed on <html>
 // Scroll progress: a dashed lane at the bottom of the screen with an accent fill.
 export default function ProgressBar() {
   const ref = useRef(null);
@@ -10,13 +10,13 @@ export default function ProgressBar() {
     if (!playing) return;
     let raf, last = performance.now(), y = scrollY;
     const step = (t) => {
-      y += ((t - last) * SPEED) / 1000; last = t;
+      y += ((t - last) * (SPEEDS[document.documentElement.dataset.speed] || SPEEDS.normal)) / 1000; last = t;
       scrollTo({ top: y, behavior: "instant" });
       if (y >= document.documentElement.scrollHeight - innerHeight - 1) setPlaying(false);
       else raf = requestAnimationFrame(step);
     };
     raf = requestAnimationFrame(step);
-    const stop = (e) => e.target.closest?.(".play") || setPlaying(false);
+    const stop = (e) => e.target.closest?.(".play, .win") || setPlaying(false);
     const evs = ["wheel", "touchstart", "keydown", "pointerdown"];
     evs.forEach((n) => addEventListener(n, stop, { passive: true }));
     return () => { cancelAnimationFrame(raf); evs.forEach((n) => removeEventListener(n, stop)); };

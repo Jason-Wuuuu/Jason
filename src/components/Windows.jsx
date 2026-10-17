@@ -7,6 +7,7 @@ const root = document.documentElement;
 const OPTIONS = {
   theme: ["system", "light", "dark"],
   accent: ["blue", "green", "orange", "red", "purple"],
+  speed: ["normal", "slow", "fast"], // auto-scroll (ProgressBar.jsx)
   cursor: ["pixel", "system"],
 };
 const SWATCH = { blue: "#2f6fdb", green: "#1f8a4c", orange: "#c4620a", red: "#d03b3b", purple: "#7b4fd1" };
@@ -42,7 +43,7 @@ function Settings({ onClose }) {
     <Win cls="settings" title="Settings" onClose={onClose}>
       {Object.keys(OPTIONS).filter((k) => k !== "cursor" || matchMedia("(hover: hover) and (pointer: fine)").matches).map((k) => ( // no custom cursor on touch screens
         <div key={k} className="opt" role="group" aria-label={k}>
-          <span>{k}</span>
+          <span>{k === "speed" ? "Scroll" : k}</span>
           {OPTIONS[k].map((v) => (
             <button
               key={v}
