@@ -77,6 +77,7 @@ function thud(x, y) {
   });
 }
 // Easter egg: the card's ▶ button sends it bouncing around the hero like an old DVD screensaver (each bounce pulses the accent shadow). Any click, Esc, scroll or resize stops it; so does closing the card.
+const PAD = 12; // the bouncing card turns round this far inside the hero's bounds, leaving room to draw the wall it hit
 const CORNER_AT = 8; // the card is aimed to reach a corner on this wall hit (and, the path being periodic, again later)
 const gcd = (a, b) => (b ? gcd(b, a % b) : a);
 // A card bouncing in a W×H box moves in a straight line through a grid of mirrored copies of the box, so it reaches a corner exactly when that line passes through a grid corner: after crossing `a` vertical and `b` horizontal walls, which is hit number a + b - 1 when a and b share no factor. Pick the pair giving the most diagonal line (not a near-vertical crawl), and aim at it.
@@ -93,7 +94,7 @@ function aim(x, y, lo, hi, speed) {
   const L = Math.hypot(best.dx, best.dy);
   return [sx * speed * best.dx / L, sy * speed * best.dy / L];
 }
-// The wall the bouncing card just hit lights up for a moment: a dashed line along that edge of its bounds (the hero's top and bottom edges aren't drawn anywhere).
+// The wall the bouncing card just hit lights up for a moment: a dashed line just outside the card along that edge of its range (the hero's top and bottom edges aren't drawn anywhere).
 function edge(left, top, width, height, dir) {
   const el = Object.assign(document.createElement("i"), { className: "wall", onanimationend: () => el.remove() });
   Object.assign(el.style, { left: left + "px", top: top + "px", width: width + "px", height: height + "px" });
@@ -119,7 +120,7 @@ function dvd(card, btn) {
   const box = () => {
     const r = card.getBoundingClientRect(), h = hero.getBoundingClientRect();
     const bx = r.left - (+card.dataset.x || 0), by = r.top - (+card.dataset.y || 0); // where the card rests at 0,0
-    return { r, h, lo: [-bx, h.top - by], hi: [innerWidth - r.width - bx, h.bottom - r.height - by] }; // same bounds as dragging: across the screen, within the hero's height
+    return { r, h, lo: [PAD - bx, h.top + PAD - by], hi: [innerWidth - PAD - r.width - bx, h.bottom - PAD - r.height - by] }; // as dragging: across the screen, within the hero's height, less the padding
   };
   let { lo, hi, h: hr } = box();
   let x = Math.min(hi[0], Math.max(lo[0], +card.dataset.x || 0)), y = Math.min(hi[1], Math.max(lo[1], +card.dataset.y || 0)), last = 0, raf = 0, pulse = 0, cheered = 0, hits = 0;
@@ -138,8 +139,8 @@ function dvd(card, btn) {
       if (++hits % 5 === 0) card.querySelector(".pixel-avatar")?.click(); // every fifth bounce the profile picture gets "clicked": it flips and says hi
       card.classList.add("lifted"); clearTimeout(pulse); pulse = setTimeout(() => card.classList.remove("lifted"), 150);
       const q = card.getBoundingClientRect(); // the shockwave starts on the edge that hit (vx/vy have just flipped), at the card's middle along it
-      if (hitX) edge(vx < 0 ? innerWidth - 4 : 0, hr.top, 4, hr.height, "180deg"); // vx has just flipped: moving left now means it hit the right wall
-      if (hitY) edge(0, vy < 0 ? hr.bottom : Math.max(0, hr.top - 4), innerWidth, 4, "90deg");
+      if (hitX) edge(vx < 0 ? innerWidth - PAD : PAD - 4, hr.top + PAD, 4, hr.height - 2 * PAD, "180deg"); // vx has just flipped: moving left now means it hit the right wall
+      if (hitY) edge(PAD, vy < 0 ? hr.bottom - PAD : hr.top + PAD - 4, innerWidth - 2 * PAD, 4, "90deg");
       thud(hitX ? (vx < 0 ? q.right : q.left) : q.left + q.width / 2, hitY ? (vy < 0 ? q.bottom : q.top) : q.top + q.height / 2);
       if (corner && t - cheered > 800) { // one cheer per corner: the second wall of a corner hit also counts as "near"
         cheered = t;
