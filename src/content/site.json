@@ -116,7 +116,9 @@
       "githubUrl": "",
       "demoUrl": "https://market-lens-dusky.vercel.app",
       "screenshots": [
-        "marketlens/marketlens_1.png"
+        "marketlens/marketlens_1.png",
+        "marketlens/marketlens_2.png",
+        "marketlens/marketlens_3.png"
       ],
       "featured": true
     },
