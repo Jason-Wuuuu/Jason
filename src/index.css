@@ -372,6 +372,8 @@ html:has(.zoom) { overflow: hidden; }
   .card > .bar { touch-action: none; user-select: none; }
   .ghost { position: fixed; z-index: 4; pointer-events: none; border: 3px solid color-mix(in srgb, var(--sky) 55%, transparent); } /* shadow clones trailing a dragged card (hoverRing.js) */
   .card.lifted { box-shadow: 12px 12px 0 var(--accent); } /* picked up: a deeper shadow, in the accent like the windows' */ /* keeps the card where it was while the strip below shrinks */
+  .card:is(.lifted, .dvd) > .bar { background: var(--ink); color: var(--bg); } /* picked up (dragged, or bouncing): the accent bar flips to ink, so the accent shadow shows against it */
+  .card:is(.lifted, .dvd) .wm button:hover { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
   #experience { padding-top: .8rem; }
   .card {
     position: relative;
