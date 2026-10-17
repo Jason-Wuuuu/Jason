@@ -98,14 +98,18 @@ function SkillRow({ s, first }) {
       <button className="n" aria-expanded={open} onClick={() => setOpen(!open)}>{s.name}</button>
       <div className="kid">
         {s.note && <p className="leaf">{s.note}</p>}
-        {s.subs.map((t) => {
-          const [head, ...rest] = t.split(": "); // "Title: text" gives the sub-skill a title
-          return (
-            <p className="leaf k" key={t}>
-              {rest.length ? <><b>{head}</b>{rest.join(": ")}</> : t}
-            </p>
-          );
-        })}
+        {s.subs.length > 0 && (
+          <div className="subs">
+            {s.subs.map((t) => {
+              const [head, ...rest] = t.split(": "); // "Title: text" gives the sub-skill a title
+              return (
+                <p className="leaf k" key={t}>
+                  {rest.length ? <><b>{head}</b>{rest.join(": ")}</> : t}
+                </p>
+              );
+            })}
+          </div>
+        )}
       </div>
     </div>
   );
