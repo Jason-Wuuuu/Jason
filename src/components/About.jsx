@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { image } from "../App";
 import site, { Md } from "../content";
 import TypeTest from "./TypeTest";
@@ -77,7 +78,7 @@ export default function About() {
           </div>
         )}
       </div>
-      {egg && <TypeTest autoFocus onClose={() => setEgg(false)} />}
+      {egg && createPortal(<TypeTest autoFocus onClose={() => setEgg(false)} />, document.body)} {/* outside <main>: its perspective would make this "fixed" window position against the whole page */}
     </section>
   );
 }
