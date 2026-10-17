@@ -91,10 +91,10 @@ const parseSkills = (lines) =>
     return out;
   }, []);
 
-function SkillRow({ s, first, hot, onHot }) {
+function SkillRow({ s, first }) {
   const [open, setOpen] = useState(first); // phones open a skill by tap; wider screens always show everything (CSS)
   return (
-    <div className="row" data-open={open} data-hot={hot} onMouseEnter={() => onHot(true)} onMouseLeave={() => onHot(false)} onFocus={() => onHot(true)} onBlur={() => onHot(false)}>
+    <div className="row" data-open={open}>
       <button className="n" aria-expanded={open} onClick={() => setOpen(!open)}>{s.name}</button>
       <div className="kid">
         {s.note && <p className="leaf">{s.note}</p>}
@@ -116,13 +116,12 @@ function SkillRow({ s, first, hot, onHot }) {
 }
 
 function SkillTree({ lines }) {
-  const [hot, setHot] = useState(-1); // the skill under the pointer or focus: its path from the root lights up ("path" above it, "self" for it)
   return (
-    <div className="tree" data-hot={hot >= 0}>
+    <div className="tree">
       <span className="root">What I learned</span>
       <div className="kids">
         {parseSkills(lines).map((s, i) => (
-          <SkillRow key={s.name} s={s} first={i === 0} hot={i < hot ? "path" : i === hot ? "self" : undefined} onHot={(on) => setHot((h) => (on ? i : h === i ? -1 : h))} />
+          <SkillRow key={s.name} s={s} first={i === 0} />
         ))}
       </div>
     </div>

@@ -1,5 +1,5 @@
 // Pixel corner brackets that step out around the hovered clickable thing, then step back in on leave.
-const SEL = 'a, button, summary, [role="button"], .egg, .pixel-avatar, .gallery > :not(.prev, .next)'; // the last: a project's current screenshot (it opens the viewer; its peeking neighbours slide instead)
+const SEL = 'a, button:not(.tree .n), summary, [role="button"], .egg, .pixel-avatar, .gallery > :not(.prev, .next)'; // the last: a project's current screenshot (it opens the viewer; its peeking neighbours slide instead)
 const GAP = 8; // px between the target (shadow included) and the brackets, once fully out
 const STEP = matchMedia("(prefers-reduced-motion: reduce)").matches ? GAP : 2; // px per tick, one tick every 45ms
 const ring = Object.assign(document.createElement("div"), { className: "ring" });
