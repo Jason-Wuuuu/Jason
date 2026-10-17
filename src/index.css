@@ -263,6 +263,8 @@ html:has(.zoom) { overflow: hidden; }
   .card[data-state="closing"], .win[data-state="closing"] { animation: poof .3s steps(4) forwards; } /* closing the player card: it shrinks away */
   .card.shaken :is(.ch, .pixel-avatar, .cls, .lead, .social a, .stats li) { animation: shake-off .9s steps(9) var(--fd) forwards; } /* the shake easter egg (hoverRing.js) */
   .card.back :is(.pixel-avatar, .cls, .social a, .stats li) { animation: rise .4s steps(4) both; } /* .ch and .lead restore through their intro animations instead; a rise here would be replayed by those when .back ends */
+  .card :is(.ch, .social a, .stats li).fall { animation: shake-off .9s steps(9) forwards; } /* a piece knocked off by a bounce (hoverRing.js); .ch comes back through its intro animation */
+  .card :is(.social a, .stats li).refit { animation: rise .4s steps(4) both; }
   .hero .lead { animation: rise .4s steps(4) .75s both; }
   .hero .social { animation: rise .4s steps(4) .95s both; }
 

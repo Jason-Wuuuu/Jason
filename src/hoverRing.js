@@ -152,9 +152,10 @@ function dvd(card, btn, want) {
       if (hitX) edge(vx < 0 ? innerWidth - PAD : PAD - 4, hr.top + PAD, 4, hr.height - 2 * PAD, "180deg"); // vx has just flipped: moving left now means it hit the right wall
       if (hitY) edge(PAD, vy < 0 ? hr.bottom - PAD : hr.top + PAD - 4, innerWidth - 2 * PAD, 4, "90deg");
       thud(hitX ? (vx < 0 ? q.right : q.left) : q.left + q.width / 2, hitY ? (vy < 0 ? q.bottom : q.top) : q.top + q.height / 2);
+      if (!corner) knock(card); // a corner gets the full shake-off instead
       if (corner && t - cheered > 800) { // one cheer per corner: the second wall of a corner hit also counts as "near"
         cheered = t;
-        celebrate();
+        celebrate(); shakeOff(card);
         const lit = field.querySelector("." + ((hitY ? vy < 0 : y - lo[1] > hi[1] - y) ? "b" : "t") + ((hitX ? vx < 0 : x - lo[0] > hi[0] - x) ? "r" : "l")); // the bracket of the corner it reached (vx/vy have just flipped): bigger, in the accent, for a while
         lit.classList.add("hit"); setTimeout(() => lit.classList.remove("hit"), 3000);
         [vx, vy] = aim(x, y, lo, hi, 260); // and a new random corner is lined up
@@ -181,6 +182,21 @@ function fling(card, trace) {
   if (!a || a === z || card.matches(".shaken, .back") || performance.now() - z[0] > 60 || z[0] <= a[0] || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   const dt = (z[0] - a[0]) / 1000, v = [(z[1] - a[1]) / dt, (z[2] - a[2]) / dt];
   if (Math.hypot(...v) > 900) dvd(card, card.querySelector(".bounce"), v);
+}
+// A bounce knocks a couple of small pieces off the card (a letter, a skill row, a link): they tumble down like in the shake-off and climb back after a moment, so the card is never left broken.
+function knock(card) {
+  if (card.matches(".shaken, .back") || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const free = [...card.querySelectorAll(".ch, .stats li, .social a")].filter((el) => !el.matches(".fall, .refit"));
+  for (let i = 0; i < 2 && free.length; i++) {
+    const el = free.splice(Math.floor(Math.random() * free.length), 1)[0];
+    el.style.setProperty("--fx", Math.round(Math.random() * 240 - 120) + "px");
+    el.style.setProperty("--fr", Math.round(Math.random() * 360 - 180) + "deg");
+    el.classList.add("fall");
+    setTimeout(() => {
+      el.classList.remove("fall");
+      if (!el.matches(".ch")) { el.classList.add("refit"); setTimeout(() => el.classList.remove("refit"), 400); } // letters restore through their own intro animation
+    }, 1500);
+  }
 }
 // Easter egg: shake the player card (five quick turns in one second) and everything on it falls off, then climbs back.
 const FALL = ".ch, .pixel-avatar, .cls, .lead, .social a, .stats li";
