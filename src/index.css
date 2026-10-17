@@ -285,11 +285,11 @@ html:has(.zoom) { overflow: hidden; }
 .wm button { width: 1.15rem; height: 1.15rem; padding: 0; display: grid; place-items: center; line-height: 1; font-size: 1rem; background: none; border: 2px solid currentColor; color: inherit; }
 .wm button:hover { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
 /* Settings and Contact windows (Windows.jsx) */
-.win.settings, .win.contact { width: min(22rem, calc(100vw - 2rem)); padding: 2.6rem 1rem 1rem; background: var(--bg); border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); }
-.win.settings { top: 12vh; } .win.contact { top: 46vh; }
+.win.settings, .win.contact { width: min(26rem, calc(100vw - 2rem)); padding: 3.4rem 1.5rem 1.5rem; background: var(--bg); border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); }
+.win.settings { top: 10vh; } .win.contact { top: 44vh; }
 .win.settings > .bar, .win.contact > .bar { background: color-mix(in srgb, var(--ink) 60%, var(--bg)); } /* dimmer than the typing test's, so the white cursor and the corner don't blend into it */
-.win p { margin: 0 0 .5rem; }
-.opt { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; margin-top: .6rem; }
+.win p { margin: 0 0 .9rem; }
+.opt { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; margin-top: 1.1rem; }
 .opt > span { width: 4.5rem; color: var(--mute); }
 .opt > span, .opt button, .opt .btn { text-transform: capitalize; }
 .opt button, .opt .btn { padding: .05rem .6rem; font: inherit; color: var(--ink); background: var(--bg); border: 3px solid var(--ink); box-shadow: 3px 3px 0 var(--ink); cursor: pointer; text-decoration: none; }
@@ -297,7 +297,7 @@ html:has(.zoom) { overflow: hidden; }
 .opt button[style*="--sw"] { width: 2rem; height: 1.6rem; padding: 0; background: var(--sw); }
 .opt button[style*="--sw"][aria-pressed="true"] { outline: 3px solid var(--ink); outline-offset: 2px; }
 .addr { color: var(--accent); overflow-wrap: anywhere; }
-/* accent and font choices (data-accent / data-font on <html>, set from Settings) */
+/* accent choice (data-accent on <html>, set from Settings) */
 :root[data-accent] { --accent: var(--al); }
 @media (prefers-color-scheme: dark) { :root[data-accent]:not([data-theme="light"]) { --accent: var(--ad); } }
 :root[data-accent][data-theme="dark"] { --accent: var(--ad); }
@@ -305,8 +305,6 @@ html:has(.zoom) { overflow: hidden; }
 :root[data-accent="orange"] { --al: #c4620a; --ad: #ffa24d; }
 :root[data-accent="red"] { --al: #d03b3b; --ad: #ff7b7b; }
 :root[data-accent="purple"] { --al: #7b4fd1; --ad: #b497ff; }
-:root[data-font="mono"] { --display: ui-monospace, Menlo, monospace; --body: ui-monospace, Menlo, monospace; }
-:root[data-font="sans"] { --display: system-ui, sans-serif; --body: system-ui, sans-serif; }
 .respawn { width: 100%; margin: 0; text-align: center; font-size: 1.4rem; color: var(--mute); }
 .respawn button { padding: 0; background: none; border: 0; color: var(--accent); text-decoration: underline; }
 .tt-result { margin-bottom: 0; }

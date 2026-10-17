@@ -7,7 +7,6 @@ const root = document.documentElement;
 const OPTIONS = {
   theme: ["system", "light", "dark"],
   accent: ["blue", "green", "orange", "red", "purple"],
-  font: ["pixel", "mono", "sans"],
 };
 const SWATCH = { blue: "#2f6fdb", green: "#1f8a4c", orange: "#c4620a", red: "#d03b3b", purple: "#7b4fd1" };
 const get = (k) => root.dataset[k] || OPTIONS[k][0];
@@ -48,7 +47,7 @@ function Settings({ onClose }) {
               key={v}
               aria-pressed={get(k) === v}
               aria-label={k === "accent" ? v : undefined}
-              style={k === "accent" ? { "--sw": SWATCH[v] } : k === "font" ? { fontFamily: FONTS[v] } : undefined}
+              style={k === "accent" ? { "--sw": SWATCH[v] }  : undefined}
               onClick={() => { set(k, v); redraw((n) => n + 1); }}
             >
               {k === "accent" ? "" : v}
@@ -59,7 +58,6 @@ function Settings({ onClose }) {
     </Win>
   );
 }
-const FONTS = { pixel: '"Jersey 15"', mono: "ui-monospace, monospace", sans: "system-ui, sans-serif" };
 
 function Contact({ onClose }) {
   const { email } = site.profile;
