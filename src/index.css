@@ -159,7 +159,8 @@ footer { padding-block: 2.5rem 4.5rem; color: var(--mute); } /* bottom room just
 .gal[data-prev="true"]:has(.prev:hover)::before { --fade: linear-gradient(to right, rgba(0,0,0,.4) 0 25%, rgba(0,0,0,.2) 25% 50%, transparent 50%); } /* pointing at a peek lightens its fade: it is clickable */
 .gal[data-next="true"]:has(.next:hover)::after { --fade: linear-gradient(to left, rgba(0,0,0,.4) 0 25%, rgba(0,0,0,.2) 25% 50%, transparent 50%); }
 /* the full-size viewer (Lightbox.jsx) */
-.zoom { position: fixed; inset: 0; z-index: 35; display: grid; place-items: center; padding-bottom: 40px; /* a little air above the button row */ background: rgba(0, 0, 0, .94); outline: none; }
+.zoom { position: fixed; inset: 0; z-index: 35; display: grid; place-items: center; padding-bottom: 40px; /* a little air above the button row */ outline: none; }
+.zoom::before { content: ""; position: absolute; inset: 0; z-index: -1; background: rgba(0, 0, 0, .94); } /* the black lives on a child: iOS 26 Safari tints its toolbar from a fixed element's own background */
 .zoom img { width: min(94vw, 1400px, calc((100dvh - 190px) * 1.6)); aspect-ratio: 16 / 10; object-fit: contain; image-rendering: auto; background: var(--panel); border: 4px solid #fff; box-shadow: 6px 6px 0 var(--accent); }
 .zoom img[data-up="true"] { image-rendering: pixelated; }
 .zoom-x { position: absolute; top: 1rem; right: 1rem; width: 2.5rem; height: 2.5rem; padding: 0; font-size: 1.8rem; line-height: 1; color: #fff; background: none; border: 3px solid #fff; }
