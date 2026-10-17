@@ -6,8 +6,9 @@
   --mute: #4f4d4a;
   --accent: #2d69d0;
   --on-accent: #ffffff;
-  --blue: color-mix(in srgb, var(--accent) 65%, #000);
-  --sky: color-mix(in srgb, var(--accent) 45%, #fff);
+  --blue-k: 65%; --blue-to: #000; --sky-k: 45%; --sky-to: #fff; /* how --blue and --sky are mixed from the accent, so the player card can remix them from its own accent while it bounces */
+  --blue: color-mix(in srgb, var(--accent) var(--blue-k), var(--blue-to));
+  --sky: color-mix(in srgb, var(--accent) var(--sky-k), var(--sky-to));
   --box: #1f1f21;
   --box-text: #f4f2ee;
   --box-dim: #8d8a84;
@@ -30,8 +31,9 @@
     --mute: #a09d97;
     --accent: #5aa2ff;
     --on-accent: #1c1c1e;
-    --blue: color-mix(in srgb, var(--accent) 75%, #fff);
-    --sky: color-mix(in srgb, var(--accent) 60%, #000);
+    --blue-k: 75%; --blue-to: #fff; --sky-k: 60%; --sky-to: #000;
+    --blue: color-mix(in srgb, var(--accent) var(--blue-k), var(--blue-to));
+    --sky: color-mix(in srgb, var(--accent) var(--sky-k), var(--sky-to));
     --box: #2a2a2d;
     --box-text: #eeebe6;
     --box-dim: #7d7a75;
@@ -46,8 +48,9 @@
   --mute: #a09d97;
   --accent: #5aa2ff;
   --on-accent: #1c1c1e;
-  --blue: color-mix(in srgb, var(--accent) 75%, #fff);
-  --sky: color-mix(in srgb, var(--accent) 60%, #000);
+  --blue-k: 75%; --blue-to: #fff; --sky-k: 60%; --sky-to: #000;
+  --blue: color-mix(in srgb, var(--accent) var(--blue-k), var(--blue-to));
+  --sky: color-mix(in srgb, var(--accent) var(--sky-k), var(--sky-to));
   --box: #2a2a2d;
   --box-text: #eeebe6;
   --box-dim: #7d7a75;
@@ -415,7 +418,8 @@ html:has(.zoom) { overflow: hidden; }
   .card.lifted { box-shadow: 12px 12px 0 var(--accent); } /* picked up: a deeper shadow, in the accent like the windows' */ /* keeps the card where it was while the strip below shrinks */
   .card.lifted:not(.dvd) > .bar { background: var(--ink); color: var(--bg); } /* picked up: the accent bar flips to ink, so the accent shadow shows against it */
   .card[data-hue="1"] { --hue: var(--k1); } .card[data-hue="2"] { --hue: var(--k2); } .card[data-hue="3"] { --hue: var(--k3); } .card[data-hue="4"] { --hue: var(--k4); } .card:is([data-hue="1"], [data-hue="2"], [data-hue="3"], [data-hue="4"]) { --hue-t: var(--on-accent); } .card[data-hue="5"] { --hue: var(--ink); --hue-t: var(--bg); } /* --k1..--k4: the other four accents, set by hoverRing.js */
-  .card.dvd > .bar { background: var(--hue, var(--accent)); color: var(--hue-t, var(--on-accent)); } /* bouncing: like the DVD logo, the bar changes colour on every hit (hoverRing.js sets data-hue) */
+    .card:is([data-hue="1"], [data-hue="2"], [data-hue="3"], [data-hue="4"], [data-hue="5"]) { --accent: var(--hue); --blue: color-mix(in srgb, var(--accent) var(--blue-k), var(--blue-to)); --sky: color-mix(in srgb, var(--accent) var(--sky-k), var(--sky-to)); } /* bouncing: the card's own accent (the class line, links, skill bars, the lift shadow) follows the bar's colour; --blue and --sky are remixed from it */
+.card.dvd > .bar { background: var(--hue, var(--accent)); color: var(--hue-t, var(--on-accent)); } /* bouncing: like the DVD logo, the bar changes colour on every hit (hoverRing.js sets data-hue) */
   #experience { padding-top: .8rem; }
   .card {
     position: relative;
