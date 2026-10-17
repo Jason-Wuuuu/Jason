@@ -99,9 +99,9 @@
       "githubUrl": "",
       "demoUrl": "https://pokemon-interactive-map.vercel.app",
       "skills": [
-        "Pathfinding: Dungeon route solver. Flood-fill reachability plus a search over keys, switches, HMs and pushed boulders, run in a Web Worker.",
-        "- Boulder pushing with deadlock detection",
-        "- Every route replayed by a separate validator and audited in CI",
+        "Pathfinding: Route guides for dungeons and routes: just pass through, collect every item, or fight every trainer.",
+        "- Solve: Flood-fill reachability plus a search over keys, switches, HMs and pushed boulders, with deadlock detection, run in a Web Worker.",
+        "- Audit: Every route is replayed by a separate validator, and all dungeons are audited in CI.",
         "Map: Gen 1 and Gen 2 maps, from single rooms to the stitched overworld.",
         "- Navigation: Pan, pinch-zoom and keyboard camera that locks on long routes. Doors and Back restore where you came from.",
         "- Rendering: Canvas-painted maps with bitmaps cached per zoom level, and only the visible places mounted.",
