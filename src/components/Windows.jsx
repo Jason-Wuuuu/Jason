@@ -11,7 +11,7 @@ const OPTIONS = {
   speed: ["slow", "normal", "fast"], // auto-scroll (ProgressBar.jsx)
   cursor: ["pixel", "system"],
 };
-const SWATCH = { blue: "#2f6fdb", green: "#1f8a4c", orange: "#c4620a", red: "#d03b3b", purple: "#7b4fd1" };
+const SWATCH = { blue: "#2d69d0", green: "#1c7c44", orange: "#ab5509", red: "#c63838", purple: "#7b4fd1" };
 const dflt = (k) => (k === "speed" ? "normal" : OPTIONS[k][0]); // the first option is the default, except for speed (listed slow, normal, fast)
 const get = (k) => root.dataset[k] || dflt(k);
 const set = (k, v) => {

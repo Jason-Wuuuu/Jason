@@ -3,8 +3,8 @@
   --bg: #f4f2ee;
   --panel: #e6e3dc;
   --ink: #1f1f21;
-  --mute: #5d5b57;
-  --accent: #2f6fdb;
+  --mute: #4f4d4a;
+  --accent: #2d69d0;
   --on-accent: #ffffff;
   --blue: color-mix(in srgb, var(--accent) 65%, #000);
   --sky: color-mix(in srgb, var(--accent) 45%, #fff);
@@ -379,12 +379,12 @@ html:has(.zoom) { overflow: hidden; }
 :root[data-accent] { --accent: var(--al); }
 @media (prefers-color-scheme: dark) { :root[data-accent]:not([data-theme="light"]) { --accent: var(--ad); } }
 :root[data-accent][data-theme="dark"] { --accent: var(--ad); }
-:root[data-accent="green"] { --al: #1f8a4c; --ad: #4fd08a; }
-:root[data-accent="orange"] { --al: #c4620a; --ad: #ffa24d; }
-:root[data-accent="red"] { --al: #d03b3b; --ad: #ff7b7b; }
+:root[data-accent="green"] { --al: #1c7c44; --ad: #4fd08a; }
+:root[data-accent="orange"] { --al: #ab5509; --ad: #ffa24d; }
+:root[data-accent="red"] { --al: #c63838; --ad: #ff7b7b; }
 :root[data-accent="purple"] { --al: #7b4fd1; --ad: #b497ff; }
 /* every accent, for the bouncing card's bar to cycle through (hoverRing.js picks two that are not the current accent) */
-:root { --k-blue: #2f6fdb; --k-green: #1f8a4c; --k-orange: #c4620a; --k-red: #d03b3b; --k-purple: #7b4fd1; }
+:root { --k-blue: #2d69d0; --k-green: #1c7c44; --k-orange: #ab5509; --k-red: #c63838; --k-purple: #7b4fd1; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --k-blue: #5aa2ff; --k-green: #4fd08a; --k-orange: #ffa24d; --k-red: #ff7b7b; --k-purple: #b497ff; } }
 :root[data-theme="dark"] { --k-blue: #5aa2ff; --k-green: #4fd08a; --k-orange: #ffa24d; --k-red: #ff7b7b; --k-purple: #b497ff; }
 .respawn { width: 100%; margin: 0; display: flex; flex-direction: column; align-items: center; gap: 1.25rem; text-align: center; font-size: 1.4rem; color: var(--mute); }

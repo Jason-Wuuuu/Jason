@@ -11,7 +11,7 @@ const rgb = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
 
 const THEMES = {
   dark: { top: rgb("#1c1c1e"), bottom: rgb("#1c3358"), glow: rgb("#5aa2ff"), sprite: ["#9cc9ff", "#eeebe6", "#5aa2ff"], cloud: "#27406b" },
-  light: { top: rgb("#97c4fa"), bottom: rgb("#eaf4ff"), glow: rgb("#ffffff"), sprite: ["#2f6fdb", "#8cc4ff", "#1b4f9c"], cloud: "#ffffff" }, // a daytime sky: clearer blue above, paling to the horizon
+  light: { top: rgb("#a8cffb"), bottom: rgb("#eaf4ff"), glow: rgb("#ffffff"), sprite: ["#2f6fdb", "#8cc4ff", "#1b4f9c"], cloud: "#ffffff" }, // a daytime sky: clearer blue above, paling to the horizon
 };
 const CLOUD = [[2, 0, 7, 2], [0, 2, 13, 3], [3, 5, 8, 1]]; // [x, y, w, h] rects
 const rand = (seed) => { const x = Math.sin(seed * 127.1) * 43758.5453; return x - Math.floor(x); };
