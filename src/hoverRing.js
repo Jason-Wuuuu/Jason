@@ -41,6 +41,17 @@ document.addEventListener("pointerover", (e) => {
   set(el && !el.disabled && !el.closest(".zoom") ? el : null); // the full-size viewer's buttons get no brackets, and must not push the screenshot around
 });
 document.addEventListener("mouseout", (e) => { if (!e.relatedTarget) set(null); });
+// A gallery sliding under a still pointer would drag its bracket along: the bracket goes while it moves, and once it settles the pointer is looked up again.
+let mx = 0, my = 0, settle = 0;
+addEventListener("pointermove", (e) => { mx = e.clientX; my = e.clientY; }, { passive: true });
+addEventListener("scroll", (e) => {
+  if (!e.target.matches?.(".gallery")) return;
+  pad = 0; set(null); clearTimeout(settle);
+  settle = setTimeout(() => {
+    const el = document.elementFromPoint(mx, my)?.closest(SEL);
+    set(el && !el.disabled && !el.closest(".zoom") ? el : null);
+  }, 150);
+}, { capture: true, passive: true }); // scroll doesn't bubble
 
 // The cursor itself is a DOM element (a native cursor image can't be translucent); an arrow, or an I-beam over text.
 if (matchMedia("(hover: hover) and (pointer: fine)").matches) {
