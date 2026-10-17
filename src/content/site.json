@@ -143,9 +143,9 @@
       ],
       "featured": true,
       "skills": [
-        "Portfolio engine: Rebuilds holdings, cost basis and returns, time-weighted and money-weighted, from raw Firstrade CSVs.",
+        "Portfolio engine: Rebuilds holdings, cost basis and time- and money-weighted returns from raw Firstrade CSVs, and checks them against Firstrade's own reports.",
+        "- Event replay: The stored rows are the only state. Holdings at any date, the time-lapse and what-if sales are all replays of them.",
         "- Accounting: FIFO lots, wash-sale losses carried to the replacement lot, splits, and options through expiry and assignment.",
-        "- Verification: A check script replays the CSVs against Firstrade's own positions, balances and gain/loss reports.",
         "Risk & analytics: Volatility, beta to SPY and each holding's share of the portfolio's risk, plus a dividend forecast from past ex-dates.",
         "- Clusters: Holdings that move together (0.6+ correlation) are grouped and flagged as concentration.",
         "- Habits: Measures the disposition effect: selling winners early and holding losers.",
